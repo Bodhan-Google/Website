@@ -69,13 +69,18 @@ export const tenders = [
         title: 'TTS Data Collection',
         description:
             'On behalf of the IITM Bodhan-AI Foundation, offers are invited for TTS Data Collection conforming to the specifications in the Technical Specification Document (Annexure III). As per Government of India order, only Class-I and Class-II Local Suppliers are eligible to participate. Bids must be exclusive of taxes and duties, with applicable tax percentages indicated separately. Sealed bids may be submitted by post, courier, or dropped in the tender box at IITM Bodhan-AI Foundation, IIT Madras Research Park, E1-14, 1st Floor, Kanagam Rd, Taramani, Chennai – 600113, before the due date and time.',
-        closingDate: '2026-03-16',
+        closingDate: '2026-03-18',
         closingTime: '15:00 IST',
         documents: [
             {
                 name: 'TTS Data Collection Tender Document',
                 url: 'https://drive.google.com/uc?export=download&id=1AfZ8NdXCTcNfwOOzQ447E8Ar2Xuhe49n',
                 previewUrl: 'https://drive.google.com/file/d/1AfZ8NdXCTcNfwOOzQ447E8Ar2Xuhe49n/preview',
+            },
+            {
+                name: 'Corrigendum to TTS Data Collection',
+                url: 'https://drive.google.com/uc?export=download&id=1awNWle8fW64vtmDq-O-vcSnYSJjMjWv8',
+                previewUrl: 'https://drive.google.com/file/d/1awNWle8fW64vtmDq-O-vcSnYSJjMjWv8/preview',
             },
         ],
     },
