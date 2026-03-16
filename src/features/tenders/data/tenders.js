@@ -17,7 +17,7 @@ export const tenders = [
     },
     {
         id: 'tender-002',
-        status: 'active',
+        status: 'closed',
         title: 'Procurement of Laptops',
         description:
             'On behalf of the IITM Bodhan-AI Foundation, offers are invited for the Procurement of Laptops conforming to the specifications in the Technical Specification Document (Annexure III). As per Government of India order, only Class-I and Class-II Local Suppliers are eligible to participate. Bids must be exclusive of taxes and duties, with applicable tax percentages indicated separately. Sealed bids may be submitted by post, courier, or dropped in the tender box at IITM Bodhan-AI Foundation, IIT Madras Research Park, E1-14, 1st Floor, Kanagam Rd, Taramani, Chennai – 600113, before the due date and time.',
@@ -33,7 +33,7 @@ export const tenders = [
     },
     {
         id: 'tender-003',
-        status: 'active',
+        status: 'closed',
         title: 'OCR Data Collection',
         description:
             'On behalf of the IITM Bodhan-AI Foundation, offers are invited for OCR Data Collection conforming to the specifications in the Technical Specification Document (Annexure III, Sections 1–4). As per Government of India order, only Class-I and Class-II Local Suppliers are eligible to participate. Bids must be exclusive of taxes and duties, with applicable tax percentages indicated separately. Sealed bids may be submitted by post, courier, or dropped in the tender box at IITM Bodhan-AI Foundation, IIT Madras Research Park, E1-14, 1st Floor, Kanagam Rd, Taramani, Chennai – 600113, before the due date and time.',
@@ -49,7 +49,7 @@ export const tenders = [
     },
     {
         id: 'tender-004',
-        status: 'active',
+        status: 'closed',
         title: 'ASR Data Collection',
         description:
             'On behalf of the IITM Bodhan-AI Foundation, offers are invited for ASR for Children Data Collection and Transcription conforming to the specifications in the Technical Specification Document (Annexure III). As per Government of India order, only Class-I and Class-II Local Suppliers are eligible to participate. Bids must be exclusive of taxes and duties, with applicable tax percentages indicated separately. Sealed bids may be submitted by post, courier, or dropped in the tender box at IITM Bodhan-AI Foundation, IIT Madras Research Park, E1-14, 1st Floor, Kanagam Rd, Taramani, Chennai – 600113, before the due date and time.',
