@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Layers, Target, Globe, Users, Zap, Mail } from 'lucide-react';
+import { Layers, Mail } from 'lucide-react';
+import iconIndia from '../../../assets/india-wordmark-black.png';
+import iconHandshake from '../../../assets/handshake.png';
+import iconAccessible from '../../../assets/accessible.png';
+import iconCollective from '../../../assets/collective.png';
 import iconServer from '../../../assets/server.png';
 import iconTeacher from '../../../assets/teacher.png';
 import iconCertificate from '../../../assets/certificate.png';
@@ -11,25 +15,25 @@ import Footer from '../../home/components/Footer';
 
 const principles = [
     {
-        icon: <Zap size={22} />,
+        icon: <img src={iconAccessible} alt="Accessibility" className="w-6 h-6 object-contain" style={{ filter: 'brightness(0) saturate(100%) invert(52%) sepia(95%) saturate(600%) hue-rotate(351deg) brightness(108%)' }} />,
         title: 'Accessibility & Equity',
         description:
             'We build AI for learning that is accessible to all, fair to every learner, and personalized to their specific needs.',
     },
     {
-        icon: <Globe size={22} />,
+        icon: <img src={iconIndia} alt="India" className="w-7 h-7 object-contain" style={{ filter: 'brightness(0) saturate(100%) invert(52%) sepia(95%) saturate(600%) hue-rotate(351deg) brightness(108%)' }} />,
         title: 'Rooted in India',
         description:
             'Our solutions are shaped by the unique linguistic and cultural context of India.',
     },
     {
-        icon: <Users size={22} />,
+        icon: <img src={iconHandshake} alt="Collaboration" className="w-6 h-6 object-contain" style={{ filter: 'brightness(0) saturate(100%) invert(52%) sepia(95%) saturate(600%) hue-rotate(351deg) brightness(108%)' }} />,
         title: 'Collaboration over Competition',
         description:
             'We choose to partner and collaborate rather than compete, acting as a force multiplier for the EdTech ecosystem.',
     },
     {
-        icon: <Target size={22} />,
+        icon: <img src={iconCollective} alt="Collective Impact" className="w-6 h-6 object-contain" style={{ filter: 'brightness(0) saturate(100%) invert(52%) sepia(95%) saturate(600%) hue-rotate(351deg) brightness(108%)' }} />,
         title: 'Collective Impact',
         description:
             'We aim to amplify our impact through the collective effort of our partner network.',
@@ -86,7 +90,7 @@ const layerGroups = [
                 number: '02',
                 title: 'AI Infrastructure Layer',
                 icon: iconServer,
-                focusTags: ['Model serving', 'Data Pipelines', 'Security', 'Edge / Cloud', 'Multilingual Support'],
+                focusTags: ['Model serving', 'Data Pipelines', 'Security', 'Edge / Cloud'],
                 partnerSubLabel: null,
                 bullets: [
                     'Ensure high-concurrency at low latency, optimizing 8B–30B parameter models for national scale',
@@ -318,9 +322,9 @@ const PartnersPage = () => {
                         className="text-white/70 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto text-justify"
                     >
                         At Bodhan, we believe that delivering equal learning opportunities to every child in India
-                        is a mission too vast for any single entity to achieve in isolation. Our strategy is built
-                        on the Bharat EduAI Stack, a next-generation Digital Public Infrastructure (DPI) designed
-                        to be an open, collaborative ecosystem.
+                        is a mission too vast for any single entity to achieve in isolation. Our strategy is anchored
+                        in the Bharat EduAI Stack, a next generation Digital Public Infrastructure that enables an
+                        open and collaborative ecosystem.
                     </motion.p>
                 </div>
             </div>
@@ -439,30 +443,19 @@ const PartnersPage = () => {
                         }}
                     />
                 </div>
-                <div className="relative max-w-2xl mx-auto px-6 py-16 md:py-20 text-center">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 16 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}
-                        className="text-3xl md:text-4xl font-semibold text-white mb-10"
-                    >
-                        Ready to Partner with{' '}
-                        <span className="text-[var(--text-orange-500)]">Bodhan</span>?
-                    </motion.h2>
-
+                <div className="relative max-w-3xl mx-auto px-6 py-16 md:py-20 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="bg-white/5 border border-white/10 rounded-2xl p-8 text-left"
+                        transition={{ duration: 0.5 }}
+                        className="bg-white/5 border border-white/10 rounded-2xl p-10 text-left"
                     >
-                        <div className="flex items-center gap-3 mb-5">
-                            <div className="w-9 h-9 rounded-xl bg-orange-500/20 flex items-center justify-center text-[var(--text-orange-500)]">
-                                <Mail size={18} />
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="w-11 h-11 rounded-xl bg-orange-500/20 flex items-center justify-center text-[var(--text-orange-500)]">
+                                <Mail size={22} />
                             </div>
-                            <p className="text-white/60 text-base">Reach us at</p>
+                            <p className="text-white/80 text-xl font-medium">Reach us at</p>
                         </div>
 
                         <a
