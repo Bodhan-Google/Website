@@ -1,6 +1,11 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Layers, Target, Globe, Users, Zap, Mail, GraduationCap, LayoutDashboard, Server, Cpu, BookOpen, ArrowUp } from 'lucide-react';
+import { Layers, Target, Globe, Users, Zap, Mail } from 'lucide-react';
+import iconServer from '../../../assets/server.png';
+import iconTeacher from '../../../assets/teacher.png';
+import iconCertificate from '../../../assets/certificate.png';
+import iconMicrochip from '../../../assets/microchip.png';
+import iconMobileApp from '../../../assets/mobile-app.png';
 import Navbar from '../../home/components/Navbar';
 import Footer from '../../home/components/Footer';
 
@@ -38,13 +43,13 @@ const layerGroups = [
         layer: {
             number: '04',
             title: 'Implementation & Delivery',
-            icon: GraduationCap,
+            icon: iconTeacher,
             focusTags: ['Training', 'Rollout', 'Last-mile support'],
             partnerLabel: 'Govt / NGOs / EdTechs',
             partnerType: 'Roll-out Partners',
             bullets: [
-                'Drive real-world adoption through policy integration, training, and roll-out at last-mile support',
-                "Collect field feedback based on Bodhan's framework to ensure tools meet classroom realities",
+                'Drive real world adoption through policy, training, roll-out and last-mile support',
+                "Collect feedback based on Bodhan's framework.",
             ],
             accent: '#FF6B35',
             rowBg: '#FFF8F5',
@@ -55,13 +60,13 @@ const layerGroups = [
         layer: {
             number: '03',
             title: 'Application & Solution Layer',
-            icon: LayoutDashboard,
-            focusTags: ['Primary', 'Secondary', 'Higher Education', 'Skilling'],
+            icon: iconMobileApp,
+            focusTags: ['SEP / LSP Partners (Use-case & vertical)', 'Primary', 'Secondary', 'Higher', 'Skilling'],
             partnerLabel: 'Bodhan.AI / EdTechs',
             partnerType: 'Product Partners',
             bullets: [
-                'Build EdTech solutions using the underlying AI IP developed by the Center of Excellence (CoE)',
-                'Provide non-PII user data along with technical and qualitative feedback to contribute to the core model',
+                'Build EdTech solutions using the underlying AI IP developed by the CoE.',
+                'Provide non-PII data of users along with technical and qualitative feedback to contribute to the core model.',
             ],
             accent: '#F97316',
             rowBg: '#FFFAF5',
@@ -73,15 +78,15 @@ const layerGroups = [
         groupPartnerLabel: 'Bodhan.AI/Data Providers/Feedback Partners',
         groupAccent: '#314685',
         groupBullets: [
-            'Quality ASR, OCR and TTS data for building foundational AI models',
-            'Systemic Feedback Loop: NGOs, Pedagogists who can guide us on system design based on the end-users',
+            'Quality ASR, OCR and TTS data for building foundational AI models.',
+            'Systemic Feedback Loop: NGOs, Pedagogists who can guide us on system design based on the end-users.',
         ],
         layers: [
             {
                 number: '02',
                 title: 'AI Infrastructure Layer',
-                icon: Server,
-                focusTags: ['Model serving', 'Data pipelines', 'Cloud / Edge', 'Multilingual support'],
+                icon: iconServer,
+                focusTags: ['Model serving', 'Data Pipelines', 'Security', 'Edge / Cloud', 'Multilingual Support'],
                 partnerSubLabel: null,
                 bullets: [
                     'Ensure high-concurrency at low latency, optimizing 8B–30B parameter models for national scale',
@@ -92,8 +97,8 @@ const layerGroups = [
             {
                 number: '01',
                 title: 'Core AI Assets & Research IP',
-                icon: Cpu,
-                focusTags: ['ASR', 'TTS', 'OCR', 'Reasoning', 'Bodhan Diagnostics'],
+                icon: iconCertificate,
+                focusTags: ['ASR', 'TTS', 'OCR', 'Reasoning', 'Diagnostics', 'Public Good Aligned, Select Partners'],
                 partnerSubLabel: 'Public Good Aligned / Select Partners',
                 bullets: [
                     'Quality ASR, OCR and TTS data for building foundational AI models',
@@ -105,8 +110,8 @@ const layerGroups = [
             {
                 number: '00',
                 title: 'Foundational Research Layer',
-                icon: BookOpen,
-                focusTags: ['Learning Sciences', 'Linguistics', 'AI SOTA', 'India-scale equity', 'Multilingual'],
+                icon: iconMicrochip,
+                focusTags: ['Learning Sciences', 'Linguistics', 'AI SOTA', 'India Scale', 'Equity First', 'Multilingual'],
                 partnerSubLabel: 'Research Institutions & Subject Matter Experts',
                 bullets: [
                     'Ensure AI is grounded in the science of how children learn',
@@ -119,120 +124,150 @@ const layerGroups = [
     },
 ];
 
-// Reusable upward arrow connector
-const StackArrow = () => (
-    <div className="absolute bottom-0 translate-y-1/2 z-20 flex flex-col items-center" style={{ left: '2.6rem' }}>
-        <div className="w-8 h-8 rounded-full bg-white border-2 border-gray-200 shadow-md flex items-center justify-center">
-            <ArrowUp size={16} className="text-gray-400" />
-        </div>
+// Scalable curly brace — stretches to full height of its flex container
+const CurlyBrace = ({ color = '#94A3B8' }) => (
+    <div className="self-stretch flex flex-col items-end w-10 mx-2 py-1">
+        <div className="flex-1 rounded-tr-2xl" style={{ width: 22, borderTop: `2.5px solid ${color}`, borderRight: `2.5px solid ${color}` }} />
+        <svg width="20" height="16" viewBox="0 0 20 16" style={{ marginRight: -1 }}>
+            <path d="M0 8 L12 1 L12 15 Z" fill={color} />
+        </svg>
+        <div className="flex-1 rounded-br-2xl" style={{ width: 22, borderBottom: `2.5px solid ${color}`, borderRight: `2.5px solid ${color}` }} />
     </div>
 );
 
-// Left identity panel shared by both row types
+// Solid filled upward arrow matching the reference infographic style
+const SolidArrow = ({ color = '#4A6CB8' }) => (
+    <svg width="42" height="54" viewBox="0 0 42 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 0L42 26H29V54H13V26H0L21 0Z" fill={color} />
+    </svg>
+);
+
+// In-flow arrow connector — sits between row cards, centered within left column
+const ArrowConnector = ({ animIndex }) => (
+    <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.3, delay: animIndex * 0.07 + 0.2 }}
+        className="flex h-16"
+    >
+        <div className="w-5/12 flex items-center justify-center">
+            <SolidArrow />
+        </div>
+        <div className="flex-1" />
+    </motion.div>
+);
+
+// Left identity panel — centered number | divider | title + pills | icon
 const LayerLeftPanel = ({ layer }) => (
-    <div className="flex items-start gap-4 px-6 py-5 h-full bg-white">
-        <div className="flex-shrink-0 pt-0.5">
-            <span className="text-3xl font-bold font-syne leading-none" style={{ color: layer.accent }}>
-                {layer.number}
-            </span>
-        </div>
-        <div className="w-px self-stretch bg-gray-200 flex-shrink-0 mx-1" />
-        <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-[#1A1A1A] leading-snug mb-2">{layer.title}</p>
-            <div className="flex flex-wrap gap-1.5">
-                {layer.focusTags.map((tag) => (
-                    <span
-                        key={tag}
-                        className="text-xs px-2 py-0.5 rounded-full border font-medium"
-                        style={{ color: layer.accent, borderColor: layer.accent + '40', backgroundColor: layer.accent + '10' }}
-                    >
-                        {tag}
-                    </span>
-                ))}
-            </div>
-        </div>
-        <div
-            className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center self-center"
-            style={{ backgroundColor: layer.accent + '15', color: layer.accent }}
+    <div className="flex items-center gap-4 px-5 py-5 min-h-[120px] h-full flex-1">
+        <span
+            className="text-4xl font-bold font-syne w-14 text-center flex-shrink-0 leading-none"
+            style={{ color: layer.accent }}
         >
-            <layer.icon size={22} />
+            {layer.number}
+        </span>
+        <div className="w-px self-stretch bg-gray-200 flex-shrink-0" />
+        <div className="flex-1 min-w-0">
+            <p className="text-base font-semibold text-gray-800 leading-snug mb-2">{layer.title}</p>
+            <p className="text-sm text-gray-500 leading-relaxed">
+                {layer.focusTags.join(' | ')}
+            </p>
         </div>
+        <img src={layer.icon} alt="" className="flex-shrink-0 w-16 h-16 object-contain" />
     </div>
 );
 
-// Single-layer row (layers 04 & 03)
-const SingleRow = ({ group, animIndex, showArrowBelow }) => {
+// Single-layer row — left card + right card side by side
+const SingleRow = ({ group, animIndex }) => {
     const { layer } = group;
     return (
         <motion.div
-            initial={{ opacity: 0, x: -16 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.4, delay: animIndex * 0.07 }}
-            className="relative flex border-b border-gray-100"
+            className="flex gap-4 items-stretch"
         >
-            <div className="w-2/5 border-r border-gray-100">
+            {/* Left card */}
+            <div
+                className="w-5/12 shrink-0 rounded-2xl overflow-hidden flex flex-col"
+                style={{
+                    background: `linear-gradient(160deg, #ffffff 0%, ${layer.accent}18 100%)`,
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.09), 0 2px 6px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.9)',
+                    border: `1px solid ${layer.accent}25`,
+                    borderLeft: `4px solid ${layer.accent}`,
+                }}
+            >
                 <LayerLeftPanel layer={layer} />
             </div>
-            <div className="flex-1 px-6 py-5 bg-white">
-                <p className="text-sm font-semibold mb-2.5" style={{ color: layer.accent }}>
-                    {layer.partnerLabel}
-                    {layer.partnerType && (
-                        <span className="font-normal text-gray-500">: {layer.partnerType}</span>
-                    )}
-                </p>
+            <CurlyBrace color={layer.accent} />
+            {/* Right content — plain text, no box */}
+            <div className="flex-1 px-4 py-2 flex flex-col justify-center">
+                {layer.partnerType && (
+                    <p className="text-xl font-bold text-gray-900 mb-1">{layer.partnerType}</p>
+                )}
+                <p className="text-sm text-gray-500 mb-3">{layer.partnerLabel}</p>
                 <ul className="space-y-1.5">
                     {layer.bullets.map((b, i) => (
-                        <li key={i} className="flex gap-2 text-sm text-gray-600 leading-relaxed">
-                            <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: layer.accent }} />
+                        <li key={i} className="flex gap-2 text-sm text-gray-700 leading-relaxed">
+                            <span className="flex-shrink-0 text-gray-500 mt-0.5">•</span>
                             {b}
                         </li>
                     ))}
                 </ul>
             </div>
-            {showArrowBelow && <StackArrow />}
         </motion.div>
     );
 };
 
-// Grouped rows block (layers 02, 01, 00 share "DPI Partners" with bracket)
+// Grouped row — each of layers 02/01/00 is its own card on the left,
+// while the right is a single card stretching to match the full height
 const GroupedRows = ({ group, startAnimIndex }) => (
     <motion.div
-        initial={{ opacity: 0, x: -16 }}
-        whileInView={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-40px' }}
         transition={{ duration: 0.4, delay: startAnimIndex * 0.07 }}
-        className="flex"
+        className="flex gap-4 items-stretch"
     >
-        {/* Left: stacked layer identities */}
-        <div className="w-2/5 border-r border-gray-100 flex flex-col">
+        {/* Left: individual layer cards with arrows between them */}
+        <div className="w-5/12 shrink-0 flex flex-col">
             {group.layers.map((layer, i) => (
-                <div
-                    key={layer.number}
-                    className={`relative ${i < group.layers.length - 1 ? 'border-b border-gray-100' : ''}`}
-                >
-                    <LayerLeftPanel layer={layer} />
-                    {i < group.layers.length - 1 && <StackArrow />}
-                </div>
+                <React.Fragment key={layer.number}>
+                    <div
+                        className="rounded-2xl overflow-hidden"
+                        style={{
+                            background: `linear-gradient(160deg, #ffffff 0%, ${layer.accent}18 100%)`,
+                            boxShadow: '0 8px 24px rgba(0,0,0,0.09), 0 2px 6px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.9)',
+                            border: `1px solid ${layer.accent}25`,
+                            borderLeft: `4px solid ${layer.accent}`,
+                        }}
+                    >
+                        <LayerLeftPanel layer={layer} />
+                    </div>
+                    {i < group.layers.length - 1 && (
+                        <div className="h-16 flex items-center justify-center flex-shrink-0">
+                            <SolidArrow />
+                        </div>
+                    )}
+                </React.Fragment>
             ))}
         </div>
 
-        {/* Right: grouped content */}
-        <div className="flex-1 flex items-stretch bg-white">
-            {/* Content */}
-            <div className="flex-1 px-4 py-5 flex flex-col justify-center">
-                <p className="text-sm font-bold mb-3" style={{ color: group.groupAccent }}>
-                    {group.groupPartnerLabel}: {group.groupLabel}
-                </p>
-                <ul className="space-y-1.5">
-                    {group.groupBullets.map((b, i) => (
-                        <li key={i} className="flex gap-2 text-sm text-gray-600 leading-relaxed">
-                            <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: group.groupAccent }} />
-                            {b}
-                        </li>
-                    ))}
-                </ul>
-            </div>
+        <CurlyBrace color={group.groupAccent} />
+        {/* Right: plain text, no box */}
+        <div className="flex-1 px-4 py-2 flex flex-col justify-center">
+            <p className="text-xl font-bold text-gray-900 mb-1">{group.groupLabel}</p>
+            <p className="text-sm text-gray-500 mb-3">{group.groupPartnerLabel}</p>
+            <ul className="space-y-2">
+                {group.groupBullets.map((b, i) => (
+                    <li key={i} className="flex gap-2 text-sm text-gray-700 leading-relaxed">
+                        <span className="flex-shrink-0 text-gray-500 mt-0.5">•</span>
+                        {b}
+                    </li>
+                ))}
+            </ul>
         </div>
     </motion.div>
 );
@@ -355,40 +390,23 @@ const PartnersPage = () => {
                         </p>
                     </motion.div>
 
-                    {/* Column headers */}
-                    <div className="flex mb-0 px-6 pb-2">
-                        <div className="w-2/5">
-                            <span className="text-xs font-semibold uppercase tracking-widest text-gray-400">Layer / Focus</span>
-                        </div>
-                        <div className="flex-1 hidden md:block">
-                            <span className="text-xs font-semibold uppercase tracking-widest text-gray-400">Partners &amp; Engagement</span>
-                        </div>
-                    </div>
-
-                    {/* Stack — unified card */}
-                    <div className="rounded-3xl border border-gray-100 overflow-hidden shadow-md">
+                    {/* Stack — individual cards with in-flow arrow connectors */}
+                    <div className="flex flex-col">
                         {layerGroups.map((group, gi) => {
                             const animIndex = layerGroups.slice(0, gi).reduce(
                                 (acc, g) => acc + (g.type === 'group' ? g.layers.length : 1), 0
                             );
                             const isLastGroup = gi === layerGroups.length - 1;
 
-                            if (group.type === 'single') {
-                                return (
-                                    <SingleRow
-                                        key={group.layer.number}
-                                        group={group}
-                                        animIndex={animIndex}
-                                        showArrowBelow={!isLastGroup}
-                                    />
-                                );
-                            }
                             return (
-                                <GroupedRows
-                                    key={group.groupLabel}
-                                    group={group}
-                                    startAnimIndex={animIndex}
-                                />
+                                <React.Fragment key={gi}>
+                                    {group.type === 'single' ? (
+                                        <SingleRow group={group} animIndex={animIndex} />
+                                    ) : (
+                                        <GroupedRows group={group} startAnimIndex={animIndex} />
+                                    )}
+                                    {!isLastGroup && <ArrowConnector animIndex={animIndex} />}
+                                </React.Fragment>
                             );
                         })}
                     </div>
