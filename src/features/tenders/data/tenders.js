@@ -14,6 +14,11 @@ export const tenders = [
                 previewUrl: 'https://drive.google.com/file/d/1flMcgNNDPmpHUDmM1KaWpwsg8ONyNwvq/preview',
             },
         ],
+        bidAward: {
+            name: 'GPU & Storage Services - Bid Award',
+            url: '/tenders/tender-001-bid-award.pdf',
+            previewUrl: '/tenders/tender-001-bid-award.pdf',
+        },
     },
     {
         id: 'tender-002',
@@ -30,6 +35,11 @@ export const tenders = [
                 previewUrl: 'https://drive.google.com/file/d/1aQNnTj_JUacz9qzYgX7sXBeRUQeUJDpY/preview',
             },
         ],
+        bidAward: {
+            name: 'Procurement of Laptops - Bid Award',
+            url: '/tenders/tender-002-bid-award.pdf',
+            previewUrl: '/tenders/tender-002-bid-award.pdf',
+        },
     },
     {
         id: 'tender-003',
@@ -46,6 +56,11 @@ export const tenders = [
                 previewUrl: 'https://drive.google.com/file/d/1cndQEuecJ59JFk5GEQrZbKfLuCRy_r9u/preview',
             },
         ],
+        bidAward: {
+            name: 'OCR Data Collection - Bid Award',
+            url: '/tenders/tender-003-bid-award.pdf',
+            previewUrl: '/tenders/tender-003-bid-award.pdf',
+        },
     },
     {
         id: 'tender-004',
@@ -62,6 +77,11 @@ export const tenders = [
                 previewUrl: 'https://drive.google.com/file/d/1kepMnQERxhr5lMZWm_g-UJiZGsqVE5Tm/preview',
             },
         ],
+        bidAward: {
+            name: 'ASR Data Collection - Bid Award',
+            url: '/tenders/tender-004-bid-award.pdf',
+            previewUrl: '/tenders/tender-004-bid-award.pdf',
+        },
     },
     {
         id: 'tender-005',

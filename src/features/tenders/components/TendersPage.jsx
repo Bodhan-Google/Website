@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { Calendar, FileText, ExternalLink, ChevronDown, Download, Eye, X, ArrowRight, AlertTriangle } from 'lucide-react';
+import { Calendar, FileText, ExternalLink, ChevronDown, Download, Eye, X, ArrowRight, AlertTriangle, Award } from 'lucide-react';
 import Navbar from '../../home/components/Navbar';
 import Footer from '../../home/components/Footer';
 import { tenders } from '../data/tenders';
@@ -97,6 +97,11 @@ const TenderCard = ({ tender, index, onPreview }) => {
                         <div className="flex-1 min-w-0">
                             <div className="flex flex-wrap items-center gap-2 mb-2.5">
                                 <StatusBadge status={tender.status} />
+                                {tender.bidAward && (
+                                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-full px-2.5 py-0.5">
+                                        <Award size={11} /> Awarded
+                                    </span>
+                                )}
                                 <span className="text-xs text-gray-400 font-mono">{tender.id}</span>
                             </div>
                             <h3 className="text-lg md:text-xl font-semibold text-[#1A1A1A] mb-2 leading-snug">
@@ -135,6 +140,39 @@ const TenderCard = ({ tender, index, onPreview }) => {
                         className="overflow-hidden"
                     >
                         <div className="mt-5 pt-4 border-t border-gray-100">
+                            {tender.bidAward && (
+                                <div className="mb-5">
+                                    <p className="text-xs font-semibold text-emerald-700 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                                        <Award size={12} /> Bid Award
+                                    </p>
+                                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 bg-emerald-50/60 border border-emerald-100 rounded-xl px-3 py-2.5">
+                                        <div className="flex items-center gap-3 flex-1 min-w-0">
+                                            <span className="flex flex-col items-center justify-center w-9 h-9 rounded-lg bg-white border border-emerald-100 flex-shrink-0 gap-0.5 shadow-sm">
+                                                <FileText size={11} className="text-emerald-600" />
+                                                <span className="text-[8px] font-bold text-emerald-600 uppercase leading-none">PDF</span>
+                                            </span>
+                                            <span className="text-sm font-medium text-gray-700 break-words min-w-0">{tender.bidAward.name}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2 flex-shrink-0 self-end sm:self-auto">
+                                            <button
+                                                onClick={() => onPreview(tender.bidAward)}
+                                                className="inline-flex items-center gap-1 text-xs font-medium text-gray-500 hover:text-emerald-700 bg-white hover:bg-emerald-50 border border-gray-200 hover:border-emerald-200 px-2.5 py-1.5 rounded-lg transition-colors"
+                                            >
+                                                <Eye size={11} /> Preview
+                                            </button>
+                                            <a
+                                                href={tender.bidAward.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                download
+                                                className="inline-flex items-center gap-1 text-xs font-medium text-gray-500 hover:text-[#0a0a0a] bg-white hover:bg-gray-100 border border-gray-200 px-2.5 py-1.5 rounded-lg transition-colors"
+                                            >
+                                                <Download size={11} /> Download
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                             <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Documents</p>
                             <ul className="space-y-2">
                                 {tender.documents.map((doc, i) => (
@@ -178,6 +216,11 @@ const TenderCard = ({ tender, index, onPreview }) => {
                 <span className="flex items-center gap-1.5 text-xs text-gray-400">
                     <FileText size={11} />
                     {tender.documents.length} document{tender.documents.length !== 1 ? 's' : ''}
+                    {tender.bidAward && (
+                        <span className="flex items-center gap-1 text-emerald-700 ml-2">
+                            <Award size={11} /> Bid award
+                        </span>
+                    )}
                 </span>
                 <span className="flex items-center gap-1 text-xs font-medium text-gray-400 group-hover:text-[var(--text-orange-500)] transition-colors">
                     {expanded ? 'Hide details' : 'View details'}
