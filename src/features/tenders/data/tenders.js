@@ -5,7 +5,7 @@ export const tenders = [
         title: 'Appointment of Event Management & Experiential Agency',
         description:
             'On behalf of the IITM Bodhan-AI Foundation, offers are invited for the Appointment of an Event Management & Experiential Agency for Event Strategy and Experience Design conforming to the specifications in the Technical Specification Document (Annexure III). As per Government of India order, only Class-I and Class-II Local Suppliers are eligible to participate. Bids must be submitted by 21st July 2026, 3:00 PM via the Bodhan AI website or as a hard copy received at the Bodhan office, IIT Madras Research Park, Chennai.',
-        closingDate: '2026-07-21',
+        closingDate: '2026-07-24',
         closingTime: '15:00 IST',
         documents: [
             {
@@ -21,7 +21,7 @@ export const tenders = [
         title: 'Agency on Retainer for Public Relations',
         description:
             'On behalf of the IITM Bodhan-AI Foundation, offers are invited for Appointment of Event Management & Experiential Agency for Bodhan AI" Document (Annexure III). As per Government of India order, only Class-I and Class-II Local Suppliers are eligible to participate. Bids must be submitted by 17th July 2026, 5:00 PM via the Bodhan AI website or as a hard copy received at the Bodhan office, IIT Madras Research Park, Chennai.',
-        closingDate: '2026-07-21',
+        closingDate: '2026-07-24',
         closingTime: '15:00 IST',
         documents: [
             {
