@@ -414,6 +414,7 @@ export const jobPostings = [
         title: 'Front End - Mobile App & Web App Engineer',
         category: 'Product Engineering',
         status: 'closed',
+        hold: true,
         about: "Build optimized, responsive, and visually polished mobile and web applications for Bodhan's learners and teachers. Own the frontend logic for voice-driven experiences — interruptions, input transitions, and conversational state. Manage build, versioning, and release across both the Play Store and the App Store.",
         responsibilities: [
             'Develop optimized, responsive, and visually polished mobile and web applications with a strong focus on performance and usability',
@@ -440,6 +441,41 @@ export const jobPostings = [
             'Experience with phone call interfaces and external application intents',
             'Familiarity with Indian language text rendering and multilingual UI',
             'Strong performance-optimization instincts for low-end devices and poor networks',
+        ],
+    },
+    {
+        /* Distinct from 'frontend-mobile-web-engineer' above — that role is Flutter /
+           React Native app delivery with voice UX and store releases; this one is
+           React/Next.js web, model demos, and developer tooling. Do not merge. */
+        id: 'frontend-engineer',
+        title: 'Frontend Engineer',
+        category: 'Product Engineering',
+        status: 'closed',
+        experience: '4+ years',
+        about: "Build intuitive web interfaces for Bodhan AI's website, demos, tools, and developer platforms. Create interactive experiences for translation, ASR, and TTS models, plus developer tools and documentation portals, with real-time features like voice chat and streaming text. Performance for Indian language text rendering is a first-class concern throughout.",
+        responsibilities: [
+            'Develop responsive web applications using React/Next.js',
+            'Build interactive demos for translation, ASR, TTS models',
+            'Create developer tools and documentation portals',
+            'Implement real-time features (voice chat, streaming text)',
+            'Optimize performance for Indian language text rendering',
+            'Collaborate with designers and backend teams',
+        ],
+        required: [
+            "Bachelor's in Computer Science or related field",
+            "4 years' experience in frontend development",
+            'Strong proficiency in JavaScript/TypeScript and React',
+            'Experience with modern CSS frameworks (Tailwind, etc.)',
+            'Understanding of responsive design and accessibility',
+            'Familiarity with Git and modern development workflows and AI assisted coding platforms',
+        ],
+        preferred: [
+            'Experience with Next.js, Remix, or similar frameworks',
+            'Knowledge of Web Audio API for voice applications',
+            'Experience building AI/ML demos or tools',
+            'Familiarity with Indian language rendering (fonts, Unicode)',
+            'Contributions to open-source React projects',
+            'Design sensibility and attention to detail',
         ],
     },
     {
