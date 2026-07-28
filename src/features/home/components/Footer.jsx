@@ -33,7 +33,7 @@ const Footer = () => {
                             Bodhan<span className="text-[var(--text-orange-500)]">.AI</span>
                         </div>
                         <p className="text-sm text-gray-500 mt-0.5">
-                            Centre of Excellence in AI for Education
+                            Centre of Excellence for AI in Education
                         </p>
                     </div>
 
