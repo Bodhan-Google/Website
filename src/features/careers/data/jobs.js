@@ -414,7 +414,6 @@ export const jobPostings = [
         title: 'Front End - Mobile App & Web App Engineer',
         category: 'Product Engineering',
         status: 'closed',
-        hold: true,
         about: "Build optimized, responsive, and visually polished mobile and web applications for Bodhan's learners and teachers. Own the frontend logic for voice-driven experiences — interruptions, input transitions, and conversational state. Manage build, versioning, and release across both the Play Store and the App Store.",
         responsibilities: [
             'Develop optimized, responsive, and visually polished mobile and web applications with a strong focus on performance and usability',
@@ -832,12 +831,43 @@ export const jobPostings = [
         ],
     },
 
+    {
+        id: 'it-admin',
+        title: 'IT Admin',
+        category: 'Product Engineering',
+        status: 'closed',
+        experience: '5–8 years',
+        about: "Own, manage, and optimise Bodhan's core workplace tools — Google Workspace, Slack, Figma, Jamf, and Atlassian. Run the full user lifecycle from day-one access through secure last-day revocation, and keep the device fleet and permission structures clean. A \"been there, done that\" role for someone who automates repetitive work and takes pride in a seamless employee tech experience.",
+        responsibilities: [
+            'Tool ownership: act as the primary administrator for the core productivity and collaboration stack (Google Workspace, Slack, Figma, Jamf, and Atlassian tools like Jira/Confluence)',
+            'User lifecycle management: own end-to-end onboarding and offboarding, ensuring employees have exactly the access they need from day one and secure revocation on their last day',
+            'Device management: manage, deploy, and secure company hardware (primarily Mac/Windows) using Jamf and other device management tools',
+            'Security and compliance: maintain clean permission structures, enforce security policies such as 2FA and SSO, and conduct regular access audits',
+            'Support and troubleshooting: serve as the escalation point for complex technical issues, keeping downtime for teams to a minimum',
+            'Documentation: create and maintain clear, simple documentation for both internal IT processes and employee self-service guides',
+        ],
+        required: [
+            '5 to 8 years of dedicated experience in an IT Administration or Systems Administration role',
+            'Google Workspace — advanced management, email routing, and security',
+            'Slack — enterprise management, integrations, and channels',
+            'Jamf — Apple device management and deployment',
+            'Atlassian — Jira and Confluence user management and workflows',
+            'Figma — license management and access control',
+            'Excellent communication: able to explain technical solutions to non-technical teammates clearly and patiently',
+        ],
+        preferred: [
+            'A track record of setting these systems up from scratch, or restructuring them for growth',
+            'Instinct for anticipating issues before they happen rather than reacting to them',
+            'A habit of automating repetitive tasks',
+        ],
+    },
+
     /* ─────────────────────────── Partnership ──────────────────────────── */
     {
         id: 'tech-program-manager-data-operations',
         title: 'Tech Program Manager, Data Operations',
         category: 'Partnership',
-        status: 'active',
+        status: 'closed',
         location: 'Chennai (preferable), India',
         about: "Be the architect of Bodhan's data supply chain — the bridge between our AI research partners (including AI4Bharat) and our network of data collection and annotation vendors. Own vendor relationships, quality standards, and the final QC layer across speech, OCR, and TTS workstreams. Build and coach an in-house team of Data Leads and Project Managers.",
         responsibilities: [
@@ -859,6 +889,36 @@ export const jobPostings = [
             'Experience working with AI/ML research teams or research partner organizations',
             'Experience building and coaching in-house operations teams',
             'Based in Chennai or able to work from Chennai',
+        ],
+    },
+
+    {
+        id: 'zonal-director',
+        title: 'Zonal Director',
+        category: 'Partnership',
+        status: 'closed',
+        experience: 'Minimum 20 years',
+        location: 'Regional hub, per assigned zone',
+        about: "Serve as the senior regional representative of IITM Bodhan-AI Foundation across an assigned zone, ensuring state-level understandings translate into disciplined execution at district and institutional level. Combine relationship-building with senior government officials and institutional leaders with hands-on operational oversight of regional coordinators and field teams. Reports to the National Director – Government & Institutional Partnerships, and requires regular travel across assigned states and districts.",
+        responsibilities: [
+            'Lead engagement with State Education Departments, universities, and district authorities within the assigned zone',
+            'Prepare structured implementation plans and ensure timely rollout across institutions',
+            'Supervise regional coordinators and field associates',
+            'Monitor progress against agreed milestones, maintain disciplined documentation, and submit periodic reports to the national office',
+            'Identify operational bottlenecks, coordinate corrective actions, and ensure alignment between field realities and organisational objectives',
+            'Represent Bodhan.AI in regional consultations and review meetings, building long-term working relationships based on credibility and professionalism',
+        ],
+        required: [
+            'Minimum 20 years of leadership experience, with substantial experience in structured field administration',
+            'Comfort working with government institutions',
+            'Strong written communication and reporting discipline',
+            'Willingness to travel extensively within the assigned zone',
+            'Based in one of the zonal hubs: Delhi NCR or Lucknow (North), Chennai or Bengaluru (South), Mumbai or Bhopal (West + Central), Kolkata or Bhubaneswar (East), or Guwahati (North East)',
+        ],
+        preferred: [
+            'Retired defence officers at the rank of Colonel or equivalent',
+            'Senior administrators with district or state-level coordination experience',
+            'Experience in education systems or large-scale public programmes',
         ],
     },
 
@@ -1058,6 +1118,43 @@ export const jobPostings = [
         preferred: [
             'Based in Chennai or able to work from Chennai',
             'Comfortable managing remote sites or distributed operational setups',
+        ],
+    },
+    {
+        id: 'administration-manager',
+        title: 'Administration Manager',
+        category: 'Business Operations',
+        status: 'closed',
+        experience: '8–15 years',
+        about: "Oversee all administrative, facility, and security operations to keep the workplace safe, efficient, and well maintained. Deliver high standards across facilities, transport, security, hospitality, guest relations, housekeeping, and corporate events, while holding the line on compliance and cost control. Leads facility staff, the security team, front office executives, housekeeping, drivers, and support staff.",
+        responsibilities: [
+            'Facility and infrastructure: oversee end-to-end facility operations, build preventive maintenance schedules for critical systems (HVAC, electrical, plumbing), ensure statutory compliance (fire safety, building codes, environmental norms), manage space planning and upgrades, and drive sustainability and energy efficiency',
+            'Security, physical and operational: oversee manned guarding, access control, and surveillance; manage security personnel including deployment, rostering, and discipline; keep CCTV, access cards, biometrics, and visitor management systems functioning',
+            'Security governance: develop security policies, SOPs, and emergency response procedures; run risk assessments, vulnerability audits, and regular drills; coordinate with law enforcement and emergency services; monitor incident reporting and corrective actions',
+            'Transport and fleet: manage employee and executive transport, vehicle compliance (insurance, permits, fitness), driver performance and safety, fuel and maintenance costs, and emergency transport needs',
+            'Guest relations and front office: ensure professional handling of visitors, clients, and VIPs; supervise reception operations and visitor logs; maintain corporate hospitality standards and meeting room readiness',
+            'Hospitality and workplace experience: manage cafeteria, pantry, and catering services to hygiene and quality standards, coordinate F&B for meetings and events, and support employee amenities and engagement',
+            'Event management: plan and execute corporate events, meetings, and conferences, including venue setup, travel, accommodation, vendors, and budget control',
+            'Housekeeping and hygiene: supervise housekeeping staff, structured cleaning schedules and SOPs, sanitation, pest control, waste management, and supplies inventory',
+            'Budgeting, procurement, and cost control: prepare and manage administrative and security budgets, track expenses, oversee procurement of equipment and services, and drive cost savings without compromising quality',
+            'Compliance, safety, and risk: ensure statutory compliance (labour laws, safety standards, fire regulations), run workplace safety programmes and emergency preparedness, conduct safety audits and drills, maintain audit documentation, and ensure EHS compliance',
+            'Team leadership: lead admin, security, and support teams; define KPIs, monitor performance, and give regular feedback; run safety and security awareness training; foster discipline, service excellence, and accountability',
+            'Process improvement and digitisation: develop SOPs across administrative and security functions, implement digital systems for visitor management, access control, and asset tracking, and monitor KPIs with corrective actions',
+        ],
+        required: [
+            "Bachelor's degree in Business Administration, Facilities Management, or a related field",
+            '8–15 years of relevant experience in administration, facility, and security management',
+            'Experience handling corporate offices, campuses, or large facilities',
+            'Working knowledge of facility and security management systems, surveillance, access control, and risk management',
+            'Vendor and contract negotiation, budgeting, and cost control',
+            'Understanding of statutory compliance and safety regulations',
+            'Strong leadership and team management, crisis decision-making, high integrity, and the ability to manage multiple stakeholders',
+            'Available for extended hours during emergencies, audits, or events, including on-call for security or facility incidents',
+        ],
+        preferred: [
+            'Certifications in Security Management, Safety, or Facility Management',
+            'Experience implementing digital systems for visitor management, access control, or asset tracking',
+            'Experience managing multi-department campuses or distributed sites',
         ],
     },
 ];
