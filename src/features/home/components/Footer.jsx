@@ -27,9 +27,14 @@ const Footer = () => {
             <div className="max-w-7xl mx-auto">
                 {/* Top Section: Logo and Social Icons */}
                 <div className="flex flex-col md:flex-row justify-between items-center mb-2">
-                    {/* Left: Logo */}
-                    <div className="text-2xl font-400 text-gray-900 mb-2 md:mb-0">
-                        Bodhan<span className="text-[var(--text-orange-500)]">.AI</span>
+                    {/* Left: Logo + identity line */}
+                    <div className="mb-2 md:mb-0 text-center md:text-left">
+                        <div className="text-2xl font-400 text-gray-900">
+                            Bodhan<span className="text-[var(--text-orange-500)]">.AI</span>
+                        </div>
+                        <p className="text-sm text-gray-500 mt-0.5">
+                            Centre of Excellence for AI in Education
+                        </p>
                     </div>
 
                     {/* Right: Social Icons */}
