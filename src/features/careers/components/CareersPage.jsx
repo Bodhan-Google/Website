@@ -7,6 +7,19 @@ import { jobPostings, CATEGORY_ORDER, TAB_FOR_STATUS, DEFAULT_LOCATION } from '.
 
 const APPLY_URL = 'https://forms.gle/PZAZ9rVnYcZvUxx97';
 
+/* Roles parked with `hold: true` are hidden from both tabs and from search. */
+const liveJobs = jobPostings.filter((job) => !job.hold);
+
+/* An open role with a past closingDate counts as closed without anyone editing the
+   data — it drops out of Hiring, loses its Apply button, and appears under Closed.
+   The role stays open through the whole of its closing date, and the cutoff is the
+   visitor's local midnight (same convention as TendersPage). Evaluated per render,
+   so a tab left open across midnight updates on the next interaction or reload. */
+const isExpired = (job) =>
+    !!job.closingDate && new Date(`${job.closingDate}T23:59:59`) < new Date();
+
+const effectiveStatus = (job) => (job.status === 'active' && isExpired(job) ? 'closed' : job.status);
+
 const TABS = [
     { key: 'hiring', label: 'Hiring' },
     { key: 'closed', label: 'Closed' },
@@ -14,7 +27,7 @@ const TABS = [
 
 /* Full searchable text per role: title + the whole JD. Built once. */
 const searchIndex = new Map(
-    jobPostings.map((job) => [
+    liveJobs.map((job) => [
         job.id,
         [
             job.title,
@@ -69,7 +82,7 @@ const Highlight = ({ text, tokens }) => {
 
 const JobCard = ({ job, index, tokens }) => {
     const [expanded, setExpanded] = useState(false);
-    const isOpenRole = job.status === 'active';
+    const isOpenRole = effectiveStatus(job) === 'active';
 
     return (
         <motion.div
@@ -270,8 +283,8 @@ const CareersPage = () => {
 
     /* Roles in the active tab that match the current query, grouped by category. */
     const groups = useMemo(() => {
-        const visible = jobPostings.filter(
-            (job) => TAB_FOR_STATUS[job.status] === activeTab && matchesQuery(job, tokens)
+        const visible = liveJobs.filter(
+            (job) => TAB_FOR_STATUS[effectiveStatus(job)] === activeTab && matchesQuery(job, tokens)
         );
         return CATEGORY_ORDER.map((category) => ({
             category,
@@ -282,8 +295,8 @@ const CareersPage = () => {
     const matchCount = groups.reduce((sum, group) => sum + group.jobs.length, 0);
     const tabCounts = useMemo(() => {
         const counts = { hiring: 0, closed: 0 };
-        jobPostings.forEach((job) => {
-            if (matchesQuery(job, tokens)) counts[TAB_FOR_STATUS[job.status]] += 1;
+        liveJobs.forEach((job) => {
+            if (matchesQuery(job, tokens)) counts[TAB_FOR_STATUS[effectiveStatus(job)]] += 1;
         });
         return counts;
     }, [tokens]);

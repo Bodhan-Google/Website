@@ -1,9 +1,17 @@
 // Careers data.
 //
-// status  — 'active' | 'hold' | 'closed' (internal hiring state)
-// tab     — 'active' roles show under Hiring; 'hold' and 'closed' both show under Closed.
-//           Kept as three values so a role can be reopened by flipping one field.
-// category— must be one of CATEGORY_ORDER below.
+// status      — 'active' → Hiring tab | 'closed' → Closed tab.
+// hold        — optional. `true` hides the role from BOTH tabs and from search,
+//               regardless of status. Use it to park a role without deleting it:
+//               flip to false (or drop the line) and it reappears under whichever
+//               tab its `status` names. Every currently-parked role carries
+//               status: 'closed', so un-holding one returns it to Closed.
+// closingDate — optional ISO date, never shown on the site. An 'active' role whose
+//               closingDate has passed is treated as closed and moves to the Closed
+//               tab on its own, evaluated in the browser on each render. Omit it for
+//               roles that should stay open indefinitely. `status` is never rewritten,
+//               so extending a role is just a matter of pushing the date out.
+// category    — must be one of CATEGORY_ORDER below.
 
 export const CATEGORY_ORDER = [
     'Research',
@@ -15,7 +23,6 @@ export const CATEGORY_ORDER = [
 
 export const TAB_FOR_STATUS = {
     active: 'hiring',
-    hold: 'closed',
     closed: 'closed',
 };
 
@@ -23,13 +30,17 @@ export const DEFAULT_LOCATION = 'Chennai (Hybrid)';
 
 export const jobPostings = [
     /* ───────────────────────────── Research ───────────────────────────── */
+    /* Research Scientist / Research Engineer ladders. Experience bands for the
+       Scientist track come straight from the JD ("Principal: 6+ | Senior: 4+ |
+       Entry: graduating PhDs or 2+ years"). The Engineer JD states no bands, so
+       its ladder mirrors the Scientist one — confirm with HR before publishing. */
     {
         id: 'research-scientist',
-        title: 'Research Scientist (Junior, Senior, Principal)',
+        title: 'Research Scientist',
         category: 'Research',
         status: 'active',
-        experience: 'PhD/MS + 2–6+ years',
-        about: "Bodhan AI is looking for exceptional Research Scientists to push the boundaries of sovereign AI for India. You will be responsible for driving research initiatives in speech, language, and vision AI tailored for education—with a focus on multilingual, multi-modal, low-resource, and real-world school deployments.",
+        experience: 'PhD, or MS/BS + 2+ years',
+        about: "Drive research initiatives in speech, language, and vision AI tailored for education — multilingual, multi-modal, low-resource, and built for real-world school deployments. You will own experiments end to end within a defined research direction, from design through publication. This is the entry point to Bodhan AI's research track, open to graduating PhDs and to Masters/Bachelors candidates with research experience.",
         responsibilities: [
             'Design and train advanced models across multilingual ASR/TTS, instruction-tuned LLMs (pre-training & post-training), or multimodal OCR/Vision systems',
             'Develop AI models customized to the education domain, addressing literacy diagnostics, reading fluency, and real-world educational outcomes',
@@ -40,7 +51,7 @@ export const jobPostings = [
         ],
         required: [
             "PhD or Master's degree in Machine Learning, Speech Processing, NLP, Computer Vision, or related field; exceptional Bachelor's candidates also welcome",
-            'Principal: 6+ years | Senior: 4+ years | Entry: Graduating PhDs or 2+ years for Masters/Bachelors post-qualification experience in AI/ML research',
+            'Graduating PhDs, or 2+ years of post-qualification experience in AI/ML research for Masters/Bachelors holders',
             'Proven expertise in at least one of: Speech (ASR, TTS, or speech diagnostics), LLMs (pre-training, fine-tuning, RL, or RAG), or Vision (OCR, document understanding, or multimodal AI)',
             'Publications in top-tier conferences (ICLR, NeurIPS, ACL, CVPR, INTERSPEECH, etc.)',
             'Proficiency in Python and deep learning frameworks like PyTorch, TensorFlow, or JAX',
@@ -53,26 +64,151 @@ export const jobPostings = [
         ],
     },
     {
-        id: 'research-engineer',
-        title: 'Research Engineer (Junior, Senior, Principal)',
+        id: 'senior-research-scientist',
+        title: 'Senior Research Scientist',
         category: 'Research',
         status: 'active',
-        experience: 'B.Tech/M.Tech',
-        about: "Bodhan AI is looking for exceptional Research Engineers to push the boundaries of sovereign AI for India. You will play a critical role in executing research goals, driving experimentation, building robust infrastructure and efficient model training pipelines. Contribute hands-on to model innovation in ASR, ORF, LLMs, TTS, and OCR—with a focus on multilingual, multi-modal, low-resource, and real-world school deployments.",
+        experience: 'PhD/MS + 4+ years',
+        about: "Set the direction for a research area in speech, language, or vision AI for education — multilingual, multi-modal, low-resource, and built for real-world school deployments. You will run several concurrent lines of experimentation and guide junior scientists and research engineers working within them. Expected both to publish and to see results land in production deployments in Indian schools.",
+        responsibilities: [
+            'Own a research area end to end — set its direction, sequence the experiments, and guide the junior scientists and research engineers working within it',
+            'Design and train advanced models across multilingual ASR/TTS, instruction-tuned LLMs (pre-training & post-training), or multimodal OCR/Vision systems',
+            'Develop AI models customized to the education domain, addressing literacy diagnostics, reading fluency, and real-world educational outcomes',
+            'Develop novel evaluation methods to validate the effectiveness of AI models in improving learning and teaching outcomes',
+            'Drive research into low-resource language modeling, efficient training (distillation, quantization, PEFT), and robust performance in noisy or low-bandwidth environments',
+            'Work closely with Engineering and Product teams to move models from experimental stages to production-ready deployments in Indian schools',
+            'Maintain high standards for reproducibility, rigorous benchmarking, and contribute through publications, open-source contributions, and technical insights',
+        ],
+        required: [
+            "PhD or Master's degree in Machine Learning, Speech Processing, NLP, Computer Vision, or related field; exceptional Bachelor's candidates also welcome",
+            '4+ years of post-qualification experience in AI/ML research',
+            'Proven expertise in at least one of: Speech (ASR, TTS, or speech diagnostics), LLMs (pre-training, fine-tuning, RL, or RAG), or Vision (OCR, document understanding, or multimodal AI)',
+            'Publications in top-tier conferences (ICLR, NeurIPS, ACL, CVPR, INTERSPEECH, etc.)',
+            'Proficiency in Python and deep learning frameworks like PyTorch, TensorFlow, or JAX',
+        ],
+        preferred: [
+            'Experience mentoring junior researchers or leading a small research team',
+            'Experience working with low-resource or Indian languages',
+            'Familiarity with model optimization for real-world, large-scale deployments',
+            'A background in educational technology, psychometrics, or cognitive science',
+            'A track record of contributions to open-source AI projects',
+        ],
+    },
+    {
+        id: 'principal-research-scientist',
+        title: 'Principal Research Scientist',
+        category: 'Research',
+        status: 'active',
+        experience: 'PhD/MS + 6+ years',
+        about: "Define research strategy across multiple areas of speech, language, and vision AI for education, and set the technical bar for the research group. You will shape what Bodhan AI works on next and represent that work externally to academic and industry partners. The most senior individual-contributor role on the research track.",
+        responsibilities: [
+            'Define research strategy across multiple areas and set the technical standard for the research group',
+            "Represent Bodhan AI's research externally through publications, talks, and collaborations with academic and industry partners",
+            'Design and train advanced models across multilingual ASR/TTS, instruction-tuned LLMs (pre-training & post-training), or multimodal OCR/Vision systems',
+            'Develop AI models customized to the education domain, addressing literacy diagnostics, reading fluency, and real-world educational outcomes',
+            'Develop novel evaluation methods to validate the effectiveness of AI models in improving learning and teaching outcomes',
+            'Drive research into low-resource language modeling, efficient training (distillation, quantization, PEFT), and robust performance in noisy or low-bandwidth environments',
+            'Work closely with Engineering and Product teams to move models from experimental stages to production-ready deployments in Indian schools',
+            'Maintain high standards for reproducibility, rigorous benchmarking, and mentor scientists across the group',
+        ],
+        required: [
+            "PhD or Master's degree in Machine Learning, Speech Processing, NLP, Computer Vision, or related field",
+            '6+ years of post-qualification experience in AI/ML research',
+            'Deep expertise in at least one of: Speech (ASR, TTS, or speech diagnostics), LLMs (pre-training, fine-tuning, RL, or RAG), or Vision (OCR, document understanding, or multimodal AI)',
+            'A strong publication record at top-tier conferences (ICLR, NeurIPS, ACL, CVPR, INTERSPEECH, etc.)',
+            'Proficiency in Python and deep learning frameworks like PyTorch, TensorFlow, or JAX',
+        ],
+        preferred: [
+            'Track record of setting research agendas and building research teams',
+            'Experience working with low-resource or Indian languages',
+            'Familiarity with model optimization for real-world, large-scale deployments',
+            'A background in educational technology, psychometrics, or cognitive science',
+            'A track record of contributions to open-source AI projects',
+        ],
+    },
+    {
+        id: 'research-engineer',
+        title: 'Research Engineer',
+        category: 'Research',
+        status: 'active',
+        experience: 'B.Tech/M.Tech, 0–3 years',
+        about: "Execute research goals hands-on: drive experimentation, build robust infrastructure, and run efficient model training pipelines. Contribute directly to model innovation in ASR, ORF, LLMs, TTS, and OCR, with a focus on multilingual, multi-modal, low-resource, and real-world school deployments. The entry point to Bodhan AI's research engineering track.",
         responsibilities: [
             'Own the end-to-end model training cycle in one or more of Speech, Language, Vision, and multimodal training',
             'Support Research Scientists by collaborating with them, driving experimentation, translating research ideas into scalable code and executing large-scale experiments',
             'Build pipelines for synthetic data generation and manage the curation of high-quality training datasets',
-            'Lead efforts in inference optimization (quantization, pruning, etc.) and ensure models are ready for large-scale, real-world deployment',
+            'Contribute to inference optimization (quantization, pruning, etc.) and help get models ready for large-scale, real-world deployment',
             'Maintain and contribute to internal and external open-source AI frameworks and tools',
         ],
         required: [
             'B.Tech or M.Tech in Computer Engineering, Computer Science, or a related technical field',
             'Expert-level proficiency in Python and deep learning frameworks like PyTorch, TensorFlow, or JAX',
-            'Deep understanding of the model training cycle and experience in deploying AI models in production environments',
+            'Solid understanding of the model training cycle',
             'Proven ability to work towards defined research goals and deliver high-quality, performant software',
         ],
         preferred: [
+            'A strong portfolio of contributions to major open-source AI projects (provide GitHub/GitLab links)',
+            'Understanding of or exposure to speech, ASR, LLM, or Vision model training and finetuning',
+            'Experience with model optimization for low-resource or Indian languages',
+            'A track record of publications or research contributions',
+            'Background in educational technology, psychometrics, or cognitive science',
+        ],
+    },
+    {
+        id: 'senior-research-engineer',
+        title: 'Senior Research Engineer',
+        category: 'Research',
+        status: 'active',
+        experience: 'B.Tech/M.Tech + 4+ years',
+        about: "Own the training and deployment infrastructure behind a research area, and lead the experimentation that runs on it. Contribute hands-on to model innovation in ASR, ORF, LLMs, TTS, and OCR for multilingual, low-resource, real-world school deployments. You will set engineering standards for the research group and mentor junior research engineers.",
+        responsibilities: [
+            'Own the end-to-end model training cycle in one or more of Speech, Language, Vision, and multimodal training',
+            'Lead efforts in inference optimization (quantization, pruning, etc.) and ensure models are ready for large-scale, real-world deployment',
+            'Set engineering standards for research code, experiment tracking, and reproducibility, and mentor junior research engineers',
+            'Support Research Scientists by collaborating with them, driving experimentation, translating research ideas into scalable code and executing large-scale experiments',
+            'Build pipelines for synthetic data generation and manage the curation of high-quality training datasets',
+            'Maintain and contribute to internal and external open-source AI frameworks and tools',
+        ],
+        required: [
+            'B.Tech or M.Tech in Computer Engineering, Computer Science, or a related technical field',
+            '4+ years of experience building and training deep learning models in production settings',
+            'Expert-level proficiency in Python and deep learning frameworks like PyTorch, TensorFlow, or JAX',
+            'Deep understanding of the model training cycle and experience deploying AI models in production environments',
+            'Proven ability to work towards defined research goals and deliver high-quality, performant software',
+        ],
+        preferred: [
+            'Experience mentoring engineers or owning a training platform end to end',
+            'A strong portfolio of contributions to major open-source AI projects (provide GitHub/GitLab links)',
+            'In-depth understanding or experience in speech, ASR, LLM, or Vision model training and finetuning',
+            'Experience with model optimization for low-resource or Indian languages',
+            'A track record of publications or research contributions',
+            'Background in educational technology, psychometrics, or cognitive science',
+        ],
+    },
+    {
+        id: 'principal-research-engineer',
+        title: 'Principal Research Engineer',
+        category: 'Research',
+        status: 'active',
+        experience: 'B.Tech/M.Tech + 6+ years',
+        about: "Set the technical direction for how Bodhan AI trains, optimises, and ships models at scale. You will own the architecture of the training and inference stack across Speech, Language, and Vision, and raise the engineering bar across the research group. The most senior individual-contributor role on the research engineering track.",
+        responsibilities: [
+            'Own the architecture of the training and inference stack across Speech, Language, Vision, and multimodal work',
+            'Set the technical direction for inference optimization (quantization, pruning, distillation) and large-scale, real-world deployment',
+            'Raise the engineering bar across the research group through standards, review, and mentorship of senior and junior engineers',
+            'Partner with Research Scientists to turn research directions into scalable systems and large-scale experiments',
+            'Build pipelines for synthetic data generation and manage the curation of high-quality training datasets',
+            'Lead internal and external open-source AI framework and tooling contributions',
+        ],
+        required: [
+            'B.Tech or M.Tech in Computer Engineering, Computer Science, or a related technical field',
+            '6+ years of experience building, training, and deploying deep learning models at scale',
+            'Expert-level proficiency in Python and deep learning frameworks like PyTorch, TensorFlow, or JAX',
+            'Track record of owning production ML systems end to end, including inference optimization',
+            'Proven ability to set technical direction and deliver high-quality, performant software against research goals',
+        ],
+        preferred: [
+            'Experience leading engineering teams or owning an ML platform at scale',
             'A strong portfolio of contributions to major open-source AI projects (provide GitHub/GitLab links)',
             'In-depth understanding or experience in speech, ASR, LLM, or Vision model training and finetuning',
             'Experience with model optimization for low-resource or Indian languages',
@@ -189,6 +325,7 @@ export const jobPostings = [
         title: 'Consultant – DevOps Engineer',
         category: 'Product Engineering',
         status: 'active',
+        closingDate: '2026-07-31',
         about: "Manage the cloud infrastructure, deployment pipelines, and platform operations behind Bodhan's AI systems. Keep them reliable, secure, and highly available as models ship continuously. Monitor system performance and resolve operational issues to meet programme service levels.",
         responsibilities: [
             "Manage cloud infrastructure, deployment pipelines, and platform operations to ensure reliability, security, and high availability of Bodhan's AI systems",
@@ -207,7 +344,8 @@ export const jobPostings = [
         id: 'ai-infra-engineer-devops',
         title: 'AI Infra Engineer - DevOps',
         category: 'Product Engineering',
-        status: 'hold',
+        status: 'closed',
+        hold: true,
         about: "Design, deploy, and manage the AI infrastructure that runs Bodhan's ASR, TTS, LLM, and other ML workloads in production. Own compute selection, intelligent inference routing, and autoscaling for low latency and high throughput. Keep utilization high and infrastructure cost under tight control.",
         responsibilities: [
             'Design, deploy, and manage AI infrastructure for running ASR, TTS, LLM, and other ML workloads in production',
@@ -240,7 +378,8 @@ export const jobPostings = [
         id: 'api-integration-engineer',
         title: 'API and Integration Engineer (Backend Engineer)',
         category: 'Product Engineering',
-        status: 'hold',
+        status: 'closed',
+        hold: true,
         about: "Design and maintain the backend services and APIs behind Bodhan's web, mobile, and voice applications. Own API contracts, database design, and real-time media stream integration with minimal latency. Work deep in WebRTC and WebSocket territory, where ultra-low latency for ASR is a hard requirement.",
         responsibilities: [
             'Design, develop, and maintain backend services and APIs to support web, mobile, and voice-based applications',
@@ -274,7 +413,8 @@ export const jobPostings = [
         id: 'frontend-mobile-web-engineer',
         title: 'Front End - Mobile App & Web App Engineer',
         category: 'Product Engineering',
-        status: 'hold',
+        status: 'closed',
+        hold: true,
         about: "Build optimized, responsive, and visually polished mobile and web applications for Bodhan's learners and teachers. Own the frontend logic for voice-driven experiences — interruptions, input transitions, and conversational state. Manage build, versioning, and release across both the Play Store and the App Store.",
         responsibilities: [
             'Develop optimized, responsive, and visually polished mobile and web applications with a strong focus on performance and usability',
@@ -307,7 +447,8 @@ export const jobPostings = [
         id: 'product-principal',
         title: 'Product Principal',
         category: 'Product Engineering',
-        status: 'hold',
+        status: 'closed',
+        hold: true,
         about: "Ensure research emerging from the lab translates into usable Copilot systems within the Bharat EduAI Stack, while protecting the independence and focus of the research teams. Act as the primary interface between research, engineering, ecosystem partners, pedagogists, and adopters. Own the Lab → Launch transition end to end.",
         responsibilities: [
             'Translate research into Copilot systems — shape lab outputs into usable Learn, Assess, Teach, Guide, and Admin Copilots that governments, startups, and institutions can adopt',
@@ -334,7 +475,8 @@ export const jobPostings = [
         id: 'qa-engineer',
         title: 'QA Engineer',
         category: 'Product Engineering',
-        status: 'hold',
+        status: 'closed',
+        hold: true,
         experience: '3–5 years',
         about: "Own quality across Bodhan's web, mobile, and voice-based AI applications. Design and run test plans covering UI, APIs, voice interactions, and AI responses end to end. Validate ASR, LLM, RAG, and TTS behaviour under real-world networks, devices, and failure conditions.",
         responsibilities: [
@@ -368,7 +510,8 @@ export const jobPostings = [
         id: 'security-engineer',
         title: 'Security Engineer',
         category: 'Product Engineering',
-        status: 'hold',
+        status: 'closed',
+        hold: true,
         experience: '5+ years',
         location: 'Chennai / Bangalore',
         about: "Be Bodhan's first dedicated Security Engineer. Own identity, secrets, supply chain, audit, and the cryptographic entitlement model across our deployment planes. You're not joining an existing security organization — you're building it, setting both the technical direction and the tone.",
@@ -402,7 +545,8 @@ export const jobPostings = [
         id: 'senior-ml-infrastructure-engineer',
         title: 'Senior ML Infrastructure Engineer',
         category: 'Product Engineering',
-        status: 'hold',
+        status: 'closed',
+        hold: true,
         experience: '5+ years',
         location: 'Chennai / Bangalore',
         about: "Be Bodhan's first Senior ML Infrastructure Engineer. Own model serving end to end — vLLM, NVIDIA Triton, GPU scheduling, prefix caching, speculative decoding — and the latency budget that defines the user experience. Latency is the product: hold the line as we scale, then push it lower.",
@@ -434,7 +578,8 @@ export const jobPostings = [
         id: 'senior-platform-devops-engineer',
         title: 'Senior Platform - DevOps Engineer',
         category: 'Product Engineering',
-        status: 'hold',
+        status: 'closed',
+        hold: true,
         experience: '7+ years',
         location: 'Chennai / Bangalore',
         about: "Be Bodhan's first Senior Platform / DevOps Engineer. Own how the platform is deployed and operated across customer clouds — Terraform modules, Helm charts, ArgoCD GitOps, RKE2 Kubernetes, and the multi-cloud abstraction that makes one-command onboarding real. A foundational hire setting the direction for every future deployment.",
@@ -468,7 +613,8 @@ export const jobPostings = [
         id: 'ux-design-principal',
         title: 'UX & Design Principal',
         category: 'Product Engineering',
-        status: 'hold',
+        status: 'closed',
+        hold: true,
         about: "Ensure Copilot systems emerging from the lab are clear, inclusive, and usable across the diversity of India's education ecosystem. Design the experience of the systems themselves, and work with partnership teams to engage adopters through workshops, interviews, and feedback analysis. Define the usability standards that gate public launch.",
         responsibilities: [
             'Design usable Copilot systems: translate complex research outputs into clear interaction models and workflows for the Learn, Assess, Teach, Guide, and Admin Copilots',
@@ -495,7 +641,8 @@ export const jobPostings = [
         id: 'systems-architect',
         title: 'Systems Architect',
         category: 'Product Engineering',
-        status: 'hold',
+        status: 'closed',
+        hold: true,
         about: "Own and design the end-to-end architecture for Bodhan's low-latency, scalable AI and real-time voice systems. Define cost-efficient, production-grade architectures across backend, ML inference, and streaming pipelines. Guide cross-functional engineering teams from design through production implementation.",
         responsibilities: [
             'Architecture & strategy: design, own, and evolve end-to-end architecture for real-time voice and AI systems, balancing latency, reliability, cost, and developer velocity',
@@ -749,6 +896,7 @@ export const jobPostings = [
         title: 'Consultant – AI Teacher Trainer',
         category: 'Pedagogy',
         status: 'active',
+        closingDate: '2026-07-31',
         about: "Deliver AI literacy and classroom integration training to teachers, School AI Champions, and education functionaries using Bodhan's standardized training framework. Provide ongoing classroom mentoring and support AI adoption in the field. Capture the field insights that continuously improve both training effectiveness and product adoption.",
         responsibilities: [
             "Deliver AI literacy and classroom integration training to teachers, School AI Champions, and education functionaries using Bodhan's standardized training framework",
@@ -769,6 +917,7 @@ export const jobPostings = [
         title: 'Consultant – Learning Simulation Developer',
         category: 'Pedagogy',
         status: 'active',
+        closingDate: '2026-07-31',
         about: "Design and build interactive STEM simulations and AI-powered learning experiences aligned with Bodhan's learning framework. Enhance and optimise simulation content using classroom feedback, learner engagement, and field implementation data. Build for multilingual, low-bandwidth Indian classrooms.",
         responsibilities: [
             "Design and develop interactive STEM simulations and AI-powered learning experiences aligned with Bodhan's learning framework",
@@ -869,6 +1018,7 @@ export const jobPostings = [
         title: 'Consultant – Program Operations',
         category: 'Business Operations',
         status: 'active',
+        closingDate: '2026-07-31',
         about: "Coordinate programme execution across government stakeholders, implementation partners, and field teams to keep milestones on time. Manage operational planning, logistics, issue tracking, and support functions across Rural Interaction Centres and field deployments. Act as the operational glue between Bodhan and the ecosystem delivering on the ground.",
         responsibilities: [
             'Coordinate programme execution across government stakeholders, implementation partners, and field teams to ensure timely delivery of milestones',
