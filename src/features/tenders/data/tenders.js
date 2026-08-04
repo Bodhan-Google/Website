@@ -1,7 +1,23 @@
 export const tenders = [
     {
-        id: 'tender-007',
+        id: 'tender-008',
         status: 'active',
+        title: 'Appointment of Recruitment Consultant Agency for Bodhan AI',
+        description:
+            'Bodhan AI seeks to appoint a strategic Recruitment Consultant Agency that can identify, attract, and onboard world-class talent across India.',
+        closingDate: '2026-08-25',
+        closingTime: '17:30 IST',
+        documents: [
+            {
+                name: 'Appointment of Recruitment Consultant Agency Tender Document',
+                url: 'https://drive.google.com/uc?export=download&id=1i_Y5tm9VjL4DZ94eMgbKjJ7PJT_m2o-y',
+                previewUrl: 'https://drive.google.com/file/d/1i_Y5tm9VjL4DZ94eMgbKjJ7PJT_m2o-y/preview',
+            },
+        ],
+    },
+    {
+        id: 'tender-007',
+        status: 'closed',
         title: 'Appointment of Event Management & Experiential Agency',
         description:
             'On behalf of the IITM Bodhan-AI Foundation, offers are invited for the Appointment of an Event Management & Experiential Agency for Event Strategy and Experience Design conforming to the specifications in the Technical Specification Document (Annexure III). As per Government of India order, only Class-I and Class-II Local Suppliers are eligible to participate. Bids must be submitted by 21st July 2026, 3:00 PM via the Bodhan AI website or as a hard copy received at the Bodhan office, IIT Madras Research Park, Chennai.',
@@ -17,7 +33,7 @@ export const tenders = [
     },
     {
         id: 'tender-006',
-        status: 'active',
+        status: 'closed',
         title: 'Agency on Retainer for Public Relations',
         description:
             'On behalf of the IITM Bodhan-AI Foundation, offers are invited for Appointment of Event Management & Experiential Agency for Bodhan AI" Document (Annexure III). As per Government of India order, only Class-I and Class-II Local Suppliers are eligible to participate. Bids must be submitted by 17th July 2026, 5:00 PM via the Bodhan AI website or as a hard copy received at the Bodhan office, IIT Madras Research Park, Chennai.',
