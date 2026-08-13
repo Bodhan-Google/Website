@@ -5,7 +5,7 @@ export const tenders = [
         title: 'Appointment of Recruitment Consultant Agency for Bodhan AI',
         description:
             'Bodhan AI seeks to appoint a strategic Recruitment Consultant Agency that can identify, attract, and onboard world-class talent across India.',
-        closingDate: '2026-08-25',
+        closingDate: '2026-08-18',
         closingTime: '17:30 IST',
         documents: [
             {
