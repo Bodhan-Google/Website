@@ -266,6 +266,78 @@ const jobPostings = [
     },
 ];
 
+const dataOperationsJobs = [
+    {
+        title: 'Project Lead – Data Operations',
+        experience: '3+ years',
+        about: "Facilitate and assume end-to-end ownership of data operations for Indic languages to meet the data requirements supporting Bodhan's research objectives across Automatic Speech Recognition (ASR), Optical Character Recognition (OCR), Text-to-Speech (TTS), and Generative AI models. Languages in scope: Hindi, Tamil, Malayalam, Telugu, Kannada, Bengali, Odia, Marathi, Gujarati, Assamese, Punjabi, Urdu, Nepali, Konkani, and Bodo.",
+        responsibilities: [
+            'Project Management & Execution: define and execute comprehensive project plans to achieve data collection and annotation targets across specified Indic languages, ensuring alignment with Bodhan\'s research goals and end-user use cases for ASR, TTS, and OCR',
+            'Talent Acquisition: support and facilitate the recruitment of subject matter experts in Indic languages to meet evolving project requirements',
+            'Cross-Functional Collaboration: partner closely with internal technical teams, tooling engineers, and researchers to streamline workflows and accomplish project milestones',
+            'Vendor Management: oversee external vendor teams to ensure deliverables consistently meet project scope, high quality standards, and strict timelines',
+            'Mentorship & Training: guide, mentor, and enable language experts to execute their responsibilities efficiently and effectively',
+        ],
+        required: [
+            'Minimum 3 years of experience leading teams and projects focused on Indic language data collection, data annotation, and model evaluation',
+            'Bachelor\'s degree in Arts, Commerce, or Science',
+        ],
+        preferred: [
+            'A specialization in linguistics or language studies',
+        ],
+    },
+    {
+        title: 'Senior Program Manager – Data Operations',
+        experience: '12+ years',
+        about: 'Lead and scale end-to-end Data Operations for Indic language AI initiatives. Take full strategic and operational ownership of complex data programs across the 22 Scheduled Indic languages, directly powering advanced research in Automatic Speech Recognition (ASR), Text-to-Speech (TTS), Optical Character Recognition (OCR), and Generative AI models. Languages in scope: Hindi, Tamil, Malayalam, Telugu, Kannada, Bengali, Odia, Marathi, Gujarati, Assamese, Punjabi, Urdu, Nepali, Konkani, and Bodo.',
+        responsibilities: [
+            'End-to-End Program Ownership: architect, execute, and monitor comprehensive data operation roadmaps covering planning, data collection, data annotation, quality assurance, and model needs and evaluation to support AI research and product deployment across ASR, TTS, OCR, and Gen AI streams',
+            'Pipeline & Workflow Optimization: design and refine high-throughput workflows for dataset creation, annotation, transcription, and post-processing across diverse linguistic contexts',
+            'Risk & Change Management: anticipate operational bottlenecks, mitigate project risks, manage dynamic changes in research requirements, and establish robust version control for data guidelines and quality benchmarks',
+            'Engineering & Research Alignment: work closely with AI Research Scientists, ML Engineers, and Tools/Platform teams to define exact data specifications, taxonomy standards, and custom tool requirements',
+            'Language Expert Strategy: partner with Talent Acquisition to build, structure, and scale a roster of native Indic language experts, linguists, and quality assurance specialists',
+            'Team Mentorship & Capability Building: lead, mentor, and empower Project Leads and Language Specialists, establishing standard operating procedures (SOPs) and career development frameworks',
+            'Vendor Ecosystem Management: identify, onboard, and manage external vendor teams; establish clear SLAs, KPIs, and pricing models to ensure strict adherence to scope, budget, timeline, and accuracy standards',
+            'Quality Assurance Frameworks: implement automated and human-in-the-loop (HITL) quality audit frameworks to maintain rigorous precision standards across all target dialects and scripts',
+        ],
+        required: [
+            '12+ years of overall experience in program/project management, with at least 3+ years specifically leading large-scale AI/ML Data Operations, NLP, or Speech/Vision data pipeline programs with emphasis on research objectives',
+            'Deep hands-on experience managing data acquisition, annotation, and model evaluation projects for Indic languages',
+            'Proven track record of managing multi-vendor engagements, negotiating contracts, and optimizing operational budgets',
+            'Strong familiarity with the data lifecycle and unique operational nuances required for training ASR, TTS, OCR, and Generative AI (LLM/SLM) models',
+            'Bachelor\'s degree: B.Tech / B.E, M.Sc. / MCA',
+        ],
+        preferred: [
+            'Working knowledge of data management tools, annotation platforms, and basic script handling/encoding for Indic language scripts',
+        ],
+    },
+    {
+        title: 'Language Expert',
+        experience: "Bachelor's / Master's",
+        about: 'Channel your passion for language and culture to shape the future of artificial intelligence in Indic languages. Apply linguistic capabilities to core data annotation tasks — high-precision translation, transcription, and quality assurance — and serve as a vital Human in the Loop, evaluating and refining AI models so technology advances responsibly, ethically, and with authentic respect for local linguistic nuances. 120 positions across 12 Indic languages: Hindi, Tamil, Telugu, Malayalam, Kannada, Marathi, Gujarati, Bengali, Odia, Punjabi, Urdu, and Assamese.',
+        responsibilities: [
+            'Data Annotation & Model Evaluation: execute complex translation, transcription, and quality assurance tasks, consistently meeting benchmark standards and timelines',
+            'Proactive Project Communication: maintain transparent, timely communication with project leads regarding daily progress, operational dependencies, and potential risks to quality or schedules',
+            'Agile Problem Solving: adapt smoothly to shifting research goals in a fast-paced AI development environment where project scopes evolve alongside technological breakthroughs',
+            'Ethical AI Stewardship: critically evaluate model inputs and outputs to safeguard cultural accuracy, contextual fairness, and ethical standards from a language point of view',
+        ],
+        required: [
+            'Full professional fluency (reading, writing, and speaking) in one or more Indic languages: Hindi, Tamil, Malayalam, Kannada, Telugu, Odia, Bengali, Gujarati, Marathi, Punjabi, Urdu, Assamese, Kashmiri, Dogri, Maithili, Bodo, Nepali, Konkani, Sanskrit, Sindhi, Santali, or Manipuri',
+            'Reasonable proficiency in English',
+            'A nuanced understanding of sentence structure, syntax, formal/informal registers, and paraphrasing',
+            'Bachelor\'s or Master\'s degree in Arts, Science, Commerce, Journalism, or a related discipline',
+            'Meticulous attention to detail with clear, empathetic communication',
+            'Collaborative mindset with strong accountability for deadlines and shared team outcomes',
+            'Resilience and flexibility when navigating dynamic, research-driven priorities',
+        ],
+        preferred: [
+            'Background in linguistics or phonetics',
+            'Prior experience in data collection, annotation, or natural language processing (NLP) projects supporting Indic language research',
+            'Academic projects, coursework, or internships focused on linguistics or Indic languages',
+        ],
+    },
+];
+
 const JobCard = ({ job, index }) => {
     const [expanded, setExpanded] = useState(false);
 
@@ -392,6 +464,48 @@ const JobCard = ({ job, index }) => {
     );
 };
 
+const CategoryGroup = ({ category, jobs: groupJobs }) => {
+    const [isOpen, setIsOpen] = useState(true);
+
+    return (
+        <div className="bg-white/60 rounded-2xl border border-gray-100 overflow-hidden">
+            <button
+                type="button"
+                onClick={() => setIsOpen((current) => !current)}
+                aria-expanded={isOpen}
+                className="w-full flex items-center gap-3 px-5 md:px-6 py-4 text-left hover:bg-white transition-colors group"
+            >
+                <ChevronDown
+                    size={20}
+                    className={`text-[var(--text-orange-500)] flex-shrink-0 transition-transform duration-200 ${
+                        isOpen ? 'rotate-0' : '-rotate-90'
+                    }`}
+                />
+                <span className="text-base md:text-lg font-semibold text-[#1A1A1A] group-hover:text-[var(--text-orange-500)] transition-colors">
+                    {category}
+                </span>
+                <span className="text-xs font-semibold rounded-full px-2 py-0.5 bg-orange-100 text-[var(--text-orange-500)]">
+                    {groupJobs.length}
+                </span>
+                <span className="ml-auto text-xs text-gray-400 hidden sm:block">{isOpen ? 'Collapse' : 'Expand'}</span>
+            </button>
+            <motion.div
+                initial={false}
+                animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
+                transition={{ duration: 0.28, ease: 'easeInOut' }}
+                className="overflow-hidden"
+                inert={!isOpen ? true : undefined}
+            >
+                <div className="px-3 md:px-4 pb-4 space-y-3">
+                    {groupJobs.map((job, index) => (
+                        <JobCard key={job.title} job={job} index={index} />
+                    ))}
+                </div>
+            </motion.div>
+        </div>
+    );
+};
+
 const CareersPage = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -435,6 +549,7 @@ const CareersPage = () => {
 
             {/* Job Listings */}
             <div className="max-w-5xl mx-auto px-6 pb-20 space-y-4">
+                <CategoryGroup category="Data Operations" jobs={dataOperationsJobs} />
                 {jobPostings.map((job, index) => (
                     <JobCard key={job.title} job={job} index={index} />
                 ))}
