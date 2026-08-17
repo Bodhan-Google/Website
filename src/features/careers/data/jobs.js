@@ -17,6 +17,7 @@ export const CATEGORY_ORDER = [
     'Research',
     'Product Engineering',
     'Partnership',
+    'Data Operations',
     'Pedagogy',
     'Business Operations',
 ];
@@ -955,6 +956,84 @@ export const jobPostings = [
             'Retired defence officers at the rank of Colonel or equivalent',
             'Senior administrators with district or state-level coordination experience',
             'Experience in education systems or large-scale public programmes',
+        ],
+    },
+
+    /* ───────────────────────── Data Operations ─────────────────────────── */
+    {
+        id: 'senior-program-manager-data-operations',
+        title: 'Senior Program Manager – Data Operations',
+        category: 'Data Operations',
+        status: 'active',
+        experience: '12+ years (3+ in AI/ML Data Ops)',
+        about: "Lead and scale end-to-end Data Operations for Indic language AI initiatives, across the 22 Scheduled Indic languages, directly powering research in ASR, TTS, OCR, and Generative AI models. Take full strategic and operational ownership of complex data programs — from planning and collection through annotation, QA, and model evaluation.",
+        responsibilities: [
+            'End-to-end program ownership: architect, execute, and monitor comprehensive data operation roadmaps covering planning, data collection, data annotation, quality assurance, and model evaluation across ASR, TTS, OCR, and Gen AI streams',
+            'Pipeline & workflow optimization: design and refine high-throughput workflows for dataset creation, annotation, transcription, and post-processing across diverse linguistic contexts',
+            'Risk & change management: anticipate operational bottlenecks, mitigate project risks, manage dynamic changes in research requirements, and establish robust version control for data guidelines and quality benchmarks',
+            'Engineering & research alignment: work closely with AI Research Scientists, ML Engineers, and Tools/Platform teams to define data specifications, taxonomy standards, and custom tool requirements',
+            'Language expert strategy: partner with Talent Acquisition to build, structure, and scale a roster of native Indic language experts, linguists, and QA specialists',
+            'Team mentorship & capability building: lead, mentor, and empower Project Leads and Language Specialists, establishing SOPs and career development frameworks',
+            'Vendor ecosystem management: identify, onboard, and manage external vendor teams; establish clear SLAs, KPIs, and pricing models to ensure adherence to scope, budget, timeline, and accuracy standards',
+            'Quality assurance frameworks: implement automated and human-in-the-loop (HITL) quality audit frameworks to maintain rigorous precision standards across all target dialects and scripts',
+        ],
+        required: [
+            '12+ years of overall experience in program/project management, with at least 3+ years specifically leading large-scale AI/ML Data Operations, NLP, or Speech/Vision data pipeline programs',
+            'Deep hands-on experience managing data acquisition, annotation, and model evaluation projects for Indic languages',
+            'Proven track record of managing multi-vendor engagements, negotiating contracts, and optimizing operational budgets',
+            'Strong familiarity with the data lifecycle and unique operational nuances required for training ASR, TTS, OCR, and Generative AI (LLM/SLM) models',
+            "Bachelor's degree — B.Tech/B.E, M.Sc./MCA",
+        ],
+        preferred: [
+            'Working knowledge of data management tools, annotation platforms, and basic script handling/encoding for Indic language scripts',
+        ],
+    },
+    {
+        id: 'project-lead-data-operations',
+        title: 'Project Lead – Data Operations (Indic Languages)',
+        category: 'Data Operations',
+        status: 'active',
+        experience: '3+ years leading Indic language data teams',
+        about: "Facilitate and assume end-to-end ownership of data operations for Indic languages, meeting the data requirements that support Bodhan's research objectives across ASR, OCR, TTS, and Generative AI models. Languages in scope: Hindi, Tamil, Malayalam, Telugu, Kannada, Bengali, Odia, Marathi, Gujarati, Assamese, Punjabi, Urdu, Nepali, Konkani, and Bodo.",
+        responsibilities: [
+            'Project management & execution: define and execute comprehensive project plans to achieve data collection and annotation targets across specified Indic languages, aligned with research goals and end-user use cases for ASR, TTS, and OCR',
+            'Talent acquisition: support and facilitate the recruitment of subject matter experts in Indic languages to meet evolving project requirements',
+            'Cross-functional collaboration: partner closely with internal technical teams, tooling engineers, and researchers to streamline workflows and accomplish project milestones',
+            'Vendor management: oversee external vendor teams to ensure deliverables consistently meet project scope, high quality standards, and strict timelines',
+            'Mentorship & training: guide, mentor, and enable language experts to execute their responsibilities efficiently and effectively',
+        ],
+        required: [
+            'Minimum 3 years of experience leading teams and projects focused on Indic language data collection, data annotation, and model evaluation',
+            "Bachelor's degree in Arts, Commerce, or Science",
+        ],
+        preferred: [
+            'A specialization in linguistics or language studies',
+        ],
+    },
+    {
+        id: 'language-expert-data-annotation',
+        title: 'Language Expert – Data Annotation & Linguistic Quality',
+        category: 'Data Operations',
+        status: 'active',
+        experience: '120 positions across 12 Indic languages',
+        about: 'Apply your linguistic capabilities to core data annotation tasks — high-precision translation, transcription, and quality assurance — to shape the future of artificial intelligence in Indic languages. Beyond standard annotation, serve as a vital "Human in the Loop," evaluating and refining AI models to ensure technology advances responsibly, ethically, and with authentic respect for local linguistic nuances. Open across Hindi, Tamil, Telugu, Malayalam, Kannada, Marathi, Gujarati, Bengali, Odia, Punjabi, Urdu, and Assamese.',
+        responsibilities: [
+            'Data annotation & model evaluation: execute complex translation, transcription, and quality assurance tasks, consistently meeting benchmark standards and timelines',
+            'Proactive project communication: maintain transparent, timely communication with project leads regarding daily progress, operational dependencies, and potential risks to quality or schedules',
+            'Agile problem solving: adapt smoothly to shifting research goals in a fast-paced AI development environment where project scopes evolve alongside technological breakthroughs',
+            'Ethical AI stewardship: critically evaluate model inputs and outputs to safeguard cultural accuracy, contextual fairness, and ethical standards from a language point of view',
+        ],
+        required: [
+            'Full professional fluency (reading, writing, and speaking) in one or more Indic languages: Hindi, Tamil, Malayalam, Kannada, Telugu, Odia, Bengali, Gujarati, Marathi, Punjabi, Urdu, Assamese — or Kashmiri, Dogri, Maithili, Bodo, Nepali, Konkani, Sanskrit, Sindhi, Santali, Manipuri',
+            'Reasonable proficiency in English',
+            'Nuanced understanding of sentence structure, syntax, formal/informal registers, and paraphrasing',
+            "Bachelor's or master's degree in Arts, Science, Commerce, Journalism, or related disciplines",
+        ],
+        preferred: [
+            'Background in linguistics or phonetics',
+            'Prior experience in data collection, annotation, or NLP projects supporting Indic language research',
+            'Meticulous attention to detail paired with clear, empathetic communication skills',
+            'Academic projects, coursework, or internships focused on linguistics or Indic languages',
         ],
     },
 
