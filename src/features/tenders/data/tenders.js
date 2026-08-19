@@ -1,7 +1,22 @@
+// Closing deadlines are IST (UTC+05:30). `status: 'closed'` in the data is a
+// manual override that always wins (e.g. a tender withdrawn early); otherwise
+// status is derived from closingDate + closingTime, so an active tender moves
+// to closed on its own the moment the deadline passes.
+const IST_OFFSET = '+05:30';
+
+export const isTenderClosed = (tender, now = new Date()) => {
+    if (tender.status === 'closed') return true;
+    const time = (tender.closingTime || '23:59 IST').replace(/\s*IST\s*$/i, '');
+    return now >= new Date(`${tender.closingDate}T${time}:00${IST_OFFSET}`);
+};
+
+export const getTenderStatus = (tender, now) =>
+    isTenderClosed(tender, now) ? 'closed' : 'active';
+
 export const tenders = [
     {
         id: 'tender-008',
-        status: 'active',
+        status: 'closed',
         title: 'Appointment of Recruitment Consultant Agency for Bodhan AI',
         description:
             'Bodhan AI seeks to appoint a strategic Recruitment Consultant Agency that can identify, attract, and onboard world-class talent across India.',
