@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FacebookIcon, LinkedinIcon, InstagramIcon } from 'lucide-react';
 
 const XIcon = ({ size = 20 }) => (
@@ -61,9 +62,17 @@ const Footer = () => {
                 {/* Separator Line */}
                 <div className="w-full h-px bg-gray-300 mb-4"></div>
 
-                {/* Bottom: Copyright */}
-                <div className="text-center text-sm text-gray-500">
-                    Copyright © 2026 bodhan.ai
+                {/* Bottom: Copyright + Legal Links */}
+                <div className="flex flex-col md:flex-row justify-center md:justify-between items-center gap-2 text-sm text-gray-500">
+                    <div>Copyright © 2026 bodhan.ai</div>
+                    <div className="flex items-center gap-4">
+                        <Link to="/terms-and-conditions" className="hover:text-[var(--text-orange-500)] transition-colors" onClick={() => window.scrollTo(0, 0)}>
+                            Terms and Conditions
+                        </Link>
+                        <Link to="/privacy-policy" className="hover:text-[var(--text-orange-500)] transition-colors" onClick={() => window.scrollTo(0, 0)}>
+                            Privacy Policy
+                        </Link>
+                    </div>
                 </div>
             </div>
         </footer>

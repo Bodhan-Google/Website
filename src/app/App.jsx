@@ -8,6 +8,8 @@ import ContactPage from '../features/contact/components/ContactPage'
 import TendersPage from '../features/tenders/components/TendersPage'
 import TenderApplyPage from '../features/tenders/components/TenderApplyPage'
 import PartnersPage from '../features/partners/components/PartnersPage'
+import PrivacyPolicyPage from '../features/privacy/components/PrivacyPolicyPage'
+import TermsAndConditionsPage from '../features/terms/components/TermsAndConditionsPage'
 
 function App() {
 
@@ -20,6 +22,8 @@ function App() {
       <Route path="/tenders" element={<TendersPage />} />
       <Route path="/tenders/apply/:tenderId" element={<TenderApplyPage />} />
       <Route path="/partners" element={<PartnersPage />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+      <Route path="/terms-and-conditions" element={<TermsAndConditionsPage />} />
     </Routes>
   )
 }
