@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Calendar, FileText, ExternalLink, ChevronDown, Download, Eye, X, ArrowRight, AlertTriangle, Award } from 'lucide-react';
 import Navbar from '../../home/components/Navbar';
 import Footer from '../../home/components/Footer';
-import { tenders } from '../data/tenders';
+import { tenders as tenderData, getTenderStatus } from '../data/tenders';
 
 const formatDate = (dateStr) => {
     const d = new Date(dateStr + 'T00:00:00');
@@ -241,6 +241,7 @@ const TendersPage = () => {
         return () => { document.body.style.overflow = ''; };
     }, [previewDoc]);
 
+    const tenders = tenderData.map((t) => ({ ...t, status: getTenderStatus(t) }));
     const filtered = tenders.filter((t) => t.status === activeTab);
     const activeCnt = tenders.filter((t) => t.status === 'active').length;
     const closedCnt = tenders.filter((t) => t.status === 'closed').length;

@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import Navbar from '../../home/components/Navbar';
 import Footer from '../../home/components/Footer';
-import { tenders } from '../data/tenders';
+import { tenders, isTenderClosed } from '../data/tenders';
 
 const SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL;
 const MAX_MB = 10;
@@ -164,7 +164,7 @@ const TenderApplyPage = () => {
     const [fieldErrors, setFieldErrors] = useState({});
 
     if (!tender) return <Navigate to="/tenders" replace />;
-    if (tender.status === 'closed') return <Navigate to="/tenders" replace />;
+    if (isTenderClosed(tender)) return <Navigate to="/tenders" replace />;
 
     const isUploading = status === 'uploading';
 

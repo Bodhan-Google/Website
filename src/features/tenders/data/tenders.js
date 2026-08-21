@@ -1,7 +1,38 @@
+// Closing deadlines are IST (UTC+05:30). `status: 'closed'` in the data is a
+// manual override that always wins (e.g. a tender withdrawn early); otherwise
+// status is derived from closingDate + closingTime, so an active tender moves
+// to closed on its own the moment the deadline passes.
+const IST_OFFSET = '+05:30';
+
+export const isTenderClosed = (tender, now = new Date()) => {
+    if (tender.status === 'closed') return true;
+    const time = (tender.closingTime || '23:59 IST').replace(/\s*IST\s*$/i, '');
+    return now >= new Date(`${tender.closingDate}T${time}:00${IST_OFFSET}`);
+};
+
+export const getTenderStatus = (tender, now) =>
+    isTenderClosed(tender, now) ? 'closed' : 'active';
+
 export const tenders = [
     {
+        id: 'tender-008',
+        status: 'closed',
+        title: 'Appointment of Recruitment Consultant Agency for Bodhan AI',
+        description:
+            'Bodhan AI seeks to appoint a strategic Recruitment Consultant Agency that can identify, attract, and onboard world-class talent across India.',
+        closingDate: '2026-08-18',
+        closingTime: '17:30 IST',
+        documents: [
+            {
+                name: 'Appointment of Recruitment Consultant Agency Tender Document',
+                url: 'https://drive.google.com/uc?export=download&id=1i_Y5tm9VjL4DZ94eMgbKjJ7PJT_m2o-y',
+                previewUrl: 'https://drive.google.com/file/d/1i_Y5tm9VjL4DZ94eMgbKjJ7PJT_m2o-y/preview',
+            },
+        ],
+    },
+    {
         id: 'tender-007',
-        status: 'active',
+        status: 'closed',
         title: 'Appointment of Event Management & Experiential Agency',
         description:
             'On behalf of the IITM Bodhan-AI Foundation, offers are invited for the Appointment of an Event Management & Experiential Agency for Event Strategy and Experience Design conforming to the specifications in the Technical Specification Document (Annexure III). As per Government of India order, only Class-I and Class-II Local Suppliers are eligible to participate. Bids must be submitted by 21st July 2026, 3:00 PM via the Bodhan AI website or as a hard copy received at the Bodhan office, IIT Madras Research Park, Chennai.',
@@ -17,7 +48,7 @@ export const tenders = [
     },
     {
         id: 'tender-006',
-        status: 'active',
+        status: 'closed',
         title: 'Agency on Retainer for Public Relations',
         description:
             'On behalf of the IITM Bodhan-AI Foundation, offers are invited for Appointment of Event Management & Experiential Agency for Bodhan AI" Document (Annexure III). As per Government of India order, only Class-I and Class-II Local Suppliers are eligible to participate. Bids must be submitted by 17th July 2026, 5:00 PM via the Bodhan AI website or as a hard copy received at the Bodhan office, IIT Madras Research Park, Chennai.',
