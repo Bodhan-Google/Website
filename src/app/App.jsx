@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 import HomePage from '../features/home/components/HomePage'
 import AI4BPage from '../features/ai4b/components/AI4BPage'
 import AdvisoryCouncilPage from '../features/advisory/components/AdvisoryCouncilPage'
@@ -24,6 +24,8 @@ function App() {
       <Route path="/partners" element={<PartnersPage />} />
       <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
       <Route path="/terms-and-conditions" element={<TermsAndConditionsPage />} />
+      {/* 404.html serves the app for any unmatched URL, so send strays home */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
 }
