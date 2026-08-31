@@ -97,7 +97,7 @@ const TenderCard = ({ tender, index, onPreview }) => {
                         <div className="flex-1 min-w-0">
                             <div className="flex flex-wrap items-center gap-2 mb-2.5">
                                 <StatusBadge status={tender.status} />
-                                {tender.bidAward && (
+                                {(tender.bidAward || tender.awardedTo) && (
                                     <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-full px-2.5 py-0.5">
                                         <Award size={11} /> Awarded
                                     </span>
@@ -140,11 +140,18 @@ const TenderCard = ({ tender, index, onPreview }) => {
                         className="overflow-hidden"
                     >
                         <div className="mt-5 pt-4 border-t border-gray-100">
-                            {tender.bidAward && (
+                            {(tender.bidAward || tender.awardedTo) && (
                                 <div className="mb-5">
                                     <p className="text-xs font-semibold text-emerald-700 uppercase tracking-wider mb-3 flex items-center gap-1.5">
                                         <Award size={12} /> Bid Award
                                     </p>
+                                    {tender.awardedTo && (
+                                        <p className={`text-sm text-gray-700 leading-relaxed ${tender.bidAward ? 'mb-3' : ''}`}>
+                                            This tender has been awarded to{' '}
+                                            <span className="font-semibold text-emerald-700">{tender.awardedTo}</span>.
+                                        </p>
+                                    )}
+                                    {tender.bidAward && (
                                     <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 bg-emerald-50/60 border border-emerald-100 rounded-xl px-3 py-2.5">
                                         <div className="flex items-center gap-3 flex-1 min-w-0">
                                             <span className="flex flex-col items-center justify-center w-9 h-9 rounded-lg bg-white border border-emerald-100 flex-shrink-0 gap-0.5 shadow-sm">
@@ -171,6 +178,7 @@ const TenderCard = ({ tender, index, onPreview }) => {
                                             </a>
                                         </div>
                                     </div>
+                                    )}
                                 </div>
                             )}
                             <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Documents</p>
@@ -216,7 +224,7 @@ const TenderCard = ({ tender, index, onPreview }) => {
                 <span className="flex items-center gap-1.5 text-xs text-gray-400">
                     <FileText size={11} />
                     {tender.documents.length} document{tender.documents.length !== 1 ? 's' : ''}
-                    {tender.bidAward && (
+                    {(tender.bidAward || tender.awardedTo) && (
                         <span className="flex items-center gap-1 text-emerald-700 ml-2">
                             <Award size={11} /> Bid award
                         </span>
