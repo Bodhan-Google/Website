@@ -22,6 +22,7 @@ export const tenders = [
             'Bodhan AI seeks to appoint a strategic Recruitment Consultant Agency that can identify, attract, and onboard world-class talent across India.',
         closingDate: '2026-08-18',
         closingTime: '17:30 IST',
+        awardedTo: 'Stackrank Research Labs Pvt Ltd',
         documents: [
             {
                 name: 'Appointment of Recruitment Consultant Agency Tender Document',
