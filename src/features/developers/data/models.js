@@ -25,6 +25,10 @@ const PRIMARY = {
 /** Every model in the family is released under the same licence. */
 export const LICENSE = 'Indic Open Model License v1.0';
 
+// The published weights. Indic-Transcribe has one repo per checkpoint, so its
+// entry lives on the variant rather than on the model.
+const HF = 'https://huggingface.co/bodhan-ai';
+
 // The two checkpoints Indic-Transcribe ships in, and the one it does not ship
 // yet. They diverge only in post-training, which is why the parameter count and
 // the language coverage are the same for both and only the output modes differ.
@@ -36,6 +40,7 @@ const TRANSCRIBE_VARIANTS = [
     {
         id: 'flex',
         label: 'Flex',
+        hf: `${HF}/indic-transcribe-flex`,
         summary:
             'All three output modes — native script, mixed script, and fully romanized — for about 1.6 OIWER on native-script accuracy.',
         specs: [
@@ -47,6 +52,7 @@ const TRANSCRIBE_VARIANTS = [
     {
         id: 'core',
         label: 'Core',
+        hf: `${HF}/indic-transcribe-core`,
         summary:
             "Transcribes into each language's own script, and it is the more accurate of the two. It will also identify the language for you when you do not pass one.",
         specs: [
@@ -74,6 +80,8 @@ export const models = [
             { label: 'Output modes', value: '3' },
         ],
         variants: TRANSCRIBE_VARIANTS,
+        // the checkpoints carry their own repos; the model page links both
+        hf: TRANSCRIBE_VARIANTS[0].hf,
         blog: { label: 'Read the blog', href: BLOGS.transcribe },
         href: '/developers/indic-transcribe',
     },
@@ -92,6 +100,7 @@ export const models = [
             { label: 'Voices', value: 'Multiple / language' },
             { label: 'Response time', value: '~200 ms' },
         ],
+        hf: `${HF}/indic-speak-preview-v2`,
         blog: { label: 'Read the blog', href: BLOGS.speak },
         href: '/developers/indic-speak',
     },
@@ -110,6 +119,7 @@ export const models = [
             { label: 'Layout labels', value: '37' },
             { label: 'Parameters', value: '33M + 0.8B' },
         ],
+        hf: `${HF}/indic-ocr`,
         blog: { label: 'Read the blog', href: BLOGS.ocr },
         href: '/developers/indic-ocr',
     },
@@ -128,6 +138,7 @@ export const models = [
             { label: 'Parameters', value: '7.94B' },
             { label: 'Context', value: '32K tokens' },
         ],
+        hf: `${HF}/indic-translate`,
         blog: { label: 'Read the blog', href: BLOGS.translate },
         href: '/developers/indic-translate',
     },

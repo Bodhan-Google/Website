@@ -1,10 +1,18 @@
 import { Fragment, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { ArrowUpRight, Check, Copy, Pause, Play } from 'lucide-react';
 import { AUDIO_EXAMPLES, MODE_LABELS } from '../../data/transcribeExamples';
+import { getModelById } from '../../data/models';
 import { assetUrl } from '../../data/assetUrl';
 import { CONSOLE_URL } from '../../../../config/links';
 import { EASE, canAnimate, ensureRevealed, gsap, useGsapAnimation } from '../../devMotion';
 import useAudioAnalyser from './indic-transcribe/useAudioAnalyser';
+
+// Which checkpoint the demo is running. The three output modes below are a
+// Flex capability — Core writes native script only — so the card says so rather
+// than leaving you to guess which of the two you are listening to. Read off the
+// model data so it cannot drift from the checkpoint list on the page above.
+const CHECKPOINT =
+    getModelById('indic-transcribe')?.variants?.find((v) => v.id === 'flex')?.label ?? 'Flex';
 
 const BAR_COUNT = 64;
 
@@ -615,6 +623,10 @@ const TranscribeExamples = () => {
                                 <p className="tx-note">{example.note}</p>
                             </div>
                             <div className="tx-head-meta">
+                                <span className="tx-detected">
+                                    <span className="tx-detected-label">Checkpoint</span>
+                                    <b>{CHECKPOINT}</b>
+                                </span>
                                 <span className="tx-detected">
                                     <span className="tx-detected-label">Detected</span>
                                     <b>{example.label}</b>

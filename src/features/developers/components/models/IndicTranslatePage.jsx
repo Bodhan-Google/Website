@@ -94,7 +94,7 @@ const IndicTranslatePage = () => (
                 accent={model.accent}
                 viz={model.viz}
                 stats={STATS}
-                primaryCta={{ label: 'Hugging Face', href: '#' }}
+                primaryCta={{ label: 'Hugging Face', href: model.hf }}
                 blogCta={model.blog}
                 secondaryCta={{ label: 'Contact', href: '/contact' }}
                 license={LICENSE}

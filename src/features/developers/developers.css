@@ -353,20 +353,26 @@ main.models-page-main {
   z-index: 1;
 }
 
-/* one row of checkpoints, for a model that ships in more than one */
+/* The checkpoints for a model that ships in more than one. They ride on the
+   heading row, tucked against the arrow, rather than taking a row of their own:
+   on their own row they added height to this card alone, which pushed its
+   summary and its numbers a line lower than the card beside it. `flex: none`
+   and `nowrap` keep them on one line next to the name. */
 .dev-card-tabs {
   position: relative;
   z-index: 2;
   display: flex;
-  flex-wrap: wrap;
+  flex: none;
+  flex-wrap: nowrap;
   gap: 0.28rem;
-  margin: -0.1rem 0 0.55rem;
+  margin-left: auto;
 }
 
 .dev-card-tab {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
+  flex: none;
   padding: 0.22rem 0.6rem;
   border-radius: 999px;
   border: 1px solid var(--primary-100);
@@ -467,7 +473,7 @@ main.models-page-main {
 
 .dev-card-heading {
   min-width: 0;
-  flex: 1;
+  flex: 1 1 auto;
 }
 
 .dev-card-name {
@@ -788,6 +794,26 @@ main.models-page-main {
   font-weight: 650;
   color: color-mix(in srgb, var(--model-accent) 85%, black);
   transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+/* A checkpoint chip that is a link out to its own Hugging Face repo. It needs
+   its own display: as an <a> it was laying out as a block, which dropped the
+   arrow onto a second line and made the chip 43px tall. */
+.model-variant.is-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.model-variant.is-link svg {
+  flex: none;
+  opacity: 0.75;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.model-variant.is-link:hover svg {
+  opacity: 1;
+  transform: translate(1px, -1px);
 }
 
 .model-variant:not(.is-soon):hover {

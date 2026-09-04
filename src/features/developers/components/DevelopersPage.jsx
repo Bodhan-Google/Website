@@ -48,6 +48,11 @@ const ModelCard = ({ model }) => {
             </span>
 
             <div className="dev-card-body">
+                {/* The checkpoints sit on the heading row rather than on a row of
+                    their own. On their own row they added height to this card
+                    alone, which pushed its summary and its numbers a line lower
+                    than the card beside it; here every card's body starts at the
+                    same place whether or not the model ships in two checkpoints. */}
                 <div className="dev-card-top">
                     <span className="dev-card-icon">
                         <ModelIcon name={model.icon} size={17} />
@@ -56,32 +61,33 @@ const ModelCard = ({ model }) => {
                         <span className="dev-card-name">{model.name}</span>
                         <span className="dev-card-codename">{model.codename}</span>
                     </Link>
+
+                    {variants.length > 0 && (
+                        <div className="dev-card-tabs" role="tablist" aria-label={`${model.name} checkpoints`}>
+                            {variants.map((v) =>
+                                v.soon ? (
+                                    <span key={v.id} className="dev-card-tab is-soon" title={v.summary}>
+                                        {v.label}
+                                        <em>Soon</em>
+                                    </span>
+                                ) : (
+                                    <button
+                                        key={v.id}
+                                        type="button"
+                                        role="tab"
+                                        aria-selected={variant?.id === v.id}
+                                        className={`dev-card-tab${variant?.id === v.id ? ' is-active' : ''}`}
+                                        onClick={() => setVariantId(v.id)}
+                                    >
+                                        {v.label}
+                                    </button>
+                                ),
+                            )}
+                        </div>
+                    )}
+
                     <ArrowUpRight size={17} className="dev-card-arrow" aria-hidden="true" />
                 </div>
-
-                {variants.length > 0 && (
-                    <div className="dev-card-tabs" role="tablist" aria-label={`${model.name} checkpoints`}>
-                        {variants.map((v) =>
-                            v.soon ? (
-                                <span key={v.id} className="dev-card-tab is-soon" title={v.summary}>
-                                    {v.label}
-                                    <em>Soon</em>
-                                </span>
-                            ) : (
-                                <button
-                                    key={v.id}
-                                    type="button"
-                                    role="tab"
-                                    aria-selected={variant?.id === v.id}
-                                    className={`dev-card-tab${variant?.id === v.id ? ' is-active' : ''}`}
-                                    onClick={() => setVariantId(v.id)}
-                                >
-                                    {v.label}
-                                </button>
-                            ),
-                        )}
-                    </div>
-                )}
 
                 <p className="dev-card-summary">{summary}</p>
 
