@@ -72,14 +72,14 @@ const HeroSection = () => {
           transition={{ duration: 0.9, ease, delay: 0.5 }}
           className="text-5xl md:text-7xl lg:text-[6rem] leading-tight text-[#0a0a0a] tracking-tight mb-2 font-poppins"
         >
-          <span className="font-normal">Bodhan</span><span className="text-[#ff6207]">.</span><span className="text-[#ff6207] font-extralight">AI</span>
+          <span className="font-normal">Bodhan</span><span className="text-[var(--text-orange-500)]">.</span><span className="text-[var(--text-orange-500)] font-extralight">AI</span>
         </Motion.h1>
 
         <Motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease, delay: 0.8 }}
-          className="text-[#525252] text-xs md:text-sm lg:text-base tracking-[0.15em] uppercase font-medium mb-10 text-center"
+          className="text-[#44403C] text-sm md:text-sm lg:text-base tracking-[0.15em] uppercase font-medium mb-10 text-center"
         >
           Centre of Excellence in AI for Education
         </Motion.p>
@@ -88,7 +88,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease, delay: 1.0 }}
-          className="bg-[#0a0a0a] text-white text-sm md:text-base font-medium py-3 px-7 rounded-[10px] hover:bg-black transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-px cursor-pointer"
+          className="bg-[#0a0a0a] text-white text-sm md:text-base font-medium py-3 px-7 min-h-11 rounded-[10px] hover:bg-black transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-px cursor-pointer"
           onClick={() => document.getElementById('narrative')?.scrollIntoView({ behavior: 'smooth' })}
         >
           Explore with Us

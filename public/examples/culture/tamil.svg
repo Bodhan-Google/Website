@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500" role="img" aria-label="A stepped temple gopuram with palmyra palms and a kolam drawn on the ground">
+  <title>Tamil — gopuram and kolam</title>
+
+  <defs>
+    <linearGradient id="tam-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FDF4EC"/>
+      <stop offset="100%" stop-color="#F7E4DC"/>
+    </linearGradient>
+    <radialGradient id="tam-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#D9A48F" stop-opacity="0.38"/>
+      <stop offset="100%" stop-color="#D9A48F" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tam-tower" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E6CBBE"/>
+      <stop offset="100%" stop-color="#D9B7A8"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="500" fill="url(#tam-bg)"/>
+  <circle cx="820" cy="240" r="280" fill="url(#tam-glow)"/>
+
+  <!-- gopuram: stepped tiers, right of centre -->
+  <g fill="url(#tam-tower)">
+    <rect x="736" y="352" width="288" height="110" rx="4"/>
+    <rect x="754" y="300" width="252" height="56" rx="4"/>
+    <rect x="772" y="254" width="216" height="50" rx="4"/>
+    <rect x="792" y="212" width="176" height="46" rx="4"/>
+    <rect x="812" y="176" width="136" height="40" rx="4"/>
+    <rect x="834" y="146" width="92" height="34" rx="4"/>
+  </g>
+  <!-- kalasam finials -->
+  <g fill="#CFA792">
+    <path d="M880 146 q10 -22 0 -34 q-10 12 0 34 z"/>
+    <circle cx="880" cy="104" r="7"/>
+  </g>
+  <!-- tier cornices -->
+  <g fill="#C9A392" opacity="0.85">
+    <rect x="728" y="346" width="304" height="10" rx="3"/>
+    <rect x="748" y="294" width="264" height="9" rx="3"/>
+    <rect x="766" y="248" width="228" height="8" rx="3"/>
+    <rect x="786" y="206" width="188" height="8" rx="3"/>
+    <rect x="806" y="170" width="148" height="7" rx="3"/>
+  </g>
+  <!-- niches -->
+  <g fill="#C29A88" opacity="0.6">
+    <rect x="800" y="310" width="20" height="36" rx="9"/>
+    <rect x="860" y="310" width="20" height="36" rx="9"/>
+    <rect x="920" y="310" width="20" height="36" rx="9"/>
+    <rect x="830" y="262" width="18" height="30" rx="8"/>
+    <rect x="890" y="262" width="18" height="30" rx="8"/>
+  </g>
+  <!-- doorway -->
+  <path d="M844 462 v-72 a36 36 0 0 1 72 0 v72 z" fill="#B98C79" opacity="0.55"/>
+
+  <!-- ground -->
+  <rect y="462" width="1200" height="38" fill="#E8D6C8" opacity="0.8"/>
+
+  <!-- kolam on the ground, left -->
+  <g transform="translate(300 390)" opacity="0.85">
+    <g fill="#C98F76">
+      <circle cx="-72" cy="0" r="4"/><circle cx="-36" cy="0" r="4"/><circle cx="0" cy="0" r="4"/>
+      <circle cx="36" cy="0" r="4"/><circle cx="72" cy="0" r="4"/>
+      <circle cx="-36" cy="-36" r="4"/><circle cx="0" cy="-36" r="4"/><circle cx="36" cy="-36" r="4"/>
+      <circle cx="-36" cy="36" r="4"/><circle cx="0" cy="36" r="4"/><circle cx="36" cy="36" r="4"/>
+      <circle cx="0" cy="-72" r="4"/><circle cx="0" cy="72" r="4"/>
+    </g>
+    <g fill="none" stroke="#C98F76" stroke-width="2.6" opacity="0.9">
+      <path d="M0 -54 q30 30 0 54 q-30 -24 0 -54 z"/>
+      <path d="M54 0 q-30 30 -54 0 q24 -30 54 0 z"/>
+      <path d="M0 54 q-30 -30 0 -54 q30 24 0 54 z"/>
+      <path d="M-54 0 q30 -30 54 0 q-24 30 -54 0 z"/>
+      <circle cx="0" cy="0" r="10"/>
+    </g>
+  </g>
+
+  <!-- palmyra palms, far left -->
+  <g opacity="0.75">
+    <path d="M96 462 V236" stroke="#B5A38E" stroke-width="7" stroke-linecap="round"/>
+    <g fill="none" stroke="#A8BF9C" stroke-width="5" stroke-linecap="round">
+      <path d="M96 240 q-56 -20 -76 -62"/>
+      <path d="M96 240 q56 -20 76 -62"/>
+      <path d="M96 236 q-30 -46 -22 -84"/>
+      <path d="M96 236 q30 -46 22 -84"/>
+    </g>
+    <path d="M180 462 V300" stroke="#B5A38E" stroke-width="5" stroke-linecap="round"/>
+    <g fill="none" stroke="#A8BF9C" stroke-width="4" stroke-linecap="round">
+      <path d="M180 302 q-42 -14 -56 -46"/>
+      <path d="M180 302 q42 -14 56 -46"/>
+      <path d="M180 300 q-20 -34 -14 -58"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,887 @@
+/* ===================================================================
+   Indic-Translate post styling.
+
+   Ported from the translation team's standalone blog
+   (`blog mt/mt-blog/src/styles.css`), keeping their class names so the
+   two stay easy to diff. Everything their file carries for a standalone
+   page is dropped here instead — the body reset, hero, table of
+   contents, footer, ecosystem banner and language picker are all things
+   this site already owns.
+
+   The token bridge is scoped to `.research-prose` rather than `:root`,
+   so these names cannot reach the rest of the site. `--border-strong`
+   in particular has a different value in globals.css.
+   =================================================================== */
+
+.research-prose {
+  /* ── Token bridge ──────────────────────────────────────────────────
+   * The ported markup refers to these names; each is defined in terms
+   * of the Bodhan palette, so several hundred ported declarations adopt
+   * the house colours without being touched individually.
+   * ---------------------------------------------------------------- */
+  --surface-1: var(--white);
+  --surface-2: var(--bg-cream-100);
+  --text-secondary: var(--color-10);
+  --text-muted: var(--color-11);
+  --border: rgba(92, 64, 51, 0.12);
+  --border-strong: rgba(92, 64, 51, 0.22);
+  --accent: var(--text-orange-500);
+  --accent-soft: var(--primary-100);
+  --gridline: #e4d8c8;
+  --baseline: #d2c9ba;
+
+  --font-display: 'EB Garamond', Georgia, serif;
+  --font-body: 'Manrope', 'Noto Sans Devanagari', 'Noto Sans Bengali', system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+/* ── Article rhythm ──────────────────────────────────────────────────
+   A fixed `mb-14` left a chart card touching the next heading. Sections
+   breathe on their own scale instead, and any widget or figure a section
+   carries gets its own gutter rather than borrowing the paragraph's.
+   ------------------------------------------------------------------ */
+
+.research-article-section {
+  margin-bottom: 4.5rem;
+  padding-bottom: 0.25rem;
+}
+
+/* Each section is the only child of its own reveal wrapper, so `:last-child` on
+   the section itself would match every one of them. The last wrapper in the prose
+   is the one that should not carry a trailing gap. */
+.research-prose > .research-gsap-reveal:last-child .research-article-section {
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .research-article-section {
+    margin-bottom: 5.5rem;
+  }
+}
+
+/* ── Section chrome ── */
+.section-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-right: 0.55rem;
+}
+
+.cap-subnote {
+  margin-top: 18px;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--color-11);
+}
+
+.cap-subnote strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.research-inline-code {
+  padding: 0.1em 0.38em;
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  background: var(--surface-2);
+  font-family: var(--font-mono);
+  font-size: 0.87em;
+  color: var(--text-orange-400);
+}
+
+.research-prose-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+
+.research-prose-link:hover {
+  color: var(--text-hover);
+}
+
+/* ── Temporary copy marker ───────────────────────────────────────────
+   The opening is the only prose on the page not carried over from the
+   previous version. Marked so it is obvious it still needs a pass.
+   ------------------------------------------------------------------ */
+.temp-copy {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px dashed rgba(180, 83, 9, 0.5);
+  background: rgba(255, 234, 210, 0.55);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.temp-badge {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fff;
+  background: var(--text-orange-400);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+/* ── Linguistic coverage: the language constellation ─────────────────
+ * .research-featured-gradient / .research-language-constellation /
+ * .research-indic-orbit come from globals.css. The site positions nine
+ * glyphs with hand-written -1..-9 rules; these 22 are placed from
+ * computed percentages instead, so only the sizing and the selection
+ * states are needed here.
+ * ------------------------------------------------------------------ */
+.constellation-wrap {
+  margin-top: 20px;
+}
+
+.constellation-field {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  min-height: 340px;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 234, 210, 0.95);
+  overflow: hidden;
+}
+
+.constellation-orbit {
+  pointer-events: auto;
+}
+
+.constellation-glyph {
+  /* A named pill, not a bare glyph bubble: 22 unfamiliar scripts with no labels
+     is a guessing game. The pill is absolutely positioned and centred on its
+     computed coordinate. */
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 4px;
+  border: 1px solid rgba(49, 70, 133, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 4px 14px rgba(49, 70, 133, 0.08);
+  backdrop-filter: blur(5px);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.constellation-glyph:hover {
+  transform: translate(-50%, -50%) scale(1.06);
+  z-index: 3;
+}
+
+.constellation-glyph-mark {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  border-radius: 50%;
+  background: var(--bg-cream-100);
+  /* No font-family here: the mark carries its language's `lang`, and the
+     [lang="..."] script rules are what give it a face with the right glyphs. */
+  font-size: 0.8rem;
+  line-height: 1;
+  color: var(--brand-blue);
+}
+
+.constellation-glyph[data-len='2'] .constellation-glyph-mark {
+  font-size: 0.7rem;
+}
+
+.constellation-glyph[data-len='3'] .constellation-glyph-mark {
+  font-size: 0.58rem;
+}
+
+.constellation-glyph-name {
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.constellation-glyph.is-highlight {
+  border-color: var(--accent);
+  z-index: 2;
+}
+
+.constellation-glyph.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 6px 18px rgba(194, 65, 12, 0.3);
+  z-index: 4;
+}
+
+.constellation-glyph.is-active .constellation-glyph-name {
+  color: #fff;
+}
+
+.constellation-glyph.is-active .constellation-glyph-mark {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--accent);
+}
+
+.constellation-glyph:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.constellation-centre {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  margin: 0;
+  pointer-events: none;
+}
+
+.constellation-count {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 6vw, 3.25rem);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+.constellation-count-label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-11);
+}
+
+.constellation-detail {
+  margin-top: 14px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+
+.constellation-detail:focus {
+  outline: none;
+}
+
+.constellation-detail-kicker {
+  margin: 0 0 4px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.constellation-detail-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.constellation-detail-script {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 3px 9px;
+}
+
+/* A ring of 22 named pills cannot fit a phone, so below this width the
+   constellation becomes a wrapped cloud of the same pills. Same markup, same
+   behaviour, no ellipse — the computed left/top simply stop applying once the
+   pill is static. */
+@media (max-width: 760px) {
+  .constellation-field {
+    aspect-ratio: auto;
+    min-height: 0;
+    display: grid;
+    gap: 14px;
+    justify-items: center;
+    padding: 18px 14px 20px;
+  }
+
+  .constellation-orbit {
+    position: static;
+    inset: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .constellation-glyph {
+    position: static;
+    transform: none;
+  }
+
+  .constellation-glyph:hover {
+    transform: none;
+  }
+
+  .constellation-centre {
+    position: static;
+    transform: none;
+    order: -1;
+  }
+
+  .constellation-count {
+    font-size: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .constellation-glyph:hover {
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* ── Example lines, shared by the coverage panel ── */
+.ex-line {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.ex-line + .ex-line {
+  margin-top: 7px;
+}
+
+.ex-line-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border-radius: 4px;
+  padding: 2px 6px;
+  flex: none;
+  margin-top: 2px;
+}
+
+.ex-line p {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.ex-line.ex-out .ex-line-tag {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.ex-line.ex-out p {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.ex-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 12px;
+}
+
+/* ── Key capabilities: cards that drive the demo under them ──────────
+   The cards are the site's own feature cards, made interactive: picking
+   one selects that capability in the embedded demo.
+   ------------------------------------------------------------------ */
+
+/* The grid is two columns from 640px, so an odd number of cards leaves the last
+   one alone on its row, stranded against the left edge. Span both columns and
+   take one column's width, centred. Targets the grid's direct children because
+   each card is wrapped in a reveal element. */
+@media (min-width: 640px) {
+  .research-feature-grid > *:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    /* One column: half the row, minus half the 1rem gap. */
+    width: calc(50% - 0.5rem);
+    margin-inline: auto;
+  }
+
+  /* Grid rows size independently by default, so cards on different rows ended up
+     different heights. `grid-auto-rows: 1fr` ties every row to the tallest, and
+     the card then fills its row so the set reads as one. Only from 640px:
+     stacked on a phone this would just add dead space. */
+  .research-feature-grid {
+    grid-auto-rows: 1fr;
+  }
+
+  .research-feature-grid > * {
+    height: 100%;
+  }
+}
+
+.research-feature-card.cap-card {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.research-feature-card.cap-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px rgba(46, 50, 56, 0.08);
+  transform: translateY(-2px);
+}
+
+.research-feature-card.cap-card.is-active {
+  border-color: var(--accent);
+  box-shadow: 0 8px 26px rgba(194, 65, 12, 0.16);
+}
+
+.cap-card-cue {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.research-feature-card.cap-card:hover .cap-card-cue,
+.research-feature-card.cap-card.is-active .cap-card-cue {
+  opacity: 1;
+}
+
+/* ── Embedding the model page's demo surfaces ────────────────────────
+   Both are written for a standalone page: a full-height ground, 88px
+   section padding, a centred hero header, and a 1220px container. In an
+   article column they need none of that.
+   ------------------------------------------------------------------ */
+
+.itr-page.itb-embed {
+  min-height: 0;
+  margin-top: 1.5rem;
+  background: transparent;
+  overflow-x: visible;
+}
+
+.itr-page.itb-embed .itr-section {
+  padding: 0;
+}
+
+.itr-page.itb-embed .itr-container {
+  width: 100%;
+}
+
+/* The article's own heading already introduces the surface; the demo's centred
+   hero header underneath it would say the same thing twice. */
+.itr-page.itb-embed .itr-head {
+  display: none;
+}
+
+/* The demo's segmented controls are sized for a full-width page; in a narrow
+   column they scroll inside their own row rather than widening the article. */
+.itr-page.itb-embed .itr-seg,
+.itr-page.itb-embed .itr-mode-tabs {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+/* Charts and document pairs want more room than 56rem of prose. Widen the
+   specimen sheet out of the column on screens that have the width. */
+@media (min-width: 1120px) {
+  .itr-page.itb-embed-wide {
+    width: calc(100% + 8rem);
+    margin-left: -4rem;
+  }
+}
+
+/* ── Results tiles ── */
+.tile-toggle {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  background: var(--surface-2);
+  border-radius: 14px;
+  padding: 6px;
+  margin-bottom: 24px;
+}
+
+/* Positioned by GSAP from the active tab's box, so it slides between tabs
+   instead of blinking. Hidden until first measured. */
+.tile-pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+  background: var(--surface-1);
+  box-shadow: 0 2px 8px rgba(92, 64, 51, 0.12);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.tile-btn {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 12px 8px;
+  font-family: var(--font-body);
+  color: var(--text-secondary);
+  transition: color 0.15s ease;
+}
+
+.tile-btn-title {
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.tile-btn-sub {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.tile-btn.is-active .tile-btn-title {
+  color: var(--accent);
+}
+
+.tile-btn:hover:not(.is-active) {
+  color: var(--text-primary);
+}
+
+@media (max-width: 720px) {
+  .tile-toggle {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.tile-intro {
+  margin-bottom: 18px;
+}
+
+.tile-intro h3 {
+  font-size: 1.15rem;
+  font-family: var(--font-display);
+  margin-bottom: 8px;
+}
+
+.tile-intro p + p {
+  margin-top: 10px;
+}
+
+/* Collapsible secondary charts. The wrapper is deliberately not a card: the
+   chart inside brings its own, and nesting the two doubles every border and
+   inset. */
+.chart-collapse {
+  margin-top: 16px;
+}
+
+.chart-collapse > summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-cream-100);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--text-primary);
+}
+
+.chart-collapse > summary:hover {
+  border-color: var(--accent);
+}
+
+.chart-collapse > summary::-webkit-details-marker {
+  display: none;
+}
+
+.chart-collapse > summary::after {
+  content: '▸';
+  margin-left: auto;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  transition: transform 0.15s ease;
+}
+
+.chart-collapse[open] > summary::after {
+  transform: rotate(90deg);
+}
+
+.chart-collapse[open] > summary {
+  margin-bottom: 4px;
+}
+
+.chart-note {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.chart-note .dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: var(--text-orange-400);
+}
+
+.prev-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.human-eval {
+  margin-top: 28px;
+}
+
+.human-eval-heading {
+  margin-bottom: 10px;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.ex-view-toggle {
+  display: inline-flex;
+  gap: 2px;
+  background: var(--surface-2);
+  border-radius: 999px;
+  padding: 2px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.ex-view-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  padding: 4px 11px;
+  border-radius: 999px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ex-view-btn.is-active {
+  background: var(--surface-1);
+  color: var(--accent);
+  box-shadow: 0 1px 3px rgba(92, 64, 51, 0.14);
+}
+
+.ex-view-btn:hover:not(.is-active) {
+  color: var(--text-secondary);
+}
+
+/* Each chart card gets its own gutter so a run of four does not read as one
+   striped block. */
+.tile-panel .chart-card {
+  margin-top: 1.35rem;
+  margin-bottom: 1.35rem;
+}
+
+/* ── Cite this work ── */
+.cite-block {
+  margin-top: 8px;
+  padding: 20px 22px 22px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+.cite-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.cite-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.cite-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--border);
+  background: var(--white);
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+
+.cite-copy:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.cite-bibtex {
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--white);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* ── Script fonts ────────────────────────────────────────────────────
+ * Native-script text needs its script's own bundled face: system-font
+ * fallback silently renders tofu for scripts the viewer's OS does not
+ * ship.
+ *
+ * Attribute selectors rather than `p[lang=...]`, so a lang set on a
+ * container reaches everything inside it. That matters for the rendered
+ * document examples, whose translated text lands in headings, list items
+ * and table cells, not only in paragraphs.
+ * ------------------------------------------------------------------ */
+[lang='hi'],
+[lang='mr'],
+[lang='ne'],
+[lang='sa'],
+[lang='sd'],
+[lang='mai'],
+[lang='doi'],
+[lang='brx'],
+[lang='kok'] {
+  font-family: 'Noto Sans Devanagari', var(--font-body);
+}
+
+[lang='bn'],
+[lang='as'] {
+  font-family: 'Noto Sans Bengali', var(--font-body);
+}
+
+[lang='ta'] {
+  font-family: 'Noto Sans Tamil', var(--font-body);
+}
+
+[lang='gu'] {
+  font-family: 'Noto Sans Gujarati', var(--font-body);
+}
+
+[lang='kn'] {
+  font-family: 'Noto Sans Kannada', var(--font-body);
+}
+
+[lang='ks'],
+[lang='ur'] {
+  font-family: 'Noto Nastaliq Urdu', 'Noto Sans Arabic', var(--font-body);
+}
+
+[lang='mni'] {
+  font-family: 'Noto Sans Meetei Mayek', var(--font-body);
+}
+
+[lang='ml'] {
+  font-family: 'Noto Sans Malayalam', var(--font-body);
+}
+
+[lang='or'] {
+  font-family: 'Noto Sans Oriya', var(--font-body);
+}
+
+[lang='pa'] {
+  font-family: 'Noto Sans Gurmukhi', var(--font-body);
+}
+
+[lang='sat'] {
+  font-family: 'Noto Sans Ol Chiki', var(--font-body);
+}
+
+[lang='te'] {
+  font-family: 'Noto Sans Telugu', var(--font-body);
+}
+
+/* Code and monospace keep their own face regardless of the surrounding lang. */
+[lang] code,
+[lang] pre,
+[lang] .ex-line-tag,
+[lang].mono {
+  font-family: var(--font-mono);
+}

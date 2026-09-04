@@ -61,6 +61,18 @@ npm run build
 
 The built files will be in the `dist` directory.
 
+### Live preview (GitHub Pages)
+
+Pushes to `main` run [.github/workflows/deploy.yml](.github/workflows/deploy.yml) and publish the site.
+
+- **URL:** https://bodhan-google.github.io/Website/
+- **Research:** https://bodhan-google.github.io/Website/#/research
+- **Research problems:** https://bodhan-google.github.io/Website/#/research/problems
+
+In the repo: **Settings → Pages → Build and deployment → Source: GitHub Actions** (first-time setup).
+
+Local dev uses `/` as the asset base; CI sets `VITE_BASE_PATH=/<repo-name>/` automatically.
+
 ### Linting
 
 To run the linter:

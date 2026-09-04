@@ -1,6 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FacebookIcon, LinkedinIcon, InstagramIcon } from 'lucide-react';
+import Icon from '../../../assets/Icon.png';
+
+const footerLinks = [
+    { label: 'Contact', to: '/contact' },
+    { label: 'Tenders', to: '/tenders' },
+    { label: 'Partners', to: '/partners' },
+    { label: 'Terms and Conditions', to: '/terms' },
+    { label: 'Privacy Policy', to: '/privacy' },
+];
 
 const XIcon = ({ size = 20 }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -28,14 +37,12 @@ const Footer = () => {
             <div className="max-w-7xl mx-auto">
                 {/* Top Section: Logo and Social Icons */}
                 <div className="flex flex-col md:flex-row justify-between items-center mb-2">
-                    {/* Left: Logo + identity line */}
-                    <div className="mb-2 md:mb-0 text-center md:text-left">
-                        <div className="text-2xl font-400 text-gray-900">
+                    {/* Left: Logo */}
+                    <div className="flex items-center gap-2.5 mb-2 md:mb-0">
+                        <img src={Icon} alt="" aria-hidden="true" className="h-10 w-auto object-contain" />
+                        <span className="text-2xl font-400 text-gray-900">
                             Bodhan<span className="text-[var(--text-orange-500)]">.AI</span>
-                        </div>
-                        <p className="text-sm text-gray-500 mt-0.5">
-                            Centre of Excellence for AI in Education
-                        </p>
+                        </span>
                     </div>
 
                     {/* Right: Social Icons */}
@@ -47,7 +54,7 @@ const Footer = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label={label}
-                                className={`text-gray-400 ${hoverColor} transition-colors duration-200 p-2 bg-white rounded-full shadow-sm hover:shadow-md group`}
+                                className={`text-stone-600 ${hoverColor} transition-colors duration-200 p-2.5 min-w-11 min-h-11 inline-flex items-center justify-center bg-white rounded-full shadow-sm hover:shadow-md group`}
                             >
                                 {isCustom ? (
                                     <Icon size={20} />
@@ -62,17 +69,16 @@ const Footer = () => {
                 {/* Separator Line */}
                 <div className="w-full h-px bg-gray-300 mb-4"></div>
 
-                {/* Bottom: Copyright + Legal Links */}
-                <div className="flex flex-col md:flex-row justify-center md:justify-between items-center gap-2 text-sm text-gray-500">
-                    <div>Copyright © 2026 bodhan.ai</div>
-                    <div className="flex items-center gap-4">
-                        <Link to="/terms-and-conditions" className="hover:text-[var(--text-orange-500)] transition-colors" onClick={() => window.scrollTo(0, 0)}>
-                            Terms and Conditions
-                        </Link>
-                        <Link to="/privacy-policy" className="hover:text-[var(--text-orange-500)] transition-colors" onClick={() => window.scrollTo(0, 0)}>
-                            Privacy Policy
-                        </Link>
-                    </div>
+                {/* Bottom: Copyright + relocated nav links */}
+                <div className="flex flex-col md:flex-row justify-between items-center gap-2 text-sm text-stone-600">
+                    <span>Copyright © 2026 bodhan.ai</span>
+                    <nav className="flex flex-wrap justify-center gap-x-5 gap-y-1">
+                        {footerLinks.map(({ label, to }) => (
+                            <Link key={label} to={to} className="hover:text-[var(--text-orange-500)] transition-colors">
+                                {label}
+                            </Link>
+                        ))}
+                    </nav>
                 </div>
             </div>
         </footer>

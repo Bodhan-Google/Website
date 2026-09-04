@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import Navbar from '../../home/components/Navbar';
 import Footer from '../../home/components/Footer';
-import { tenders, isTenderClosed } from '../data/tenders';
+import { tenders } from '../data/tenders';
 
 const SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL;
 const MAX_MB = 10;
@@ -66,17 +66,17 @@ const UploadZone = ({ accentColor, file, onFile, onClear, disabled, error }) => 
                 <div className="flex items-center gap-3 px-5 py-4">
                     <span className={`flex flex-col items-center justify-center w-10 h-10 rounded-xl flex-shrink-0 gap-0.5 ${accentColor === 'blue' ? 'bg-blue-50 border border-blue-100' : 'bg-orange-50 border border-orange-100'}`}>
                         <FileText size={13} className={accentColor === 'blue' ? 'text-blue-500' : 'text-[var(--text-orange-500)]'} />
-                        <span className={`text-[7px] font-bold uppercase leading-none ${accentColor === 'blue' ? 'text-blue-500' : 'text-[var(--text-orange-500)]'}`}>{ALLOWED_TYPES[file.type] ?? 'FILE'}</span>
+                        <span className={`text-[11px] font-bold uppercase leading-none ${accentColor === 'blue' ? 'text-blue-700' : 'text-[var(--text-orange-500)]'}`}>{ALLOWED_TYPES[file.type] ?? 'FILE'}</span>
                     </span>
                     <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-[#1A1A1A] truncate">{file.name}</p>
-                        <p className="text-xs text-gray-400 mt-0.5">{fmtSize(file.size)}</p>
+                        <p className="text-xs text-stone-600 mt-0.5">{fmtSize(file.size)}</p>
                     </div>
                     {!disabled && (
                         <button
                             type="button"
                             onClick={onClear}
-                            className="p-1.5 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors flex-shrink-0"
+                            className="p-1.5 rounded-lg text-stone-600 hover:text-gray-700 hover:bg-gray-100 transition-colors flex-shrink-0 min-w-11 min-h-11 inline-flex items-center justify-center"
                         >
                             <X size={15} />
                         </button>
@@ -95,13 +95,13 @@ const UploadZone = ({ accentColor, file, onFile, onClear, disabled, error }) => 
                     className="flex flex-col items-center justify-center gap-2 px-6 py-8 cursor-pointer select-none"
                 >
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${dragging ? 'bg-orange-100' : 'bg-gray-100'}`}>
-                        <Upload size={18} className={dragging ? 'text-[var(--text-orange-500)]' : 'text-gray-400'} />
+                        <Upload size={18} className={dragging ? 'text-[var(--text-orange-500)]' : 'text-stone-600'} />
                     </div>
                     <div className="text-center">
                         <p className="text-sm font-medium text-gray-700">
                             <span className="text-[var(--text-orange-500)]">Click to upload</span> or drag & drop
                         </p>
-                        <p className="text-xs text-gray-400 mt-0.5">PDF · Max {MAX_MB} MB</p>
+                        <p className="text-xs text-stone-600 mt-0.5">PDF · Max {MAX_MB} MB</p>
                     </div>
                     <input
                         ref={inputRef}
@@ -164,7 +164,7 @@ const TenderApplyPage = () => {
     const [fieldErrors, setFieldErrors] = useState({});
 
     if (!tender) return <Navigate to="/tenders" replace />;
-    if (isTenderClosed(tender)) return <Navigate to="/tenders" replace />;
+    if (tender.status === 'closed') return <Navigate to="/tenders" replace />;
 
     const isUploading = status === 'uploading';
 
@@ -217,7 +217,7 @@ const TenderApplyPage = () => {
     const field = (id, label, type = 'text', placeholder = '') => (
         <div>
             <label htmlFor={id} className="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">
-                {label} <span className="text-red-400">*</span>
+                {label} <span className="text-red-700">*</span>
             </label>
             <input
                 id={id}
@@ -227,10 +227,10 @@ const TenderApplyPage = () => {
                 onChange={(e) => setForm((f) => ({ ...f, [id]: e.target.value }))}
                 disabled={isUploading}
                 className={`w-full text-sm px-4 py-2.5 rounded-[10px] border bg-white outline-none transition-colors
-                    ${fieldErrors[id] ? 'border-red-300 focus:border-red-400' : 'border-gray-200 focus:border-[var(--text-orange-500)]'}
+                    ${fieldErrors[id] ? 'border-red-700 focus:border-red-700' : 'border-stone-500 focus:border-[var(--text-orange-500)]'}
                     disabled:opacity-50 disabled:cursor-not-allowed`}
             />
-            {fieldErrors[id] && <p className="text-xs text-red-500 mt-1">{fieldErrors[id]}</p>}
+            {fieldErrors[id] && <p className="text-xs text-red-700 mt-1">{fieldErrors[id]}</p>}
         </div>
     );
 
@@ -254,7 +254,7 @@ const TenderApplyPage = () => {
                     {/* Page header */}
                     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.05 }} className="mb-6">
                         <div className="flex flex-wrap items-center gap-2 mb-2">
-                            <span className="text-xs font-mono text-gray-400">{tender.id}</span>
+                            <span className="text-xs font-mono text-stone-600">{tender.id}</span>
                             <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-full px-2 py-0.5">
                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> Active
                             </span>
@@ -292,7 +292,7 @@ const TenderApplyPage = () => {
                                 {field('email', 'Email Address', 'email', 'contact@example.com')}
                                 <div>
                                     <label htmlFor="phone" className="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">
-                                        Phone <span className="text-gray-400 font-normal normal-case">(optional)</span>
+                                        Phone <span className="text-stone-600 font-normal normal-case">(optional)</span>
                                     </label>
                                     <input
                                         id="phone"
@@ -301,7 +301,7 @@ const TenderApplyPage = () => {
                                         value={form.phone}
                                         onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value.replace(/[^\d+\s()-]/g, '') }))}
                                         disabled={isUploading}
-                                        className="w-full text-sm px-4 py-2.5 rounded-[10px] border border-gray-200 focus:border-[var(--text-orange-500)] bg-white outline-none transition-colors disabled:opacity-50"
+                                        className="w-full text-sm px-4 py-2.5 rounded-[10px] border border-stone-500 focus:border-[var(--text-orange-500)] bg-white outline-none transition-colors disabled:opacity-50"
                                     />
                                 </div>
                             </div>
@@ -315,7 +315,7 @@ const TenderApplyPage = () => {
                                 <div>
                                     <div className="flex items-center gap-2 mb-2">
                                         <span className="text-xs font-semibold text-blue-600 uppercase tracking-wide">Technical Bid</span>
-                                        <span className="text-red-400 text-xs">*</span>
+                                        <span className="text-red-700 text-xs">*</span>
                                     </div>
                                     <UploadZone
                                         label="Technical Bid"
@@ -326,7 +326,7 @@ const TenderApplyPage = () => {
                                         disabled={isUploading}
                                         error={fieldErrors.techFile}
                                     />
-                                    {fieldErrors.techFile && <p className="text-xs text-red-500 mt-1">Technical Bid is required</p>}
+                                    {fieldErrors.techFile && <p className="text-xs text-red-700 mt-1">Technical Bid is required</p>}
                                 </div>
 
                                 <div className="border-t border-gray-100" />
@@ -335,7 +335,7 @@ const TenderApplyPage = () => {
                                 <div>
                                     <div className="flex items-center gap-2 mb-2">
                                         <span className="text-xs font-semibold text-[var(--text-orange-500)] uppercase tracking-wide">Commercial Bid</span>
-                                        <span className="text-red-400 text-xs">*</span>
+                                        <span className="text-red-700 text-xs">*</span>
                                     </div>
                                     <UploadZone
                                         label="Commercial Bid"
@@ -346,7 +346,7 @@ const TenderApplyPage = () => {
                                         disabled={isUploading}
                                         error={fieldErrors.commFile}
                                     />
-                                    {fieldErrors.commFile && <p className="text-xs text-red-500 mt-1">Commercial Bid is required</p>}
+                                    {fieldErrors.commFile && <p className="text-xs text-red-700 mt-1">Commercial Bid is required</p>}
                                 </div>
                             </div>
                         </motion.div>

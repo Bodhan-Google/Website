@@ -1,0 +1,589 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   Universal blog template blocks — prefix `.bt-`
+   Sits on top of the `.research-*` editorial system in globals.css and
+   borrows its tokens, so a post styled here matches the rest of Research.
+
+   Design intent: quiet Indian craft. Motifs come from CultureBackdrop at
+   6–10% opacity, accents are per-language rather than per-brand, and the
+   default state of every block is a plain cream card. Nothing shouts.
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* ── Shared atoms ─────────────────────────────────────────────────────── */
+
+.bt-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 249, 240, 0.92) 100%);
+  border: 1px solid rgba(255, 234, 210, 0.95);
+  box-shadow: 0 1px 2px rgba(46, 50, 56, 0.03);
+}
+
+.bt-eyebrow {
+  font-family: var(--font-manrope);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-11);
+}
+
+/* A kolam-style dot rule. Used instead of a hard border between blocks. */
+.bt-kolam {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin: 2rem 0;
+}
+
+.bt-kolam span {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-orange-500);
+  opacity: 0.35;
+}
+
+.bt-kolam span:nth-child(even) {
+  opacity: 0.18;
+}
+
+/* ── 1. Hero: positioning line + spec bubbles ─────────────────────────── */
+
+.bt-hero-tagline {
+  font-family: var(--font-eb-garamond);
+  font-size: clamp(1rem, 1.7vw, 1.15rem);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--text-orange-500);
+}
+
+.bt-spec-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.bt-spec {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 234, 210, 0.95);
+  backdrop-filter: blur(4px);
+  font-family: var(--font-manrope);
+  white-space: nowrap;
+}
+
+.bt-spec-label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-11);
+}
+
+.bt-spec-value {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ── Audio sample control ─────────────────────────────────────────────── */
+
+.bt-audio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.bt-audio-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--bt-accent, var(--text-orange-500)) 32%, transparent);
+  background: color-mix(in srgb, var(--bt-accent, var(--text-orange-500)) 8%, white);
+  color: var(--bt-accent, var(--text-orange-500));
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.bt-audio-btn:hover:not(:disabled) {
+  transform: scale(1.06);
+  background: color-mix(in srgb, var(--bt-accent, var(--text-orange-500)) 16%, white);
+}
+
+.bt-audio-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.bt-audio-btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Twelve bars that idle flat and animate only while audio plays. */
+.bt-wave {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 1.4rem;
+}
+
+.bt-wave i {
+  display: block;
+  width: 2px;
+  height: 20%;
+  border-radius: 1px;
+  background: var(--bt-accent, var(--text-orange-500));
+  opacity: 0.35;
+  transition: height 0.25s ease, opacity 0.25s ease;
+}
+
+.bt-audio[data-playing='true'] .bt-wave i {
+  opacity: 0.75;
+  animation: bt-wave-pulse 0.9s ease-in-out infinite;
+}
+
+.bt-audio[data-playing='true'] .bt-wave i:nth-child(3n) { animation-delay: 0.12s; }
+.bt-audio[data-playing='true'] .bt-wave i:nth-child(3n + 1) { animation-delay: 0.28s; }
+.bt-audio[data-playing='true'] .bt-wave i:nth-child(4n) { animation-delay: 0.42s; }
+
+@keyframes bt-wave-pulse {
+  0%, 100% { height: 22%; }
+  50% { height: 90%; }
+}
+
+.bt-audio-caption {
+  font-family: var(--font-manrope);
+  font-size: 0.75rem;
+  color: var(--color-11);
+}
+
+/* ── 3. Language showcase ─────────────────────────────────────────────── */
+
+.bt-lang {
+  margin: 1.5rem 0 0.5rem;
+}
+
+/* Horizontally scrollable on small screens; wraps on large. */
+.bt-lang-rail {
+  display: flex;
+  gap: 0.45rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;
+}
+
+.bt-lang-rail::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .bt-lang-rail {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+}
+
+.bt-lang-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 234, 210, 0.95);
+  background: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-manrope);
+  font-size: 0.8125rem;
+  color: var(--color-11);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.bt-lang-chip:hover {
+  color: var(--text-primary);
+  border-color: color-mix(in srgb, var(--bt-accent, var(--text-orange-500)) 40%, transparent);
+}
+
+.bt-lang-chip[aria-selected='true'] {
+  color: var(--bt-accent, var(--text-orange-500));
+  font-weight: 600;
+  border-color: color-mix(in srgb, var(--bt-accent, var(--text-orange-500)) 55%, transparent);
+  background: color-mix(in srgb, var(--bt-accent, var(--text-orange-500)) 9%, white);
+}
+
+.bt-lang-chip:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* The chip's script glyph — a single letter of the language's own script. */
+.bt-lang-chip-glyph {
+  font-size: 0.95rem;
+  line-height: 1;
+  opacity: 0.7;
+}
+
+.bt-lang-panel {
+  position: relative;
+  margin-top: 0.9rem;
+  padding: 1.15rem 1.25rem 1.25rem;
+  min-height: 11rem;
+}
+
+.bt-lang-panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+
+.bt-lang-region {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-manrope);
+  font-size: 0.9375rem;
+  font-weight: 650;
+  color: var(--text-primary);
+}
+
+.bt-lang-region small {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-11);
+}
+
+/* ── Input / output rows, shared by language + feature blocks ─────────── */
+
+.bt-io {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.bt-io-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.25rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 234, 210, 0.8);
+}
+
+@media (min-width: 640px) {
+  .bt-io-row {
+    grid-template-columns: 6.5rem 1fr;
+    align-items: baseline;
+    gap: 0.85rem;
+  }
+}
+
+.bt-io-label {
+  font-family: var(--font-manrope);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-11);
+}
+
+.bt-io-value {
+  font-family: var(--font-manrope);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--text-primary);
+}
+
+/* Native-script transcripts get a slightly larger size and looser leading,
+   since Indic scripts carry more vertical detail than Latin at the same px. */
+.bt-io-value[data-script='native'] {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.bt-io-value[data-muted='true'] {
+  color: var(--color-11);
+}
+
+/* ── 4. Key features ──────────────────────────────────────────────────── */
+
+.bt-features {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.bt-feature {
+  padding: 1.15rem 1.25rem 1.25rem;
+}
+
+.bt-feature-index {
+  font-family: var(--font-manrope);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--text-orange-500);
+  margin-bottom: 0.5rem;
+}
+
+.bt-feature-title {
+  font-family: var(--font-manrope);
+  font-size: 1.0625rem;
+  font-weight: 650;
+  line-height: 1.35;
+  letter-spacing: -0.012em;
+  color: var(--text-primary);
+}
+
+.bt-feature-desc {
+  font-family: var(--font-manrope);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--color-11);
+  margin-top: 0.4rem;
+}
+
+/* Variant switcher — accents, dialects, noise conditions, and so on. */
+.bt-variants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 1rem 0 0.85rem;
+}
+
+.bt-variant {
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: rgba(255, 244, 230, 0.8);
+  font-family: var(--font-manrope);
+  font-size: 0.75rem;
+  color: var(--color-11);
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.bt-variant:hover {
+  color: var(--text-primary);
+}
+
+.bt-variant[aria-selected='true'] {
+  color: var(--text-orange-500);
+  font-weight: 600;
+  background: white;
+  border-color: rgba(255, 107, 53, 0.35);
+}
+
+.bt-variant:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* "Why it matters" — the line that turns a claim into a reason. */
+.bt-matters {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.95rem;
+  padding-left: 0.75rem;
+  border-left: 2px solid rgba(255, 107, 53, 0.35);
+}
+
+.bt-matters-label {
+  font-family: var(--font-manrope);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-orange-500);
+  white-space: nowrap;
+  padding-top: 0.12rem;
+}
+
+.bt-matters-text {
+  font-family: var(--font-manrope);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-11);
+}
+
+/* ── 8. Deployment / ecosystem banner ─────────────────────────────────── */
+
+.bt-eco {
+  position: relative;
+  overflow: hidden;
+  margin-top: 1.25rem;
+  padding: 1.75rem 1.5rem 1.85rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 234, 210, 0.95);
+  background:
+    radial-gradient(ellipse 70% 60% at 15% 0%, rgba(255, 218, 193, 0.5) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 55% at 100% 100%, rgba(49, 70, 133, 0.06) 0%, transparent 60%),
+    linear-gradient(160deg, #fffdfa 0%, var(--bg-cream-100) 100%);
+  text-align: center;
+}
+
+/* Faint kolam grid behind the banner; decorative only. */
+.bt-eco-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  color: var(--text-orange-500);
+  pointer-events: none;
+}
+
+.bt-eco-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.bt-eco-title {
+  font-family: var(--font-eb-garamond);
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+.bt-eco-sub {
+  font-family: var(--font-manrope);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-11);
+  max-width: 34rem;
+  margin: 0.5rem auto 0;
+}
+
+.bt-eco-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1.35rem;
+}
+
+.bt-eco-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1rem 0.55rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 234, 210, 0.95);
+  text-decoration: none;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+a.bt-eco-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 107, 53, 0.4);
+  box-shadow: 0 8px 22px rgba(46, 50, 56, 0.07);
+}
+
+.bt-eco-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bt-accent, var(--text-orange-500)) 12%, white);
+  color: var(--bt-accent, var(--text-orange-500));
+  font-family: var(--font-manrope);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.bt-eco-mark img {
+  width: 1.1rem;
+  height: 1.1rem;
+  object-fit: contain;
+}
+
+.bt-eco-name {
+  font-family: var(--font-manrope);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.bt-eco-note {
+  font-family: var(--font-manrope);
+  font-size: 0.6875rem;
+  color: var(--color-11);
+}
+
+/* ── Authoring slot: reserved space a team still has to fill ──────────── */
+
+.bt-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin: 1.25rem 0;
+  padding: 1.75rem 1.25rem;
+  min-height: 8rem;
+  border-radius: 14px;
+  border: 1px dashed rgba(255, 107, 53, 0.35);
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 249, 240, 0.9) 0px,
+    rgba(255, 249, 240, 0.9) 10px,
+    rgba(255, 244, 230, 0.9) 10px,
+    rgba(255, 244, 230, 0.9) 20px
+  );
+  text-align: center;
+}
+
+.bt-slot-kind {
+  font-family: var(--font-manrope);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-orange-500);
+}
+
+.bt-slot-label {
+  font-family: var(--font-manrope);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.bt-slot-hint {
+  font-family: var(--font-manrope);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--color-11);
+  max-width: 30rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bt-audio[data-playing='true'] .bt-wave i,
+  a.bt-eco-card,
+  .bt-audio-btn {
+    animation: none;
+    transition: none;
+  }
+
+  a.bt-eco-card:hover,
+  .bt-audio-btn:hover:not(:disabled) {
+    transform: none;
+  }
+}

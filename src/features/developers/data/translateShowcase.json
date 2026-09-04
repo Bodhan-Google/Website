@@ -1,0 +1,184 @@
+{
+  "forms": [
+    {
+      "id": "sentence",
+      "form": "Sentence",
+      "kind": "sentence",
+      "lang": {
+        "id": "telugu",
+        "name": "Telugu",
+        "native": "తెలుగు",
+        "tag": "te",
+        "script": "Telugu",
+        "rtl": false
+      },
+      "sourceLabel": "English source",
+      "source": "Subsequently, to ease the liquidity pressures and safeguard financial stability, the Reserve Bank of India stepped in with a Special Liquidity Facility for MFs (SLF-MF) amounting to 50,000 crores, which helped to restore confidence in the financial markets.",
+      "outputLabel": "Telugu output",
+      "output": "తరువాత, ద్రవ్య లభ్యత ఒత్తిళ్లను తగ్గించడానికి మరియు ఆర్థిక స్థిరత్వాన్ని కాపాడటానికి, రిజర్వ్ బ్యాంక్ ఆఫ్ ఇండియా 50,000 కోట్ల రూపాయల ప్రత్యేక ద్రవ్య లభ్యత సదుపాయం (SLF-MF) తో జోక్యం చేసుకుంది, ఇది ఆర్థిక మార్కెట్లలో విశ్వాసాన్ని పునరుద్ధరించడానికి సహాయపడింది.",
+      "score": "5/5"
+    },
+    {
+      "id": "document",
+      "form": "Document",
+      "kind": "document",
+      "subs": [
+        {
+          "id": "markdown",
+          "form": "Markdown",
+          "kind": "document",
+          "lang": {
+            "id": "odia",
+            "name": "Odia",
+            "native": "ଓଡ଼ିଆ",
+            "tag": "or",
+            "script": "Odia",
+            "rtl": false
+          },
+          "sourceLabel": "English source",
+          "source": "# Data Export FAQ — Version v2.1\n\nThis FAQ covers common questions about exporting data from the platform, formatting options, and troubleshooting steps. Use the [Export Guide](#export-guide) for a step-by-step walk-through. For the full schema reference, see the Detailed Schema: https://example.com/schema\n\n## General\n\nWhat types of exports are supported?\n- Ad hoc exports for a single project.\n- Scheduled exports using the CLI or API.\n- Incremental exports for large datasets.\n\nWhich versions are supported?\nWe currently support the v2.1 export API and legacy CSV pipelines. New features will first appear on v2.1.\n\nHow is authentication handled?\nAll programmatic exports require an API token. Do not embed `API_KEY` values in public repositories. Tokens can be rotated from the account settings page.\n\n## Export Guide\n\nAnchor: #export-guide\n\n### Supported formats\n- `CSV` with configurable delimiter (`--delimiter`), quoting, and `UTF-8` encoding.\n- `JSON` with optional pretty-printing.\n- `NDJSON` for streaming consumers.\n\n> Note: For massive exports we recommend `NDJSON` and using compression with `--compress` to reduce transfer times.\n\n### CLI Examples\nTo run a full export using the CLI:\n```bash\nexport-tool export --project my_project --format ndjson --output /data/exports\n```\n\nTo pipe a compressed CSV and specify a comma delimiter:\n```bash\nexport-tool export --project my_project --format csv --output - --compress | gzip > export.csv.gz\n```",
+          "outputLabel": "Odia output",
+          "output": "# ଡାଟା ଏକ୍ସପୋର୍ଟ FAQ — ସଂସ୍କରଣ v2.1\n\nଏହି FAQ ପ୍ଲାଟଫର୍ମରୁ ଡାଟା ଏକ୍ସପୋର୍ଟ କରିବା, ଫର୍ମାଟିଂ ବିକଳ୍ପ ଏବଂ ଟ୍ରବଲସୁଟିଂ ପଦକ୍ଷେପ ବିଷୟରେ ସାଧାରଣ ପ୍ରଶ୍ନଗୁଡ଼ିକର ଉତ୍ତର ଦେଇଥାଏ। ପଦକ୍ଷେପ-ବି-ପଦକ୍ଷେପ ବୁଝିବା ପାଇଁ [Export Guide](#export-guide) ବ୍ୟବହାର କରନ୍ତୁ। ସମ୍ପୂର୍ଣ୍ଣ ସ୍କିମା ରେଫରେନ୍ସ ପାଇଁ, Detailed Schema ଦେଖନ୍ତୁ: https://example.com/schema\n\n## ସାଧାରଣ\n\nକେଉଁ ପ୍ରକାରର ଏକ୍ସପୋର୍ଟ ସମର୍ଥିତ?\n- ଗୋଟିଏ ପ୍ରୋଜେକ୍ଟ ପାଇଁ ଆଡ୍ ହକ୍ (Ad hoc) ଏକ୍ସପୋର୍ଟ।\n- CLI କିମ୍ବା API ବ୍ୟବହାର କରି ସିଡ୍ୟୁଲ୍ ହୋଇଥିବା ଏକ୍ସପୋର୍ଟ।\n- ବଡ଼ ଡାଟାସେଟ୍ ପାଇଁ ଇନକ୍ରିମେଣ୍ଟାଲ୍ ଏକ୍ସପୋର୍ଟ।\n\nକେଉଁ ସଂସ୍କରଣଗୁଡ଼ିକ ସମର୍ଥିତ?\nଆମେ ବର୍ତ୍ତମାନ v2.1 ଏକ୍ସପୋର୍ଟ API ଏବଂ ଲେଗାସି CSV ପାଇପଲାଇନ୍‌କୁ ସମର୍ଥନ କରୁଛୁ। ନୂତନ ଫିଚର୍‌ଗୁଡ଼ିକ ପ୍ରଥମେ v2.1 ରେ ଦେଖାଯିବ।\n\nଅଥେଣ୍ଟିକେସନ୍ କିପରି ପରିଚାଳିତ ହୁଏ?\nସମସ୍ତ ପ୍ରୋଗ୍ରାମାଟିକ୍ ଏକ୍ସପୋର୍ଟ ପାଇଁ ଏକ API ଟୋକେନ୍ ଆବଶ୍ୟକ। ପବ୍ଲିକ୍ ରିପୋଜିଟୋରୀରେ `API_KEY` ମୂଲ୍ୟଗୁଡ଼ିକୁ ଏମ୍ବେଡ୍ କରନ୍ତୁ ନାହିଁ। ଆକାଉଣ୍ଟ ସେଟିଂସ୍ ପୃଷ୍ଠାରୁ ଟୋକେନ୍‌ଗୁଡ଼ିକୁ ରୋଟେଟ୍ କରାଯାଇପାରିବ।\n\n## ଏକ୍ସପୋର୍ଟ ଗାଇଡ୍\n\nଆଙ୍କର୍: #export-guide\n\n### ସମର୍ଥିତ ଫର୍ମାଟ୍\n- କନଫିଗର୍ ହୋଇପାରୁଥିବା ଡିଲିମିଟର୍ (`--delimiter`), କୋଟିଂ ଏବଂ `UTF-8` ଏନକୋଡିଂ ସହିତ `CSV`।\n- ବୈକଳ୍ପିକ ପ୍ରିଟି-ପ୍ରିଣ୍ଟିଂ ସହିତ `JSON`।\n- ଷ୍ଟ୍ରିମିଂ କଞ୍ଜ୍ୟୁମର୍‌ମାନଙ୍କ ପାଇଁ `NDJSON`।\n\n> ଧ୍ୟାନ ଦିଅନ୍ତୁ: ବହୁଳ ଏକ୍ସପୋର୍ଟ ପାଇଁ ଆମେ `NDJSON` ଏବଂ ଟ୍ରାନ୍ସଫର୍ ସମୟ ହ୍ରାସ କରିବାକୁ `--compress` ସହିତ କମ୍ପ୍ରେସନ୍ ବ୍ୟବହାର କରିବାକୁ ପରାମର୍ଶ ଦେଉଛୁ।\n\n### CLI ଉଦାହରଣ\nCLI ବ୍ୟବହାର କରି ଏକ ସମ୍ପୂର୍ଣ୍ଣ ଏକ୍ସପୋର୍ଟ ଚଲାଇବାକୁ:\n```bash\nexport-tool export --project my_project --format ndjson --output /data/exports\n```",
+          "score": "100/100",
+          "markdown": true
+        },
+        {
+          "id": "latex",
+          "form": "LaTeX",
+          "kind": "document",
+          "lang": {
+            "id": "tamil",
+            "name": "Tamil",
+            "native": "தமிழ்",
+            "tag": "ta",
+            "script": "Tamil",
+            "rtl": false
+          },
+          "sourceLabel": "English source",
+          "source": "These notes demonstrate a standard separation-of-variables solution for the one-dimensional heat equation on a finite rod with homogeneous Dirichlet boundary conditions. We consider the initial-boundary value problem\n\n\\begin{equation}\\label{eq:heat}\nu_t(x,t) = \\kappa u_{xx}(x,t),\\qquad 0<x<L,\\ t>0,\n\\end{equation}\n\nwith\n\n\\[\nu(0,t)=0,\\qquad u(L,t)=0,\\qquad u(x,0)=f(x).\n\\]\n\nWe seek solutions of the form $u(x,t)=X(x)T(t)$. Substituting into (\\ref{eq:heat}) and separating variables gives\n\n\\begin{equation}\\label{eq:separation}\n\\frac{T'(t)}{\\kappa T(t)} = \\frac{X''(x)}{X(x)} = -\\lambda,\n\\end{equation}\n\nwhere $\\lambda$ is the separation constant. The spatial problem becomes the Sturm--Liouville eigenvalue problem\n\n\\begin{equation}\nX''(x) + \\lambda X(x) = 0,\\qquad X(0)=X(L)=0.\n\\end{equation}\n\nImposing the boundary conditions leads to the well-known eigenpairs\n\n\\[\n\\lambda_n = \\left(\\frac{n\\pi}{L}\\right)^2,\\qquad X_n(x)=\\sin\\left(\\frac{n\\pi x}{L}\\right),\\quad n=1,2,\\dots.\n\\]\n\nFor each $n$ the temporal factor satisfies $T_n'(t) = -\\kappa\\lambda_n T_n(t)$, hence\n\n\\[\nT_n(t) = c_n e^{-\\kappa\\lambda_n t} = c_n e^{-\\kappa (n\\pi/L)^2 t}.\n\\]\n\nThe general solution is the eigenfunction expansion\n\n\\begin{equation}\\label{eq:series}\nu(x,t) = \\sum_{n=1}^\\infty a_n e^{-\\kappa (n\\pi/L)^2 t} \\sin\\left(\\frac{n\\pi x}{L}\\right),\n\\end{equation}\n\nwith Fourier sine coefficients determined by the initial data:\n\n\\begin{equation}\\label{eq:coeff}\na_n = \\frac{2}{L}\\int_0^L f(x) \\sin\\left(\\frac{n\\pi x}{L}\\right)\\,dx.\n\\end{equation}",
+          "outputLabel": "Tamil output",
+          "output": "இந்தக் குறிப்புகள், ஒரு சீரான Dirichlet எல்லை நிபந்தனைகளைக் கொண்ட ஒரு வரையறுக்கப்பட்ட கம்பியில் ஒரு பரிமாண வெப்பச் சமன்பாட்டிற்கான நிலையான மாறிகளைப் பிரிக்கும் தீர்வை விளக்குகின்றன. நாம் பின்வரும் ஆரம்ப-எல்லை மதிப்புப் பிரச்சனையை கருதுகிறோம்\n\n\\begin{equation}\\label{eq:heat}\nu_t(x,t) = \\kappa u_{xx}(x,t),\\qquad 0<x<L,\\ t>0,\n\\end{equation}\n\nஇதனுடன்\n\n\\[\nu(0,t)=0,\\qquad u(L,t)=0,\\qquad u(x,0)=f(x).\n\\]\n\n$u(x,t)=X(x)T(t)$ என்ற வடிவத்தில் உள்ள தீர்வுகளை நாம் தேடுகிறோம். (\\ref{eq:heat})-இல் பிரதியிட்டு மாறிகளைப் பிரிப்பதன் மூலம் கிடைப்பது\n\n\\begin{equation}\\label{eq:separation}\n\\frac{T'(t)}{\\kappa T(t)} = \\frac{X''(x)}{X(x)} = -\\lambda,\n\\end{equation}\n\nஇங்கு $\\lambda$ என்பது பிரிப்பு மாறிலி ஆகும். இந்த இடஞ்சார்ந்த பிரச்சனையானது Sturm--Liouville ஐகன் மதிப்புப் பிரச்சனையாக மாறுகிறது\n\n\\begin{equation}\nX''(x) + \\lambda X(x) = 0,\\qquad X(0)=X(L)=0.\n\\end{equation}\n\nஎல்லை நிபந்தனைகளை விதிப்பது நன்கு அறியப்பட்ட ஐகன் ஜோடிகளுக்கு வழிவகுக்கிறது\n\n\\[\n\\lambda_n = \\left(\\frac{n\\pi}{L}\\right)^2,\\qquad X_n(x)=\\sin\\left(\\frac{n\\pi x}{L}\\right),\\quad n=1,2,\\dots.\n\\]\n\nஒவ்வொரு $n$-க்கும், காலக் காரணி $T_n'(t) = -\\kappa\\lambda_n T_n(t)$-ஐப் பூர்த்தி செய்கிறது, எனவே\n\n\\[\nT_n(t) = c_n e^{-\\kappa\\lambda_n t} = c_n e^{-\\kappa (n\\pi/L)^2 t}.\n\\]\n\nபொதுவான தீர்வு என்பது ஐகன் சார்பு விரிவாக்கமாகும்\n\n\\begin{equation}\\label{eq:series}\nu(x,t) = \\sum_{n=1}^\\infty a_n e^{-\\kappa (n\\pi/L)^2 t} \\sin\\left(\\frac{n\\pi x}{L}\\right),\n\\end{equation}\n\nஇதன் Fourier சைன் குணகங்கள் ஆரம்பத் தரவுகளால் தீர்மானிக்கப்படுகின்றன:",
+          "score": "100/100",
+          "markdown": true
+        },
+        {
+          "id": "code",
+          "form": "Code",
+          "kind": "document",
+          "lang": {
+            "id": "bengali",
+            "name": "Bengali",
+            "native": "বাংলা",
+            "tag": "bn",
+            "script": "Bengali-Assamese",
+            "rtl": false
+          },
+          "sourceLabel": "English source",
+          "source": "Overview\n\nThis document provides a compact set of examples and guidance for writing analytical SQL queries against the sales data warehouse. The prose and comments are intended to be translated; please preserve code, identifiers, and SQL syntax exactly as written.\n\nDesign notes:\n- Objective: compute monthly revenue, active customers, and retention metrics.\n- Scope: sample queries use the 'sales_db' schema and 'customer_orders' table. Protected identifiers such as table names and metric keys should not be translated.\n\nExample: Python helper with embedded SQL\n\n```python\n'''Helper functions for building analytics queries.\n\nThis module contains examples of parametrized SQL used by the analytics team. Translate the explanatory text and comments, but preserve identifiers and SQL keywords.\n'''\n\ndef build_monthly_revenue_query(start_date, end_date):\n    # Build a query that sums revenue in USD per customer per month\n    # The metric column is named revenue_usd and should be kept as-is in code\n    query = '''\n    -- Aggregate monthly revenue and count of orders\n    SELECT\n        customer_id,\n        DATE_TRUNC('month', order_date) AS month,\n        SUM(total_amount) AS revenue_usd,\n        COUNT(order_id) AS order_count\n    FROM sales_db.customer_orders\n    WHERE order_date >= '%s' AND order_date < '%s'\n      AND order_status = 'completed'\n    GROUP BY customer_id, month\n    ORDER BY month, revenue_usd DESC;\n    ''' % (start_date, end_date)\n    return query\n\n# Usage example (do not execute here):\n# sql = build_monthly_revenue_query('2023-01-01', '2023-07-01')\n# print(sql)\n```",
+          "outputLabel": "Bengali output",
+          "output": "সারসংক্ষেপ\n\nএই নথিতে সেলস ডেটা ওয়্যারহাউসের বিপরীতে অ্যানালিটিক্যাল SQL কোয়েরি লেখার জন্য উদাহরণ এবং নির্দেশনার একটি সংক্ষিপ্ত সেট প্রদান করা হয়েছে। গদ্য এবং মন্তব্যগুলি অনুবাদ করার উদ্দেশ্যে লেখা হয়েছে; অনুগ্রহ করে কোড, আইডেন্টিফায়ার এবং SQL সিনট্যাক্স যেমন আছে তেমনই রাখুন।\n\nডিজাইন নোট:\n- উদ্দেশ্য: মাসিক আয়, সক্রিয় গ্রাহক এবং ধরে রাখার মেট্রিক গণনা করা।\n- পরিধি: নমুনা কোয়েরিগুলো 'sales_db' স্কিমা এবং 'customer_orders' টেবিল ব্যবহার করে। টেবিলের নাম এবং মেট্রিক কি-এর মতো সুরক্ষিত আইডেন্টিফায়ার অনুবাদ করা উচিত নয়।\n\nউদাহরণ: এমবেডেড SQL সহ Python হেল্পার\n\n```python\n'''Helper functions for building analytics queries.\n\nThis module contains examples of parametrized SQL used by the analytics team. Translate the explanatory text and comments, but preserve identifiers and SQL keywords.\n'''\n\ndef build_monthly_revenue_query(start_date, end_date):\n    # Build a query that sums revenue in USD per customer per month\n    # The metric column is named revenue_usd and should be kept as-is in code\n    query = '''\n    -- Aggregate monthly revenue and count of orders\n    SELECT\n        customer_id,\n        DATE_TRUNC('month', order_date) AS month,\n        SUM(total_amount) AS revenue_usd,\n        COUNT(order_id) AS order_count\n    FROM sales_db.customer_orders\n    WHERE order_date >= '%s' AND order_date < '%s'\n      AND order_status = 'completed'\n    GROUP BY customer_id, month\n    ORDER BY month, revenue_usd DESC;\n    ''' % (start_date, end_date)\n    return query\n\n# Usage example (do not execute here):\n# sql = build_monthly_revenue_query('2023-01-01', '2023-07-01')\n# print(sql)\n```",
+          "score": "100/100",
+          "markdown": true
+        },
+        {
+          "id": "tables",
+          "form": "Tables",
+          "kind": "document",
+          "lang": {
+            "id": "kannada",
+            "name": "Kannada",
+            "native": "ಕನ್ನಡ",
+            "tag": "kn",
+            "script": "Kannada",
+            "rtl": false
+          },
+          "sourceLabel": "English source",
+          "source": "LUMO-XL Pro: Overview\n\nThe LUMO-XL Pro is our flagship outdoor smart lantern designed for camping, emergency preparedness, and small-worksite illumination. The model emphasizes long battery life, modular accessories, and rugged weather resistance. Key selling points are compact size, high lumen output, and smart-app controls for dimming and scheduling.\n\nFigure 1: Product front view\n<img src=\"images/lumo-xl-pro_front.jpg\" alt=\"LUMO-XL Pro front view\">\nCaption: Front view of LUMO-XL Pro showing the integrated handle and control ring.\n\nProduct highlight\n\n- Model: LUMO-XL Pro (available in Charcoal and Sandstone finishes)\n- Manufacturer warranty: 3 years standard, optional 5-year extension\n- Certification: IP67 dust/water resistance for full submersion protection\n\nSpecifications\n\nTable 1: Core specifications of LUMO-XL Pro\n\n| Model | Battery Life (hrs) | Lumens | Weight (g) | Price (USD) |\n|-------|--------------------:|-------:|----------:|------------:|\n| LUMO-XL Pro | 72 (low) / 12 (max) | 1800 | 820 | 159.99 |\n\nCaption below table: Table 1 lists the core specifications including runtimes at low and maximum output settings. \"Battery Life\" is approximate and varies by temperature.\n\nFigure 2: Accessory set and charging dock\n![Accessory Kit](assets/images/lumo-accessories.jpg)\nCaption: Accessory kit includes silicone diffuser, magnetic base, and modular charging dock (sold separately).\n\nCompatibility and accessories",
+          "outputLabel": "Kannada output",
+          "output": "LUMO-XL Pro: ಅವಲೋಕನ\n\nLUMO-XL Pro ನಮ್ಮ ಪ್ರಮುಖ ಹೊರಾಂಗಣ ಸ್ಮಾರ್ಟ್ ಲ್ಯಾಂಟರ್ನ್ ಆಗಿದ್ದು, ಇದನ್ನು ಕ್ಯಾಂಪಿಂಗ್, ತುರ್ತು ಪರಿಸ್ಥಿತಿ ಸಿದ್ಧತೆ ಮತ್ತು ಸಣ್ಣ ಕೆಲಸದ ಸ್ಥಳದ ಬೆಳಕಿಗಾಗಿ ವಿನ್ಯಾಸಗೊಳಿಸಲಾಗಿದೆ. ಈ ಮಾದರಿಯು ದೀರ್ಘ ಬ್ಯಾಟರಿ ಬಾಳಿಕೆ, ಮಾಡ್ಯುಲರ್ ಪರಿಕರಗಳು ಮತ್ತು ಕಠಿಣ ಹವಾಮಾನ ಪ್ರತಿರೋಧವನ್ನು ಒತ್ತಿಹೇಳುತ್ತದೆ. ಇದರ ಪ್ರಮುಖ ಮಾರಾಟದ ಅಂಶಗಳೆಂದರೆ ಕಾಂಪ್ಯಾಕ್ಟ್ ಗಾತ್ರ, ಹೆಚ್ಚಿನ ಲ್ಯೂಮೆನ್ ಉತ್ಪಾದನೆ ಮತ್ತು ಮಬ್ಬಾಗಿಸಲು ಮತ್ತು ವೇಳಾಪಟ್ಟಿ ಮಾಡಲು ಸ್ಮಾರ್ಟ್-ಆ್ಯಪ್ ನಿಯಂತ್ರಣಗಳು.\n\nಚಿತ್ರ 1: ಉತ್ಪನ್ನದ ಮುಂಭಾಗದ ನೋಟ\n<img src=\"images/lumo-xl-pro_front.jpg\" alt=\"LUMO-XL Pro ಮುಂಭಾಗದ ನೋಟ\">\nಶೀರ್ಷಿಕೆ: ಸಂಯೋಜಿತ ಹಿಡಿಕೆ ಮತ್ತು ನಿಯಂತ್ರಣ ಉಂಗುರವನ್ನು ತೋರಿಸುವ LUMO-XL Pro ನ ಮುಂಭಾಗದ ನೋಟ.\n\nಉತ್ಪನ್ನದ ಮುಖ್ಯಾಂಶಗಳು\n\n- ಮಾದರಿ: LUMO-XL Pro (ಚಾರ್ಟ್ ಮತ್ತು ಸ್ಯಾಂಡ್‌ಸ್ಟೋನ್ ಫಿನಿಶ್‌ಗಳಲ್ಲಿ ಲಭ್ಯವಿದೆ)\n- ತಯಾರಕರ ಖಾತರಿ: 3 ವರ್ಷಗಳ ಸ್ಟ್ಯಾಂಡರ್ಡ್, ಐಚ್ಛಿಕ 5 ವರ್ಷಗಳ ವಿಸ್ತರಣೆ\n- ಪ್ರಮಾಣೀಕರಣ: ಸಂಪೂರ್ಣ ಮುಳುಗುವಿಕೆಯಿಂದ ರಕ್ಷಣೆಗಾಗಿ IP67 ಧೂಳು/ನೀರಿನ ಪ್ರತಿರೋಧ\n\nವಿಶೇಷಣಗಳು\n\nಕೋಷ್ಟಕ 1: LUMO-XL Pro ನ ಪ್ರಮುಖ ವಿಶೇಷಣಗಳು\n\n| ಮಾದರಿ | ಬ್ಯಾಟರಿ ಬಾಳಿಕೆ (ಗಂ) | ಲ್ಯೂಮೆನ್ | ತೂಕ (ಗ್ರಾಂ) | ಬೆಲೆ (USD) |\n|-------|--------------------:|-------:|----------:|------------:|\n| LUMO-XL Pro | 72 (ಕಡಿಮೆ) / 12 (ಗರಿಷ್ಠ) | 1800 | 820 | 159.99 |\n\nಕೋಷ್ಟಕದ ಕೆಳಗಿನ ಶೀರ್ಷಿಕೆ: ಕೋಷ್ಟಕ 1 ಕಡಿಮೆ ಮತ್ತು ಗರಿಷ್ಠ ಉತ್ಪಾದನಾ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿನ ರನ್‌ಟೈಮ್‌ಗಳನ್ನು ಒಳಗೊಂಡಂತೆ ಪ್ರಮುಖ ವಿಶೇಷಣಗಳನ್ನು ಪಟ್ಟಿ ಮಾಡುತ್ತದೆ. \"ಬ್ಯಾಟರಿ ಬಾಳಿಕೆ\" ಅಂದಾಜಿತವಾಗಿದೆ ಮತ್ತು ತಾಪಮಾನಕ್ಕೆ ಅನುಗುಣವಾಗಿ ಬದಲಾಗುತ್ತದೆ.\n\nಚಿತ್ರ 2: ಪರಿಕರಗಳ ಸೆಟ್ ಮತ್ತು ಚಾರ್ಜಿಂಗ್ ಡಾಕ್\n![ಪರಿಕರ ಕಿಟ್](assets/images/lumo-accessories.jpg)\nಶೀರ್ಷಿಕೆ: ಪರಿಕರ ಕಿಟ್ ಸಿಲಿಕೋನ್ ಡಿಫ್ಯೂಸರ್, ಮ್ಯಾಗ್ನೆಟಿಕ್ ಬೇಸ್ ಮತ್ತು ಮಾಡ್ಯುಲರ್ ಚಾರ್ಜಿಂಗ್ ಡಾಕ್ ಅನ್ನು ಒಳಗೊಂಡಿದೆ (ಪ್ರತ್ಯೇಕವಾಗಿ ಮಾರಾಟ ಮಾಡಲಾಗುತ್ತದೆ).\n\nಹೊಂದಾಣಿಕೆ ಮತ್ತು ಪರಿಕರಗಳು",
+          "score": "100/100",
+          "markdown": true
+        },
+        {
+          "id": "selective",
+          "form": "Mixed-language",
+          "kind": "document",
+          "lang": {
+            "id": "marathi",
+            "name": "Marathi",
+            "native": "मराठी",
+            "tag": "mr",
+            "script": "Devanagari",
+            "rtl": false
+          },
+          "sourceLabel": "English source",
+          "source": "Introduction\nThis document is a language-learning note intended to guide translators when working with English source materials that include embedded Hindi examples. The main narrative is written in English and should be translated into the target language. However, specific Hindi spans represent authentic examples, glossary entries, and quoted utterances that must remain unchanged to preserve pedagogical value.\n\nWhy keep some Hindi unchanged\nLanguage instructors often embed original script examples to show spelling, pronunciation anchors, or cultural forms of address. For example, when teaching basic greetings, the instructor might present नमस्ते as the canonical written greeting in Devanagari. Translating that word into another script or rendering it as a synonym would defeat the purpose for learners who must recognize the original form.\n\nPractical examples\n1) Dialogue fragment:\nStudent: How should I greet someone at a family gathering?\nTeacher: Start with नमस्ते and then use a respectful phrase if the person is older.\n\n2) Cultural note:\nWhen receiving a favor, people commonly say धन्यवाद; this word is not merely a vocabulary item but a cultural token of gratitude written in its original script.\n\n3) Polite requests:\nIn classroom role-play, a learner might say कृपया pass the salt; here, कृपया is the polite marker and should remain in Devanagari for recognition exercises.",
+          "outputLabel": "Marathi output",
+          "output": "**परिचय**\n\nहे दस्तऐवज भाषा-शिकवणुकीची एक नोंद आहे, जी अनुवादकांना इंग्रजी स्त्रोत सामग्रीमध्ये अंतर्भूत हिंदी उदाहरणांवर काम करताना मार्गदर्शन करण्यासाठी आहे. मुख्य कथा इंग्रजीमध्ये लिहिलेली आहे आणि तिचे लक्ष्य भाषेमध्ये भाषांतर केले जावे. तथापि, विशिष्ट हिंदी भाग प्रामाणिक उदाहरणे, शब्दकोश नोंदी आणि उद्धृत विधाने दर्शवतात, जे शैक्षणिक मूल्य जतन करण्यासाठी अपरिवर्तित राहणे आवश्यक आहे.\n\n**काही हिंदी अपरिवर्तित का ठेवावी?**\n\nभाषा शिक्षक अनेकदा स्पेलिंग, उच्चार किंवा सांस्कृतिक अभिवादन दर्शविण्यासाठी मूळ लिपीतील उदाहरणे समाविष्ट करतात. उदाहरणार्थ, मूलभूत अभिवादन शिकवताना, शिक्षक नमस्ते हे देवनागरी लिपीतील प्रमाणित लिखित अभिवादन म्हणून सादर करू शकतात. त्या शब्दाचे दुसर्‍या लिपीमध्ये भाषांतर करणे किंवा समानार्थी शब्द म्हणून सादर करणे हे शिकणाऱ्यांसाठी मूळ रूप ओळखण्याचा उद्देश अयशस्वी करेल.\n\n**व्यावहारिक उदाहरणे**\n\n1) संवाद तुकडा:\nविद्यार्थी: कौटुंबिक मेळाव्यात मी कोणाला कसे अभिवादन करावे?\nशिक्षक: नमस्ते ने सुरुवात करा आणि जर व्यक्ती मोठी असेल तर आदरयुक्त वाक्यांश वापरा.\n\n2) सांस्कृतिक नोंद:\nजेव्हा एखादी मदत मिळते, तेव्हा लोक सामान्यतः धन्यवाद म्हणतात; हा शब्द केवळ एक शब्दसंग्रह नाही, तर मूळ लिपीत लिहिलेले कृतज्ञतेचे सांस्कृतिक प्रतीक आहे.\n\n3) विनम्र विनंत्या:\nवर्गातील भूमिकेत, एक विद्यार्थी कृपया मीठ द्या असे म्हणू शकतो; येथे, कृपया हे विनम्र चिन्ह आहे आणि ते ओळख सरावासाठी देवनागरी लिपीतच राहिले पाहिजे.\n\n**शब्दकोश नोंदी (शिकणाऱ्यांच्या संदर्भासाठी)**\n\nनमस्ते - औपचारिक आणि अनौपचारिक संदर्भांमध्ये वापरले जाणारे अभिवादन\nधन्यवाद - आभार व्यक्त करणे, सर्व प्रकारच्या संदर्भांमध्ये वापरले जाते\nकृपया - विनम्र विनंती चिन्ह, कृपया च्या समतुल्य\n\n**भाषांतर नियमांचा सारांश**",
+          "score": "100/100",
+          "markdown": true
+        }
+      ]
+    },
+    {
+      "id": "romanized",
+      "form": "Romanized",
+      "kind": "romanized",
+      "lang": {
+        "id": "malayalam",
+        "name": "Malayalam",
+        "native": "മലയാളം",
+        "tag": "ml",
+        "script": "Malayalam",
+        "rtl": false
+      },
+      "sourceLabel": "English source",
+      "source": "Much like the Hierarchical database model, the nodes of the graph contain information.",
+      "outputLabel": "Romanized output",
+      "output": "Hierarchical database model pole, graphinte nodes-il vivarangal adangiyirikkunnu.",
+      "score": "89.39/100",
+      "outputIsLatin": true
+    },
+    {
+      "id": "codemix",
+      "form": "Code-mixed",
+      "kind": "codemix",
+      "lang": {
+        "id": "hindi",
+        "name": "Hindi",
+        "native": "हिन्दी",
+        "tag": "hi",
+        "script": "Devanagari",
+        "rtl": false
+      },
+      "sourceLabel": "English source",
+      "source": "create a list of monthly groceries to be bought",
+      "outputLabel": "Code-mixed Hindi",
+      "output": "खरीदी जाने वाली monthly groceries की एक list बनाएं",
+      "alt": {
+        "label": "Full Hindi",
+        "text": "खरीदी जाने वाली मासिक किराने का सामान की सूची बनाएं"
+      }
+    },
+    {
+      "id": "transliteration",
+      "form": "Transliteration",
+      "kind": "transliteration",
+      "lang": {
+        "id": "punjabi",
+        "name": "Punjabi",
+        "native": "ਪੰਜਾਬੀ",
+        "tag": "pa",
+        "script": "Gurmukhi",
+        "rtl": false
+      },
+      "sourceLabel": "Punjabi source",
+      "source": "ਇਸੇ ਵਰਗੀ ਹਲਕੀ ਬਿਮਾਰੀ ਬੀ ਪੈਰਾਪਰਟੂਸਿਸ ਕਾਰਨ ਹੁੰਦੀ ਹੈ।",
+      "sourceIsNative": true,
+      "outputLabel": "Transliterated",
+      "output": "Ise vargi halki bimari bi parapartusis karan hundi hai.",
+      "score": "CER 0",
+      "outputIsLatin": true
+    }
+  ]
+}

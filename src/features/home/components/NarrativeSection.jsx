@@ -12,7 +12,7 @@ const NarrativeSection = () => {
                 <h2 className="text-3xl md:text-5xl lg:text-6xl leading-tight tracking-tight mb-6 md:mb-8">
                     Awakening how India
                     <br className="hidden md:block" />
-                    <span className="text-[var(--text-orange-500)]"> learns</span>, <span className="text-[var(--text-orange-500)]">teaches</span>, and <span className="text-[var(--text-orange-500)]">grows</span>
+                    <span className="text-[var(--text-orange-bright)]"> learns</span>, <span className="text-[var(--text-orange-bright)]">teaches</span>, and <span className="text-[var(--text-orange-bright)]">grows</span>
                 </h2>
 
                 <p className="text-[var(--color-14)] font-inter text-base md:text-lg lg:text-xl leading-relaxed mb-6 md:mb-8 max-w-4xl">
