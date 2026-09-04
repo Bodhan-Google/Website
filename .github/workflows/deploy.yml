@@ -33,6 +33,10 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          # /fln-dpi feedback form - see docs/fln-dpi-feedback.md
+          VITE_FLN_DPI_SCRIPT_URL: ${{ vars.VITE_FLN_DPI_SCRIPT_URL }}
+          VITE_TURNSTILE_SITE_KEY: ${{ vars.VITE_TURNSTILE_SITE_KEY }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

@@ -10,6 +10,7 @@ import TenderApplyPage from '../features/tenders/components/TenderApplyPage'
 import PartnersPage from '../features/partners/components/PartnersPage'
 import PrivacyPolicyPage from '../features/privacy/components/PrivacyPolicyPage'
 import TermsAndConditionsPage from '../features/terms/components/TermsAndConditionsPage'
+import FlnDpiPage from '../features/flnDpi/components/FlnDpiPage'
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
       <Route path="/partners" element={<PartnersPage />} />
       <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
       <Route path="/terms-and-conditions" element={<TermsAndConditionsPage />} />
+      <Route path="/fln-dpi" element={<FlnDpiPage />} />
       {/* 404.html serves the app for any unmatched URL, so send strays home */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
