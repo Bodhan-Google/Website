@@ -20,7 +20,7 @@
  * Keep the option lists below in sync with src/features/flnDpi/data/content.js.
  */
 
-var ENGAGEMENT = ['use-models', 'contribute'];
+var ENGAGEMENT = ['use-models', 'contribute', 'whitepaper'];
 
 var AREAS = [
   'Vision, pedagogy and policy',
@@ -43,6 +43,18 @@ var MODES = [
 
 var MODELS = ['ASR', 'OCR', 'TTS'];
 
+// Whitepaper v1.0, Section 21 "Open questions for consultation".
+var WP_QUESTIONS = [
+  'Consent at population scale',
+  'The consent-manager function',
+  'The capacity bridge',
+  'Offline and low-connectivity operation',
+  'Benchmark governance',
+  'Language expansion',
+  'Learner-record scope',
+  'Something else in the whitepaper',
+];
+
 var NAME_MAX = 120;
 var EMAIL_MAX = 160;
 var ORG_MAX = 160;
@@ -63,6 +75,8 @@ var HEADER = [
   'Tell us more',
   'Models',
   'Use case',
+  'Whitepaper questions',
+  'Whitepaper comments',
   'Turnstile hostname',
   'Source',
 ];
@@ -97,6 +111,9 @@ function doPost(e) {
   var tellMore = wantsContribute ? clean(body.tellMore, LONG_MAX, true) : '';
   var models = wantsModels ? pickAllowed(body.models, MODELS) : [];
   var useCase = wantsModels ? clean(body.useCase, LONG_MAX, true) : '';
+  var wantsWhitepaper = engagement.indexOf('whitepaper') !== -1;
+  var wpQuestions = wantsWhitepaper ? pickAllowed(body.wpQuestions, WP_QUESTIONS) : [];
+  var wpComments = wantsWhitepaper ? clean(body.wpComments, LONG_MAX, true) : '';
   var source = clean(body.source, 40) || 'fln-dpi';
   var token = clean(body.turnstileToken, 4096);
 
@@ -107,6 +124,7 @@ function doPost(e) {
   if (wantsContribute && !areas.length) return respond({ success: false, error: 'Please pick at least one area you can contribute to.' });
   if (wantsContribute && !modes.length) return respond({ success: false, error: 'Please pick how you would contribute.' });
   if (wantsModels && !models.length) return respond({ success: false, error: 'Please pick at least one model.' });
+  if (wantsWhitepaper && !wpQuestions.length && !wpComments) return respond({ success: false, error: 'Please pick an open question or leave a comment on the whitepaper.' });
   if (!token) return respond({ success: false, error: 'Please complete the human verification.' });
 
   var verdict;
@@ -133,6 +151,8 @@ function doPost(e) {
     tellMore,
     models.join('; '),
     useCase,
+    wpQuestions.join('; '),
+    wpComments,
     verdict.hostname || '',
     source,
   ].map(sheetSafe);
@@ -148,7 +168,7 @@ function doPost(e) {
     try { lock.releaseLock(); } catch (ignored) { /* lock was never acquired */ }
   }
 
-  notify(name, organisation, email, engagement, areas, modes, models, tellMore, useCase);
+  notify(name, organisation, email, engagement, areas, modes, models, tellMore, useCase, wpQuestions, wpComments);
 
   return respond({ success: true });
 }
@@ -209,7 +229,7 @@ function sheetSafe(value) {
 
 // ─── Optional notification ───────────────────────────────────────────────────
 
-function notify(name, organisation, email, engagement, areas, modes, models, tellMore, useCase) {
+function notify(name, organisation, email, engagement, areas, modes, models, tellMore, useCase, wpQuestions, wpComments) {
   var to = PropertiesService.getScriptProperties().getProperty('NOTIFY_EMAIL');
   if (!to) return;
   try {
@@ -225,7 +245,9 @@ function notify(name, organisation, email, engagement, areas, modes, models, tel
         (modes.length ? 'Modes: ' + modes.join(', ') + '\n' : '') +
         (models.length ? 'Models: ' + models.join(', ') + '\n' : '') +
         (tellMore ? '\nTell us more:\n' + tellMore + '\n' : '') +
-        (useCase ? '\nUse case:\n' + useCase + '\n' : ''),
+        (useCase ? '\nUse case:\n' + useCase + '\n' : '') +
+        (wpQuestions.length ? '\nWhitepaper questions: ' + wpQuestions.join(', ') + '\n' : '') +
+        (wpComments ? '\nWhitepaper comments:\n' + wpComments + '\n' : ''),
     });
   } catch (err) {
     console.warn('notify failed: ' + err);

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import {
-    AudioLines, Blocks, ShieldCheck, Send, Mail, Check, Clock,
+    AudioLines, Blocks, FileText, ExternalLink, ShieldCheck, Send, Mail, Check, Clock,
     CheckCircle, Loader2, AlertCircle, ArrowRight,
 } from 'lucide-react';
 import Navbar from '../../home/components/Navbar';
@@ -11,6 +11,7 @@ import Turnstile from './Turnstile';
 import {
     PAGE_TITLE, CONTACT_EMAIL, HEADLINE, LEDE, TIME_NOTE, ABOUT,
     ENGAGEMENT, CONTRIBUTE_INTRO, AREAS, MODES, OTHER_LABEL, MODELS_INTRO, MODELS,
+    WHITEPAPER, WHITEPAPER_INTRO, WHITEPAPER_QUESTIONS,
     NAME_MAX, EMAIL_MAX, ORG_MAX, OTHER_MAX, LONG_MAX,
 } from '../data/content';
 
@@ -26,7 +27,7 @@ const SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || (import.meta.env.DEV
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const ENGAGEMENT_ICONS = { 'use-models': AudioLines, contribute: Blocks };
+const ENGAGEMENT_ICONS = { 'use-models': AudioLines, contribute: Blocks, whitepaper: FileText };
 
 const fadeUp = (delay = 0) => ({
     initial: { opacity: 0, y: 14 },
@@ -46,6 +47,8 @@ const EMPTY_FORM = {
     tellMore: '',
     models: [],
     useCase: '',
+    wpQuestions: [],
+    wpComments: '',
     website: '', // honeypot — stays empty for humans
 };
 
@@ -90,10 +93,13 @@ const Section = ({ id, step, title, badge, hint, error, delay = 0, children }) =
 );
 
 // A question inside a section: label, optional required mark, hint, error.
-const Question = ({ id, label, required, hint, error, children }) => (
+const Question = ({ id, label, required, optionalMark = true, hint, error, children }) => (
     <div className="mt-6 first:mt-0" data-error={error ? 'true' : undefined}>
         <p id={`${id}-label`} className="text-sm font-semibold text-[#1A1A1A]">
-            {label} {required ? <span className="text-red-400">*</span> : <span className="text-gray-400 font-normal">(optional)</span>}
+            {label}{' '}
+            {required
+                ? <span className="text-red-400">*</span>
+                : optionalMark && <span className="text-gray-400 font-normal">(optional)</span>}
         </p>
         {hint && <p className="text-sm text-gray-500 mt-0.5 leading-relaxed">{hint}</p>}
         <div className="mt-3" role="group" aria-labelledby={`${id}-label`}>{children}</div>
@@ -207,7 +213,7 @@ const AboutPanel = () => (
                 {ABOUT.map((para) => <p key={para.slice(0, 32)}>{para}</p>)}
             </div>
             <div className="border-t border-gray-100 mt-6 pt-5">
-                <h3 className="text-sm font-semibold text-[#1A1A1A] mb-3">Two ways to engage</h3>
+                <h3 className="text-sm font-semibold text-[#1A1A1A] mb-3">Ways to engage</h3>
                 <ul className="space-y-3">
                     {ENGAGEMENT.map((e) => {
                         const Icon = ENGAGEMENT_ICONS[e.id];
@@ -225,6 +231,32 @@ const AboutPanel = () => (
                     })}
                 </ul>
             </div>
+        </div>
+
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+            <div className="flex items-center gap-3 mb-3">
+                <div className="w-9 h-9 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center text-[var(--text-orange-500)]">
+                    <FileText size={17} />
+                </div>
+                <h3 className="text-sm font-semibold text-[#1A1A1A]">Read the whitepaper</h3>
+            </div>
+            <p className="text-sm font-medium text-[#1A1A1A] leading-snug">{WHITEPAPER.title}</p>
+            <p className="text-xs text-gray-500 mt-1 leading-relaxed">{WHITEPAPER.subtitle}</p>
+            <p className="text-[11px] uppercase tracking-wider text-gray-400 mt-3">{WHITEPAPER.version}</p>
+            {WHITEPAPER.url ? (
+                <a
+                    href={WHITEPAPER.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--text-orange-500)] hover:underline"
+                >
+                    Open the PDF <ExternalLink size={14} />
+                </a>
+            ) : (
+                <p className="text-xs text-gray-500 mt-3">
+                    Ask us for a copy at <a href={`mailto:${CONTACT_EMAIL}`} className="underline">{CONTACT_EMAIL}</a>.
+                </p>
+            )}
         </div>
 
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
@@ -306,6 +338,8 @@ const FlnDpiPage = () => {
     let stepCounter = 2;
     const contributeStep = wantsContribute ? ++stepCounter : null;
     const modelsStep = wantsModels ? ++stepCounter : null;
+    const wantsWhitepaper = form.engagement.includes('whitepaper');
+    const whitepaperStep = wantsWhitepaper ? ++stepCounter : null;
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -316,7 +350,9 @@ const FlnDpiPage = () => {
 
     const set = (key) => (value) => {
         setForm((f) => ({ ...f, [key]: value }));
-        setErrors((e) => (key in e ? { ...e, [key]: undefined } : e));
+        // The two whitepaper fields share one section-level error.
+        const errKey = key === 'wpQuestions' || key === 'wpComments' ? 'whitepaper' : key;
+        setErrors((e) => (errKey in e ? { ...e, [errKey]: undefined } : e));
     };
     const toggleIn = (key) => (value) => set(key)(toggle(form[key], value));
 
@@ -333,6 +369,9 @@ const FlnDpiPage = () => {
             else if (modesOtherOn && !form.modesOther.trim()) errs.modes = 'Please say what "Other" is.';
         }
         if (wantsModels && !form.models.length) errs.models = 'Please pick at least one model.';
+        if (wantsWhitepaper && !form.wpQuestions.length && !form.wpComments.trim()) {
+            errs.whitepaper = 'Pick at least one open question or leave a comment.';
+        }
         if (!token) errs.captcha = 'Please complete the human verification.';
         return errs;
     };
@@ -367,6 +406,8 @@ const FlnDpiPage = () => {
                     tellMore: wantsContribute ? form.tellMore.trim() : '',
                     models: wantsModels ? form.models : [],
                     useCase: wantsModels ? form.useCase.trim() : '',
+                    wpQuestions: wantsWhitepaper ? form.wpQuestions : [],
+                    wpComments: wantsWhitepaper ? form.wpComments.trim() : '',
                     website: form.website,
                     turnstileToken: token,
                 }),
@@ -464,7 +505,7 @@ const FlnDpiPage = () => {
                                     <Section id="engagement" step={2} title="How would you like to engage?" hint="Pick one or both. You will only see the sections relevant to you." error={errors.engagement} delay={0.15}>
                                         <fieldset disabled={isSending}>
                                             <legend className="sr-only">How would you like to engage?</legend>
-                                            <div className="grid sm:grid-cols-2 gap-3">
+                                            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                                                 {ENGAGEMENT.map((opt) => {
                                                     const Icon = ENGAGEMENT_ICONS[opt.id];
                                                     const checked = form.engagement.includes(opt.id);
@@ -533,6 +574,22 @@ const FlnDpiPage = () => {
                                             </Question>
                                             <Question id="use-case" label="Tell us about your use case" hint="What you would build, which languages, and at what scale.">
                                                 <LongText id="use-case-text" value={form.useCase} onChange={set('useCase')} disabled={isSending} rows={5} placeholder="e.g. reading-fluency assessment in Hindi and Marathi for 200 schools" />
+                                            </Question>
+                                        </Section>
+                                    )}
+
+                                    {/* Feedback on the whitepaper */}
+                                    {wantsWhitepaper && (
+                                        <Section id="whitepaper" step={whitepaperStep} title="Feedback on the whitepaper" hint={WHITEPAPER_INTRO} error={errors.whitepaper} delay={0}>
+                                            <Question id="wp-questions" label="Which open questions do you want to respond to?" optionalMark={false} hint="From Section 21 of the whitepaper. Pick any that apply.">
+                                                <div className="grid gap-2">
+                                                    {WHITEPAPER_QUESTIONS.map((q) => (
+                                                        <CheckRow key={q.label} name="wpQuestions" value={q.label} label={q.label} hint={q.hint} checked={form.wpQuestions.includes(q.label)} onChange={toggleIn('wpQuestions')} disabled={isSending} />
+                                                    ))}
+                                                </div>
+                                            </Question>
+                                            <Question id="wp-comments" label="Your comments" optionalMark={false} hint="Refer to section numbers where you can. Anything from a one-line objection to a full response is welcome.">
+                                                <LongText id="wp-comments-text" value={form.wpComments} onChange={set('wpComments')} disabled={isSending} rows={8} placeholder="e.g. Section 9.1 — the consent artifact should also carry…" />
                                             </Question>
                                         </Section>
                                     )}

@@ -18,14 +18,24 @@ scripts/apps-script/
 
 1. **About you** — name, organisation / company, email (all required).
 2. **How would you like to engage?** — multi-select: *Use Bodhan open models*,
-   *Contribute to building the FLN DPI*. Only the sections for what is ticked
-   are shown, like the Google Form's branching.
+   *Contribute to building the FLN DPI*, *Give feedback on the whitepaper*.
+   Only the sections for what is ticked are shown, like the Google Form's
+   branching.
 3. **Contributing to the FLN DPI** (if ticked) — *Which areas can you
    contribute to?* (6 areas + Other), *How would you contribute?* (5 modes +
    Other), *Tell us more* (optional long text).
 4. **Using Bodhan open models** (if ticked) — *Which models?* (ASR / OCR / TTS),
    *Tell us about your use case* (optional long text).
-5. **One last check** — Turnstile.
+5. **Feedback on the whitepaper** (if ticked) — the seven open questions from
+   Section 21 of *DPI for Foundational Literacy and Numeracy* v1.0 (+ "something
+   else"), and a free-text comments box. At least one of the two is required.
+6. **One last check** — Turnstile.
+
+The side panel describes the DPI in the whitepaper's own words and carries a
+"Read the whitepaper" card. Set `WHITEPAPER.url` in `content.js` once the PDF
+is hosted (e.g. commit it under `public/docs/` and point to
+`/docs/FLN-DPI-Whitepaper-v1.pdf`); until then the card offers the contact
+email instead of a dead link.
 
 ## How a submission flows
 
@@ -102,13 +112,13 @@ shows an "email us instead" notice rather than posting into the void.
 
 - Copy and every option list live in `src/features/flnDpi/data/content.js`.
 - The option lists are duplicated in the Apps Script (`ENGAGEMENT`, `AREAS`,
-  `MODES`, `MODELS`) — the backend drops values it does not recognise, so change
-  both together and redeploy the script.
+  `MODES`, `MODELS`, `WP_QUESTIONS`) — the backend drops values it does not
+  recognise, so change both together and redeploy the script.
 
 ## What is stored
 
 One row per submission: timestamp, name, organisation, email, engagement
 choices, areas (+ other text), contribution modes (+ other text), "tell us
-more", models, use case, the hostname Cloudflare verified the token for, and
-`source` (`fln-dpi`). Multi-select answers are `; `-joined. No IP address or
+more", models, use case, whitepaper questions, whitepaper comments, the hostname
+Cloudflare verified the token for, and `source` (`fln-dpi`). Multi-select answers are `; `-joined. No IP address or
 user agent is recorded.
