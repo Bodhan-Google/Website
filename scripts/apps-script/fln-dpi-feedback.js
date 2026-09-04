@@ -1,7 +1,7 @@
 /* global SpreadsheetApp, UrlFetchApp, PropertiesService, ContentService, LockService, MailApp */
 
 /**
- * Bodhan — /fln-dpi feedback backend (Google Apps Script, container-bound).
+ * Bodhan — /fln-dpi interest form backend (Google Apps Script, container-bound).
  *
  * The website is a static SPA on GitHub Pages, so this script is the server:
  * it verifies the Cloudflare Turnstile token, validates the payload and appends
@@ -17,46 +17,58 @@
  *   3. Deploy > New deployment > Web app; Execute as: Me; Who has access: Anyone.
  *   4. Put the /exec URL in the site's VITE_FLN_DPI_SCRIPT_URL.
  *
- * Keep ROLES / TOPICS in sync with src/features/flnDpi/data/content.js.
+ * Keep the option lists below in sync with src/features/flnDpi/data/content.js.
  */
 
-var ROLES = [
-  'Student',
-  'Parent',
-  'Teacher',
-  'School leader / administrator',
-  'Teacher educator',
-  'Education department official',
-  'EdTech / DPI builder',
-  'Researcher / expert',
-  'Civil society / NGO',
-  'Organisation / institution',
+var ENGAGEMENT = ['use-models', 'contribute'];
+
+var AREAS = [
+  'Vision, pedagogy and policy',
+  'Standards and specifications',
+  'Trust rails',
+  'AI and assessment models',
+  'Applications',
+  'Rollout and operations',
   'Other',
 ];
-var TOPICS = ['fln', 'dpi', 'both'];
 
-var FEEDBACK_MIN = 20;
-var FEEDBACK_MAX = 5000;
+var MODES = [
+  'Build (engineering / product)',
+  'Domain expertise and advisory',
+  'Field deployment and rollout',
+  'Data or content contribution',
+  'Funding / sponsorship',
+  'Other',
+];
+
+var MODELS = ['ASR', 'OCR', 'TTS'];
+
 var NAME_MAX = 120;
 var EMAIL_MAX = 160;
 var ORG_MAX = 160;
+var OTHER_MAX = 200;
+var LONG_MAX = 3000;
 
 var SITEVERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 var HEADER = [
   'Submitted at',
-  'Role',
-  'Topic',
-  'Feedback',
   'Name',
-  'Email',
   'Organisation',
+  'Email',
+  'Engagement',
+  'Areas',
+  'Areas (other)',
+  'Contribution modes',
+  'Modes (other)',
+  'Tell us more',
+  'Models',
+  'Use case',
   'Turnstile hostname',
-  'Turnstile action',
   'Source',
 ];
 
 function doGet() {
-  return respond({ ok: true, service: 'fln-dpi-feedback' });
+  return respond({ ok: true, service: 'fln-dpi-interest' });
 }
 
 function doPost(e) {
@@ -72,19 +84,29 @@ function doPost(e) {
     return respond({ success: true });
   }
 
-  var role = clean(body.role, 80);
-  var topic = clean(body.topic, 20);
-  var feedback = clean(body.feedback, FEEDBACK_MAX, true);
   var name = clean(body.name, NAME_MAX);
-  var email = clean(body.email, EMAIL_MAX);
   var organisation = clean(body.organisation, ORG_MAX);
+  var email = clean(body.email, EMAIL_MAX);
+  var engagement = pickAllowed(body.engagement, ENGAGEMENT);
+  var wantsContribute = engagement.indexOf('contribute') !== -1;
+  var wantsModels = engagement.indexOf('use-models') !== -1;
+  var areas = wantsContribute ? pickAllowed(body.areas, AREAS) : [];
+  var areasOther = wantsContribute && areas.indexOf('Other') !== -1 ? clean(body.areasOther, OTHER_MAX) : '';
+  var modes = wantsContribute ? pickAllowed(body.modes, MODES) : [];
+  var modesOther = wantsContribute && modes.indexOf('Other') !== -1 ? clean(body.modesOther, OTHER_MAX) : '';
+  var tellMore = wantsContribute ? clean(body.tellMore, LONG_MAX, true) : '';
+  var models = wantsModels ? pickAllowed(body.models, MODELS) : [];
+  var useCase = wantsModels ? clean(body.useCase, LONG_MAX, true) : '';
   var source = clean(body.source, 40) || 'fln-dpi';
   var token = clean(body.turnstileToken, 4096);
 
-  if (ROLES.indexOf(role) === -1) return respond({ success: false, error: 'Please choose what describes you best.' });
-  if (TOPICS.indexOf(topic) === -1) return respond({ success: false, error: 'Please choose a topic.' });
-  if (feedback.length < FEEDBACK_MIN) return respond({ success: false, error: 'Please write a little more feedback.' });
-  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return respond({ success: false, error: 'That does not look like an email address.' });
+  if (!name) return respond({ success: false, error: 'Please enter your name.' });
+  if (!organisation) return respond({ success: false, error: 'Please enter your organisation.' });
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return respond({ success: false, error: 'Please enter a valid email address.' });
+  if (!engagement.length) return respond({ success: false, error: 'Please choose how you would like to engage.' });
+  if (wantsContribute && !areas.length) return respond({ success: false, error: 'Please pick at least one area you can contribute to.' });
+  if (wantsContribute && !modes.length) return respond({ success: false, error: 'Please pick how you would contribute.' });
+  if (wantsModels && !models.length) return respond({ success: false, error: 'Please pick at least one model.' });
   if (!token) return respond({ success: false, error: 'Please complete the human verification.' });
 
   var verdict;
@@ -100,14 +122,18 @@ function doPost(e) {
 
   var row = [
     new Date(),
-    role,
-    topic,
-    feedback,
     name,
-    email,
     organisation,
+    email,
+    engagement.join('; '),
+    areas.join('; '),
+    areasOther,
+    modes.join('; '),
+    modesOther,
+    tellMore,
+    models.join('; '),
+    useCase,
     verdict.hostname || '',
-    verdict.action || '',
     source,
   ].map(sheetSafe);
 
@@ -117,12 +143,12 @@ function doPost(e) {
     getSheet().appendRow(row);
   } catch (err) {
     console.error('append failed: ' + err);
-    return respond({ success: false, error: 'Could not record your feedback. Please try again.' });
+    return respond({ success: false, error: 'Could not record your response. Please try again.' });
   } finally {
     try { lock.releaseLock(); } catch (ignored) { /* lock was never acquired */ }
   }
 
-  notify(role, topic, feedback, name, email, organisation);
+  notify(name, organisation, email, engagement, areas, modes, models, tellMore, useCase);
 
   return respond({ success: true });
 }
@@ -183,20 +209,23 @@ function sheetSafe(value) {
 
 // ─── Optional notification ───────────────────────────────────────────────────
 
-function notify(role, topic, feedback, name, email, organisation) {
+function notify(name, organisation, email, engagement, areas, modes, models, tellMore, useCase) {
   var to = PropertiesService.getScriptProperties().getProperty('NOTIFY_EMAIL');
   if (!to) return;
   try {
     MailApp.sendEmail({
       to: to,
-      subject: '[FLN/DPI feedback] ' + role + ' · ' + topic,
+      subject: '[FLN DPI interest] ' + name + ' · ' + organisation,
       body:
-        'Role: ' + role + '\n' +
-        'Topic: ' + topic + '\n' +
-        'Name: ' + (name || '-') + '\n' +
-        'Email: ' + (email || '-') + '\n' +
-        'Organisation: ' + (organisation || '-') + '\n\n' +
-        feedback,
+        'Name: ' + name + '\n' +
+        'Organisation: ' + organisation + '\n' +
+        'Email: ' + email + '\n' +
+        'Engagement: ' + engagement.join(', ') + '\n' +
+        (areas.length ? 'Areas: ' + areas.join(', ') + '\n' : '') +
+        (modes.length ? 'Modes: ' + modes.join(', ') + '\n' : '') +
+        (models.length ? 'Models: ' + models.join(', ') + '\n' : '') +
+        (tellMore ? '\nTell us more:\n' + tellMore + '\n' : '') +
+        (useCase ? '\nUse case:\n' + useCase + '\n' : ''),
     });
   } catch (err) {
     console.warn('notify failed: ' + err);
@@ -204,6 +233,14 @@ function notify(role, topic, feedback, name, email, organisation) {
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
+
+// Keep only the entries of `values` that appear in `allowed`, deduplicated and
+// in allow-list order. Anything else (unknown labels, non-strings) is dropped.
+function pickAllowed(values, allowed) {
+  if (!Array.isArray(values)) return [];
+  var wanted = values.map(function (v) { return clean(v, 200); });
+  return allowed.filter(function (a) { return wanted.indexOf(a) !== -1; });
+}
 
 // Coerce to a trimmed string, strip control characters (keeping newlines and
 // tabs for multiline fields), and cap the length.

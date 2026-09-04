@@ -2,15 +2,16 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import {
-    BookOpen, Network, Layers, ShieldCheck, Send, Mail,
-    CheckCircle, Loader2, AlertCircle, ArrowRight, EyeOff,
+    AudioLines, Blocks, ShieldCheck, Send, Mail, Check, Clock,
+    CheckCircle, Loader2, AlertCircle, ArrowRight,
 } from 'lucide-react';
 import Navbar from '../../home/components/Navbar';
 import Footer from '../../home/components/Footer';
 import Turnstile from './Turnstile';
 import {
-    PAGE_TITLE, CONTACT_EMAIL, INTRO, PROMPTS, ROLES, TOPICS,
-    FEEDBACK_MIN, FEEDBACK_MAX, NAME_MAX, EMAIL_MAX, ORG_MAX,
+    PAGE_TITLE, CONTACT_EMAIL, HEADLINE, LEDE, TIME_NOTE, ABOUT,
+    ENGAGEMENT, CONTRIBUTE_INTRO, AREAS, MODES, OTHER_LABEL, MODELS_INTRO, MODELS,
+    NAME_MAX, EMAIL_MAX, ORG_MAX, OTHER_MAX, LONG_MAX,
 } from '../data/content';
 
 // Apps Script web-app URL (see docs/fln-dpi-feedback.md). Same pattern as the
@@ -25,7 +26,7 @@ const SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || (import.meta.env.DEV
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const TOPIC_ICONS = { fln: BookOpen, dpi: Network, both: Layers };
+const ENGAGEMENT_ICONS = { 'use-models': AudioLines, contribute: Blocks };
 
 const fadeUp = (delay = 0) => ({
     initial: { opacity: 0, y: 14 },
@@ -34,14 +35,21 @@ const fadeUp = (delay = 0) => ({
 });
 
 const EMPTY_FORM = {
-    role: '',
-    topic: '',
-    feedback: '',
     name: '',
-    email: '',
     organisation: '',
+    email: '',
+    engagement: [],
+    areas: [],
+    areasOther: '',
+    modes: [],
+    modesOther: '',
+    tellMore: '',
+    models: [],
+    useCase: '',
     website: '', // honeypot — stays empty for humans
 };
+
+const toggle = (list, value) => (list.includes(value) ? list.filter((v) => v !== value) : [...list, value]);
 
 // ─── Small building blocks ────────────────────────────────────────────────────
 
@@ -81,39 +89,76 @@ const Section = ({ id, step, title, badge, hint, error, delay = 0, children }) =
     </motion.section>
 );
 
-const Chip = ({ name, value, checked, onChange, disabled, icon: Icon, children }) => (
+// A question inside a section: label, optional required mark, hint, error.
+const Question = ({ id, label, required, hint, error, children }) => (
+    <div className="mt-6 first:mt-0" data-error={error ? 'true' : undefined}>
+        <p id={`${id}-label`} className="text-sm font-semibold text-[#1A1A1A]">
+            {label} {required ? <span className="text-red-400">*</span> : <span className="text-gray-400 font-normal">(optional)</span>}
+        </p>
+        {hint && <p className="text-sm text-gray-500 mt-0.5 leading-relaxed">{hint}</p>}
+        <div className="mt-3" role="group" aria-labelledby={`${id}-label`}>{children}</div>
+        {error && (
+            <p className="text-xs text-red-500 mt-2 flex items-center gap-1.5" role="alert">
+                <AlertCircle size={13} /> {error}
+            </p>
+        )}
+    </div>
+);
+
+const CheckBox = ({ checked }) => (
+    <span
+        aria-hidden="true"
+        className={`w-[18px] h-[18px] rounded-md border flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors ${checked ? 'bg-[var(--text-orange-500)] border-[var(--text-orange-500)] text-white' : 'border-gray-300 bg-white'}`}
+    >
+        {checked && <Check size={13} strokeWidth={3} />}
+    </span>
+);
+
+// A full-width checkbox row with label + hint, like the Google Form rows.
+const CheckRow = ({ name, value, checked, onChange, disabled, label, hint }) => (
     <label
-        className={`inline-flex items-center gap-2 rounded-xl border px-3.5 py-2.5 text-sm select-none transition-all
+        className={`flex items-start gap-3 rounded-xl border px-4 py-3 select-none transition-all
             has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-orange-300
-            ${checked
-                ? 'border-[var(--text-orange-500)] bg-orange-50 text-[#1A1A1A] shadow-[0_0_0_1px_var(--text-orange-500)]'
-                : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50'}
+            ${checked ? 'border-orange-200 bg-orange-50/60' : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'}
             ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
     >
-        <input
-            type="radio"
-            name={name}
-            value={value}
-            checked={checked}
-            onChange={() => onChange(value)}
-            disabled={disabled}
-            className="sr-only"
-        />
-        <span
-            aria-hidden="true"
-            className={`w-4 h-4 rounded-full border flex items-center justify-center flex-shrink-0 transition-colors ${checked ? 'border-[var(--text-orange-500)]' : 'border-gray-300'}`}
-        >
-            {checked && <span className="w-2 h-2 rounded-full bg-[var(--text-orange-500)]" />}
+        <input type="checkbox" name={name} value={value} checked={checked} onChange={() => onChange(value)} disabled={disabled} className="sr-only" />
+        <CheckBox checked={checked} />
+        <span className="min-w-0">
+            <span className="block text-sm font-medium text-[#1A1A1A] leading-snug">{label}</span>
+            {hint && <span className="block text-xs text-gray-500 mt-0.5 leading-relaxed">{hint}</span>}
         </span>
-        {Icon && <Icon size={15} className={checked ? 'text-[var(--text-orange-500)]' : 'text-gray-400'} />}
-        {children}
     </label>
 );
 
-const TextInput = ({ id, label, type = 'text', value, onChange, placeholder, maxLength, error, disabled, autoComplete }) => (
+// "Other:" row with an inline text field that appears once ticked.
+const OtherRow = ({ name, checked, onToggle, text, onText, disabled, id }) => (
+    <div className={`rounded-xl border px-4 py-3 transition-all ${checked ? 'border-orange-200 bg-orange-50/60' : 'border-gray-200 bg-white hover:border-gray-300'} ${disabled ? 'opacity-50' : ''}`}>
+        <label className={`flex items-start gap-3 select-none ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
+            <input type="checkbox" name={name} value={OTHER_LABEL} checked={checked} onChange={onToggle} disabled={disabled} className="sr-only" />
+            <CheckBox checked={checked} />
+            <span className="text-sm font-medium text-[#1A1A1A] leading-snug">{OTHER_LABEL}</span>
+        </label>
+        {checked && (
+            <input
+                id={id}
+                type="text"
+                value={text}
+                onChange={(e) => onText(e.target.value)}
+                maxLength={OTHER_MAX}
+                disabled={disabled}
+                placeholder="Please specify"
+                aria-label="Other, please specify"
+                className="mt-2.5 w-full text-sm px-3.5 py-2 rounded-[10px] border border-gray-200 focus:border-[var(--text-orange-500)] bg-white outline-none transition-colors"
+            />
+        )}
+    </div>
+);
+
+const TextInput = ({ id, label, type = 'text', value, onChange, placeholder, maxLength, error, disabled, autoComplete, required }) => (
     <div>
         <label htmlFor={id} className="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">
-            {label}
+            {label} {required && <span className="text-red-400">*</span>}
         </label>
         <input
             id={id}
@@ -134,25 +179,50 @@ const TextInput = ({ id, label, type = 'text', value, onChange, placeholder, max
     </div>
 );
 
+const LongText = ({ id, value, onChange, placeholder, disabled, rows = 6 }) => (
+    <div>
+        <textarea
+            id={id}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            maxLength={LONG_MAX}
+            rows={rows}
+            disabled={disabled}
+            placeholder={placeholder}
+            className="w-full text-sm leading-relaxed px-4 py-3 rounded-[10px] border border-gray-200 focus:border-[var(--text-orange-500)] bg-white outline-none transition-colors resize-y disabled:opacity-50 disabled:cursor-not-allowed"
+        />
+        <div className="flex justify-end mt-1 text-xs text-gray-400 tabular-nums">
+            {value.length.toLocaleString()} / {LONG_MAX.toLocaleString()}
+        </div>
+    </div>
+);
+
 // ─── Side column ──────────────────────────────────────────────────────────────
 
 const AboutPanel = () => (
     <motion.aside {...fadeUp(0.1)} className="lg:sticky lg:top-40 space-y-5">
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 md:p-7">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-4">About this consultation</h2>
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-4">About</h2>
             <div className="space-y-3.5 text-[15px] leading-relaxed text-gray-700">
-                {INTRO.map((para) => <p key={para.slice(0, 32)}>{para}</p>)}
+                {ABOUT.map((para) => <p key={para.slice(0, 32)}>{para}</p>)}
             </div>
-
             <div className="border-t border-gray-100 mt-6 pt-5">
-                <h3 className="text-sm font-semibold text-[#1A1A1A] mb-3">What we would love to hear about</h3>
-                <ul className="space-y-2.5">
-                    {PROMPTS.map((p) => (
-                        <li key={p} className="flex items-start gap-3 text-sm text-gray-700 leading-relaxed">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[var(--text-orange-500)] flex-shrink-0 mt-2" />
-                            {p}
-                        </li>
-                    ))}
+                <h3 className="text-sm font-semibold text-[#1A1A1A] mb-3">Two ways to engage</h3>
+                <ul className="space-y-3">
+                    {ENGAGEMENT.map((e) => {
+                        const Icon = ENGAGEMENT_ICONS[e.id];
+                        return (
+                            <li key={e.id} className="flex items-start gap-3">
+                                <span className="w-8 h-8 rounded-lg bg-orange-50 border border-orange-100 flex items-center justify-center text-[var(--text-orange-500)] flex-shrink-0">
+                                    <Icon size={15} />
+                                </span>
+                                <span>
+                                    <span className="block text-sm font-medium text-[#1A1A1A]">{e.label}</span>
+                                    <span className="block text-xs text-gray-500 leading-relaxed">{e.hint}</span>
+                                </span>
+                            </li>
+                        );
+                    })}
                 </ul>
             </div>
         </div>
@@ -162,13 +232,13 @@ const AboutPanel = () => (
                 <div className="w-9 h-9 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center text-[var(--text-orange-500)]">
                     <Mail size={17} />
                 </div>
-                <h3 className="text-sm font-semibold text-[#1A1A1A]">Have a detailed submission?</h3>
+                <h3 className="text-sm font-semibold text-[#1A1A1A]">Prefer email?</h3>
             </div>
             <p className="text-sm text-gray-500 leading-relaxed mb-3">
-                If you have longer feedback or documents to attach, email it to us instead.
+                If you have documents to share or a longer proposal, write to us directly.
             </p>
             <a
-                href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('FLN / DPI feedback')}`}
+                href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('FLN DPI / Bodhan open models')}`}
                 className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--text-orange-500)] hover:underline break-all"
             >
                 {CONTACT_EMAIL} <ArrowRight size={14} />
@@ -179,7 +249,7 @@ const AboutPanel = () => (
 
 // ─── Success ──────────────────────────────────────────────────────────────────
 
-const SuccessCard = ({ onAgain }) => (
+const SuccessCard = ({ name, onAgain }) => (
     <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
@@ -189,9 +259,9 @@ const SuccessCard = ({ onAgain }) => (
         <div className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center mx-auto mb-5">
             <CheckCircle size={28} className="text-emerald-500" />
         </div>
-        <h2 className="text-2xl font-semibold text-[#1A1A1A] mb-2">Thank you. Your feedback has been received.</h2>
+        <h2 className="text-2xl font-semibold text-[#1A1A1A] mb-2">Thank you{name ? `, ${name}` : ''}.</h2>
         <p className="text-gray-500 text-sm leading-relaxed max-w-md mx-auto mb-8">
-            Nothing you sent will be published. If you left an email address, we will only use it if we need to follow up.
+            Your interest has been recorded. We will follow up by email with next steps.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <button
@@ -199,7 +269,7 @@ const SuccessCard = ({ onAgain }) => (
                 onClick={onAgain}
                 className="inline-flex items-center gap-2 bg-[#0a0a0a] text-white text-sm font-medium px-5 py-2.5 rounded-[10px] hover:bg-[#ff6207] transition-colors cursor-pointer"
             >
-                Share another response
+                Submit another response
             </button>
             <Link
                 to="/"
@@ -219,12 +289,23 @@ const FlnDpiPage = () => {
     const [errors, setErrors] = useState({});
     const [status, setStatus] = useState('idle'); // idle | sending | success | error
     const [errorMsg, setErrorMsg] = useState('');
+    const [submittedName, setSubmittedName] = useState('');
     const [token, setToken] = useState('');
     const [captchaMsg, setCaptchaMsg] = useState('');
     const [captchaReset, setCaptchaReset] = useState(0);
 
     const isSending = status === 'sending';
     const configured = Boolean(SCRIPT_URL) && Boolean(SITE_KEY);
+
+    const wantsModels = form.engagement.includes('use-models');
+    const wantsContribute = form.engagement.includes('contribute');
+    const areasOtherOn = form.areas.includes(OTHER_LABEL);
+    const modesOtherOn = form.modes.includes(OTHER_LABEL);
+
+    // Step numbers follow the sections that are actually visible.
+    let stepCounter = 2;
+    const contributeStep = wantsContribute ? ++stepCounter : null;
+    const modelsStep = wantsModels ? ++stepCounter : null;
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -237,15 +318,21 @@ const FlnDpiPage = () => {
         setForm((f) => ({ ...f, [key]: value }));
         setErrors((e) => (key in e ? { ...e, [key]: undefined } : e));
     };
+    const toggleIn = (key) => (value) => set(key)(toggle(form[key], value));
 
     const validate = () => {
         const errs = {};
-        if (!form.role) errs.role = 'Please choose what describes you best.';
-        if (!form.topic) errs.topic = 'Please choose a topic.';
-        const fb = form.feedback.trim();
-        if (!fb) errs.feedback = 'Please share your ideas or feedback.';
-        else if (fb.length < FEEDBACK_MIN) errs.feedback = `A little more detail would help — at least ${FEEDBACK_MIN} characters.`;
-        if (form.email.trim() && !EMAIL_RE.test(form.email.trim())) errs.email = 'That does not look like an email address.';
+        if (!form.name.trim()) errs.name = 'Required';
+        if (!form.organisation.trim()) errs.organisation = 'Required';
+        if (!form.email.trim() || !EMAIL_RE.test(form.email.trim())) errs.email = 'Valid email required';
+        if (!form.engagement.length) errs.engagement = 'Please pick at least one.';
+        if (wantsContribute) {
+            if (!form.areas.length) errs.areas = 'Please pick at least one area.';
+            else if (areasOtherOn && !form.areasOther.trim()) errs.areas = 'Please say what "Other" is.';
+            if (!form.modes.length) errs.modes = 'Please pick at least one.';
+            else if (modesOtherOn && !form.modesOther.trim()) errs.modes = 'Please say what "Other" is.';
+        }
+        if (wantsModels && !form.models.length) errs.models = 'Please pick at least one model.';
         if (!token) errs.captcha = 'Please complete the human verification.';
         return errs;
     };
@@ -269,18 +356,24 @@ const FlnDpiPage = () => {
                 method: 'POST',
                 body: JSON.stringify({
                     source: 'fln-dpi',
-                    role: form.role,
-                    topic: form.topic,
-                    feedback: form.feedback.trim(),
                     name: form.name.trim(),
-                    email: form.email.trim(),
                     organisation: form.organisation.trim(),
+                    email: form.email.trim(),
+                    engagement: form.engagement,
+                    areas: wantsContribute ? form.areas : [],
+                    areasOther: wantsContribute && areasOtherOn ? form.areasOther.trim() : '',
+                    modes: wantsContribute ? form.modes : [],
+                    modesOther: wantsContribute && modesOtherOn ? form.modesOther.trim() : '',
+                    tellMore: wantsContribute ? form.tellMore.trim() : '',
+                    models: wantsModels ? form.models : [],
+                    useCase: wantsModels ? form.useCase.trim() : '',
                     website: form.website,
                     turnstileToken: token,
                 }),
             });
             const json = await res.json();
             if (!json.success) throw new Error(json.error || 'Submission failed');
+            setSubmittedName(form.name.trim().split(/\s+/)[0]);
             setStatus('success');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         } catch (err) {
@@ -303,9 +396,6 @@ const FlnDpiPage = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const feedbackLen = form.feedback.length;
-    const nearLimit = FEEDBACK_MAX - feedbackLen <= 200;
-
     return (
         <div className="min-h-screen bg-[var(--bg-cream-50)] flex flex-col">
             <Navbar />
@@ -321,15 +411,13 @@ const FlnDpiPage = () => {
                     <div className="relative max-w-6xl mx-auto px-5 md:px-6 pt-10 md:pt-16 pb-8 md:pb-12">
                         <motion.div {...fadeUp(0)} className="max-w-3xl">
                             <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-[var(--text-orange-500)] bg-orange-50 border border-orange-100 rounded-full px-3 py-1 mb-4">
-                                <span className="w-1.5 h-1.5 rounded-full bg-[var(--text-orange-500)] animate-pulse" />
-                                Public consultation · Open
+                                <Clock size={12} /> Interest form · about 3 minutes
                             </span>
                             <h1 className="text-3xl md:text-5xl font-semibold text-[#1A1A1A] leading-[1.15] mb-4">
-                                Share your ideas on <span className="text-[var(--text-orange-500)]">Foundational Literacy &amp; Numeracy</span> and <span className="text-[var(--text-orange-500)]">Digital Public Infrastructure</span>
+                                <span className="text-[var(--text-orange-500)]">{HEADLINE}</span>
                             </h1>
-                            <p className="text-gray-500 text-base md:text-lg leading-relaxed">
-                                Inviting ideas and feedback from everyone who teaches, learns, builds or cares about the foundations of education in India. Nothing you send is published, and you may stay anonymous.
-                            </p>
+                            <p className="text-gray-600 text-base md:text-lg leading-relaxed">{LEDE}</p>
+                            <p className="text-gray-400 text-sm mt-3">{TIME_NOTE}</p>
                         </motion.div>
                     </div>
                 </div>
@@ -343,19 +431,14 @@ const FlnDpiPage = () => {
 
                         <div className="order-1 lg:order-2">
                             {status === 'success' ? (
-                                <SuccessCard onAgain={resetAll} />
+                                <SuccessCard name={submittedName} onAgain={resetAll} />
                             ) : (
                                 <form onSubmit={handleSubmit} noValidate className="space-y-5">
-                                    <motion.div {...fadeUp(0.05)} className="flex items-center gap-2 text-sm text-gray-500 px-1">
-                                        <EyeOff size={15} className="text-gray-400" />
-                                        Nothing you send is published. Leave your details blank to stay anonymous.
-                                    </motion.div>
-
                                     {!configured && (
                                         <motion.div {...fadeUp(0.05)} className="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3.5">
                                             <AlertCircle size={15} className="text-amber-500 flex-shrink-0 mt-0.5" />
                                             <p className="text-sm text-amber-800 leading-relaxed">
-                                                This form is not accepting submissions right now. Please email your feedback to{' '}
+                                                This form is not accepting submissions right now. Please email us at{' '}
                                                 <a href={`mailto:${CONTACT_EMAIL}`} className="font-semibold underline">{CONTACT_EMAIL}</a>.
                                                 {import.meta.env.DEV && (
                                                     <span className="block mt-1 font-mono text-xs text-amber-700">
@@ -366,31 +449,28 @@ const FlnDpiPage = () => {
                                         </motion.div>
                                     )}
 
-                                    {/* 1 · Role */}
-                                    <Section id="role" step={1} title="What describes you best?" error={errors.role} delay={0.1}>
-                                        <fieldset disabled={isSending}>
-                                            <legend className="sr-only">What describes you best?</legend>
-                                            <div className="flex flex-wrap gap-2">
-                                                {ROLES.map((r) => (
-                                                    <Chip key={r} name="role" value={r} checked={form.role === r} onChange={set('role')} disabled={isSending}>
-                                                        {r}
-                                                    </Chip>
-                                                ))}
+                                    {/* 1 · About you */}
+                                    <Section id="you" step={1} title="About you" delay={0.1}>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            <TextInput id="name" label="Your name" required value={form.name} onChange={set('name')} maxLength={NAME_MAX} disabled={isSending} autoComplete="name" error={errors.name} />
+                                            <TextInput id="organisation" label="Organization / company" required value={form.organisation} onChange={set('organisation')} maxLength={ORG_MAX} disabled={isSending} autoComplete="organization" error={errors.organisation} />
+                                            <div className="sm:col-span-2">
+                                                <TextInput id="email" label="Your email" type="email" required value={form.email} onChange={set('email')} maxLength={EMAIL_MAX} disabled={isSending} autoComplete="email" error={errors.email} placeholder="you@organisation.org" />
                                             </div>
-                                        </fieldset>
+                                        </div>
                                     </Section>
 
-                                    {/* 2 · Topic */}
-                                    <Section id="topic" step={2} title="What is your feedback about?" error={errors.topic} delay={0.15}>
+                                    {/* 2 · Engagement */}
+                                    <Section id="engagement" step={2} title="How would you like to engage?" hint="Pick one or both. You will only see the sections relevant to you." error={errors.engagement} delay={0.15}>
                                         <fieldset disabled={isSending}>
-                                            <legend className="sr-only">Topic</legend>
-                                            <div className="grid sm:grid-cols-3 gap-2.5">
-                                                {TOPICS.map((t) => {
-                                                    const Icon = TOPIC_ICONS[t.id];
-                                                    const checked = form.topic === t.id;
+                                            <legend className="sr-only">How would you like to engage?</legend>
+                                            <div className="grid sm:grid-cols-2 gap-3">
+                                                {ENGAGEMENT.map((opt) => {
+                                                    const Icon = ENGAGEMENT_ICONS[opt.id];
+                                                    const checked = form.engagement.includes(opt.id);
                                                     return (
                                                         <label
-                                                            key={t.id}
+                                                            key={opt.id}
                                                             className={`relative flex flex-col gap-2 rounded-xl border p-4 select-none transition-all
                                                                 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-orange-300
                                                                 ${checked
@@ -398,28 +478,15 @@ const FlnDpiPage = () => {
                                                                     : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'}
                                                                 ${isSending ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                                                         >
-                                                            <input
-                                                                type="radio"
-                                                                name="topic"
-                                                                value={t.id}
-                                                                checked={checked}
-                                                                onChange={() => set('topic')(t.id)}
-                                                                disabled={isSending}
-                                                                className="sr-only"
-                                                            />
+                                                            <input type="checkbox" name="engagement" value={opt.id} checked={checked} onChange={() => toggleIn('engagement')(opt.id)} disabled={isSending} className="sr-only" />
                                                             <div className="flex items-center justify-between">
                                                                 <span className={`w-9 h-9 rounded-xl flex items-center justify-center border ${checked ? 'bg-white border-orange-200 text-[var(--text-orange-500)]' : 'bg-gray-50 border-gray-100 text-gray-500'}`}>
                                                                     <Icon size={17} />
                                                                 </span>
-                                                                <span
-                                                                    aria-hidden="true"
-                                                                    className={`w-4 h-4 rounded-full border flex items-center justify-center ${checked ? 'border-[var(--text-orange-500)]' : 'border-gray-300'}`}
-                                                                >
-                                                                    {checked && <span className="w-2 h-2 rounded-full bg-[var(--text-orange-500)]" />}
-                                                                </span>
+                                                                <CheckBox checked={checked} />
                                                             </div>
-                                                            <span className="text-sm font-semibold text-[#1A1A1A] leading-snug">{t.label}</span>
-                                                            <span className="text-xs text-gray-500 leading-relaxed">{t.hint}</span>
+                                                            <span className="text-sm font-semibold text-[#1A1A1A] leading-snug">{opt.label}</span>
+                                                            <span className="text-xs text-gray-500 leading-relaxed">{opt.hint}</span>
                                                         </label>
                                                     );
                                                 })}
@@ -427,47 +494,48 @@ const FlnDpiPage = () => {
                                         </fieldset>
                                     </Section>
 
-                                    {/* 3 · Feedback */}
-                                    <Section id="feedback" step={3} title="Give your ideas / feedback" error={errors.feedback} delay={0.2}>
-                                        <label htmlFor="feedback-text" className="sr-only">Your ideas or feedback</label>
-                                        <textarea
-                                            id="feedback-text"
-                                            value={form.feedback}
-                                            onChange={(e) => set('feedback')(e.target.value)}
-                                            maxLength={FEEDBACK_MAX}
-                                            rows={9}
-                                            disabled={isSending}
-                                            placeholder="Tell us what you have seen, what you think should change, and why. Specific examples help."
-                                            aria-invalid={errors.feedback ? 'true' : undefined}
-                                            className={`w-full text-sm leading-relaxed px-4 py-3 rounded-[10px] border bg-white outline-none transition-colors resize-y min-h-[180px]
-                                                ${errors.feedback ? 'border-red-300 focus:border-red-400' : 'border-gray-200 focus:border-[var(--text-orange-500)]'}
-                                                disabled:opacity-50 disabled:cursor-not-allowed`}
-                                        />
-                                        <div className="flex justify-between items-center mt-2 text-xs text-gray-400">
-                                            <span>Any language is welcome.</span>
-                                            <span className={`tabular-nums ${nearLimit ? 'text-amber-600 font-medium' : ''}`}>
-                                                {feedbackLen.toLocaleString()} / {FEEDBACK_MAX.toLocaleString()}
-                                            </span>
-                                        </div>
-                                    </Section>
+                                    {/* Contributing to the FLN DPI */}
+                                    {wantsContribute && (
+                                        <Section id="contribute" step={contributeStep} title="Contributing to the FLN DPI" hint={CONTRIBUTE_INTRO} delay={0}>
+                                            <Question id="areas" label="Which areas can you contribute to?" required error={errors.areas}>
+                                                <div className="grid gap-2">
+                                                    {AREAS.map((a) => (
+                                                        <CheckRow key={a.label} name="areas" value={a.label} label={a.label} hint={a.hint} checked={form.areas.includes(a.label)} onChange={toggleIn('areas')} disabled={isSending} />
+                                                    ))}
+                                                    <OtherRow id="areas-other" name="areas" checked={areasOtherOn} onToggle={() => toggleIn('areas')(OTHER_LABEL)} text={form.areasOther} onText={set('areasOther')} disabled={isSending} />
+                                                </div>
+                                            </Question>
 
-                                    {/* Optional details */}
-                                    <Section
-                                        id="details"
-                                        title="Your details"
-                                        badge="Optional"
-                                        hint="Leave these blank to stay anonymous. We only use them if we need to follow up."
-                                        error={errors.email}
-                                        delay={0.25}
-                                    >
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                            <TextInput id="name" label="Name" value={form.name} onChange={set('name')} maxLength={NAME_MAX} disabled={isSending} autoComplete="name" />
-                                            <TextInput id="email" label="Email" type="email" value={form.email} onChange={set('email')} maxLength={EMAIL_MAX} disabled={isSending} autoComplete="email" error={errors.email} />
-                                            <div className="sm:col-span-2">
-                                                <TextInput id="organisation" label="Organisation / State" value={form.organisation} onChange={set('organisation')} maxLength={ORG_MAX} disabled={isSending} autoComplete="organization" placeholder="e.g. a school, district, NGO or company" />
-                                            </div>
-                                        </div>
-                                    </Section>
+                                            <Question id="modes" label="How would you contribute?" required error={errors.modes}>
+                                                <div className="grid sm:grid-cols-2 gap-2">
+                                                    {MODES.map((m) => (
+                                                        <CheckRow key={m.label} name="modes" value={m.label} label={m.label} checked={form.modes.includes(m.label)} onChange={toggleIn('modes')} disabled={isSending} />
+                                                    ))}
+                                                    <OtherRow id="modes-other" name="modes" checked={modesOtherOn} onToggle={() => toggleIn('modes')(OTHER_LABEL)} text={form.modesOther} onText={set('modesOther')} disabled={isSending} />
+                                                </div>
+                                            </Question>
+
+                                            <Question id="tell-more" label="Tell us more" hint="Specific areas, prior or existing work, and what you would bring.">
+                                                <LongText id="tell-more-text" value={form.tellMore} onChange={set('tellMore')} disabled={isSending} placeholder="Anything that helps us understand where you fit in." />
+                                            </Question>
+                                        </Section>
+                                    )}
+
+                                    {/* Using Bodhan open models */}
+                                    {wantsModels && (
+                                        <Section id="models" step={modelsStep} title="Using Bodhan open models" hint={MODELS_INTRO} delay={0}>
+                                            <Question id="models-q" label="Which models are you interested in?" required error={errors.models}>
+                                                <div className="grid sm:grid-cols-3 gap-2">
+                                                    {MODELS.map((m) => (
+                                                        <CheckRow key={m.label} name="models" value={m.label} label={m.label} hint={m.hint} checked={form.models.includes(m.label)} onChange={toggleIn('models')} disabled={isSending} />
+                                                    ))}
+                                                </div>
+                                            </Question>
+                                            <Question id="use-case" label="Tell us about your use case" hint="What you would build, which languages, and at what scale.">
+                                                <LongText id="use-case-text" value={form.useCase} onChange={set('useCase')} disabled={isSending} rows={5} placeholder="e.g. reading-fluency assessment in Hindi and Marathi for 200 schools" />
+                                            </Question>
+                                        </Section>
+                                    )}
 
                                     {/* Human check */}
                                     <Section
@@ -475,12 +543,12 @@ const FlnDpiPage = () => {
                                         title={<span className="inline-flex items-center gap-2"><ShieldCheck size={18} className="text-[var(--text-orange-500)]" /> One last check</span>}
                                         hint="A quick verification that helps us screen out automated spam."
                                         error={errors.captcha || captchaMsg}
-                                        delay={0.3}
+                                        delay={0.2}
                                     >
                                         {SITE_KEY ? (
                                             <Turnstile
                                                 siteKey={SITE_KEY}
-                                                action="fln-dpi-feedback"
+                                                action="fln-dpi-interest"
                                                 resetKey={captchaReset}
                                                 onToken={(t) => {
                                                     setToken(t);
@@ -500,14 +568,7 @@ const FlnDpiPage = () => {
                                         <div aria-hidden="true" className="absolute w-0 h-0 overflow-hidden opacity-0 pointer-events-none">
                                             <label>
                                                 Website
-                                                <input
-                                                    type="text"
-                                                    name="website"
-                                                    tabIndex={-1}
-                                                    autoComplete="off"
-                                                    value={form.website}
-                                                    onChange={(e) => set('website')(e.target.value)}
-                                                />
+                                                <input type="text" name="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={(e) => set('website')(e.target.value)} />
                                             </label>
                                         </div>
                                     </Section>
@@ -519,7 +580,7 @@ const FlnDpiPage = () => {
                                         </motion.div>
                                     )}
 
-                                    <motion.div {...fadeUp(0.35)}>
+                                    <motion.div {...fadeUp(0.25)}>
                                         <button
                                             type="submit"
                                             disabled={isSending || !configured}
@@ -528,11 +589,11 @@ const FlnDpiPage = () => {
                                             {isSending ? (
                                                 <><Loader2 size={15} className="animate-spin" /> Sending…</>
                                             ) : (
-                                                <>Submit feedback <Send size={15} /></>
+                                                <>Submit <Send size={15} /></>
                                             )}
                                         </button>
                                         <p className="text-xs text-gray-400 mt-3">
-                                            By submitting you confirm the information is your own.
+                                            We will only use your details to follow up about the FLN DPI and Bodhan open models.
                                         </p>
                                     </motion.div>
                                 </form>

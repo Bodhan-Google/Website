@@ -1,32 +1,45 @@
-# `/fln-dpi` — FLN & DPI feedback form
+# `/fln-dpi` — FLN DPI & Bodhan Open Models interest form
 
-Anonymous public-consultation form at `/fln-dpi`, modelled on the
-[Exam Reforms Task Force feedback page](https://examreforms-taskforce.dopt.gov.in)
-but in the Bodhan design language.
+Interest form at `/fln-dpi` for people met at the FLN Consortium (MoE) and the
+Bodhan AI ecosystem consultation (Gates Foundation). It mirrors the Google Form
+of the same name, in the Bodhan design language, with Cloudflare Turnstile in
+front of it.
 
 ```
 src/features/flnDpi/
-  data/content.js           copy, role list, topics, limits  ← edit copy here
+  data/content.js           copy, engagement options, areas, modes, models, limits  ← edit here
   components/FlnDpiPage.jsx the page
   components/Turnstile.jsx  Cloudflare Turnstile widget (explicit render, resettable)
 scripts/apps-script/
   fln-dpi-feedback.js       the backend: Google Apps Script bound to a Sheet
 ```
 
+## The form
+
+1. **About you** — name, organisation / company, email (all required).
+2. **How would you like to engage?** — multi-select: *Use Bodhan open models*,
+   *Contribute to building the FLN DPI*. Only the sections for what is ticked
+   are shown, like the Google Form's branching.
+3. **Contributing to the FLN DPI** (if ticked) — *Which areas can you
+   contribute to?* (6 areas + Other), *How would you contribute?* (5 modes +
+   Other), *Tell us more* (optional long text).
+4. **Using Bodhan open models** (if ticked) — *Which models?* (ASR / OCR / TTS),
+   *Tell us about your use case* (optional long text).
+5. **One last check** — Turnstile.
+
 ## How a submission flows
 
 1. The browser renders **Cloudflare Turnstile** and gets a one-time token.
-2. On submit the page POSTs JSON (role, topic, feedback, optional name / email /
-   organisation, honeypot, token) to the Apps Script web app — the same
+2. On submit the page POSTs JSON to the Apps Script web app — the same
    mechanism the tender bid form uses.
 3. The script verifies the token against Cloudflare's `siteverify` endpoint
-   using the **secret key** (never shipped to the browser), validates the
-   payload, and appends a row to the Google Sheet.
+   using the **secret key** (never shipped to the browser), validates every
+   option against its allow-list, and appends a row to the Google Sheet.
 4. The page shows a success card. On any failure the widget is reset, because a
    Turnstile token cannot be reused.
 
 Bot defences: Turnstile (server-verified), a hidden honeypot field (`website`),
-server-side allow-lists for role/topic, length caps, and formula-injection
+server-side allow-lists for every choice, length caps, and formula-injection
 escaping before the row hits the Sheet.
 
 ## One-time setup
@@ -37,13 +50,12 @@ Cloudflare dashboard → Turnstile → **Add widget**.
 
 - Hostnames: `bodhan.ai`, `www.bodhan.ai`, `bodhan-google.github.io`, and
   `localhost` if you want to test with real keys locally.
-- Widget mode: **Managed** (shows the "Verify you are human" box, like the
-  reference site).
+- Widget mode: **Managed**.
 - Copy the **Site key** (public) and **Secret key** (private).
 
 ### 2. Google Sheet + Apps Script
 
-1. Create a Google Sheet (e.g. "FLN-DPI feedback"). Responses land in a tab
+1. Create a Google Sheet (e.g. "FLN DPI interest"). Responses land in a tab
    called `Responses` (created automatically with a bold, frozen header row).
 2. Extensions → **Apps Script**. Replace the default `Code.gs` with the contents
    of `scripts/apps-script/fln-dpi-feedback.js`.
@@ -59,7 +71,7 @@ Cloudflare dashboard → Turnstile → **Add widget**.
 4. Deploy → **New deployment** → type *Web app* → Execute as **Me**, Who has
    access **Anyone** → Deploy. Copy the `/exec` URL.
 5. Sanity check: opening the `/exec` URL in a browser returns
-   `{"ok":true,"service":"fln-dpi-feedback"}`.
+   `{"ok":true,"service":"fln-dpi-interest"}`.
 
 Every time the script is edited you need **Deploy → Manage deployments → edit →
 New version**; the `/exec` URL stays the same.
@@ -88,15 +100,15 @@ shows an "email us instead" notice rather than posting into the void.
 
 ## Editing the form
 
-- Copy, intro paragraphs, prompts, role chips and topics live in
-  `src/features/flnDpi/data/content.js`.
-- `ROLES` and `TOPICS` are duplicated in the Apps Script (`ROLES`, `TOPICS`) —
-  the backend rejects unknown values, so change both together and redeploy the
-  script.
+- Copy and every option list live in `src/features/flnDpi/data/content.js`.
+- The option lists are duplicated in the Apps Script (`ENGAGEMENT`, `AREAS`,
+  `MODES`, `MODELS`) — the backend drops values it does not recognise, so change
+  both together and redeploy the script.
 
 ## What is stored
 
-One row per submission: timestamp, role, topic, feedback, name, email,
-organisation (the last three may be empty), the hostname and action Cloudflare
-verified the token for, and `source` (`fln-dpi`). No IP address or user agent
-is recorded.
+One row per submission: timestamp, name, organisation, email, engagement
+choices, areas (+ other text), contribution modes (+ other text), "tell us
+more", models, use case, the hostname Cloudflare verified the token for, and
+`source` (`fln-dpi`). Multi-select answers are `; `-joined. No IP address or
+user agent is recorded.
