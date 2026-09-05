@@ -17,7 +17,8 @@ import './post.css';
  * mt-blog/). Its components, data and stylesheet are copied here verbatim, with
  * the stylesheet scoped under `.mt-post`, and the site's Navbar and Footer wrap
  * it. To take a newer drop of the standalone app, re-copy src/{components,data,
- * lib} and re-scope styles.css; nothing in here is hand-edited.
+ * lib} and re-scope styles.css (scripts/sync-indic-translate-post.py); only
+ * this file mirrors App.jsx by hand.
  */
 const IndicTranslatePostPage = () => {
     const progressRef = useRef(null);
@@ -75,7 +76,13 @@ const IndicTranslatePostPage = () => {
                             <SectionBlocks sections={post.sections} />
                         </article>
 
-                        <CiteThisWork heading={citation.heading} bibtex={citation.bibtex} temporary={citation.temporary} />
+                        <CiteThisWork
+                            heading={citation.heading}
+                            bibtex={citation.bibtex}
+                            temporary={citation.temporary}
+                            license={citation.license}
+                            citeHeading={citation.citeHeading}
+                        />
                     </div>
                 </div>
 

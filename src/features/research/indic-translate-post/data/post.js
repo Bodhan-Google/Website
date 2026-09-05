@@ -384,7 +384,19 @@ export const post = {
 // drop the "V4" the card still carries -- the public name of this release is
 // "Indic-Translate", which is what every other string in this post already says.
 export const citation = {
-  heading: 'Cite this work',
+  heading: 'License and citation',
+  // The license link answers 401 to an anonymous fetch, the same as every other path in
+  // that repo, because the model is still gated on Hugging Face -- it resolves for anyone
+  // who has been granted access, and will resolve publicly when the repo opens. Kept as
+  // given rather than swapped for a mirror, so it points at the authoritative copy.
+  license: {
+    text: 'Released under',
+    name: 'Indic Open Model License v1.0',
+    href: 'https://huggingface.co/bodhan-ai/indic-translate/blob/main/Bodhan_AI_Open_Model_License.md',
+  },
+  // Sub-heading for the BibTeX half, so the section's two subjects are each labelled
+  // rather than the licence line reading as a preamble to the citation.
+  citeHeading: 'Cite this work',
   bibtex: `@misc{indic-translate-2026,
   title  = {Indic-Translate: Document-Level Machine Translation for 22 Indian Languages},
   author = {Bodhan.ai},
@@ -411,7 +423,7 @@ export const ecosystem = {
       href: 'https://aikosh.indiaai.gov.in/web/models/details/indic_translate.html',
       icon: 'aikosh',
     },
-    { label: 'Bodhan', href: 'https://console.bodhan.ai/ui/login', icon: 'bodhan' },
+    { label: 'Bodhan.AI', href: 'https://console.bodhan.ai/ui/login', icon: 'bodhan' },
     {
       label: 'Hugging Face',
       href: 'https://huggingface.co/bodhan-ai/indic-translate',

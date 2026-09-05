@@ -599,10 +599,12 @@ const ExamplesBrowser = () => {
           dir={tlIsXX ? undefined : rtlDir}
           out
         />
-        <p className="ex-note">
-          Character error rate {tlItem.cer.toFixed(3)}, word error rate {tlItem.wer.toFixed(3)}{' '}
-          (lower is better).
-        </p>
+        {/* The per-example CER/WER line is gone. These are the top-scoring items per
+            language, so 63 of the 66 read exactly "0.000, 0.000" -- a number that told the
+            reader nothing and, repeated under every example, looked like a metric that had
+            not been computed. The aggregate CER and WER still appear as charts in the
+            Evaluation section, where they are measured over every scored sentence rather
+            than over the one on screen. */}
         <Dots
           count={tlItems.length}
           active={tlIdx}

@@ -7,7 +7,7 @@ import Reveal from './Reveal';
  * `navigator.clipboard` is unavailable on insecure origins and can be refused, so the
  * button reports what actually happened rather than assuming success.
  */
-const CiteThisWork = ({ heading, bibtex, temporary }) => {
+const CiteThisWork = ({ heading, bibtex, temporary, license, citeHeading }) => {
   const [state, setState] = useState('idle');
 
   const copy = async () => {
@@ -37,6 +37,16 @@ const CiteThisWork = ({ heading, bibtex, temporary }) => {
             Title, URL and key are not final.
           </p>
         )}
+        {license && (
+          <p className="cite-license">
+            {license.text}{' '}
+            <a href={license.href} target="_blank" rel="noopener noreferrer">
+              {license.name}
+            </a>
+            .
+          </p>
+        )}
+        {citeHeading && <h3 className="cite-subheading">{citeHeading}</h3>}
         <pre className="cite-bibtex">{bibtex}</pre>
         <p aria-live="polite" className="sr-only">
           {state === 'copied' ? 'BibTeX copied to clipboard' : ''}

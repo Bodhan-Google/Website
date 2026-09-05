@@ -13,6 +13,7 @@ import ResearchPage from '../features/research/components/ResearchPage'
 import BlogPostPage from '../features/research/components/BlogPostPage'
 import LegacyPostRedirect from '../features/research/components/LegacyPostRedirect'
 import IndicTranslatePostPage from '../features/research/indic-translate-post/IndicTranslatePostPage'
+import IndicOcrPostPage from '../features/research/indic-ocr-post/IndicOcrPostPage'
 import DevelopersPage from '../features/developers/components/DevelopersPage'
 import IndicOcrPage from '../features/developers/components/models/IndicOcrPage'
 import IndicSpeakPage from '../features/developers/components/models/IndicSpeakPage'
@@ -40,6 +41,7 @@ function App() {
       <Route path="/research/publications" element={<ResearchPage />} />
       {/* Indic-Translate has its own page (see indic-translate-post/); the static route wins over :slug. */}
       <Route path="/research/blogs/indic-translate" element={<IndicTranslatePostPage />} />
+      <Route path="/research/blogs/indic-ocr" element={<IndicOcrPostPage />} />
       <Route path="/research/blogs/:slug" element={<BlogPostPage />} />
       <Route path="/research/publication/:slug" element={<BlogPostPage />} />
       <Route path="/research/publication/fln-dpi/feedback" element={<FlnDpiPage />} />
