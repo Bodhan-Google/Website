@@ -184,6 +184,7 @@ const BlogPostPage = () => {
                                                 <a
                                                     href={link.href}
                                                     target={link.href.startsWith('http') ? '_blank' : undefined}
+                                                    {link.arrow && <span aria-hidden="true">{'\u00A0'}→</span>}
                                                     rel={
                                                         link.href.startsWith('http')
                                                             ? 'noopener noreferrer'
@@ -197,6 +198,7 @@ const BlogPostPage = () => {
                                         </span>
                                     ))}
                                 </nav>
+                                                    {link.arrow && <span aria-hidden="true">{'\u00A0'}→</span>}
                             )}
                         </div>
                     </div>

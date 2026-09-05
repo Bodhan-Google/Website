@@ -39,7 +39,7 @@ export const flnDpiWhitepaperPost = {
         + 'for public consultation; nothing in it is final until it has survived that scrutiny.',
     heroLinks: [
         { label: '📄 Read the whitepaper (PDF)', href: PDF_URL, external: true },
-        { label: '✎ Submit feedback or interest', href: FORM_PATH },
+        { label: '✎ Submit feedback or interest', href: FORM_PATH, arrow: true },
     ],
     specs: [
         { label: 'Version', value: '1.0' },
