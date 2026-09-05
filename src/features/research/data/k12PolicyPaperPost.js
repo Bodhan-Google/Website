@@ -19,7 +19,9 @@ export const k12PolicyPaperPost = {
     slug: 'ai-k12-education-policy-paper',
     title: 'AI and K-12 Education in India and the Global South: Opportunities, Risks, and Policy Directions',
     category: 'Publication',
-    date: '2026-09-01',
+    date: '2026-08-01',
+    // Shown instead of the formatted date: the paper carries a month, not a day.
+    dateLabel: 'August 2026',
     summary:
         'A CeRAI policy paper on making AI a genuine lever for equity in K-12 classrooms: where it '
         + 'demonstrably helps, the cognitive and pedagogical risks no safety audit catches, and '
@@ -44,7 +46,6 @@ export const k12PolicyPaperPost = {
         { label: 'Type', value: 'Policy paper' },
         { label: 'Authors', value: 'Neethi S · Sriya Sridhar' },
         { label: 'Publisher', value: 'CeRAI, IIT Madras' },
-        { label: 'Published', value: 'August 2026' },
         { label: 'Length', value: '41 pages' },
         { label: 'Focus', value: 'K-12 · FLN · Global South' },
     ],

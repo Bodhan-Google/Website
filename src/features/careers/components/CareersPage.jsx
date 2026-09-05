@@ -4,7 +4,7 @@ import {
     MapPin,
     Briefcase,
     ChevronDown,
-    ExternalLink,
+    ArrowUpRight,
     Search,
     X,
     Maximize2,
@@ -143,7 +143,7 @@ const JobCard = ({ job, index, tokens }) => {
                             onClick={(event) => event.stopPropagation()}
                         >
                             Apply Now
-                            <ExternalLink size={14} />
+                            <ArrowUpRight size={14} />
                         </a>
                     )}
                     <button
@@ -195,7 +195,7 @@ const JobCard = ({ job, index, tokens }) => {
                                 className="inline-flex items-center gap-1.5 bg-[#0a0a0a] text-white text-sm font-medium py-2.5 px-6 rounded-lg hover:bg-black transition-colors"
                             >
                                 Apply for {job.title}
-                                <ExternalLink size={14} />
+                                <ArrowUpRight size={14} />
                             </a>
                         </div>
                     ) : (

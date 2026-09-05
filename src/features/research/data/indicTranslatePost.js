@@ -21,8 +21,8 @@ export const indicTranslatePost = {
     // ── 1. Hero ──────────────────────────────────────────────────────────
     slug: 'indic-translate',
     title: 'Indic-Translate: Document-Level Translation for 22 Indian Languages',
-    category: 'Publication',
-    date: '2026-09-02',
+    category: 'Release',
+    date: '2026-09-05',
     summary:
         'A 4B-parameter translation model covering English and all 22 Eighth Schedule '
         + 'languages in both directions — built to translate whole documents in a single '

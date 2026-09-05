@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { HashRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import '../styles/globals.css'
 import App from './App.jsx'
 import iconSrc from '../assets/Icon.png'
@@ -61,8 +61,8 @@ img.src = iconSrc;
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <HashRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
       <App />
-    </HashRouter>
+    </BrowserRouter>
   </StrictMode>,
 )

@@ -5,6 +5,8 @@
 // translateExamples.json (402 KB of real predictions across 22 languages, lazy
 // loaded so it stays off the page's critical path).
 
+import { postPathForSlug } from '../../../../research/data/posts';
+
 // Point this at an inference endpoint to run visitor-typed text through the real
 // model. It should accept `POST { text, source, target, task }` and answer with
 // `{ output }`. While it is empty the demo replays recorded output instead, and
@@ -187,7 +189,7 @@ export const CLOSING = {
         + 'system we could run under the same harness.',
     links: [
         { label: 'Hugging Face', href: 'https://huggingface.co/bodhan-ai/indic-translate', primary: true },
-        { label: 'Technical overview', href: '/research/indic-translate' },
+        { label: 'Technical overview', href: postPathForSlug('indic-translate') },
         { label: 'Contact', href: '/contact' },
     ],
     // Named in the write-up as the platforms the model is distributed through.

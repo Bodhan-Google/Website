@@ -1,13 +1,13 @@
 export const CHART = {
     series: {
-        primary: '#C2410C',
+        primary: '#FF6207',
         secondary: '#0F766E',
         tertiary: '#5C4033',
         muted: '#A89880',
         // The design system's brand blue, for a segment that should read apart from
         // the warm palette rather than as a third shade of it.
         brandBlue: '#314685',
-        highlight: '#C2410C',
+        highlight: '#FF6207',
     },
     text: {
         primary: '#2C241C',
@@ -17,7 +17,7 @@ export const CHART = {
     grid: '#E4D8C8',
     axis: '#C9BBA8',
     tooltip: '#2C241C',
-    focus: '#C2410C',
+    focus: '#FF6207',
     panel: '#FBF6EE',
     marker: {
         primary: 'circle',

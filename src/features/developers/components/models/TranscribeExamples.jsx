@@ -829,7 +829,7 @@ const TranscribeExamples = () => {
                                 rel="noopener noreferrer"
                                 className="model-cta-primary model-cta-small model-cta-dark"
                             >
-                                Go to Dashboard
+                                Go to API Console
                                 <ArrowUpRight size={13} aria-hidden="true" />
                             </a>
                         </div>

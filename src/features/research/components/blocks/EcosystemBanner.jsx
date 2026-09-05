@@ -68,7 +68,7 @@ const EcosystemBanner = ({
                                 href={platform.href}
                                 target={platform.href.startsWith('http') ? '_blank' : undefined}
                                 rel={platform.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                                className="bt-eco-card"
+                                className="bt-eco-card no-ext-arrow"
                                 style={style}
                             >
                                 {body}

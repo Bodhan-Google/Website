@@ -155,8 +155,10 @@ const BlogContent = ({ sections }) => {
         [sections]
     );
 
-    const renderLink = ({ label, href }) => {
-        const isInternal = href.startsWith('/');
+    const renderLink = ({ label, href, external }) => {
+        // A same-origin static file (e.g. /docs/x.pdf) starts with '/' but must not
+        // go through the router; the post marks it `external: true`.
+        const isInternal = href.startsWith('/') && !external;
         const className =
             'research-inline-link inline-flex items-center text-[13px] font-medium text-[var(--text-primary)] border border-[var(--primary-100)] rounded-full px-3.5 py-1.5 hover:bg-[var(--primary-100)] hover:border-[var(--text-orange-500)] hover:-translate-y-0.5 transition-all duration-200';
 
@@ -168,8 +170,9 @@ const BlogContent = ({ sections }) => {
             );
         }
 
+        const opensNewTab = external || href.startsWith('http');
         return (
-            <a key={label} href={href} className={className}>
+            <a key={label} href={href} className={className} target={opensNewTab ? '_blank' : undefined} rel={opensNewTab ? 'noopener noreferrer' : undefined}>
                 {label}
             </a>
         );

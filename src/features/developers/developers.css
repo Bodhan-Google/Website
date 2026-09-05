@@ -42,13 +42,13 @@
 .aur-blob-1 {
   top: -8rem;
   left: -4rem;
-  background: radial-gradient(circle at 50% 50%, var(--aur-from, #C2410C) 0%, transparent 68%);
+  background: radial-gradient(circle at 50% 50%, var(--aur-from, #FF6207) 0%, transparent 68%);
 }
 
 .aur-blob-2 {
   top: -6rem;
   right: -6rem;
-  background: radial-gradient(circle at 50% 50%, var(--aur-to, #B45309) 0%, transparent 68%);
+  background: radial-gradient(circle at 50% 50%, var(--aur-to, #FFB347) 0%, transparent 68%);
   opacity: 0.34;
 }
 
@@ -237,7 +237,7 @@ main.models-page-main {
    -webkit-text-fill-color is inherited, so the animated span inside it is
    painted by the same gradient */
 .dx-title .dx-grad {
-  background: linear-gradient(100deg, #E2691F 0%, #C2410C 50%, #A6410A 100%);
+  background: linear-gradient(100deg, #E2691F 0%, #FF6207 50%, #CE3000 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -878,9 +878,9 @@ main.models-page-main {
 
 .pg-glow {
   background:
-    radial-gradient(ellipse 60% 70% at 12% 0%, color-mix(in srgb, var(--model-accent, #C2410C) 30%, transparent) 0%, transparent 62%),
+    radial-gradient(ellipse 60% 70% at 12% 0%, color-mix(in srgb, var(--model-accent, #FF6207) 30%, transparent) 0%, transparent 62%),
     radial-gradient(ellipse 55% 65% at 88% 8%, rgba(226, 176, 152, 0.4) 0%, transparent 60%),
-    radial-gradient(ellipse 70% 60% at 50% 100%, color-mix(in srgb, var(--model-accent, #C2410C) 20%, transparent) 0%, transparent 65%);
+    radial-gradient(ellipse 70% 60% at 50% 100%, color-mix(in srgb, var(--model-accent, #FF6207) 20%, transparent) 0%, transparent 65%);
 }
 
 /* The playground shell reaches for the same --ed-* palette that .model-panel
@@ -897,14 +897,14 @@ main.models-page-main {
   --ed-text: #2C241C;
   --ed-text-2: #5C534A;
   --ed-border: rgba(46, 50, 56, 0.1);
-  --ed-orange: var(--model-accent, #C2410C);
+  --ed-orange: var(--model-accent, #FF6207);
   --ed-emerald: var(--model-emerald);
   --ed-brown: #72533D;
   position: relative;
   border-color: transparent;
   background:
     linear-gradient(rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.94)) padding-box,
-    var(--model-gradient, linear-gradient(135deg, #E2691F, #A6410A)) border-box;
+    var(--model-gradient, linear-gradient(135deg, #E2691F, #CE3000)) border-box;
   border: 1px solid transparent;
   box-shadow: 0 28px 64px -28px color-mix(in srgb, var(--model-accent, #2E3238) 45%, transparent);
 }
@@ -931,7 +931,7 @@ main.models-page-main {
   justify-content: center;
 }
 
-/* "Go to Dashboard" is one destination wherever it appears — the console — so
+/* "Go to API Console" is one destination wherever it appears — the console — so
    it is the same black pill everywhere, matching the one in the navbar, rather
    than picking up the model gradient the other primary CTAs use. */
 .model-cta-dark {

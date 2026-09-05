@@ -47,14 +47,14 @@
   /* New Navbar Colors */
   --navbar-bg: #fff7ed;
   --text-primary: #2E3238;
-  --text-hover: #9A3412;
+  --text-hover: #FA5C40;
 
   /* Narrative Section Colors */
   --bg-black-900: #050505;
   --text-orange-bright: #FF6B35;
-  --text-orange-500: #C2410C;
-  --text-orange-400: #B45309;
-  --focus-ring: #C2410C;
+  --text-orange-500: #FF6B35;
+  --text-orange-400: #FFB347;
+  --focus-ring: #FF6207;
   --text-muted: #57534E;
   --border-strong: #78716C;
   --error-text: #B91C1C;
@@ -66,7 +66,7 @@
   --bg-gradient-start: #F2EFE9;
   --bg-gradient-mid: #FFEAD2;
   --bg-gradient-end: #FFD4B2;
-  --btn-join: #C2410C;
+  --btn-join: #F94500;
   --model-emerald: #376B54;
   --model-violet: #5B4B9E;
 }
@@ -81,6 +81,35 @@ summary:focus-visible,
 [tabindex]:not([tabindex="-1"]):focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
+}
+
+/* Footer sits at the bottom of the viewport on short pages. Every page root is a
+   min-h-screen wrapper with <Footer /> as its last child; make that wrapper a
+   column and push the footer down. Pages that already use `flex flex-col` are
+   unaffected. */
+#root > .min-h-screen {
+  display: flex;
+  flex-direction: column;
+}
+#root > .min-h-screen > footer {
+  margin-top: auto;
+}
+
+/* Every link that leaves the site carries the same diagonal arrow. Text-only
+   external links get it from this rule; links that already contain an icon
+   (buttons, social icons, logo links) are skipped and carry ArrowUpRight
+   themselves. Opt out with .no-ext-arrow. The glyph is lucide's arrow-up-right
+   as a mask, so it inherits the link colour and scales with the text. */
+a[target="_blank"]:not(:has(svg)):not(:has(img)):not(.no-ext-arrow)::after {
+  content: "";
+  display: inline-block;
+  width: 0.72em;
+  height: 0.72em;
+  margin-left: 0.22em;
+  vertical-align: -0.02em;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M7 17 17 7'/><path d='M7 7h10v10'/></svg>") center / contain no-repeat;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M7 17 17 7'/><path d='M7 7h10v10'/></svg>") center / contain no-repeat;
 }
 
 @theme {
@@ -161,12 +190,12 @@ summary:focus-visible,
   --chart-text-primary: #2C241C;
   --chart-text-secondary: #5C534A;
   --chart-grid: #E4D8C8;
-  --chart-series-primary: #C2410C;
+  --chart-series-primary: #FF6207;
   --chart-series-secondary: #0F766E;
   --chart-series-tertiary: #5C4033;
   --chart-tooltip-bg: #2C241C;
   --chart-tooltip-text: #FBF6EE;
-  --chart-focus: #C2410C;
+  --chart-focus: #FF6207;
   margin: 1.75rem 0 2rem;
   padding: 1.25rem;
   border: 1px solid rgba(92, 64, 51, 0.08);
@@ -438,7 +467,7 @@ summary:focus-visible,
   --ed-text: #2C241C;
   --ed-text-2: #5C534A;
   --ed-border: #D2C9BA;
-  --ed-orange: #C2410C;
+  --ed-orange: #FF6207;
   --ed-orange-soft: #E8C4A8;
   --ed-emerald: #376B54;
   --ed-brown: #72533D;
@@ -2538,6 +2567,14 @@ summary:focus-visible,
   border-left: 2px solid rgba(255, 107, 53, 0.22);
 }
 
+/* A numbered bullet block draws its own orange stripe; when a sub-section holds
+   one, the wrapper's rule would sit beside it as a double border. Drop the outer
+   rule there and let the block's stripe be the only marker. */
+.research-subsection:has(.research-bullet-block) {
+  padding-left: 0;
+  border-left: 0;
+}
+
 /* ── Bullet list blocks ── */
 .research-bullet-block {
   position: relative;
@@ -2760,9 +2797,6 @@ summary:focus-visible,
   width: 34rem;
 }
 
-/* Two columns side by side: the models on the left, Resources beside them
-   rather than stacked underneath. The APIs column is the wider of the two,
-   because its rows carry a model name and a codename under it. */
 .nav-mega-grid {
   display: grid;
   grid-template-columns: 1.15fr 1fr;
@@ -2802,7 +2836,6 @@ summary:focus-visible,
   color: var(--text-hover);
 }
 
-/* ── Nav CTA: straight out to the console ── */
 .nav-dashboard-btn {
   display: inline-flex;
   align-items: center;
@@ -3597,7 +3630,7 @@ body {
   --ed-text: #2C241C;
   --ed-text-2: #5C534A;
   --ed-border: #D2C9BA;
-  --ed-orange: #C2410C;
+  --ed-orange: #FF6207;
   --ed-emerald: #376B54;
   --ed-brown: #72533D;
   padding: 1.5rem;

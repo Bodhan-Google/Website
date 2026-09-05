@@ -288,7 +288,7 @@ const TendersPage = () => {
                                 <span className="w-1.5 h-1.5 rounded-full bg-gray-400" /> Closed: {closedCnt}
                             </span>
                             {nextDeadline && (
-                                <span className="inline-flex items-center gap-1.5 text-sm font-medium text-orange-600 bg-orange-50 border border-orange-200 rounded-full px-3 py-1">
+                                <span className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--text-orange-500)] bg-orange-50 border border-orange-200 rounded-full px-3 py-1">
                                     <Calendar size={12} /> Next closing: {formatDateShort(nextDeadline.closingDate)}
                                 </span>
                             )}

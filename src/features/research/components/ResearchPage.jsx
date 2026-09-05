@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { gsap, useGsapAnimation } from '../../../utils/motion';
 import Navbar from '../../home/components/Navbar';
 import Footer from '../../home/components/Footer';
-import { visiblePosts, formatDate } from '../data/posts';
+import { visiblePosts, formatDate, postPath } from '../data/posts';
 
 const VIEW_CONFIG = {
     blog: {
@@ -97,9 +97,11 @@ const ResearchPage = () => {
 
     const filteredPosts = useMemo(
         () =>
+            // The two listings partition the posts: formal publications on one
+            // side, releases and milestones (the blog) on the other.
             view === 'publications'
                 ? visiblePosts.filter((post) => post.category === 'Publication')
-                : visiblePosts,
+                : visiblePosts.filter((post) => post.category !== 'Publication'),
         [view]
     );
 
@@ -141,14 +143,14 @@ const ResearchPage = () => {
                         {filteredPosts.map((post) => (
                             <Link
                                 key={post.slug}
-                                to={`/research/${post.slug}`}
+                                to={postPath(post)}
                                 data-publication-row
                                 className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-4 md:gap-12 py-8 group transition-colors hover:bg-[var(--bg-cream-50)]/60 -mx-4 px-4 rounded-lg"
                             >
                                 <div>
                                     <p className="text-sm text-[var(--color-10)]">{post.category}</p>
                                     <p className="text-sm text-[var(--color-11)] mt-1">
-                                        {formatDate(post.date)}
+                                        {post.dateLabel ?? formatDate(post.date)}
                                     </p>
                                 </div>
                                 <div>

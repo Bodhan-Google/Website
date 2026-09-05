@@ -5,6 +5,7 @@ import gsap from 'gsap';
 
 import Icon from '../../../assets/Icon.png';
 import MoELogo from '../../../assets/Ministry_of_Education_India.png';
+import Wordmark from '../../../components/Wordmark';
 import ModelIcon from '../../developers/components/ModelIcon';
 import { models } from '../../developers/data/models';
 import { CONSOLE_URL } from '../../../config/links';
@@ -15,7 +16,7 @@ const researchDropdown = [
         to: '/research/problems',
         description: 'Open problems in AI for education',
     },
-    { label: 'Blog', to: '/research/blog', description: 'Technical posts and releases' },
+    { label: 'Blog', to: '/research/blogs', description: 'Technical posts and releases' },
     { label: 'Publications', to: '/research/publications', description: 'Papers and formal publications' },
 ];
 
@@ -43,12 +44,11 @@ const developersResources = [
 const developersDropdown = [...developersApis, { label: 'All models', to: '/developers', description: 'Browse every Bodhan model' }];
 
 const productsDropdown = [
-    { label: 'Student Bot', to: 'https://students.bodhan.ai', description: 'AI-powered study companion for students' },
-    { label: 'Tutor Bot', to: 'https://teachers.bodhan.ai/', description: 'Smart tutoring assistant for educators' },
+    { label: 'Student Tutor Bot', to: 'https://students.bodhan.ai', description: 'AI-powered study companion for students' },
+    { label: 'Teacher Assistant Bot', to: 'https://teachers.bodhan.ai/', description: 'Smart teaching assistant for educators' },
 ];
 
 const navLinks = [
-    { label: 'Vision', to: '/', scrollTo: 'vision-mission' },
     { label: 'Research', to: '/research', children: researchDropdown, match: '/research' },
     {
         label: 'Developers',
@@ -69,6 +69,26 @@ const Navbar = () => {
     const [openMenu, setOpenMenu] = useState(null);
     const [mobileMenu, setMobileMenu] = useState(null);
     const menuWrapRefs = useRef({});
+    // Hover intent: leaving the trigger starts a short timer instead of closing at
+    // once, so the pointer can cross the gap to the panel (or drift briefly off
+    // the edge) without the menu vanishing. Re-entering cancels it.
+    const closeTimer = useRef(null);
+    const CLOSE_DELAY_MS = 220;
+    const openMenuNow = (label) => {
+        if (closeTimer.current) {
+            clearTimeout(closeTimer.current);
+            closeTimer.current = null;
+        }
+        setOpenMenu(label);
+    };
+    const scheduleClose = () => {
+        if (closeTimer.current) clearTimeout(closeTimer.current);
+        closeTimer.current = setTimeout(() => {
+            closeTimer.current = null;
+            setOpenMenu(null);
+        }, CLOSE_DELAY_MS);
+    };
+    useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current); }, []);
     const dropdownRefs = useRef({});
     const mobileRefs = useRef({});
     const location = useLocation();
@@ -91,7 +111,7 @@ const Navbar = () => {
                 if (label === openMenu) {
                     gsap.fromTo(
                         el,
-                        { autoAlpha: 0, y: -6, scale: 0.98, transformOrigin: 'top left' },
+                        { autoAlpha: 0, y: -6, scale: 0.98, transformOrigin: 'top center' },
                         { autoAlpha: 1, y: 0, scale: 1, duration: 0.32, ease: 'power3.out' }
                     );
                     gsap.fromTo(
@@ -281,22 +301,20 @@ const Navbar = () => {
                     : 'bg-[var(--navbar-bg)]/95 border-[var(--primary-100)]'
             }`}
         >
-            <div className="max-w-6xl mx-auto px-6">
+            <div className="max-w-6xl lg:max-w-[88rem] mx-auto px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16 md:h-[4.5rem]">
                     <Link
                         to="/"
                         onClick={() => window.scrollTo(0, 0)}
-                        className="flex items-center gap-2.5 shrink-0"
+                        className="flex items-center gap-1.5 shrink-0"
                     >
-                        <img src={Icon} alt="Bodhan" className="h-10 md:h-11 w-auto object-contain" />
-                        <span className="hidden sm:inline text-xl font-medium text-gray-900 whitespace-nowrap">
-                            Bodhan<span className="text-[var(--text-orange-500)]">.AI</span>
-                        </span>
-                        <div className="w-px h-7 bg-[var(--primary-100)]" />
+                        <img src={Icon} alt="Bodhan" className="h-8 md:h-9 w-auto object-contain" />
+                        <Wordmark className="hidden sm:inline text-[1.35rem] md:text-2xl leading-none whitespace-nowrap" />
+                        <div className="w-px h-9 bg-[var(--primary-100)] mx-2.5" />
                         <img
                             src={MoELogo}
                             alt="Ministry of Education"
-                            className="h-9 md:h-10 w-auto object-contain"
+                            className="h-9 md:h-11 w-auto object-contain"
                         />
                     </Link>
 
@@ -312,8 +330,8 @@ const Navbar = () => {
                                             menuWrapRefs.current[link.label] = el;
                                         }}
                                         className="relative"
-                                        onMouseEnter={() => setOpenMenu(link.label)}
-                                        onMouseLeave={() => setOpenMenu(null)}
+                                        onMouseEnter={() => openMenuNow(link.label)}
+                                        onMouseLeave={scheduleClose}
                                     >
                                         <button
                                             type="button"
@@ -333,11 +351,14 @@ const Navbar = () => {
                                             />
                                         </button>
 
+                                        {/* The outer div only positions (centred under the trigger); GSAP
+                                            animates the inner one, so its transform never fights the centring. */}
+                                        <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 pointer-events-none">
                                         <div
                                             ref={(el) => {
                                                 dropdownRefs.current[link.label] = el;
                                             }}
-                                            className="absolute left-0 top-full pt-3 invisible opacity-0"
+                                            className="invisible opacity-0 pointer-events-auto"
                                         >
                                             {link.mega ? (
                                                 <div className="nav-research-dropdown nav-mega-dropdown rounded-2xl overflow-hidden">
@@ -393,6 +414,7 @@ const Navbar = () => {
                                                 </div>
                                             )}
                                         </div>
+                                        </div>
                                     </div>
                                 );
                             }
@@ -401,7 +423,7 @@ const Navbar = () => {
                         })}
 
                         <a href={CONSOLE_URL} className="nav-dashboard-btn">
-                            Go to Dashboard
+                            Go to API Console
                             <ArrowUpRight size={14} aria-hidden="true" />
                         </a>
                     </div>
@@ -590,7 +612,7 @@ const Navbar = () => {
                         })}
 
                         <a href={CONSOLE_URL} className="nav-dashboard-btn nav-dashboard-btn-mobile">
-                            Go to Dashboard
+                            Go to API Console
                             <ArrowUpRight size={15} aria-hidden="true" />
                         </a>
                     </div>

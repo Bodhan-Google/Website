@@ -1,11 +1,13 @@
+import { postPathForSlug } from '../../research/data/posts';
+
 // Each model's blog button goes to that model's own post on this site. These
-// are the `slug` values in src/features/research/data/, served by the
-// /research/:slug route — the Cloudflare quick tunnels these replaced are gone.
+// are the `slug` values in src/features/research/data/; postPathForSlug picks
+// /research/blogs/… or /research/publication/… from the post's category.
 const BLOGS = {
-    transcribe: '/research/bodhan-asr',
-    speak: '/research/indic-speak',
-    ocr: '/research/indic-ocr',
-    translate: '/research/indic-translate',
+    transcribe: postPathForSlug('bodhan-asr'),
+    speak: postPathForSlug('indic-speak'),
+    ocr: postPathForSlug('indic-ocr'),
+    translate: postPathForSlug('indic-translate'),
 };
 
 // One palette for the whole developer section: the site's primary warm
@@ -18,8 +20,8 @@ const BLOGS = {
 // gradient or a var().
 const PRIMARY = {
     accent: 'var(--text-orange-500)',
-    gradient: 'linear-gradient(135deg, #E2691F 0%, #C2410C 52%, #A6410A 100%)',
-    viz: { from: '#E2691F', to: '#B45309' },
+    gradient: 'linear-gradient(135deg, #E2691F 0%, #FF6207 52%, #CE3000 100%)',
+    viz: { from: '#E2691F', to: '#FFB347' },
 };
 
 /** Every model in the family is released under the same licence. */

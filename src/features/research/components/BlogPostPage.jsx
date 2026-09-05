@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useLocation, useParams } from 'react-router-dom';
 import { gsap, useGsapAnimation } from '../../../utils/motion';
 import Navbar from '../../home/components/Navbar';
 import Footer from '../../home/components/Footer';
@@ -8,11 +8,12 @@ import BlogContent from './BlogContent';
 import ShareButton from './ShareButton';
 import MosaicCanvas from './MosaicCanvas';
 import SpecBubbles from './blocks/SpecBubbles';
-import { getPostBySlug, formatDate } from '../data/posts';
+import { getPostBySlug, formatDate, postPath, BLOG_LIST_PATH } from '../data/posts';
 import './blocks/blogTemplate.css';
 
 const BlogPostPage = () => {
     const { slug } = useParams();
+    const { pathname } = useLocation();
     const post = getPostBySlug(slug);
     const pageRef = useRef(null);
     const progressRef = useRef(null);
@@ -101,7 +102,7 @@ const BlogPostPage = () => {
                         Publication not found
                     </h1>
                     <Link
-                        to="/research/blog"
+                        to={BLOG_LIST_PATH}
                         className="text-[var(--text-orange-500)] hover:text-[var(--text-hover)] underline text-sm"
                     >
                         Back to Research
@@ -110,6 +111,10 @@ const BlogPostPage = () => {
                 <Footer />
             </div>
         );
+    }
+
+    if (pathname !== postPath(post)) {
+        return <Navigate to={postPath(post)} replace />;
     }
 
     // A section may hide its heading in the article (the motivation opener does)
@@ -137,7 +142,7 @@ const BlogPostPage = () => {
                     >
                         {post.category}
                         <span className="mx-2 text-[var(--color-14)]">·</span>
-                        <span className="text-[var(--color-11)]">{formatDate(post.date)}</span>
+                        <span className="text-[var(--color-11)]">{post.dateLabel ?? formatDate(post.date)}</span>
                     </p>
 
                     <div className="research-hero-mosaic">
@@ -173,32 +178,32 @@ const BlogPostPage = () => {
                                 >
                                     {post.heroLinks.map((link) => (
                                         <span key={link.label} className="inline-flex items-center">
-                                            {link.href.startsWith('/') ? (
+                                            {link.href.startsWith('/') && !link.external ? (
                                                 <Link
                                                     to={link.href}
                                                     className="research-link-chip research-link-chip-on-mosaic inline-flex items-center gap-0.5"
                                                 >
                                                     {link.label}
+                                                    {link.arrow && <span aria-hidden="true">{'\u00A0'}→</span>}
                                                 </Link>
                                             ) : (
                                                 <a
                                                     href={link.href}
-                                                    target={link.href.startsWith('http') ? '_blank' : undefined}
-                                                    {link.arrow && <span aria-hidden="true">{'\u00A0'}→</span>}
+                                                    target={link.external || link.href.startsWith('http') ? '_blank' : undefined}
                                                     rel={
-                                                        link.href.startsWith('http')
+                                                        link.external || link.href.startsWith('http')
                                                             ? 'noopener noreferrer'
                                                             : undefined
                                                     }
                                                     className="research-link-chip research-link-chip-on-mosaic inline-flex items-center"
                                                 >
                                                     {link.label}
+                                                    {link.arrow && <span aria-hidden="true">{'\u00A0'}→</span>}
                                                 </a>
                                             )}
                                         </span>
                                     ))}
                                 </nav>
-                                                    {link.arrow && <span aria-hidden="true">{'\u00A0'}→</span>}
                             )}
                         </div>
                     </div>
@@ -222,6 +227,40 @@ const BlogPostPage = () => {
                     <article>
                         <BlogContent sections={post.sections} />
                     </article>
+
+                    {post.cta && (
+                        <aside
+                            aria-label="Call to action"
+                            className="mt-14 rounded-2xl border border-[var(--primary-100)] bg-[var(--bg-cream-50)] p-6 md:p-8"
+                        >
+                            <h2 className="text-xl md:text-2xl font-semibold text-[var(--text-primary)] leading-snug">
+                                {post.cta.title}
+                            </h2>
+                            {post.cta.description && (
+                                <p className="mt-3 text-[var(--color-10)] leading-relaxed font-serif text-[17px]">
+                                    {post.cta.description}
+                                </p>
+                            )}
+                            <div className="mt-6 flex flex-wrap items-center gap-3">
+                                <Link
+                                    to={post.cta.href}
+                                    className="inline-flex items-center gap-2 bg-[#0a0a0a] text-white text-sm font-medium px-5 py-3 rounded-[10px] hover:bg-[var(--primary-500)] transition-colors"
+                                >
+                                    {post.cta.label} <span aria-hidden="true">→</span>
+                                </Link>
+                                {post.cta.secondaryHref && (
+                                    <a
+                                        href={post.cta.secondaryHref}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 bg-white border border-gray-200 text-sm font-medium text-gray-700 px-5 py-3 rounded-[10px] hover:border-gray-300 hover:bg-gray-50 transition-colors"
+                                    >
+                                        {post.cta.secondaryLabel}
+                                    </a>
+                                )}
+                            </div>
+                        </aside>
+                    )}
                 </div>
             </div>
 

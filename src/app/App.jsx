@@ -11,6 +11,8 @@ import TermsAndConditionsPage from '../features/legal/components/TermsAndConditi
 import PrivacyPolicyPage from '../features/legal/components/PrivacyPolicyPage'
 import ResearchPage from '../features/research/components/ResearchPage'
 import BlogPostPage from '../features/research/components/BlogPostPage'
+import LegacyPostRedirect from '../features/research/components/LegacyPostRedirect'
+import IndicTranslatePostPage from '../features/research/indic-translate-post/IndicTranslatePostPage'
 import DevelopersPage from '../features/developers/components/DevelopersPage'
 import IndicOcrPage from '../features/developers/components/models/IndicOcrPage'
 import IndicSpeakPage from '../features/developers/components/models/IndicSpeakPage'
@@ -22,6 +24,9 @@ import {
   ResearchProblemsVerticalPage,
   ResearchProblemsGrandChallengePage,
 } from '../features/research-problems/ResearchProblemsRoutes'
+import FlnDpiPage from '../features/flnDpi/components/FlnDpiPage'
+import IndicOpenModelLicensePage from '../features/license/components/IndicOpenModelLicensePage'
+import ApiTermsPage from '../features/legal/components/ApiTermsPage'
 
 function App() {
 
@@ -29,9 +34,15 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       {/* The research overview page is gone; /research forwards to the blog listing. */}
-      <Route path="/research" element={<Navigate to="/research/blog" replace />} />
-      <Route path="/research/blog" element={<ResearchPage />} />
+      <Route path="/research" element={<Navigate to="/research/blogs" replace />} />
+      <Route path="/research/blog" element={<Navigate to="/research/blogs" replace />} />
+      <Route path="/research/blogs" element={<ResearchPage />} />
       <Route path="/research/publications" element={<ResearchPage />} />
+      {/* Indic-Translate has its own page (see indic-translate-post/); the static route wins over :slug. */}
+      <Route path="/research/blogs/indic-translate" element={<IndicTranslatePostPage />} />
+      <Route path="/research/blogs/:slug" element={<BlogPostPage />} />
+      <Route path="/research/publication/:slug" element={<BlogPostPage />} />
+      <Route path="/research/publication/fln-dpi/feedback" element={<FlnDpiPage />} />
       <Route path="/developers" element={<DevelopersPage />} />
       <Route path="/developers/indic-ocr" element={<IndicOcrPage />} />
       <Route path="/developers/indic-speak" element={<IndicSpeakPage />} />
@@ -42,7 +53,8 @@ function App() {
         <Route path="vertical/:verticalId" element={<ResearchProblemsVerticalPage />} />
         <Route path="grand-challenge/:challengeId" element={<ResearchProblemsGrandChallengePage />} />
       </Route>
-      <Route path="/research/:slug" element={<BlogPostPage />} />
+      {/* Pre-2026-09 links used /research/<slug>; send them to the post's new home. */}
+      <Route path="/research/:slug" element={<LegacyPostRedirect />} />
       <Route path="/advisory-council" element={<AdvisoryCouncilPage />} />
       <Route path="/careers" element={<CareersPage />} />
       <Route path="/contact" element={<ContactPage />} />
@@ -51,6 +63,12 @@ function App() {
       <Route path="/partners" element={<PartnersPage />} />
       <Route path="/terms" element={<TermsAndConditionsPage />} />
       <Route path="/privacy" element={<PrivacyPolicyPage />} />
+      <Route path="/fln-dpi" element={<Navigate to="/research/publication/fln-dpi/feedback" replace />} />
+      <Route path="/indic-open-model-license" element={<Navigate to="/indic-open-model-license/v1" replace />} />
+      <Route path="/indic-open-model-license/v1" element={<IndicOpenModelLicensePage />} />
+      <Route path="/api-terms-and-conditions" element={<ApiTermsPage />} />
+      {/* 404.html serves the app for any unmatched URL, so send strays home */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
 }

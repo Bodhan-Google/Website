@@ -2,6 +2,8 @@ import { TEMPLATE_POST } from './postTemplate';
 import { indicTranslatePost } from './indicTranslatePost';
 import { indicOcrPost } from './indicOcrPost';
 import { indicSpeakPost } from './indicSpeakPost';
+import { flnDpiWhitepaperPost } from './flnDpiWhitepaperPost';
+import { k12PolicyPaperPost } from './k12PolicyPaperPost';
 
 export const researchAreas = [
     {
@@ -33,6 +35,8 @@ export const researchAreas = [
 export const posts = [
     // Newest release first: the listing and the featured card both read this
     // order rather than sorting by date.
+    flnDpiWhitepaperPost,
+    k12PolicyPaperPost,
     indicOcrPost,
     indicSpeakPost,
     indicTranslatePost,
@@ -40,7 +44,7 @@ export const posts = [
         // ── 1. Hero ──────────────────────────────────────────────────────
         slug: 'bodhan-asr',
         title: "Bodhan ASR: Accurate Speech Recognition for India's Languages and Dialects",
-        category: 'Publication',
+        category: 'Release',
         date: '2026-06-30',
         summary:
             'Introducing Bodhan Scribe — a 1.2B-parameter multilingual ASR model trained on 1.35M hours of speech, supporting 25 Indian languages with native-script, code-mixed, and romanized transcription.',
@@ -386,6 +390,23 @@ export const visiblePosts = posts.filter((post) => !post.hidden);
 
 export function getPostBySlug(slug) {
     return posts.find((post) => post.slug === slug);
+}
+
+// URL conventions: blog posts live under /research/blogs/<slug>, formal
+// publications under /research/publication/<slug>. Build links with these so a
+// post that changes category never leaves a stale link behind.
+export const BLOG_LIST_PATH = '/research/blogs';
+export const PUBLICATIONS_LIST_PATH = '/research/publications';
+export const BLOG_POST_BASE = '/research/blogs';
+export const PUBLICATION_BASE = '/research/publication';
+
+export function postPath(post) {
+    return `${post.category === 'Publication' ? PUBLICATION_BASE : BLOG_POST_BASE}/${post.slug}`;
+}
+
+export function postPathForSlug(slug) {
+    const post = getPostBySlug(slug);
+    return post ? postPath(post) : `${BLOG_POST_BASE}/${slug}`;
 }
 
 export function getFeaturedPost() {

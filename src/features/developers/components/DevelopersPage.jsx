@@ -121,7 +121,7 @@ const DevelopersPage = () => {
             <Navbar />
 
             <main className="model-page-main models-page-main">
-                <AccentAurora from="#E2691F" to="#C2410C" />
+                <AccentAurora from="#E2691F" to="#FF6207" />
 
                 <header className="dx-hero">
                     <DevHeadline

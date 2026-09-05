@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { CLOSING } from './translateData';
 
 /**
@@ -25,7 +25,7 @@ const TranslateClosing = () => (
                                 : {})}
                         >
                             {link.label}
-                            <ArrowRight size={14} aria-hidden="true" />
+                            <ArrowUpRight size={14} aria-hidden="true" />
                         </a>
                     ))}
                 </div>
