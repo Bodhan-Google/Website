@@ -4,9 +4,6 @@
 
 Bodhan AI is a cutting-edge educational platform designed to revolutionize how users learn and interact with content. By leveraging advanced AI, we provide dynamic course generation, real-time transliteration, and immersive learning environments.
 
-> [!WARNING]
-> This project is currently in an experimental state.
-
 ## Vision
 
 Our vision is to bridge the gap between traditional education and modern technology. We aim to make high-quality, personalized learning accessible to everyone, regardless of language barriers or learning styles, through the power of Artificial Intelligence.
