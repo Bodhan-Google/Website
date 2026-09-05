@@ -178,19 +178,38 @@ const IndicOpenModelLicensePage = () => {
         return () => { document.title = previous; };
     }, []);
 
-    // Scroll-spy for the table of contents.
+    // Scroll-spy for the table of contents. The active section is the last
+    // heading that has scrolled above the reading line (just under the sticky
+    // navbar). Computed on every scroll frame, so it never "sticks" inside a
+    // long section or skips a heading on a fast scroll, which an
+    // IntersectionObserver on a thin viewport band did.
     useEffect(() => {
-        const headings = TOC.map((t) => document.getElementById(t.id)).filter(Boolean);
-        if (!headings.length) return undefined;
-        const observer = new IntersectionObserver(
-            (entries) => {
-                const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-                if (visible[0]) setActive(visible[0].target.id);
-            },
-            { rootMargin: '-25% 0px -65% 0px', threshold: 0 },
-        );
-        headings.forEach((h) => observer.observe(h));
-        return () => observer.disconnect();
+        const READING_LINE = 160; // px from the top; headings use scroll-mt-32 (128px)
+        let frame = 0;
+        const update = () => {
+            frame = 0;
+            let current = TOC[0]?.id;
+            for (const t of TOC) {
+                const el = document.getElementById(t.id);
+                if (!el) continue;
+                if (el.getBoundingClientRect().top <= READING_LINE) current = t.id;
+                else break;
+            }
+            const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+            if (atBottom && TOC.length) current = TOC[TOC.length - 1].id;
+            setActive((prev) => (prev === current ? prev : current));
+        };
+        const schedule = () => {
+            if (!frame) frame = requestAnimationFrame(update);
+        };
+        window.addEventListener('scroll', schedule, { passive: true });
+        window.addEventListener('resize', schedule);
+        schedule();
+        return () => {
+            if (frame) cancelAnimationFrame(frame);
+            window.removeEventListener('scroll', schedule);
+            window.removeEventListener('resize', schedule);
+        };
     }, []);
 
     // Scroll programmatically rather than via "#section" hrefs, so the URL stays
