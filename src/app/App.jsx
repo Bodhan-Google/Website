@@ -10,6 +10,7 @@ import TenderApplyPage from '../features/tenders/components/TenderApplyPage'
 import PartnersPage from '../features/partners/components/PartnersPage'
 import PrivacyPolicyPage from '../features/privacy/components/PrivacyPolicyPage'
 import TermsAndConditionsPage from '../features/terms/components/TermsAndConditionsPage'
+import IndicOpenModelLicensePage from '../features/license/components/IndicOpenModelLicensePage'
 
 function App() {
 
@@ -24,6 +25,8 @@ function App() {
       <Route path="/partners" element={<PartnersPage />} />
       <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
       <Route path="/terms-and-conditions" element={<TermsAndConditionsPage />} />
+      <Route path="/indic-open-model-license" element={<Navigate to="/indic-open-model-license/v1" replace />} />
+      <Route path="/indic-open-model-license/v1" element={<IndicOpenModelLicensePage />} />
       {/* 404.html serves the app for any unmatched URL, so send strays home */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

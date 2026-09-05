@@ -72,6 +72,9 @@ const Footer = () => {
                         <Link to="/privacy-policy" className="hover:text-[var(--text-orange-500)] transition-colors" onClick={() => window.scrollTo(0, 0)}>
                             Privacy Policy
                         </Link>
+                        <Link to="/indic-open-model-license/v1" className="hover:text-[var(--text-orange-500)] transition-colors" onClick={() => window.scrollTo(0, 0)}>
+                            Indic Open Model License
+                        </Link>
                     </div>
                 </div>
             </div>
