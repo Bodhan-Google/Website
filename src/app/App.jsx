@@ -74,6 +74,9 @@ function App() {
       <Route path="/indic-open-model-license" element={<Navigate to="/indic-open-model-license/v1" replace />} />
       <Route path="/indic-open-model-license/v1" element={<IndicOpenModelLicensePage />} />
       <Route path="/api-terms-and-conditions" element={<ApiTermsPage />} />
+      {/* URLs the pages had on main; both spellings keep working */}
+      <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+      <Route path="/terms-and-conditions" element={<TermsAndConditionsPage />} />
       {/* 404.html serves the app for any unmatched URL, so send strays home */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
