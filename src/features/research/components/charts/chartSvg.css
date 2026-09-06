@@ -1,0 +1,93 @@
+/* ===================================================================
+   SVG internals for the hand-rolled chart types.
+
+   The recharts-based types (ranked bar, grouped bars) style themselves
+   from chartTheme.js; Heatmap and DivergingBar draw their own SVG, and
+   these are the classes they use. Loaded from ChartCard, which every
+   chart renders through, so the two posts get them the same way.
+   =================================================================== */
+
+/* 22 rows x 14 systems does not fit an article column, so the heatmap SVG keeps
+   a min-width and this wrapper is what scrolls sideways — never the page. */
+.hchart-scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+svg.chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.bar-label {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 11px;
+  fill: var(--chart-text-secondary, #5C534A);
+}
+
+.bar-value {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  fill: var(--chart-text-primary, #2C241C);
+}
+
+.row-label {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 12px;
+  fill: var(--chart-text-secondary, #5C534A);
+}
+
+.row-label.ours {
+  fill: var(--chart-text-primary, #2C241C);
+  font-weight: 600;
+}
+
+.axis-tick {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 10.5px;
+  fill: var(--text-muted);
+}
+
+.heat-cell-text {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 9.5px;
+}
+
+.heat-col-label {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 10px;
+  fill: var(--chart-text-secondary, #5C534A);
+}
+
+rect.bar {
+  cursor: pointer;
+}
+
+rect.bar:hover {
+  filter: brightness(1.07);
+}
+
+rect.cell {
+  cursor: pointer;
+}
+
+rect.cell:hover {
+  stroke: var(--chart-text-primary, #2C241C);
+  stroke-width: 1.5;
+}
+
+/* The composition readout borrows the tooltip skin from globals.css but is
+   placed over its own slice rather than following a pointer. `left` comes from
+   the component, which centres it on the slice and clamps it into the card. */
+.chart-composition {
+  position: relative;
+}
+
+.chart-tooltip-static.composition-readout {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  transform: translateX(-50%);
+}

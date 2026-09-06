@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500" role="img" aria-label="A mud wall painted with Sohrai folk motifs beside sal trees and a hand drum">
+  <title>Santali — Sohrai wall and sal grove</title>
+
+  <defs>
+    <linearGradient id="sant-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FDF3EC"/>
+      <stop offset="100%" stop-color="#F4E2D6"/>
+    </linearGradient>
+    <radialGradient id="sant-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#C98D6C" stop-opacity="0.34"/>
+      <stop offset="100%" stop-color="#C98D6C" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sant-wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#EBD3C2"/>
+      <stop offset="100%" stop-color="#DFC0AB"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="500" fill="url(#sant-bg)"/>
+  <circle cx="760" cy="220" r="260" fill="url(#sant-glow)"/>
+
+  <!-- sal trees behind the wall -->
+  <g opacity="0.6">
+    <path d="M980 300 V150" stroke="#B49B86" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="980" cy="126" r="52" fill="#B3C4A2"/>
+    <circle cx="936" cy="152" r="34" fill="#BFCEAF"/>
+    <circle cx="1026" cy="150" r="36" fill="#BFCEAF"/>
+    <path d="M1104 300 V196" stroke="#B49B86" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="1104" cy="176" r="40" fill="#B9C9A8"/>
+    <circle cx="1146" cy="196" r="28" fill="#C6D3B7"/>
+  </g>
+
+  <!-- mud wall -->
+  <rect x="620" y="288" width="580" height="180" fill="url(#sant-wall)"/>
+  <rect x="620" y="288" width="580" height="12" fill="#CFAE97" opacity="0.8"/>
+  <!-- white band, as Sohrai walls are banded -->
+  <rect x="620" y="332" width="580" height="88" fill="#FBF3EA" opacity="0.85"/>
+
+  <!-- Sohrai motifs painted on the band -->
+  <g stroke="#B4785C" fill="none" stroke-width="2.6" opacity="0.85">
+    <!-- chevron border -->
+    <path d="M628 340 l18 -14 l18 14 l18 -14 l18 14 l18 -14 l18 14 l18 -14 l18 14"/>
+    <path d="M628 412 l18 -14 l18 14 l18 -14 l18 14 l18 -14 l18 14 l18 -14 l18 14"/>
+    <!-- stylised bull, the Sohrai harvest animal -->
+    <g transform="translate(700 356)">
+      <path d="M0 40 v-20 q0 -14 16 -14 h44 q16 0 16 14 v20"/>
+      <path d="M16 6 q-8 -14 4 -20 M76 6 q8 -14 -4 -20"/>
+      <path d="M6 40 v10 M28 40 v10 M64 40 v10 M86 40 v10"/>
+      <path d="M86 12 q14 -4 18 -16"/>
+    </g>
+    <!-- comb / leaf motif -->
+    <g transform="translate(860 352)">
+      <path d="M0 48 V4"/>
+      <path d="M0 10 h26 M0 22 h26 M0 34 h26 M0 46 h26"/>
+      <path d="M26 4 V48"/>
+    </g>
+    <!-- peacock-ish bird -->
+    <g transform="translate(940 356)">
+      <path d="M0 44 q4 -26 22 -30 q16 -4 20 8"/>
+      <path d="M42 22 q10 -6 4 -16"/>
+      <path d="M22 14 q18 -18 40 -8 q-14 16 -34 16"/>
+      <path d="M8 44 h26"/>
+    </g>
+    <!-- sun disc -->
+    <g transform="translate(1076 376)">
+      <circle cx="0" cy="0" r="16"/>
+      <path d="M0 -26 V-20 M0 20 V26 M-26 0 H-20 M20 0 H26 M-18 -18 l4 4 M14 14 l4 4 M18 -18 l-4 4 M-14 14 l-4 4"/>
+    </g>
+  </g>
+
+  <!-- ground -->
+  <rect y="468" width="1200" height="32" fill="#E7D2C2" opacity="0.85"/>
+
+  <!-- tamak / dhol drum, left -->
+  <g transform="translate(300 366)" opacity="0.9">
+    <ellipse cx="0" cy="104" rx="86" ry="12" fill="#C9A992" opacity="0.4"/>
+    <path d="M-62 0 q62 -18 124 0 l-14 96 q-48 14 -96 0 z" fill="#DDBBA2"/>
+    <ellipse cx="0" cy="0" rx="62" ry="17" fill="#F3E4D6"/>
+    <ellipse cx="0" cy="0" rx="62" ry="17" fill="none" stroke="#C29377" stroke-width="2.5"/>
+    <g stroke="#C29377" stroke-width="2" opacity="0.7">
+      <path d="M-56 14 l14 76"/><path d="M-18 22 l6 82"/><path d="M20 22 l-4 82"/><path d="M56 14 l-12 76"/>
+    </g>
+  </g>
+
+  <!-- drumsticks -->
+  <g stroke="#BFA48C" stroke-width="5" stroke-linecap="round" opacity="0.8">
+    <path d="M170 470 l70 -40"/>
+    <path d="M186 476 l74 -30"/>
+  </g>
+
+  <!-- scattered sal leaves -->
+  <g fill="#BFCEAF" opacity="0.65">
+    <path d="M470 452 q22 -14 40 2 q-24 12 -40 -2 z"/>
+    <path d="M540 470 q18 -12 34 2 q-20 10 -34 -2 z"/>
+  </g>
+</svg>

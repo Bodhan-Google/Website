@@ -1,0 +1,808 @@
+/* ===================================================================
+   Indic-Speak post — the three widgets the article dispatches to, the
+   audio transport they all share, and the two figures that are not
+   charts (the voice field and the normaliser sheet).
+
+   Everything is prefixed `isb-` (Indic-Speak blog) so nothing here can
+   collide with the model page's `spk-` scope or the Indic-Translate
+   post's `itb-`. Colours come from the site tokens in globals.css.
+   =================================================================== */
+
+.research-prose {
+  --isb-line: rgba(92, 64, 51, 0.14);
+  --isb-line-soft: rgba(92, 64, 51, 0.07);
+  --isb-surface: var(--white);
+  --isb-surface-2: var(--bg-cream-100);
+  --isb-shadow: 0 1px 2px rgba(46, 50, 56, 0.04), 0 10px 30px rgba(46, 50, 56, 0.05);
+  /* Female and male read as two families rather than two hues: the accent and
+     the theme's cool secondary, both already in the chart palette. */
+  --isb-female: #C2410C;
+  --isb-male: #0F766E;
+}
+
+/* ── Figure shell ───────────────────────────────────────────────────
+   Every widget below sits in the same card as a chart does, so a
+   scatter of voices and a bar chart read as the same kind of object.
+   ------------------------------------------------------------------ */
+
+.isb-figure {
+  margin: 1.75rem 0;
+  padding: 1.15rem 1.15rem 1.25rem;
+  border: 1px solid var(--isb-line);
+  border-radius: 0.9rem;
+  background: var(--isb-surface);
+  box-shadow: var(--isb-shadow);
+}
+
+.isb-figure + .isb-figure {
+  margin-top: 1.5rem;
+}
+
+.isb-figure-title {
+  margin: 0;
+  font-family: var(--font-manrope);
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.isb-figure-sub {
+  margin: 0.4rem 0 0;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--color-11);
+}
+
+.isb-figure-note {
+  margin: 0.9rem 0 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--isb-line-soft);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--color-11);
+}
+
+.isb-eyebrow {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-manrope);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-orange-500);
+}
+
+/* A band of framing copy between two figures, so a widget never opens
+   without saying what the reader is about to hear. */
+.isb-band {
+  margin: 2.5rem 0 1.25rem;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--primary-100);
+}
+
+.isb-band-title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.isb-band-body {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--color-10);
+}
+
+/* ── Audio transport ────────────────────────────────────────────────
+   One control for every clip on the page. The scrubber draws the clip's
+   own measured envelope, so a player shows the shape and the length of
+   what it is holding before a byte of audio is fetched.
+   ------------------------------------------------------------------ */
+
+.isb-ap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--isb-line);
+  border-radius: 0.7rem;
+  background: var(--bg-cream-50);
+}
+
+.isb-ap-play {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  flex: none;
+  border: none;
+  border-radius: 50%;
+  background: var(--text-orange-500);
+  color: var(--white);
+  cursor: pointer;
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.isb-ap-play:hover {
+  transform: scale(1.06);
+  background: var(--primary-700);
+}
+
+.isb-ap-play:disabled {
+  background: var(--color-14);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.isb-ap-track {
+  position: relative;
+  flex: 1 1 8rem;
+  min-width: 6rem;
+  height: 2.1rem;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.isb-ap-bars {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.isb-ap-bars i {
+  flex: 1 1 auto;
+  border-radius: 1px;
+  background: var(--isb-bar, #E4D8C8);
+}
+
+/* The played half is the same bars in the accent, revealed by a clip. */
+.isb-ap-played {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.isb-ap-played .isb-ap-bars i {
+  background: var(--text-orange-500);
+}
+
+.isb-ap-time {
+  flex: none;
+  font-family: var(--font-manrope);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-11);
+}
+
+.isb-ap-time b {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Speed matters for speech in a way it does not for music: people audition a
+   voice fast and check its diction slow. A cycling pill costs one control's
+   width where a slider would cost five. */
+.isb-ap-rate {
+  flex: none;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--isb-line);
+  border-radius: 999px;
+  background: var(--white);
+  font-family: var(--font-manrope);
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-11);
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+
+.isb-ap-rate:hover {
+  border-color: var(--text-orange-500);
+  color: var(--text-orange-500);
+}
+
+.isb-ap-meta {
+  flex: none;
+  font-family: var(--font-manrope);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-11);
+}
+
+/* ── 01 · The voice forge ───────────────────────────────────────────
+   The canvas is the figure; the readout under it counts what has been
+   generated so far in the model's own units.
+   ------------------------------------------------------------------ */
+
+.isb-forge-stage {
+  display: block;
+  width: 100%;
+  height: 210px;
+  border-radius: 0.6rem;
+  background: var(--bg-cream-50);
+}
+
+@media (max-width: 640px) {
+  .isb-forge-stage {
+    height: 160px;
+  }
+}
+
+.isb-forge-read {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.65rem 0 0.75rem;
+  font-family: var(--font-manrope);
+  font-size: 0.76rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-11);
+}
+
+.isb-forge-read b {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.isb-forge-sep {
+  color: var(--color-14);
+}
+
+/* ── 01 · Long-form narration ───────────────────────────────────────*/
+
+.isb-long-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.7rem;
+}
+
+.isb-long-voice {
+  font-family: var(--font-manrope);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.isb-long-tag {
+  font-family: var(--font-manrope);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-11);
+}
+
+.isb-long-para {
+  margin: 1rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--text-primary);
+}
+
+.isb-long-rest {
+  margin-top: 1rem;
+}
+
+.isb-long-rest summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--isb-line);
+  border-radius: 999px;
+  background: var(--bg-cream-50);
+  font-family: var(--font-manrope);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--color-11);
+  cursor: pointer;
+  list-style: none;
+}
+
+.isb-long-rest summary::-webkit-details-marker {
+  display: none;
+}
+
+.isb-long-rest summary:hover {
+  border-color: var(--text-orange-500);
+  color: var(--text-orange-500);
+}
+
+.isb-judge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.16rem 0.5rem;
+  border-radius: 999px;
+  background: var(--primary-100);
+  font-family: var(--font-manrope);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-orange-500);
+}
+
+/* ── 02 · The voice field ───────────────────────────────────────────
+   Forty-five voices placed by register and pace. Positioned absolutely
+   inside a padded plot so a name can sit next to its dot on a wide
+   screen and be dropped on a narrow one.
+   ------------------------------------------------------------------ */
+
+.isb-field {
+  position: relative;
+  height: 26rem;
+  margin-top: 0.9rem;
+  border: 1px solid var(--isb-line-soft);
+  border-radius: 0.6rem;
+  background:
+    linear-gradient(var(--isb-line-soft) 1px, transparent 1px) 0 0 / 100% 25%,
+    linear-gradient(90deg, var(--isb-line-soft) 1px, transparent 1px) 0 0 / 20% 100%,
+    var(--bg-cream-50);
+}
+
+@media (max-width: 640px) {
+  .isb-field {
+    height: 20rem;
+  }
+}
+
+.isb-field-dot {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0;
+  border: none;
+  background: none;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.isb-field-dot::before {
+  content: '';
+  width: 0.55rem;
+  height: 0.55rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--isb-dot);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.isb-field-dot:hover::before,
+.isb-field-dot[data-active='true']::before {
+  transform: scale(1.7);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--isb-dot) 22%, transparent);
+}
+
+.isb-field-name {
+  font-family: var(--font-manrope);
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: var(--color-11);
+  transition: color 0.18s ease;
+}
+
+.isb-field-dot:hover .isb-field-name,
+.isb-field-dot[data-active='true'] .isb-field-name {
+  color: var(--text-primary);
+}
+
+@media (max-width: 720px) {
+  /* Forty-five names will not fit; the dots still play. */
+  .isb-field-name {
+    display: none;
+  }
+}
+
+.isb-field-axis {
+  position: absolute;
+  font-family: var(--font-manrope);
+  font-size: 0.64rem;
+  color: var(--color-14);
+}
+
+.isb-field-axis[data-side='y'] {
+  left: 0.4rem;
+  transform: translateY(-50%);
+}
+
+.isb-field-axis[data-side='x'] {
+  bottom: 0.3rem;
+  transform: translateX(-50%);
+}
+
+.isb-field-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.55rem;
+  font-family: var(--font-manrope);
+  font-size: 0.68rem;
+  color: var(--color-11);
+}
+
+.isb-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0.7rem 0 0;
+  font-family: var(--font-manrope);
+  font-size: 0.7rem;
+  color: var(--color-11);
+}
+
+.isb-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.isb-legend i {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* The card that opens under the field when a voice is picked. */
+.isb-voice-card {
+  margin-top: 0.9rem;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--isb-line);
+  border-radius: 0.7rem;
+  background: var(--bg-cream-50);
+}
+
+.isb-voice-name {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: var(--font-manrope);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.isb-voice-stats {
+  font-family: var(--font-manrope);
+  font-size: 0.7rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  color: var(--color-11);
+}
+
+.isb-voice-desc {
+  margin: 0.4rem 0 0.7rem;
+  font-size: 0.87rem;
+  line-height: 1.6;
+  color: var(--color-10);
+}
+
+.isb-voice-best {
+  color: var(--text-orange-500);
+  font-weight: 600;
+}
+
+/* ── 02 · Accent travel ─────────────────────────────────────────────*/
+
+.isb-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.9rem 0;
+}
+
+.isb-tab {
+  padding: 0.28rem 0.65rem;
+  border: 1px solid var(--isb-line);
+  border-radius: 999px;
+  background: var(--white);
+  font-family: var(--font-manrope);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-11);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.isb-tab:hover {
+  border-color: var(--text-orange-500);
+  color: var(--text-orange-500);
+}
+
+.isb-tab[aria-pressed='true'] {
+  border-color: var(--text-orange-500);
+  background: var(--text-orange-500);
+  color: var(--white);
+}
+
+.isb-sentence {
+  margin: 0.9rem 0;
+  padding: 0.85rem 1rem;
+  border-left: 2px solid var(--primary-100);
+  background: var(--bg-cream-50);
+  border-radius: 0 0.6rem 0.6rem 0;
+  font-size: 1rem;
+  line-height: 1.95;
+  color: var(--text-primary);
+}
+
+.isb-pair {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 0.9rem;
+}
+
+@media (min-width: 720px) {
+  .isb-pair {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.isb-pair-card {
+  padding: 0.8rem 0.85rem;
+  border: 1px solid var(--isb-line);
+  border-radius: 0.7rem;
+  background: var(--white);
+}
+
+.isb-pair-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-bottom: 0.55rem;
+}
+
+.isb-pair-voice {
+  font-family: var(--font-manrope);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.isb-pair-role {
+  font-family: var(--font-manrope);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-11);
+}
+
+/* ── 02 · Recommended voices table ──────────────────────────────────*/
+
+.isb-table-wrap {
+  overflow-x: auto;
+  margin-top: 0.9rem;
+  border: 1px solid var(--isb-line);
+  border-radius: 0.7rem;
+}
+
+.isb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+}
+
+.isb-table th,
+.isb-table td {
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--isb-line-soft);
+}
+
+.isb-table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-cream-100);
+  font-family: var(--font-manrope);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-11);
+  white-space: nowrap;
+}
+
+.isb-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.isb-table-group td {
+  background: var(--bg-cream-50);
+  font-family: var(--font-manrope);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-orange-500);
+}
+
+.isb-table-lang {
+  font-family: var(--font-manrope);
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.isb-table-script {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--color-14);
+}
+
+.isb-table-voice {
+  font-family: var(--font-manrope);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.isb-table-meta {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--color-11);
+}
+
+.isb-table-judge {
+  font-family: var(--font-manrope);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-orange-500);
+  white-space: nowrap;
+}
+
+/* ── 03 · Capability cards, style tags, normaliser ──────────────────*/
+
+.isb-cards {
+  display: grid;
+  gap: 0.8rem;
+  margin: 1.25rem 0;
+}
+
+@media (min-width: 640px) {
+  .isb-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.isb-card {
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--isb-line);
+  border-radius: 0.8rem;
+  background: var(--isb-surface);
+  box-shadow: var(--isb-shadow);
+}
+
+.isb-card-title {
+  margin: 0.35rem 0 0.4rem;
+  font-family: var(--font-manrope);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.isb-card-body {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.65;
+  color: var(--color-10);
+}
+
+.isb-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.9rem;
+}
+
+.isb-tag {
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--isb-line);
+  border-radius: 0.5rem;
+  background: var(--bg-cream-50);
+}
+
+.isb-tag[data-emotion='true'] {
+  background: var(--white);
+  border-style: dashed;
+}
+
+.isb-tag code {
+  display: block;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-orange-400);
+}
+
+.isb-tag span {
+  display: block;
+  margin-top: 0.1rem;
+  font-size: 0.68rem;
+  color: var(--color-11);
+}
+
+.isb-norm-case + .isb-norm-case {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--isb-line-soft);
+}
+
+.isb-norm-note {
+  margin: 0 0 0.5rem;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--color-11);
+}
+
+.isb-io {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.isb-io-row {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 0.6rem;
+  align-items: start;
+}
+
+@media (max-width: 560px) {
+  .isb-io-row {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+}
+
+.isb-io-label {
+  font-family: var(--font-manrope);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--color-11);
+  padding-top: 0.15rem;
+}
+
+.isb-io-value {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.isb-io-value[data-mono='true'] {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.8rem;
+  color: var(--color-10);
+}
+
+.isb-io-row[data-emphasis='true'] .isb-io-value {
+  color: var(--text-orange-500);
+  font-weight: 500;
+}
