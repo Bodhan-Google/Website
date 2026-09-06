@@ -5331,9 +5331,20 @@ rect.bar.muted { fill: var(--bar-muted, #A89880); }
       cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       // The source is the centre of the featured letter, wherever the layout put it.
-      if (glyph) {
-        var g = glyph.getBoundingClientRect();
-        ox = g.left - r.left + g.width / 2; oy = g.top - r.top + g.height / 2;
+      //
+      // Measured from the face's LAYOUT box (offsetLeft/Top/Width/Height), not from
+      // getBoundingClientRect(): the two faces cross-fade, and the one that is not
+      // showing carries `translateY(10px) scale(0.96)`, which a client rect includes
+      // and a layout box does not. Reading the rect put the source 10px below the
+      // letter whenever face A was the outgoing one -- including on first paint, since
+      // layout() runs in the same tick as show(0), while the 0.7s reveal transition
+      // has barely left its start value. The offset parent is .hero-glyph, which is
+      // positioned in both breakpoints and never transformed.
+      var host = glyph && (glyph.offsetParent || glyph.parentNode);
+      if (glyph && host) {
+        var g = host.getBoundingClientRect();
+        ox = g.left - r.left + glyph.offsetLeft + glyph.offsetWidth / 2;
+        oy = g.top - r.top + glyph.offsetTop + glyph.offsetHeight / 2;
       } else { ox = 0; oy = H * 0.5; }
       reach = Math.sqrt(Math.max(ox, W - ox) * Math.max(ox, W - ox) + Math.max(oy, H - oy) * Math.max(oy, H - oy)) * 1.02;
       // The room the letters bounce in: the card, inset so a glyph never clips.
