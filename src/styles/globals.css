@@ -2693,6 +2693,38 @@ a[target="_blank"]:not(:has(svg)):not(:has(img)):not(.no-ext-arrow)::after {
   }
 }
 
+/* ── Nav top-level links ──
+   Hover is a quiet pill; orange is reserved for the section you are on, so the
+   two states never read as the same thing. An open menu keeps the pill. */
+.nav-top-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 2.25rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  color: var(--color-10);
+  white-space: nowrap;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.nav-top-link:hover,
+.nav-top-link.is-open {
+  color: var(--text-primary);
+  background-color: color-mix(in srgb, var(--primary-100) 55%, transparent);
+}
+
+.nav-top-link.is-active {
+  color: var(--text-orange-500);
+  font-weight: 500;
+}
+
+.nav-top-link.is-active:hover,
+.nav-top-link.is-active.is-open {
+  color: var(--text-orange-500);
+}
+
 /* ── Nav Research dropdown ── */
 .nav-research-dropdown {
   position: relative;
@@ -2713,17 +2745,25 @@ a[target="_blank"]:not(:has(svg)):not(:has(img)):not(.no-ext-arrow)::after {
   pointer-events: none;
 }
 
+/* Items: hover = a soft fill + arrow; active (current page) = orange label and
+   a solid dot. While another row is hovered the active row lets go of its fill,
+   so the highlight moves with the pointer instead of lighting two rows at once. */
 .nav-research-item {
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
   padding: 0.7rem 0.75rem;
   border-radius: 0.75rem;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
-.nav-research-item:hover {
-  background-color: rgba(255, 249, 240, 0.9);
+.nav-research-item:hover,
+.nav-research-item.is-active {
+  background-color: var(--bg-cream-100);
+}
+
+.nav-research-dropdown:has(.nav-research-item:hover) .nav-research-item.is-active:not(:hover) {
+  background-color: transparent;
 }
 
 .nav-research-item-indicator {
@@ -2731,20 +2771,16 @@ a[target="_blank"]:not(:has(svg)):not(:has(img)):not(.no-ext-arrow)::after {
   height: 0.375rem;
   border-radius: 50%;
   margin-top: 0.42rem;
-  background: linear-gradient(135deg, var(--text-orange-500), var(--text-orange-400));
-  opacity: 0.35;
-  transform: scale(0.7);
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  background: var(--text-orange-500);
+  opacity: 0.3;
+  transform: scale(0.75);
+  transition: opacity 0.2s ease, transform 0.2s ease;
   flex-shrink: 0;
 }
 
 .nav-research-item:hover .nav-research-item-indicator {
-  opacity: 1;
-  transform: scale(1.15);
-}
-
-.nav-research-item.is-active {
-  background-color: var(--bg-cream-100);
+  opacity: 0.6;
+  transform: scale(1);
 }
 
 .nav-research-item.is-active .nav-research-item-indicator {
@@ -2760,10 +2796,6 @@ a[target="_blank"]:not(:has(svg)):not(:has(img)):not(.no-ext-arrow)::after {
   color: var(--text-primary);
   letter-spacing: -0.01em;
   transition: color 0.2s ease;
-}
-
-.nav-research-item:hover .nav-research-item-label {
-  color: var(--text-orange-500);
 }
 
 .nav-research-item.is-active .nav-research-item-label {
@@ -2790,7 +2822,12 @@ a[target="_blank"]:not(:has(svg)):not(:has(img)):not(.no-ext-arrow)::after {
 .nav-research-item:hover .nav-research-item-arrow {
   opacity: 1;
   transform: translateX(0);
-  color: var(--text-orange-500);
+  color: var(--text-primary);
+}
+
+/* You are already here: no arrow on the current page. */
+.nav-research-item.is-active .nav-research-item-arrow {
+  display: none;
 }
 
 .nav-mega-dropdown {

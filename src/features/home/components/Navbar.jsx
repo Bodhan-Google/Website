@@ -197,8 +197,11 @@ const Navbar = () => {
         }
     };
 
-    const linkClass =
-                'text-sm text-[var(--color-10)] hover:text-[var(--text-orange-500)] focus-visible:text-[var(--text-orange-500)] transition-colors whitespace-nowrap min-h-11 inline-flex items-center';
+    const linkClass = 'nav-top-link';
+    // Plain links light up on their own section; Team scrolls on the home page
+    // and never reads as "current".
+    const isTopActive = (link) =>
+        !link.scrollTo && link.to !== '/' && location.pathname.startsWith(link.to);
 
     const renderLink = (link, className) => {
         if (link.children) {
@@ -318,7 +321,7 @@ const Navbar = () => {
                         />
                     </Link>
 
-                    <div className="hidden lg:flex items-center gap-6 ml-8">
+                    <div className="hidden lg:flex items-center gap-1 ml-8">
                         {navLinks.map((link) => {
                             if (link.children) {
                                 const menuActive = link.match && location.pathname.startsWith(link.match);
@@ -335,8 +338,8 @@ const Navbar = () => {
                                     >
                                         <button
                                             type="button"
-                                            className={`${linkClass} inline-flex items-center gap-1 ${
-                                                menuActive ? 'text-[var(--text-orange-500)] font-medium' : ''
+                                            className={`${linkClass} ${menuActive ? 'is-active' : ''} ${
+                                                isThisOpen ? 'is-open' : ''
                                             }`}
                                             aria-expanded={isThisOpen}
                                             aria-haspopup="true"
@@ -419,10 +422,14 @@ const Navbar = () => {
                                 );
                             }
 
-                            return <span key={link.label}>{renderLink(link, linkClass)}</span>;
+                            return (
+                                <span key={link.label}>
+                                    {renderLink(link, `${linkClass} ${isTopActive(link) ? 'is-active' : ''}`)}
+                                </span>
+                            );
                         })}
 
-                        <a href={CONSOLE_URL} className="nav-dashboard-btn">
+                        <a href={CONSOLE_URL} className="nav-dashboard-btn ml-3">
                             Go to API Console
                             <ArrowUpRight size={14} aria-hidden="true" />
                         </a>
