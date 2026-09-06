@@ -26,9 +26,11 @@ export const post = {
   titleAccent: 'Translate',
   // The partner lockup above the headline, matching the sibling IndicOCR post's hero
   // (`.hero-partners`: mark + name, joined by a multiplication sign).
+  // Bodhan leads, as it does on the Indic-Speak, Indic-Transcribe and IndicOCR
+  // heroes -- this post had the two the other way round.
   partners: [
-    { name: 'AI4Bharat', icon: 'ai4bharat' },
     { name: 'Bodhan AI', icon: 'bodhan' },
+    { name: 'AI4Bharat', icon: 'ai4bharat' },
   ],
   // The hero eyebrow is the date and nothing else. `category` and `readingTime` are kept
   // in the data -- the template's post schema defines them and a card or list view may

@@ -1987,6 +1987,27 @@ code, .mono { font-family: var(--font-mono); }
 }
 .hero-card .research-type-title { position: relative; z-index: 3; text-align: center; max-width: 40rem; margin: 0 auto; }
 .hero-positioning { position: relative; z-index: 3; text-align: center; max-width: 38rem; margin: 0.9rem auto 0; font-family: var(--font-body); font-size: 1.02rem; line-height: 1.6; color: var(--text-secondary); }
+.hero-partners {
+  /* z-index 3 like every other element in this card: .hero-scrim sits at 1 and
+     paints over anything left at `auto`, which washes this row out completely. */
+  position: relative; z-index: 3;
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: center; gap: 0.35rem 0.7rem; margin-bottom: 0.75rem;
+}
+.hero-partner-group { display: inline-flex; align-items: center; gap: 0.7rem; }
+.hero-partner {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-body); font-size: 1rem; font-weight: 600;
+  letter-spacing: -0.01em; color: var(--chart-text-primary, #2C241C);
+}
+/* Sized by height with the width left to follow: the Bodhan mark is 126x140, so a
+   square box squashes it. 22px tall is the lockup size on every model post. */
+.hero-partner .chip-mark { height: 22px; width: auto; flex: none; }
+.hero-x { font-family: var(--font-display); font-size: 1.05rem; color: var(--text-muted); }
+@media (max-width: 480px) {
+  .hero-partner { font-size: 0.9rem; }
+  .hero-partner .chip-mark { height: 19px; width: auto; }
+}
 .hero-links {
   position: relative; z-index: 3; display: flex; flex-wrap: wrap; gap: 0.5rem;
   justify-content: center; margin-top: 1.1rem;
@@ -2042,8 +2063,10 @@ body.modal-open { overflow: hidden; }
   .spec-chip .v { font-size: 2rem; }
   .spec-chip .v.txt { font-size: 1.2rem; }
 }
+.hero-card.will-enter .hero-partners,
 .hero-card.will-enter .hero-links,
 .hero-card.will-enter .spec-chip { opacity: 0; transform: translateY(12px); }
+.hero-card.will-enter.is-ready .hero-partners,
 .hero-card.will-enter.is-ready .hero-links,
 .hero-card.will-enter.is-ready .spec-chip {
   opacity: 1; transform: none;
@@ -2053,6 +2076,7 @@ body.modal-open { overflow: hidden; }
 .hero-card.will-enter.is-ready .spec-chip:nth-child(2) { transition-delay: 0.4s; }
 .hero-card.will-enter.is-ready .spec-chip:nth-child(3) { transition-delay: 0.46s; }
 .hero-card.will-enter.is-ready .spec-chip:nth-child(4) { transition-delay: 0.52s; }
+.hero-card.will-enter.is-ready .hero-partners { transition-delay: 0.1s; }
 .hero-card.will-enter.is-ready .hero-links { transition-delay: 0.62s; }
 .hero-caption {
   position: relative; margin-top: 0.85rem; text-align: center;
@@ -2062,6 +2086,7 @@ body.modal-open { overflow: hidden; }
 .hero-caption a:hover { border-bottom-color: var(--accent); }
 @media (prefers-reduced-motion: reduce) {
   .hero::before { animation: none; }
+  .hero-card.will-enter .hero-partners,
   .hero-card.will-enter .hero-links,
   .hero-card.will-enter .spec-chip { opacity: 1; transform: none; transition: none; }
 }
@@ -2656,6 +2681,11 @@ body.guides-on .todo { display: block; }
     <div class="hero-card">
       <div class="hero-wave" id="heroWave" aria-hidden="true"></div>
       <div class="hero-scrim" aria-hidden="true"></div>
+
+      <div class="hero-partners">
+        <span class="hero-partner-group"><span class="hero-partner"><img class="chip-mark" src="images/bodhan_mark.svg" alt="" width="20" height="22">Bodhan AI</span></span>
+        <span class="hero-partner-group"><span class="hero-x" aria-hidden="true">&times;</span><span class="hero-partner"><img class="chip-mark" src="images/logo_ai4bharat.png" alt="" width="22" height="22">AI4Bharat</span></span>
+      </div>
 
       <h1 class="research-type-title" id="heroTitle"></h1>
 
