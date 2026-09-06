@@ -1,0 +1,475 @@
+ASR
+
+# Blog Title
+
+Bodhan ASR: Accurate Speech Recognition for India's Languages and Dialects
+
+* * *
+
+Large banner. Here, there should be an image which represents
+
+One sentence.
+
+Today we're releasing Bodhan Scribe, a 1.2B-parameter multilingual automatic speech recognition model trained on over 1.35 million hours of speech that supports 25 Indian languages, multiple transcription formats, and production-ready streaming and offline inference.
+
+Immediately below it, show a small table.
+
+|     |     |
+| --- | --- |
+| Feature | Value |
+| Languages | 25 |
+| Training Hours | 1.35M |
+| Parameters | 1.2B |
+| Architecture | NVIDIA Canary |
+| Native Script | ✓ |
+| Code Mixed | ✓ |
+| Romanized | ✓ |
+| Streaming | ✓ |
+| Offline | ✓ |
+
+Readers instantly know what they're looking at.
+
+* * *
+
+# 1\. Why Another ASR Model?
+
+Talk about the challenges.
+
+Possible points:
+
+- India has many languages.
+- Existing ASR systems perform well only on high-resource languages.
+- Dialects remain underserved.
+- Code-mixed speech is common.
+- Production systems need low latency.
+
+End with
+
+Bodhan ASR was built to address these challenges in a single multilingual model.
+
+* * *
+
+# 2\. Meet Bodhan ASR
+
+Now introduce the model.
+
+Example flow:
+
+### A single multilingual model
+
+Supports
+
+- 22 constitutional languages
+- Indian English
+- Bhojpuri
+- Bhili
+
+Mention
+
+Instead of training separate models per language, Bodhan Scribe learns a unified multilingual representation.
+
+Then show a language map.
+
+* * *
+
+# 3\. Key Features
+
+This section should be visual.
+
+Instead of paragraphs, create feature cards.
+
+### Supports 25 Indian Languages
+
+Include a colorful language grid.
+
+* * *
+
+### Three Output Modes
+
+Show the same audio transcribed three ways.
+
+Example
+
+Audio:
+
+"Kal meeting hai at 5 PM"
+
+Native
+
+कल मीटिंग है एट 5 पीएम
+
+Code Mixed
+
+कल meeting है at 5 PM
+
+Romanized
+
+Kal meeting hai at 5 PM
+
+Readers instantly understand the feature.
+
+* * *
+
+### Low Resource Language Support
+
+Very important.
+
+Show Bhili example.
+
+Input audio
+
+↓
+
+Output transcript
+
+↓
+
+Ground truth
+
+Here we will card which can play and show the transcript
+
+Mention that Bhili receives dedicated support despite limited public datasets.
+
+* * *
+
+### Production Ready
+
+Show icons.
+
+✓ Offline
+
+✓ Streaming
+
+✓ TensorRT
+
+✓ Batched inference
+
+* * *
+
+# 4\. Under the Hood
+
+Now present technical details.
+
+Architecture diagram.
+
+Encoder
+
+↓
+
+Decoder
+
+↓
+
+Transcript
+
+Mention
+
+- NVIDIA Canary architecture
+- 600M encoder
+- 600M decoder
+- 32-layer Conformer encoder
+- 24-layer Transformer decoder
+- 6K vocabulary
+
+Avoid long paragraphs.
+
+Use diagrams. (Cool diagram which just sumarized the models details )
+
+* * *
+
+# 5\. Training Data
+
+Readers love scale numbers.
+
+Instead of saying
+
+Trained on 1.35M hours
+
+Show a breakdown.
+
+Pie chart.
+
+Training Data
+
+1.35M hours
+
+- 1.30M weak/synthetic
+- 40K zero-shot TTS synthetic
+- 11K human labeled
+
+Then explain why synthetic data matters.
+
+Example
+
+Instead of memorizing frequent words, synthetic speech exposes the model to much larger vocabulary and pronunciation diversity.
+
+* * *
+
+# 6\. Evaluation
+
+This should be one of the biggest sections.
+
+Start with
+
+We evaluate Bodhan ASR across multiple public benchmarks spanning conversational speech, read speech, low-resource languages, and multilingual scenarios.
+
+Then show benchmark coverage.
+
+|     |     |
+| --- | --- |
+| Benchmark | Measures |
+| Voice of India | General multilingual |
+| Svarah | Conversation |
+| Lahaja | Dialects |
+| Sruti | Read Speech |
+| LibriSpeech | English |
+
+Then results.
+
+Here there should be diagrams and interactive pie chart where people can select the languages and values can change accordingly
+
+* * *
+
+## Voice of India
+
+Large table.
+
+WER.
+
+Highlight best scores.
+
+* * *
+
+## Low Resource Languages
+
+Bhili deserves its own subsection.
+
+Explain why.
+
+Then show
+
+WER
+
+Example predictions
+
+Ground truth
+
+* * *
+
+## Cross Benchmark Generalization
+
+Show Svarah
+
+Lahaja
+
+Sruti
+
+LibriSpeech
+
+* * *
+
+## Hard Benchmarks (Highly Recommended)
+
+This would make the blog significantly stronger.
+
+If possible evaluate on
+
+- IndicContextEval
+- FLEURS
+- Common Voice
+- MMS evaluation
+- IndicSUPERB
+- IndicASR benchmarks
+- OpenASR Leaderboards
+
+Even if not SOTA, it demonstrates robustness.
+
+* * *
+
+# 7\. Real Examples
+
+Here we need to add all the hard examples from youtube set, benchamrkset or hard benchmark set
+
+In the dataset model card
+
+# 8\. Inference Performance
+
+Split into three parts.
+
+Another diagram and card module
+
+* * *
+
+## Offline Inference
+
+Simple diagram.
+
+Audio
+
+↓
+
+Model
+
+↓
+
+Transcript
+
+* * *
+
+## Batched TensorRT
+
+Show throughput graph.
+
+Batch Size
+
+↓
+
+Latency
+
+↓
+
+RTFx
+
+* * *
+
+## Streaming
+
+Animation or GIF.
+
+Audio chunks arriving
+
+↓
+
+Partial transcripts
+
+↓
+
+Final transcript
+
+* * *
+
+## Latency
+
+Show plots.
+
+Latency vs Batch Size
+
+RTFx vs Accuracy
+
+Latency vs Sequence Length
+
+People love performance graphs.
+
+* * *
+
+# 9\. Model Card
+
+Move this near the end.
+
+Nobody starts reading from a model card.
+
+Include
+
+Architecture
+
+Languages
+
+License
+
+Training
+
+Parameters
+
+Inference
+
+Supported modes
+
+Limitations
+
+* * *
+
+# 10\. Limitations
+
+Very important.
+
+Examples
+
+- Extremely noisy environments remain challenging.
+- Rare dialects continue to improve.
+- Domain-specific vocabulary may require adaptation.
+- Long recordings benefit from chunked inference.
+
+This builds credibility.
+
+* * *
+
+# 11\. Getting Started
+
+Quick start first.
+
+pip install bodhan
+
+Then
+
+from bodhan import Scribe
+
+Minimal example.
+
+Readers should reach their first transcription within 30 seconds.
+
+Only afterward introduce advanced topics.
+
+- Streaming
+- Batch inference
+- TensorRT
+- Different output modes
+- Language forcing
+- Chunking
+
+* * *
+
+# 12\. Closing
+
+End with something like
+
+Bodhan ASR brings multilingual speech recognition to 25 Indian languages, including underserved languages such as Bhili, while supporting native-script, code-mixed, and romanized transcription. With large-scale multilingual training, production-ready inference, and strong performance across public benchmarks, it provides a practical foundation for building speech applications across India's linguistic diversity.
+
+Then include links to:
+
+- GitHub
+- Hugging Face
+- Documentation
+- Model Card
+- Demo
+- Contact
+
+* * *
+
+# Additional "mini-blogs" or callout sections (recommended)
+
+These can be embedded throughout the main post to make it more engaging:
+
+1. Why Code-Mixed Transcription Matters: Explain why Indian conversations naturally mix English with regional languages and show before/after examples.
+2. Supporting Low-Resource Languages: Highlight Bhili (and potentially Bhojpuri) with a short discussion of why these languages are often underrepresented and how Bodhan Scribe addresses that gap.
+3. Scaling with Synthetic Data: Describe how the 40K hours of zero-shot TTS data improved vocabulary diversity and robustness, ideally with examples of rare names or domain-specific terms.
+4. Engineering for Production: Showcase offline inference, streaming, TensorRT acceleration, batching, and latency/throughput trade-offs for deployment scenarios.
+
+* * *
+
+## Overall Flow
+
+The complete narrative should feel like this:
+
+The Challenge → Introducing Bodhan Scribe → What Makes It Different → How It Works → How It Was Trained → Benchmark Results → Real Transcription Examples → Production Performance → Model Card & Limitations → Getting Started
+
+This structure balances storytelling with technical depth, keeps readers engaged, and naturally surfaces your strongest differentiators—broad multilingual coverage, multiple transcription formats, low-resource language support, extensive benchmarking, and production-ready deployment.
+
+Reference blogs
+
+[https://www.sarvam.ai/blogs/sarvam-audio](https://www.google.com/url?q=https://www.sarvam.ai/blogs/sarvam-audio&sa=D&source=editors&ust=1783425725868452&usg=AOvVaw2nWHSTAA8FZpneKJi-PVFT)
+
+[https://www.assemblyai.com/blog/introducing-our-voice-agent-api](https://www.google.com/url?q=https://www.assemblyai.com/blog/introducing-our-voice-agent-api&sa=D&source=editors&ust=1783425725868672&usg=AOvVaw1cID2atxMT2QVM0PYGNpn2)
+
+[https://elevenlabs.io/text-to-speech](https://www.google.com/url?q=https://elevenlabs.io/text-to-speech&sa=D&source=editors&ust=1783425725868809&usg=AOvVaw1QEiqVdk7br5fSnU2-Sdch)
+
+Idea: [https://claude.ai/design/p/5265b6db-a72d-42d2-9d88-53d92b6a62b1?file=Bodhan+ASR.dc.html&via=share](https://www.google.com/url?q=https://claude.ai/design/p/5265b6db-a72d-42d2-9d88-53d92b6a62b1?file%3DBodhan%2BASR.dc.html%26via%3Dshare&sa=D&source=editors&ust=1783425725869100&usg=AOvVaw2opjwb7T_KD8KH3nECWL5y)

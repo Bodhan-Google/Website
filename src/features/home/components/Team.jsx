@@ -14,6 +14,7 @@ import VeezhinathanImg from '../../../assets/prof-kamakoti.png';
 import manuImg from '../../../assets/prof-manu.jpg';
 import sumanImg from '../../../assets/Suman_Kundu.jpg';
 import ganeshImg from '../../../assets/Ganesh-Krishnan.jpeg';
+import anoopImg from '../../../assets/Anoop-Kunchukuttan.jpeg';
 import { Linkedin, User } from 'lucide-react';
 
 const Team = () => {
@@ -79,6 +80,12 @@ const Team = () => {
             image: karthikMahaImg
         },
         {
+            name: "Dr. Anoop Kunchukuttan",
+            role: "VP Research, Bodhan AI",
+            linkedin: "https://in.linkedin.com/in/anoopkunchukuttan",
+            image: anoopImg
+        },
+        {
             name: "Mr. Ganesh Krishnan",
             role: "VP Engineering, Bodhan AI",
             linkedin: "https://www.linkedin.com/in/ganesh-krishnan-6a8a93a/",
@@ -140,7 +147,7 @@ const Team = () => {
                     ))}
                 </div>
 
-                {/* Row 2: 3 members */}
+                {/* Row 2: 4 members */}
                 <div className="flex justify-center gap-24 flex-wrap">
                     {row2.map((member, index) => (
                         <div key={index} className="flex flex-col items-center text-center group w-40">

@@ -1,0 +1,199 @@
+/* ── Glyph orbit (hero motif) ───────────────────────────────────────────────────────
+ *
+ * Word pairs on concentric elliptical orbits, blooming out of the card's centre. Nothing
+ * here knows the card's pixel size: positions arrive as percentages and every length that
+ * has to stay in proportion to them -- font size, drift amplitude -- is in `cqw`, i.e. a
+ * percentage of the field's own inline size. That is why `.go` declares a container: the
+ * card is 286px wide at a 320px viewport and 894px from 1024px up, and the preview page
+ * renders several of those widths on one page, so the field has to answer to its own box
+ * rather than to the viewport.
+ *
+ * Three properties are animated across three nested elements, because a single element can
+ * only own `transform` once:
+ *
+ *   .go-item   static    position (left/top %) and the -50%,-50% centring
+ *   .go-drift  animated  translate along the orbit tangent -- the bounded rotation
+ *   .go-type   animated  scale + opacity -- the bloom, on a per-item delay
+ * ──────────────────────────────────────────────────────────────────────────────── */
+
+.go {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Makes cqw resolve against the card, not the viewport, and makes this element the
+     containing block for the absolutely positioned items. */
+  container-type: inline-size;
+}
+
+/* ── Profile switch ────────────────────────────────────────────────────────────────
+ * Three independently solved layouts share this markup -- `narrow` (card <= 420px), `mid`
+ * (<= 620px) and `wide` -- and the component renders only the active one, so what follows
+ * is the type scale rather than a switch. The breakpoints live in PROFILE_MAX in
+ * GlyphOrbit.jsx.
+ * ──────────────────────────────────────────────────────────────────────────────── */
+.go-item, .go-guides { display: block; }
+
+/* Base type size per profile. Each is its solver profile's own base as a share of that
+   profile's reference card width -- 14.0/894, 14.54/606, 12.67/396 -- so CSS and the `fs`
+   values in PROFILES agree by construction. They rise as the card narrows because a WORD
+   has to stay legible: one base across the whole 286-894px range would render the field at
+   4.3px on the smallest phone. */
+.go-item[data-p='wide']   { --go-base: 1.566cqw; }
+.go-item[data-p='mid']    { --go-base: 2.4cqw; }
+.go-item[data-p='narrow'] { --go-base: 3.2cqw; }
+
+/* Hairline orbit guides, dashed, on three of the six orbits. At 3.8% alpha they are below
+   the threshold of "a diagram" but above the threshold of "arranged", which is the whole
+   job. Stretched with the card (preserveAspectRatio none) so they track the same ellipses
+   the items sit on. */
+.go-guides {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.go-guides ellipse {
+  fill: none;
+  stroke: #1c2541;
+  stroke-opacity: 0.038;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 3 7;
+}
+
+/* ── The pair ──────────────────────────────────────────────────────────────────────
+ * Set as type, not as a chip: the source is a small light gloss, the target is the word.
+ * Which side is native script and which is Roman depends on the kind -- `translation` and
+ * `roman` read English → target, `translit` reads native → Roman -- so the component puts
+ * .go-native or .go-latin on each side rather than assuming.
+ *
+ * .go-native carries the full twelve-family Noto stack and lets the browser choose by
+ * codepoint coverage. .go-latin is pinned to Manrope: without it the Noto stack's first
+ * family would supply Latin glyphs, and `history → itihas` would come out in two
+ * different faces for no reason.
+ * ──────────────────────────────────────────────────────────────────────────────── */
+.go-native {
+  font-family: 'Noto Sans Devanagari', 'Noto Sans Bengali', 'Noto Sans Tamil',
+    'Noto Sans Telugu', 'Noto Sans Malayalam', 'Noto Sans Kannada', 'Noto Sans Gujarati',
+    'Noto Sans Gurmukhi', 'Noto Sans Oriya', 'Noto Sans Ol Chiki',
+    'Noto Sans Meetei Mayek', 'Noto Nastaliq Urdu', 'Manrope', system-ui, sans-serif;
+}
+.go-latin {
+  font-family: 'Manrope', system-ui, sans-serif;
+}
+
+.go-item {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  line-height: 1.3;
+  font-size: calc(var(--go-base) * var(--s));
+}
+
+/* The source side. It was 0.58em at 0.52 alpha, which under the scrim composited to about
+   1.2:1 -- so the reader saw the Indic word and not the pair, and a pair is the whole
+   motif. 0.64em at 0.78 keeps the hierarchy (the target is still clearly the word) while
+   putting the English within reading distance of it. The extra width is measured, not
+   estimated, so the solver already accounts for it. */
+.go-src {
+  font-size: 0.64em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  opacity: 0.78;
+}
+.go-arrow {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: 0.52em;
+  opacity: 0.42;
+}
+/* 700, not 600. The scrim leaves these words at a composited contrast of 1.5-3:1, and at
+   that ratio the difference between a semibold and a bold stem is the difference between
+   reading the word and seeing a smudge. Costs ~3% width, which the solver measures anyway. */
+.go-dst {
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+.go-drift {
+  display: inline-block;
+  animation: go-drift var(--dp) ease-in-out infinite var(--dir);
+  /* A negative delay starts each orbit part-way through its own sweep, so the six are never
+     all at an extreme together and the field shears rather than pulsing. */
+  animation-delay: var(--dd);
+  /* No `will-change` here on purpose. A transform-only animation is composited without it,
+     and there are ~60 of these plus ~60 on .go-type; hinting both would promote 120 layers
+     for one background motif. */
+}
+
+.go-type {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.12em;
+  opacity: 0;
+  animation: go-bloom 7s linear infinite both;
+  /* The component also sets this inline, with the same value; this is the fallback if it
+     ever stops doing so. The 7s above and PERIOD in GlyphOrbit.jsx are the same number. */
+  animation-delay: var(--d);
+  will-change: opacity, transform;
+}
+
+/* ── Hidden measurement host ───────────────────────────────────────────────────────
+ * Where the component measures every word pair's real width on mount. It has to inherit
+ * exactly the typography the field renders with -- the same classes do that -- and must not
+ * inherit the bloom, whose `transform: scale()` would be included in the measured box.
+ * `visibility: hidden` rather than `display: none`, because a display:none subtree has no
+ * layout and therefore no width to read.
+ * ──────────────────────────────────────────────────────────────────────────────── */
+.go-measure {
+  position: absolute;
+  left: -20000px;
+  top: 0;
+  visibility: hidden;
+  pointer-events: none;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+.go-measure .go-type {
+  animation: none !important;
+  transform: none !important;
+  opacity: 1;
+  display: inline-flex;
+}
+
+/* The bloom. Same 7s loop the grid used, with a gentler entry scale because these items are
+   words rather than syllables and a 0.6 → 1 pop at this size reads as a jolt. */
+@keyframes go-bloom {
+  0%        { opacity: 0;    transform: scale(0.74); }
+  5%        { opacity: 1;    transform: scale(1); }
+  46%       { opacity: 1;    transform: scale(1); }
+  60%       { opacity: 0.52; transform: scale(1.015); }
+  72%, 100% { opacity: 0;    transform: scale(0.93); }
+}
+
+/* The bounded rotation: each item slides +-(dx, dy) along its orbit's tangent. Same arc
+   length for every item on an orbit, so the orbit turns as a body and same-orbit gaps never
+   close. */
+@keyframes go-drift {
+  0%, 100% { transform: translate(calc(-1 * var(--dx)), calc(-1 * var(--dy))); }
+  50%      { transform: translate(var(--dx), var(--dy)); }
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────────────────
+ * Both animations off, which also freezes the drift at its layout position -- the exact
+ * coordinates the solver used -- so a geometry probe run under `reducedMotion: 'reduce'`
+ * measures the boxes the solver claims to have placed rather than a mid-transform scale of
+ * them. The field stays visible and legible instead of vanishing with the animation.
+ *
+ * Note for anyone measuring TIMING: this strips the animation, so the computed
+ * animation-delay is 0s for every item here. The delay is still readable from each item's
+ * `--d` custom property and from `.go-type`'s inline style; a correlation measured off the
+ * computed value under reduced motion will be 0.
+ * ──────────────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .go-drift, .go-type {
+    animation: none !important;
+    transform: none !important;
+  }
+  .go-type { opacity: 0.88; }
+}

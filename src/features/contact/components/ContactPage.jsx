@@ -27,7 +27,7 @@ const ContactPage = () => {
                         <h1 className="text-3xl md:text-5xl font-semibold text-[#1A1A1A] mb-3 md:mb-4">
                             Get in <span className="text-[var(--text-orange-500)]">Touch</span>
                         </h1>
-                        <p className="text-gray-500 text-base md:text-lg max-w-xl mx-auto">
+                        <p className="text-stone-600 text-base md:text-lg max-w-xl mx-auto">
                             Have a question or want to collaborate? We'd love to hear from you.
                         </p>
                     </motion.div>
@@ -53,7 +53,7 @@ const ContactPage = () => {
                             contact@bodhan.ai
                         </a>
 
-                        <p className="text-gray-500 text-base mt-6 mb-4">with the following information:</p>
+                        <p className="text-stone-600 text-base mt-6 mb-4">with the following information:</p>
 
                         <ul className="space-y-3">
                             {fields.map((field) => (

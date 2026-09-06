@@ -1,0 +1,259 @@
+{
+  "examples": [
+    {
+      "id": "kashmiri",
+      "title": "Perso-Arabic novel",
+      "langLabel": "کٲشُر",
+      "label": "Kashmiri",
+      "tag": "Printed · right-to-left",
+      "note": "A printed Kashmiri page, read right to left",
+      "image": "/examples/docparser/gallery/indicdlp_v2_nv_ks_000381_1.png",
+      "width": 768,
+      "height": 1263,
+      "split": 1,
+      "rtl": true,
+      "stats": [
+        {
+          "label": "Blocks",
+          "value": "8"
+        },
+        {
+          "label": "Labels",
+          "value": "3"
+        }
+      ],
+      "blocks": [
+        {
+          "n": 2,
+          "label": "Folio",
+          "type": "text",
+          "value": "جہنمُک پَنُن پَنُن نار",
+          "box": [
+            52.5,
+            692.1,
+            89.3,
+            884.1
+          ]
+        },
+        {
+          "n": 3,
+          "label": "Page-number",
+          "type": "text",
+          "value": "14",
+          "box": [
+            48.8,
+            202.1,
+            80.8,
+            258.6
+          ]
+        },
+        {
+          "n": 4,
+          "label": "Paragraph",
+          "type": "text",
+          "value": "کأتیب پراران“۔",
+          "box": [
+            94.3,
+            685.4,
+            136.2,
+            903.8
+          ]
+        },
+        {
+          "n": 5,
+          "label": "Paragraph",
+          "type": "text",
+          "value": "ایکس وؤتھ تہٕ ہیرٕن سکھر کرنی ۔ ڈیزی ۂر یہِ وٲنچہِ ہنٛز دٔر اے۔\nشین کوُڈاتھ تہٕ پلنووُن ایکس کُن ”تھینک یوُ وِری چھُ“ ایکسِن وؤنُس\nزنتہٕ خندٕ کران ”ایٹ یوُر سٔروُس“۔ پتہٕ یہِ وُنتھ ہیوُشُن نیرُن۔ شین دراس\nدرواز س تام۔ ڈیزی ترٲوِیمن دوشوُنی پٹھٕ کُنۍ نظراہ۔ ٹیپ رکارڈر کوُڈُن تہٕ\nتھووُن ژوٗرِ ژوٗرِٹی پایہِ تل۔تھ نکھٕ سوٗبتھ ٲس۔",
+          "box": [
+            131.8,
+            107.4,
+            354.9,
+            901
+          ]
+        },
+        {
+          "n": 6,
+          "label": "Paragraph",
+          "type": "text",
+          "value": "ایکس دڑاو، کارگیہ سٹارٹ۔ ڈیزی باسیوو پَنُن پان وٲناکھس منز\nکئے زوٗن۔ خوفہٕ سِتۍ ہیوٗشَن تٔس پیشاب یُن۔ وٲنج ٲسِس نہٕ بہا ہی۔ شین\nژاو وراوِز کوٗرُن بند۔ ڈیزی نِشِہ وٲتِتھ تُلُن ٲسِس کلہٕ تھوٗد تہٕ کٔرنس مونی۔\nہستی وؤننس۔ ”یہ گوو وُنی چون گَرٕ“۔ امہِ پتہٕ تِجَن ڈیزی تھوٗد تہٕ اتھس چھِ\nکٔرتھ پھِر نٲون سارِنی کمرن۔ ”یہ گوسہِ شونکلُک کمرٕ۔ یہ گو کَچَن۔ یہ گو باتھ\nروٗم۔ ییتہٕ چھُنہٕ کٮ۪نہی۔ صرف ژٕ تہٕ بہٕ۔ گژھ کڈ پانے کیاہ کیاہ چھِے کھیوٚن۔\nپتہٕ ترٛاو آرام۔ میہ چھُ وُنہِ واریاہ لیکھن“۔",
+          "box": [
+            351.1,
+            104.6,
+            657.7,
+            901.4
+          ]
+        },
+        {
+          "n": 7,
+          "label": "Paragraph",
+          "type": "text",
+          "value": "شینن ترٛاوڈیزٕی رُکچس منز تہٕ پانہٕ آو بیہ ڈرایگ روٗمس منز ییٚتہِ\nکانٛدو ہراوِتھ ٲس۔",
+          "box": [
+            655.6,
+            107.9,
+            743.7,
+            892.4
+          ]
+        },
+        {
+          "n": 8,
+          "label": "Paragraph",
+          "type": "text",
+          "value": "ڈیزمی دِژ سأرۍ نظراہ ۔ تس ٲس خبر کیازِ وٲنج شُحہٕ واو کران ۔ تس\nاوسنہٕ کُنی مأل ۔ سوژ ایہ باتھ روٗمس منز پیشاب کرنہٕ ۔ اورٕ پٔرِتھ دِژِن واہِ\nواہِ بٮ۪ڈ روٗمس کُن نظر ۔ اَٹکہِ پردٕ تہٕ بستر کوٗرُس خوش ۔ یہِ ٲس دنیا دار کرس\nمنز ۔ یہِ ہیٚچ لوتی واپس تہٕ وٲژ ڈرائینگ روٗمس منز ۔ شین اوس کیاہتام لیکھنس",
+          "box": [
+            742.8,
+            103.5,
+            925.3,
+            893.4
+          ]
+        }
+      ]
+    },
+    {
+      "id": "passbook",
+      "title": "Bank passbook",
+      "langLabel": "English",
+      "label": "English",
+      "tag": "Form · tables and stamps",
+      "note": "A real passbook page, details blurred",
+      "image": "/examples/docparser/gallery/bank_passbook_blurred-3.png",
+      "width": 1202,
+      "height": 658,
+      "split": 1,
+      "rtl": false,
+      "stats": [
+        {
+          "label": "Blocks",
+          "value": "7"
+        },
+        {
+          "label": "Labels",
+          "value": "3"
+        }
+      ],
+      "blocks": [
+        {
+          "n": 1,
+          "label": "Table",
+          "type": "html",
+          "value": "<table>\n<tbody>\n<tr>\n<td>Account Type</td>\n<td>:</td>\n<td>Savings Account</td>\n</tr>\n<tr>\n<td>Account Number</td>\n<td>:</td>\n<td>7101002265</td>\n</tr>\n<tr>\n<td>Customer ID</td>\n<td>:</td>\n<td>1326361</td>\n</tr>\n<tr>\n<td>Name</td>\n<td>:</td>\n<td></td>\n</tr>\n<tr>\n<td>Address</td>\n<td>:</td>\n<td></td>\n</tr>\n</tbody>\n</table>",
+          "box": [
+            14.4,
+            48.5,
+            261.2,
+            526.1
+          ]
+        },
+        {
+          "n": 2,
+          "label": "Paragraph",
+          "type": "text",
+          "value": "Communication address last updated on : 20-11-2019\nOperational Instruction : SINGLE\nDate of Opening      : 20-11-2019\nAccount activation date : 20-11-2019\n(For Pre-opened kits)",
+          "box": [
+            359.7,
+            52.5,
+            594.8,
+            621.2
+          ]
+        },
+        {
+          "n": 4,
+          "label": "Paragraph",
+          "type": "text",
+          "value": "Authorised Signatory :",
+          "box": [
+            864.3,
+            24.8,
+            916,
+            208.9
+          ]
+        },
+        {
+          "n": 5,
+          "label": "Paragraph",
+          "type": "text",
+          "value": "For details, please contact any of our branches or visit www.federalbank.co.in",
+          "box": [
+            873.9,
+            556.3,
+            911.4,
+            972.4
+          ]
+        },
+        {
+          "n": 6,
+          "label": "Footnote",
+          "type": "text",
+          "value": "Deposits with our Bank are insured by DICGC upto a maximum of Rs. 1,00,000 per depositor, subject to amendments by DICGC from time to time.",
+          "box": [
+            919.6,
+            25.1,
+            960.9,
+            769.3
+          ]
+        }
+      ]
+    },
+    {
+      "id": "child",
+      "title": "Child's worksheet",
+      "langLabel": "English",
+      "label": "English",
+      "tag": "Handwritten · school worksheet",
+      "note": "A filled-in worksheet, marked by a teacher",
+      "image": "/examples/docparser/gallery/hw_child_en_hw_1.jpg",
+      "width": 896,
+      "height": 1100,
+      "split": 1,
+      "rtl": false,
+      "stats": [
+        {
+          "label": "Blocks",
+          "value": "4"
+        },
+        {
+          "label": "Labels",
+          "value": "3"
+        }
+      ],
+      "blocks": [
+        {
+          "n": 2,
+          "label": "Title",
+          "type": "text",
+          "value": "The world of Figs",
+          "box": [
+            67.6,
+            212.1,
+            118.3,
+            606.1
+          ]
+        },
+        {
+          "n": 3,
+          "label": "Question",
+          "type": "text",
+          "value": "Q I Fill in the blanks.",
+          "box": [
+            146.9,
+            48.4,
+            192.4,
+            499.7
+          ]
+        },
+        {
+          "n": 4,
+          "label": "List",
+          "type": "text",
+          "value": "1. Material that you can see through clearly is called transparent.\n2. Materials that don't bend easily are kass as rigid\n3. Materials that take the shape of their contain and flow are called liquids.\n4. Materials found in nature are classifidas natural\n5. Grasses materials spread out and fill the space they are in.\n6. Metals are obtaned from inside the earth.\n7. Glass is made mostly from sand.",
+          "box": [
+            228.7,
+            105.4,
+            942,
+            996.3
+          ]
+        }
+      ]
+    }
+  ]
+}

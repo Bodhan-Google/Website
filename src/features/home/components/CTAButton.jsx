@@ -5,8 +5,8 @@ const CTAButton = ({ children, variant = "primary", className = "", ...props }) 
 
     const variants = {
         primary: "bg-[#1A1A1A] text-white hover:bg-black",
-        secondary: "bg-white text-[#FF6B35] hover:bg-gray-50",
-        orange: "bg-[#FF6B35] text-white hover:bg-[#E55A2B]"
+        secondary: "bg-white text-[var(--primary-500)] hover:bg-gray-50",
+        orange: "bg-[var(--btn-join)] text-white hover:bg-[var(--primary-700)]"
     };
 
     const combinedClassName = `${baseStyles} ${variants[variant]} ${className}`;

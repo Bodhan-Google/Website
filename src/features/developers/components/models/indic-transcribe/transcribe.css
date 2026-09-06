@@ -1,0 +1,1032 @@
+/* ===================================================================
+   Indic-Transcribe — model page.
+
+   Sibling to the IndicDocParser page: same paper ground, same deep
+   navy ink, same saffron → magenta → teal headline gradient with a
+   travelling shine. Where that page is about ink on a page, this one
+   is about sound, so the live surfaces lean teal and violet.
+
+   Everything is scoped under .itx-page.
+   =================================================================== */
+
+.itx-page {
+  --paper: #FEFCF8;
+  --paper-2: #F5F1EA;
+  --ink: #16223A;
+  --ink-2: rgba(22, 34, 58, 0.74);
+  --muted: rgba(22, 34, 58, 0.58);
+  --line: rgba(22, 34, 58, 0.13);
+  --line-2: rgba(22, 34, 58, 0.07);
+
+  --saffron: #E0620D;
+  --saffron-deep: #B24405;
+  --amber: #CC820A;
+  --teal: #0C8C82;
+  --magenta: #CC1E74;
+  --green: #159A50;
+  --violet: #5B44D4;
+  --sky: #1F6FD1;
+  --slate: #5A6880;
+
+  --shadow-1: 0 1px 2px rgba(22, 34, 58, 0.05), 0 6px 20px rgba(22, 34, 58, 0.07);
+  --shadow-2: 0 8px 20px rgba(22, 34, 58, 0.07), 0 28px 64px rgba(22, 34, 58, 0.12);
+  --glow: 0 6px 22px rgba(224, 98, 13, 0.26);
+
+  --sans: "Inter", "DM Sans", system-ui, sans-serif;
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+
+  --max: 1220px;
+
+  min-height: 100vh;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: #FBF8F2;
+  overflow-x: hidden;
+}
+
+/* One fixed decorative layer: washes plus a faint engineering grid. Kept out
+   of the page background so scrolling never repaints the gradients. */
+.itx-page .itx-grid-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 90% 46% at 50% -4%, rgba(255, 232, 208, 0.72), transparent 58%),
+    radial-gradient(ellipse 46% 34% at 4% 18%, rgba(12, 140, 130, 0.07), transparent 56%),
+    radial-gradient(ellipse 42% 32% at 97% 46%, rgba(91, 68, 212, 0.06), transparent 56%);
+}
+
+.itx-page .itx-grid-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(rgba(22, 34, 58, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(22, 34, 58, 0.03) 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000, transparent 74%);
+  mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000, transparent 74%);
+}
+
+.itx-page main {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- shared type ---------------------------------------------------- */
+
+.itx-page .itx-container {
+  width: min(var(--max), calc(100% - 40px));
+  margin-inline: auto;
+}
+
+.itx-page .itx-section { padding: 92px 0; }
+
+.itx-page .itx-eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--saffron-deep);
+}
+
+.itx-page .itx-h2 {
+  margin: 14px 0 0;
+  font-size: clamp(1.9rem, 3.9vw, 2.9rem);
+  font-weight: 800;
+  letter-spacing: -0.032em;
+  line-height: 1.1;
+}
+
+.itx-page .itx-lede {
+  max-width: 64ch;
+  margin: 16px auto 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.68;
+}
+
+.itx-page .itx-head { text-align: center; }
+
+.itx-page .itx-grad {
+  background:
+    linear-gradient(100deg, transparent 38%, color-mix(in srgb, var(--saffron) 45%, #fff) 50%, transparent 62%),
+    linear-gradient(100deg, var(--saffron), var(--magenta) 56%, var(--teal));
+  background-size: 220% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  animation: itx-shine 3.4s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes itx-shine {
+  from { background-position: 220% 0, 0 0; }
+  to { background-position: -120% 0, 0 0; }
+}
+
+@keyframes itx-blink { 50% { opacity: 0; } }
+
+@keyframes itx-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/* ---- buttons -------------------------------------------------------- */
+
+.itx-page .itx-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 22px;
+  font: 650 0.93rem/1 var(--sans);
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.itx-page .itx-btn:hover { transform: translateY(-2px); }
+.itx-page .itx-btn:disabled { opacity: 0.45; cursor: default; transform: none; }
+
+.itx-page .itx-btn-primary {
+  color: #fff;
+  background: linear-gradient(100deg, var(--saffron), #F0801F);
+  box-shadow: var(--glow);
+}
+
+.itx-page .itx-btn-primary:hover { box-shadow: 0 12px 34px rgba(224, 98, 13, 0.42); }
+
+.itx-page .itx-btn-ghost:hover {
+  background: #fff;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--saffron) 40%, transparent), var(--shadow-1);
+}
+
+.itx-page .itx-icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(22, 34, 58, 0.06);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.itx-page .itx-icon-btn:hover { background: rgba(224, 98, 13, 0.14); color: var(--saffron-deep); }
+
+/* ---- segmented controls --------------------------------------------- */
+
+.itx-page .itx-segmented {
+  display: flex;
+  gap: 3px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(22, 34, 58, 0.05);
+}
+
+.itx-page .itx-segmented button {
+  border: 0;
+  background: transparent;
+  border-radius: 999px;
+  padding: 7px 14px;
+  font: 650 0.79rem/1 var(--sans);
+  color: var(--muted);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.itx-page .itx-segmented button[data-active] {
+  background: #fff;
+  color: var(--ink);
+  box-shadow: var(--shadow-1);
+}
+
+.itx-page .itx-segmented-wide { align-self: flex-start; }
+
+/* ---- tone map ------------------------------------------------------- */
+
+.itx-page [data-tone="saffron"] { --tone: var(--saffron); }
+.itx-page [data-tone="amber"] { --tone: var(--amber); }
+.itx-page [data-tone="teal"] { --tone: var(--teal); }
+.itx-page [data-tone="magenta"] { --tone: var(--magenta); }
+.itx-page [data-tone="green"] { --tone: var(--green); }
+.itx-page [data-tone="violet"] { --tone: var(--violet); }
+.itx-page [data-tone="sky"] { --tone: var(--sky); }
+.itx-page [data-tone="slate"] { --tone: var(--slate); }
+
+/* ===================================================================
+   HERO
+   =================================================================== */
+
+.itx-page .itx-hero {
+  position: relative;
+  isolation: isolate;
+  padding: 40px 0 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.itx-page .itx-field {
+  position: absolute;
+  inset: 0 0 90px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.itx-page .itx-field-word {
+  position: absolute;
+  font-weight: 600;
+  line-height: 1;
+  opacity: 0.19;
+  color: var(--tone, var(--saffron));
+  will-change: transform;
+}
+
+.itx-page .itx-hero-inner { position: relative; }
+
+.itx-page .itx-collab {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 18px;
+  margin-bottom: 22px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: inset 0 0 0 1px var(--line), var(--shadow-1);
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.itx-page .itx-collab-logo { height: 26px; width: auto; display: block; }
+.itx-page .itx-collab-logo-wide { height: 22px; }
+
+.itx-page .itx-hero-title {
+  margin: 14px 0 0;
+  font-size: clamp(2.6rem, 6.8vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+}
+
+.itx-page .itx-hero-tagline {
+  margin: 14px 0 0;
+  font-size: clamp(1.05rem, 2.1vw, 1.42rem);
+  font-weight: 600;
+  color: var(--saffron-deep);
+  letter-spacing: -0.01em;
+}
+
+.itx-page .itx-hero-copy {
+  max-width: 64ch;
+  margin: 20px auto 0;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.itx-page .itx-hero-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+
+.itx-page .itx-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 44px auto 0;
+  max-width: 900px;
+  padding: 22px 8px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9), var(--shadow-1);
+}
+
+.itx-page .itx-stat { padding: 4px 14px; border-right: 1px solid var(--line-2); }
+.itx-page .itx-stat:last-child { border-right: 0; }
+
+.itx-page .itx-stat dt {
+  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--saffron-deep);
+  font-variant-numeric: tabular-nums;
+}
+
+.itx-page .itx-count-suffix { font-size: 0.62em; font-weight: 700; color: var(--muted); }
+
+.itx-page .itx-stat dd {
+  margin: 4px 0 0;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.itx-page .itx-hero-wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 96px;
+  margin-top: 46px;
+  padding: 0 4vw;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.itx-page .itx-hero-bar {
+  flex: 1 1 0;
+  min-width: 2px;
+  max-width: 9px;
+  height: calc(var(--h) * 100%);
+  border-radius: 999px;
+  transform-origin: center;
+  background: linear-gradient(180deg, var(--teal), var(--violet) 55%, var(--magenta));
+  opacity: 0.34;
+}
+
+/* ===================================================================
+   PIPELINE
+   =================================================================== */
+
+.itx-page .itx-pipeline {
+  position: relative;
+  list-style: none;
+  margin: 54px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.itx-page .itx-pipeline-line {
+  position: absolute;
+  left: 12%;
+  width: 76%;
+  top: 46px;
+  height: 4px;
+  overflow: visible;
+}
+
+.itx-page .itx-pipeline-line line {
+  stroke: var(--saffron);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.35;
+}
+
+.itx-page .itx-stage-card {
+  position: relative;
+  padding: 26px 22px 24px;
+  border-radius: 20px;
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line), var(--shadow-1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.itx-page .itx-stage-card:hover {
+  transform: translateY(-3px);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone) 45%, transparent), var(--shadow-2);
+}
+
+.itx-page .itx-stage-step {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--tone);
+  font: 800 0.82rem/1 var(--sans);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--tone) 35%, transparent);
+}
+
+.itx-page .itx-stage-card h3 {
+  margin: 16px 0 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.itx-page .itx-stage-card p {
+  margin: 8px 0 0;
+  font-size: 0.87rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ===================================================================
+   LIVE DEMO — the console
+   =================================================================== */
+
+.itx-page .itx-console {
+  margin-top: 44px;
+  border-radius: 26px;
+  overflow: hidden;
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line), var(--shadow-2);
+}
+
+.itx-page .itx-console-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--line-2);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.5));
+}
+
+.itx-page .itx-sources {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(22, 34, 58, 0.05);
+  flex-wrap: wrap;
+}
+
+.itx-page .itx-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 0;
+  background: transparent;
+  border-radius: 999px;
+  padding: 6px 14px 6px 6px;
+  font: 650 0.83rem/1 var(--sans);
+  color: var(--muted);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.itx-page .itx-source-mic { padding-left: 13px; }
+
+.itx-page .itx-source[data-active] {
+  background: #fff;
+  color: var(--ink);
+  box-shadow: var(--shadow-1);
+}
+
+.itx-page .itx-source-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center top;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+/* ---- the scope ------------------------------------------------------ */
+
+.itx-page .itx-scope {
+  position: relative;
+  padding: 22px 20px 12px;
+  background:
+    radial-gradient(ellipse 60% 90% at 50% 50%, rgba(12, 140, 130, 0.07), transparent 70%),
+    var(--paper-2);
+}
+
+.itx-page .itx-scope-canvas {
+  display: block;
+  width: 100%;
+  height: 120px;
+}
+
+.itx-page .itx-scope-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.itx-page .itx-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 700 0.72rem/1 var(--sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.itx-page .itx-state i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--slate);
+}
+
+.itx-page .itx-state[data-on] { color: var(--teal); }
+.itx-page .itx-state[data-on] i { background: var(--teal); animation: itx-pulse 1.2s ease-in-out infinite; }
+
+.itx-page .itx-clock {
+  font: 600 0.78rem/1 var(--mono);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.itx-page .itx-stageline { padding: 0 20px; background: var(--paper-2); }
+
+.itx-page .itx-seek {
+  position: relative;
+  flex: 1;
+  min-width: 90px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(22, 34, 58, 0.11);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.itx-page .itx-stageline .itx-seek { margin-bottom: 14px; }
+
+.itx-page .itx-seek span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--teal), var(--violet) 60%, var(--magenta));
+}
+
+/* ---- transcript surface --------------------------------------------- */
+
+.itx-page .itx-surface {
+  min-height: 168px;
+  padding: 26px 24px;
+  border-top: 1px solid var(--line-2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.itx-page .itx-transcript {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.9vw, 1.42rem);
+  line-height: 1.68;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.itx-page .itx-word {
+  display: inline-block;
+  border-radius: 7px;
+  padding: 0.02em 0.14em;
+  transition: color 0.3s ease, background 0.3s ease, opacity 0.3s ease;
+}
+
+.itx-page .itx-word-in { font-style: normal; display: inline-block; }
+
+.itx-page .itx-word[data-state="ahead"] { opacity: 0.32; }
+.itx-page .itx-word[data-state="said"] { opacity: 1; }
+
+/* The word being spoken carries the accent treatment — gradient-clipped
+   text over a soft wash, the same signature as the headline. */
+.itx-page .itx-word[data-state="saying"] {
+  background: color-mix(in srgb, var(--teal) 10%, transparent);
+  background-clip: padding-box;
+}
+
+.itx-page .itx-word[data-state="saying"] {
+  color: var(--teal);
+  font-weight: 650;
+}
+
+.itx-page .itx-caret {
+  display: inline-block;
+  width: 0.42ch;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  border-radius: 2px;
+  background: var(--teal);
+  animation: itx-blink 1s steps(2) infinite;
+}
+
+.itx-page .itx-surface-empty,
+.itx-page .itx-surface-foot {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.itx-page .itx-surface-foot {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
+  font-size: 0.8rem;
+}
+
+.itx-page .itx-notice {
+  margin: 0;
+  padding: 16px 18px;
+  border-radius: 14px;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--ink-2);
+  background: rgba(224, 98, 13, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(224, 98, 13, 0.22);
+}
+
+.itx-page .itx-notice[data-kind="sending"] {
+  background: rgba(12, 140, 130, 0.07);
+  box-shadow: inset 0 0 0 1px rgba(12, 140, 130, 0.24);
+}
+
+.itx-page .itx-console-foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 13px 16px;
+  border-top: 1px solid var(--line-2);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.9));
+}
+
+.itx-page .itx-console-foot .itx-btn { padding: 9px 16px; font-size: 0.84rem; }
+
+.itx-page .itx-console-note {
+  margin: 0 0 0 auto;
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-align: right;
+}
+
+/* ===================================================================
+   CODE-MIXED
+   =================================================================== */
+
+.itx-page .itx-codemix-body {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+  gap: 24px;
+  margin-top: 42px;
+  align-items: center;
+}
+
+.itx-page .itx-video-shell {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  background: #0d1424;
+  box-shadow: var(--shadow-2);
+  max-height: 560px;
+}
+
+.itx-page .itx-video-shell video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+}
+
+.itx-page .itx-video-play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 66px;
+  height: 66px;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: linear-gradient(100deg, var(--saffron), #F0801F);
+  box-shadow: 0 12px 34px rgba(224, 98, 13, 0.5);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.itx-page .itx-video-play:hover { transform: scale(1.07); }
+
+.itx-page .itx-video-badge {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  font: 700 0.66rem/1 var(--sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.itx-page .itx-codemix-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 26px 26px 24px;
+  border-radius: 22px;
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line), var(--shadow-1);
+}
+
+.itx-page .itx-codemix-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.itx-page .itx-codemix-text {
+  margin: 0;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  line-height: 1.8;
+  font-weight: 500;
+}
+
+.itx-page .itx-cm-word {
+  display: inline-block;
+  border-radius: 6px;
+  padding: 0.02em 0.16em;
+  opacity: 0.32;
+  transition: opacity 0.3s ease, background 0.3s ease;
+}
+
+.itx-page .itx-cm-word[data-spoken] { opacity: 1; }
+.itx-page .itx-cm-word[data-script="native"] { color: var(--teal); }
+.itx-page .itx-cm-word[data-script="latin"] { color: var(--violet); font-style: italic; }
+.itx-page .itx-cm-word[data-script="mixed"] {
+  color: var(--magenta);
+  background: color-mix(in srgb, var(--magenta) 9%, transparent);
+}
+.itx-page .itx-cm-word[data-script="neutral"] { color: var(--ink-2); }
+
+.itx-page .itx-legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+
+.itx-page .itx-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font: 600 0.75rem/1 var(--sans);
+  color: var(--muted);
+}
+
+.itx-page .itx-legend-item i {
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+}
+
+.itx-page .itx-legend-item[data-script="native"] i { background: var(--teal); }
+.itx-page .itx-legend-item[data-script="latin"] i { background: var(--violet); }
+.itx-page .itx-legend-item[data-script="mixed"] i {
+  background: linear-gradient(120deg, var(--teal) 50%, var(--violet) 50%);
+}
+
+.itx-page .itx-codemix-source {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* ===================================================================
+   SONGS
+   =================================================================== */
+
+.itx-page .itx-song-rail {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+  margin-top: 42px;
+}
+
+.itx-page .itx-song-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 10px 14px;
+  border: 0;
+  border-radius: 18px;
+  background: transparent;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.22s ease, transform 0.22s ease;
+}
+
+.itx-page .itx-song-tile:hover { transform: translateY(-3px); }
+
+.itx-page .itx-song-tile[data-active] {
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line), var(--shadow-1);
+}
+
+.itx-page .itx-song-art {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--art);
+  box-shadow: var(--shadow-1);
+  transition: box-shadow 0.25s ease;
+}
+
+.itx-page .itx-song-tile[data-active] .itx-song-art {
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.9), var(--shadow-2);
+}
+
+.itx-page .itx-song-art em {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.itx-page .itx-song-tile strong {
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.itx-page .itx-song-type {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.itx-page .itx-lyric-card {
+  margin-top: 26px;
+  padding: 26px 28px 22px;
+  border-radius: 24px;
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line), var(--shadow-1);
+}
+
+.itx-page .itx-lyric-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line-2);
+}
+
+.itx-page .itx-lyric-mark {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  background: var(--art);
+  color: #fff;
+}
+
+.itx-page .itx-lyric-head h3 { margin: 0; font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; }
+.itx-page .itx-lyric-head p {
+  margin: 3px 0 0;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.itx-page .itx-lyric-tag {
+  margin-left: auto;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(22, 34, 58, 0.05);
+  font: 700 0.65rem/1 var(--sans);
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.itx-page .itx-lyrics { padding: 22px 0 8px; }
+
+.itx-page .itx-lyric {
+  margin: 0 0 10px;
+  font-size: clamp(1rem, 1.7vw, 1.3rem);
+  line-height: 1.6;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.itx-page .itx-lyric-foot {
+  margin: 10px 0 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* ===================================================================
+   CAPABILITIES + CTA
+   =================================================================== */
+
+.itx-page .itx-cap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 44px;
+}
+
+.itx-page .itx-cap {
+  padding: 24px 22px;
+  border-radius: 20px;
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line), var(--shadow-1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.itx-page .itx-cap:hover {
+  transform: translateY(-3px);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--teal) 40%, transparent), var(--shadow-2);
+}
+
+.itx-page .itx-cap-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  margin-bottom: 14px;
+  color: var(--teal);
+  background: linear-gradient(140deg, rgba(12, 140, 130, 0.15), rgba(91, 68, 212, 0.1));
+}
+
+.itx-page .itx-cap h3 { margin: 0; font-size: 1rem; font-weight: 700; letter-spacing: -0.015em; }
+.itx-page .itx-cap p { margin: 8px 0 0; font-size: 0.87rem; line-height: 1.6; color: var(--muted); }
+
+.itx-page .itx-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 56px;
+  padding: 32px 34px;
+  border-radius: 26px;
+  background: linear-gradient(120deg, rgba(12, 140, 130, 0.1), rgba(91, 68, 212, 0.07) 55%, rgba(224, 98, 13, 0.09));
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.itx-page .itx-cta h3 { margin: 0; font-size: 1.3rem; font-weight: 800; letter-spacing: -0.025em; }
+.itx-page .itx-cta p { margin: 8px 0 0; max-width: 54ch; font-size: 0.92rem; line-height: 1.6; color: var(--muted); }
+.itx-page .itx-cta-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* ===================================================================
+   RESPONSIVE
+   =================================================================== */
+
+@media (max-width: 1040px) {
+  .itx-page .itx-codemix-body { grid-template-columns: 1fr; }
+  .itx-page .itx-video-shell { max-height: 520px; margin-inline: auto; width: min(100%, 420px); }
+  .itx-page .itx-pipeline { grid-template-columns: repeat(2, 1fr); }
+  .itx-page .itx-pipeline-line { display: none; }
+  .itx-page .itx-cap-grid { grid-template-columns: repeat(2, 1fr); }
+  .itx-page .itx-song-rail { grid-template-columns: repeat(3, 1fr); }
+  .itx-page .itx-stats { grid-template-columns: repeat(2, 1fr); gap: 18px 0; }
+  .itx-page .itx-stat:nth-child(2) { border-right: 0; }
+}
+
+@media (max-width: 680px) {
+  .itx-page .itx-section { padding: 68px 0; }
+  .itx-page .itx-pipeline,
+  .itx-page .itx-cap-grid { grid-template-columns: 1fr; }
+  .itx-page .itx-song-rail { grid-template-columns: repeat(2, 1fr); }
+  .itx-page .itx-stats { grid-template-columns: 1fr; }
+  .itx-page .itx-stat { border-right: 0; }
+  .itx-page .itx-field-word { display: none; }
+  .itx-page .itx-console-bar { align-items: stretch; flex-direction: column; }
+  .itx-page .itx-console-note { margin-left: 0; text-align: left; }
+  .itx-page .itx-scope-canvas { height: 92px; }
+  .itx-page .itx-hero-wave { height: 68px; }
+  .itx-page .itx-cta { padding: 26px 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .itx-page .itx-grad,
+  .itx-page .itx-caret,
+  .itx-page .itx-state i { animation: none !important; }
+  .itx-page *,
+  .itx-page *::before,
+  .itx-page *::after { transition-duration: 0.01ms !important; }
+}
