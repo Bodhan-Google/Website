@@ -5,53 +5,48 @@ import TableOfContents from '../components/TableOfContents';
 import EcosystemCard from '../components/EcosystemCard';
 
 /**
- * The Indic-Transcribe (Bodhan ASR) announcement, mounted as its own page.
+ * The Indic-Speak announcement, mounted as its own page.
  *
- * The post is a single self-contained HTML page assembled by
- * bodhan-asr-blog/src/build.py (repo root), with its audio, images and the
- * vendored GSAP beside it. It is served verbatim from
- * public/indic-transcribe-post/ (bodhan-asr.html as index.html) and shown here
- * in a same-origin frame sized to its content, so the page scrolls as one
- * document under the site's navbar and footer. Its asset paths are already
- * relative, so nothing in it needed rewriting; the entry HTML carries a small
- * site-patch that hides its progress bar, back-to-top button, footer and
- * ecosystem band, which the site provides itself: the reading-progress bar
- * is drawn here from the page scroll, the section rail is the site's
- * TableOfContents pointed at the sections inside the frame (a rail inside a
- * content-sized frame could neither stay fixed nor track the page scroll),
- * and the ecosystem card is rendered under the frame in the article column.
+ * The post is a single self-contained HTML page assembled by blog/src/build.py
+ * (repo root), with its audio and logos beside it. It is served verbatim from
+ * public/indic-speak-post/ and shown here in a same-origin frame sized to its
+ * content, so the page scrolls as one document under the site's navbar and
+ * footer. Its own chrome (progress bar, contents rail, footer, ecosystem band)
+ * is hidden by the #site-overrides block in that HTML, because the site
+ * provides each of those: the reading-progress bar is drawn here from the page
+ * scroll, the rail is the site's TableOfContents pointed at the sections inside
+ * the frame, and the ecosystem card is rendered under the frame in the article
+ * column.
  *
- * To take a newer drop: copy bodhan-asr.html to index.html plus images/,
- * audio/, video/, vendor/ and in.svg, and re-apply the site-patch in <head>.
+ * To take a newer drop: copy blog/indic-speak.html to index.html plus the audio
+ * and images it names, re-apply the palette swap and the #site-overrides block.
  */
-const FRAME_SRC = `${import.meta.env.BASE_URL}indic-transcribe-post/index.html`;
+const FRAME_SRC = `${import.meta.env.BASE_URL}indic-speak-post/index.html`;
 
-// Where the model is available (from the page's own list; Bodhan's link is the
-// site's model page).
+// Where the model is available (the four links the page's own band carried).
 const ECOSYSTEM = {
     title: "Available across India's AI ecosystem",
-    description: 'Weights, an ONNX build, and deployment targets.',
+    description: 'Weights, voices and hosted endpoints.',
     platforms: [
-        { name: 'Hugging Face · Core', href: 'https://huggingface.co/bodhan-ai/indic-transcribe-core', mark: 'huggingface', note: 'Core weights, ONNX build, inference' },
-        { name: 'Hugging Face · Flex', href: 'https://huggingface.co/bodhan-ai/indic-transcribe-flex', mark: 'huggingface', note: 'Flex weights, ONNX build, inference' },
-        { name: 'Bodhan', href: '/developers/indic-transcribe', mark: 'bodhan', note: 'API and model page' },
-        { name: 'Bhashini', mark: 'bhashini', note: 'National language-technology mission' },
-        { name: 'AIKosh', mark: 'aikosh', note: 'India AI model repository' },
+        { name: 'Hugging Face', href: 'https://huggingface.co/bodhan-ai/indic-speak', mark: 'huggingface', note: 'Weights and model card' },
+        { name: 'Bodhan', href: '/developers/indic-speak', mark: 'bodhan', note: 'Model page' },
+        { name: 'Bhashini', href: 'https://bhashini.gov.in', mark: 'bhashini', note: 'National language-technology mission' },
+        { name: 'AIKosh', href: 'https://aikosh.indiaai.gov.in', mark: 'aikosh', note: 'India AI model repository' },
     ],
 };
 
-// Rail labels for the page's sections (its own headings are sentence-long).
+// Rail labels: the page's headings are numbered sentences, so shorten them.
 const RAIL_TITLES = {
-    coverage: 'Coverage',
-    family: 'Model family',
-    features: 'Key features',
-    tech: 'Under the hood',
+    hear: 'Hear it',
+    capabilities: 'What it reads',
+    voices: 'Voices',
+    'under-the-hood': 'Under the hood',
     evaluation: 'Evaluation',
+    limitations: 'Limitations',
     outlook: "What's next",
-    invitation: 'An invitation',
 };
 
-const IndicTranscribePostPage = () => {
+const IndicSpeakPostPage = () => {
     const frameRef = useRef(null);
     const progressRef = useRef(null);
     const cleanupRef = useRef(null);
@@ -63,7 +58,7 @@ const IndicTranscribePostPage = () => {
 
     useEffect(() => {
         const previous = document.title;
-        document.title = 'Indic-Transcribe | Bodhan.AI';
+        document.title = 'Indic-Speak | Bodhan.AI';
         window.scrollTo(0, 0);
         return () => { document.title = previous; };
     }, []);
@@ -99,7 +94,9 @@ const IndicTranscribePostPage = () => {
                 .filter((section) => section.querySelector('h2'))
                 .map((section) => ({
                     id: section.id,
-                    title: RAIL_TITLES[section.id] ?? section.querySelector('h2').textContent.trim(),
+                    title:
+                        RAIL_TITLES[section.id]
+                        ?? section.querySelector('h2').textContent.trim().replace(/^\d+\s+/, ''),
                 })),
         );
 
@@ -135,7 +132,7 @@ const IndicTranscribePostPage = () => {
             )}
             <iframe
                 ref={frameRef}
-                title="Indic-Transcribe: speech recognition for 25 Indian languages"
+                title="Indic-Speak: text-to-speech for the way India actually writes"
                 src={FRAME_SRC}
                 onLoad={onLoad}
                 scrolling="no"
@@ -151,4 +148,4 @@ const IndicTranscribePostPage = () => {
     );
 };
 
-export default IndicTranscribePostPage;
+export default IndicSpeakPostPage;

@@ -15,6 +15,7 @@ import LegacyPostRedirect from '../features/research/components/LegacyPostRedire
 import IndicTranslatePostPage from '../features/research/indic-translate-post/IndicTranslatePostPage'
 import IndicOcrPostPage from '../features/research/indic-ocr-post/IndicOcrPostPage'
 import IndicTranscribePostPage from '../features/research/indic-transcribe-post/IndicTranscribePostPage'
+import IndicSpeakPostPage from '../features/research/indic-speak-post/IndicSpeakPostPage'
 import DevelopersPage from '../features/developers/components/DevelopersPage'
 import IndicOcrPage from '../features/developers/components/models/IndicOcrPage'
 import IndicSpeakPage from '../features/developers/components/models/IndicSpeakPage'
@@ -44,6 +45,7 @@ function App() {
       <Route path="/research/blogs/indic-translate" element={<IndicTranslatePostPage />} />
       <Route path="/research/blogs/indic-ocr" element={<IndicOcrPostPage />} />
       <Route path="/research/blogs/indic-transcribe" element={<IndicTranscribePostPage />} />
+      <Route path="/research/blogs/indic-speak" element={<IndicSpeakPostPage />} />
       {/* The ASR post was published as bodhan-asr before the model was named Indic-Transcribe. */}
       <Route path="/research/blogs/bodhan-asr" element={<Navigate to="/research/blogs/indic-transcribe" replace />} />
       <Route path="/research/bodhan-asr" element={<Navigate to="/research/blogs/indic-transcribe" replace />} />

@@ -110,8 +110,13 @@ const IndicOcrPostPage = () => {
         // index.html (#site-overrides), so it applies on every load.
 
         // Size the frame to its document and keep it sized as images load.
+        // Measure the body's laid-out height, not documentElement.scrollHeight:
+        // inside a frame the latter can never report less than the frame's own
+        // height, so it ratchets upward and leaves a gap when content collapses.
         const measure = () => {
-            const next = Math.max(600, doc.documentElement.scrollHeight);
+            const body = doc.body;
+            if (!body) return;
+            const next = Math.max(600, Math.ceil(body.getBoundingClientRect().height));
             setHeight((current) => (Math.abs(current - next) > 2 ? next : current));
         };
         measure();

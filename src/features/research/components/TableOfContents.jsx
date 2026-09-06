@@ -67,12 +67,9 @@ const TableOfContents = ({ sections, className, getElement, railOnly = false }) 
 
     return (
         <>
-            <div
-                className="hidden xl:block fixed left-0 top-0 bottom-0 w-14 z-40"
-                onMouseEnter={() => setExpanded(true)}
-                aria-hidden="true"
-            />
-
+            {/* Labels appear on hover of the rail itself. An invisible catch-strip
+                along the window edge used to open them, which fired whenever the
+                pointer happened to rest there while scrolling. */}
             <nav
                 aria-label="Table of contents"
                 onMouseEnter={() => setExpanded(true)}

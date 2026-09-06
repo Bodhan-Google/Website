@@ -25,7 +25,7 @@ const pct = (value) => `${value.toFixed(1)}%`;
 export const indicSpeakPost = {
     // ── 1. Hero ──────────────────────────────────────────────────────────
     slug: 'indic-speak',
-    title: 'Indic-Speak: The Way India Writes, Spoken Aloud',
+    title: 'Indic-Speak: Text-to-Speech for the Way India Actually Writes',
     category: 'Release',
     date: '2026-09-05',
     featured: true,
@@ -34,9 +34,8 @@ export const indicSpeakPost = {
         `One model, ${LANGUAGES.length} languages, ${VOICE_COUNT} voices — text read exactly as it is `
         + 'written, script switches and all.',
     summary:
-        'A 3.36B-parameter text-to-speech model for 22 Indian languages and 12 scripts, built to read '
-        + 'code-mixed text with no language tag and no phoneme frontend. Forty-five voices, every one of '
-        + 'them able to read every language, measured over 30,000 scored readings.',
+        '45 voices for 22 Indian languages and 12 scripts, built to read native and Latin '
+        + 'scripts together in one sentence, without language tags.',
     heroSummary:
         'A text-to-speech model built to read text exactly as it is written — the Hindi sentence that '
         + 'keeps *Blue Whale* in Latin script, the Tamil explainer that keeps *alveolar capillaries* in '
