@@ -116,6 +116,19 @@ const IndicOcrPostPage = () => {
             '.page { padding: 0 !important; }',
             '.column { max-width: min(56rem, calc(100vw - 2rem)) !important; padding: 0 1.25rem; box-sizing: border-box; }',
             '.wide { max-width: min(64rem, calc(100vw - 2rem)) !important; padding: 0 1.25rem; box-sizing: border-box; }',
+            // The page's own background shows through the frame, so the article and
+            // the card under it sit on one surface (the bundle painted its own).
+            'html, body { background: transparent !important; }',
+            // Tighter section rhythm, closer to the publications.
+            '.section-header { margin: 3rem 0 1.25rem !important; }',
+            // Tables: one header style everywhere (the benchmark headers are model
+            // names, so no capitals), and the OCR-output demo tables match it.
+            'table.md th { text-transform: none !important; letter-spacing: 0 !important; font-size: .75rem !important; font-weight: 700 !important; color: var(--text-primary) !important; }',
+            'table.md { width: 100% !important; }',
+            '.bench-module table.md th, .bench-module table.md td { white-space: normal !important; }',
+            '.tbl-html th { font-weight: 700; background: rgba(255, 247, 237, .9); }',
+            // On small screens the table scrolls sideways; the label column keeps a rule.
+            '@media (max-width: 700px) { table.md th:first-child, table.md td:first-child { position: sticky; left: 0; z-index: 1; background: var(--bg-cream-50, #fff9f0); border-right: 1px solid var(--hairline, rgba(92,64,51,.18)); } table.md tr.ours td:first-child { background: #fff0e8; } }',
         ].join('\n');
         doc.head.appendChild(style);
 
@@ -207,11 +220,11 @@ const IndicOcrPostPage = () => {
                 src={FRAME_SRC}
                 onLoad={onLoad}
                 scrolling="no"
-                style={{ display: 'block', width: '100%', height: `${height}px`, border: 0, background: '#fffaf3', overflow: 'hidden' }}
+                style={{ display: 'block', width: '100%', height: `${height}px`, border: 0, background: 'transparent', overflow: 'hidden' }}
             />
             <div className="relative pb-16 md:pb-24">
                 <div className="research-article-column mx-auto px-5">
-                    <EcosystemCard {...ECOSYSTEM} />
+                    <EcosystemCard {...ECOSYSTEM} className="mt-4" />
                 </div>
             </div>
             <Footer />

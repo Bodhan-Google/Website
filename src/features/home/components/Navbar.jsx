@@ -261,7 +261,7 @@ const Navbar = () => {
                 </span>
                 {!hideArrow && (
                     isExternalLink(child.to)
-                        ? <ArrowUpRight size={14} className="nav-research-item-arrow" aria-hidden="true" />
+                        ? <ArrowUpRight size={14} className="nav-research-item-arrow is-outbound" aria-hidden="true" />
                         : <ArrowRight size={14} className="nav-research-item-arrow" aria-hidden="true" />
                 )}
             </>

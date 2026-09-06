@@ -2831,6 +2831,11 @@ a[target="_blank"]:not(:has(svg)):not(:has(img)):not(.no-ext-arrow)::after {
   color: var(--text-primary);
 }
 
+/* Outbound rows nudge along the diagonal, like the footer links. */
+.nav-research-item:hover .nav-research-item-arrow.is-outbound {
+  transform: translate(2px, -2px);
+}
+
 /* You are already here: no arrow on the current page. */
 .nav-research-item.is-active .nav-research-item-arrow {
   display: none;
@@ -2864,14 +2869,25 @@ a[target="_blank"]:not(:has(svg)):not(:has(img)):not(.no-ext-arrow)::after {
   transition: color 0.2s ease;
 }
 
-.nav-mega-foot-arrow {
+/* Same arrow behaviour as the dropdown rows: quiet at rest, full strength and a
+   nudge along its direction on hover. */
+.nav-mega-foot-arrow,
+.nav-mega-viewall svg {
   color: var(--color-14);
-  transition: color 0.2s ease, transform 0.2s ease;
+  opacity: 0.55;
+  transition: opacity 0.2s ease, transform 0.25s ease, color 0.2s ease;
 }
 
 .nav-mega-foot-link:hover .nav-mega-foot-arrow {
+  opacity: 1;
   color: var(--text-primary);
-  transform: translate(1px, -1px);
+  transform: translate(2px, -2px);
+}
+
+.nav-mega-viewall:hover svg {
+  opacity: 1;
+  color: var(--text-primary);
+  transform: translateX(2px);
 }
 
 .nav-mega-foot-link:hover {

@@ -27,8 +27,6 @@ export const indicSpeakPost = {
     slug: 'indic-speak',
     title: 'Indic-Speak: The Way India Writes, Spoken Aloud',
     category: 'Release',
-    // Listed on the blogs page but not yet open: the card is inert and the post page redirects to the list.
-    disabled: true,
     date: '2026-09-05',
     featured: true,
     posterMotif: 'speech',
