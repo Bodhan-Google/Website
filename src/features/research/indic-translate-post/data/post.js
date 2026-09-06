@@ -398,9 +398,6 @@ export const citation = {
     name: 'Indic Open Model License v1.0',
     href: '/indic-open-model-license/v1',
   },
-  // Sub-heading for the BibTeX half, so the section's two subjects are each labelled
-  // rather than the licence line reading as a preamble to the citation.
-  citeHeading: 'Cite this work',
   bibtex: `@misc{indic-translate-2026,
   title  = {Indic-Translate: Document-Level Machine Translation for 22 Indian Languages},
   author = {Bodhan.ai},

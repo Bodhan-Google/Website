@@ -2,12 +2,15 @@ import { useState } from 'react';
 import Reveal from './Reveal';
 
 /**
- * The BibTeX entry, with a copy button.
+ * The licence line and the BibTeX entry, in the shape the IndicOCR post uses:
+ * "Cite this work" as the heading, the licence under it, then the BibTeX inside a
+ * code card whose head carries the language tag and the copy button. There is no
+ * outer bordered block -- the card is the only boxed thing on the section.
  *
  * `navigator.clipboard` is unavailable on insecure origins and can be refused, so the
  * button reports what actually happened rather than assuming success.
  */
-const CiteThisWork = ({ heading, bibtex, temporary, license, citeHeading }) => {
+const CiteThisWork = ({ bibtex, license, heading = 'Cite this work' }) => {
   const [state, setState] = useState('idle');
 
   const copy = async () => {
@@ -23,20 +26,9 @@ const CiteThisWork = ({ heading, bibtex, temporary, license, citeHeading }) => {
   return (
     <Reveal>
       <section className="cite-block" aria-labelledby="cite-heading">
-        <div className="cite-head">
-          <h2 id="cite-heading" className="research-type-h3">
-            {heading}
-          </h2>
-          <button type="button" className="cite-copy" onClick={copy}>
-            {state === 'copied' ? 'Copied' : state === 'failed' ? 'Copy failed' : 'Copy BibTeX'}
-          </button>
-        </div>
-        {temporary && (
-          <p className="temp-copy">
-            <span className="temp-badge">placeholder</span>
-            Title, URL and key are not final.
-          </p>
-        )}
+        <h2 id="cite-heading" className="research-type-h3 cite-heading">
+          {heading}
+        </h2>
         {license && (
           <p className="cite-license">
             {license.text}{' '}
@@ -46,8 +38,15 @@ const CiteThisWork = ({ heading, bibtex, temporary, license, citeHeading }) => {
             .
           </p>
         )}
-        {citeHeading && <h3 className="cite-subheading">{citeHeading}</h3>}
-        <pre className="cite-bibtex">{bibtex}</pre>
+        <div className="cite-card">
+          <div className="cite-card-head">
+            <span className="cite-lang">bibtex</span>
+            <button type="button" className="cite-copy" onClick={copy}>
+              {state === 'copied' ? 'Copied' : state === 'failed' ? 'Copy failed' : 'Copy BibTeX'}
+            </button>
+          </div>
+          <pre className="cite-bibtex">{bibtex}</pre>
+        </div>
         <p aria-live="polite" className="sr-only">
           {state === 'copied' ? 'BibTeX copied to clipboard' : ''}
           {state === 'failed' ? 'Could not copy; select the text instead' : ''}

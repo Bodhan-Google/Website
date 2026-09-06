@@ -4380,11 +4380,20 @@ rect.bar.muted { fill: var(--bar-muted, #A89880); }
     .research-article-column, .research-article-wide { padding-left: 1.25rem; padding-right: 1.25rem; box-sizing: border-box; }
     /* License and citation, laid out the way every other post lays it out: the
        copy button sits on the block it copies, not in the section header. */
-    .cite-head { margin-bottom: 10px !important; }
-    .cite-license { margin: 0 0 18px !important; }
-    .cite-subheading { margin: 0 0 8px !important; font-size: 0.95rem; font-weight: 700; color: var(--text-primary); }
-    .cite-code { position: relative; }
-    .cite-code .cite-copy { position: absolute; top: 10px; right: 10px; z-index: 1; background: var(--bg-cream-50, #fff9f0); }
+  /* ── License and citation ──
+       Rebuilt to match the IndicOCR post: "Cite this work" as the heading, the
+       licence line under it, and the BibTeX in a code card whose head carries the
+       language tag and the copy button. The outer bordered block is gone -- in
+       that post the card is the only boxed thing on the section. */
+    .cite-block { margin-top: 8px !important; padding: 0 !important; border: 0 !important; border-radius: 0 !important; background: none !important; }
+    .cite-heading { margin: 0 0 0.75rem !important; }
+    .cite-license { margin: 0 0 1rem !important; }
+    .cite-card { margin: 1.35rem 0 0; border: 1px solid var(--border); border-radius: 1rem; background: linear-gradient(145deg, rgba(255, 249, 240, 0.95), rgba(255, 255, 255, 0.82)); box-shadow: 0 6px 24px rgba(46, 50, 56, 0.043); overflow: hidden; }
+    .cite-card-head { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.7rem 0.9rem 0.7rem 1.1rem; }
+    .cite-lang { font-family: var(--font-manrope); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-14); }
+    .cite-card .cite-copy { position: static; font-family: var(--font-manrope); font-size: 0.75rem; font-weight: 600; padding: 0.32rem 0.8rem; }
+    .cite-card .cite-copy:hover { color: var(--text-orange-500); border-color: rgba(255, 107, 53, 0.45); background: var(--primary-100); }
+    .cite-card .cite-bibtex { margin: 0; padding: 1rem 1.1rem 1.15rem; border: 0; border-top: 1px solid var(--border); border-radius: 0; background: var(--white); font-size: 0.75rem; line-height: 1.7; color: var(--color-10); }
     /* ── Demo video lightbox ──
        The same lightbox the Indic-Transcribe post uses, so the two announcements
        behave alike. `top` and `height` are set from script (see below): in a
@@ -4432,22 +4441,6 @@ rect.bar.muted { fill: var(--bar-muted, #A89880); }
         }
       } catch (e) { /* cross-origin: keep our own */ }
     })();
-  </script>
-
-  <script>
-    /* The copy button is authored in the section header; every post on the site
-       puts it on the BibTeX block itself, so it is moved there once the page is
-       parsed. Same button, same handler — only its place changes. */
-    document.addEventListener("DOMContentLoaded", function () {
-      var pre = document.getElementById("bibtex");
-      var btn = document.getElementById("copyCite");
-      if (!pre || !btn || !pre.parentNode) return;
-      var box = document.createElement("div");
-      box.className = "cite-code";
-      pre.parentNode.insertBefore(box, pre);
-      box.appendChild(btn);
-      box.appendChild(pre);
-    });
   </script>
 
   <script>
@@ -4883,18 +4876,20 @@ rect.bar.muted { fill: var(--bar-muted, #A89880); }
   </aside>
 
   <section class="cite-block">
-    <div class="cite-head">
-      <h2 class="research-type-h3">License and citation</h2>
-      <button type="button" class="cite-copy" id="copyCite">Copy BibTeX</button>
-    </div>
+    <h2 class="research-type-h3 cite-heading">Cite this work</h2>
     <p class="cite-license">Released under the <a href="/indic-open-model-license/v1" target="_top">Indic Open Model License v1.0</a>.</p>
-    <h3 class="cite-subheading">Cite this work</h3>
-    <pre class="cite-bibtex" id="bibtex">@misc{indic-speak-2026,
+    <div class="cite-card">
+      <div class="cite-card-head">
+        <span class="cite-lang">bibtex</span>
+        <button type="button" class="cite-copy" id="copyCite">Copy BibTeX</button>
+      </div>
+      <pre class="cite-bibtex" id="bibtex">@misc{indic-speak-2026,
   title  = {Indic-Speak: Text-to-Speech for 22 Indian Languages in 45 Voices},
   author = {Bodhan.ai},
   year   = {2026},
   url    = {https://huggingface.co/bodhan-ai/indic-speak}
 }</pre>
+    </div>
   </section>
 </div>
 

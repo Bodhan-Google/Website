@@ -1446,43 +1446,19 @@ to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
   .chart-composition-stats li.is-active span { color: var(--text-primary); }
 
-  /* ── Cite this work ── */
-  .cite-block {
-    margin-top: 8px;
-    padding: 20px 22px 22px;
-    border-radius: 14px;
-    border: 1px solid var(--border);
-    background: var(--surface-2);
-  }
+  /* ── Cite this work ──
+     The shape the IndicOCR post uses: "Cite this work" as the heading, the licence
+     line under it, then the BibTeX inside a code card whose head carries the language
+     tag and the copy button. No outer bordered block -- in that post the card is the
+     only boxed thing on the section, and a box inside a box read as two panels. */
+  .cite-block { margin-top: 8px; }
 
-  .cite-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
-  }
+  .cite-heading { margin: 0 0 0.75rem; }
 
-  .cite-copy {
-    border: 1px solid var(--border);
-    background: var(--white);
-    border-radius: 999px;
-    padding: 6px 14px;
-    cursor: pointer;
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    transition: border-color 0.18s ease, color 0.18s ease;
-  }
-
-  .cite-copy:hover { border-color: var(--accent); color: var(--accent); }
-
-  /* The license line sits between the heading and the BibTeX block, so it reads as part of
-     "License and citation" rather than as a caption on the code. */
+  /* The licence line sits between the heading and the card, so it reads as part of the
+     section rather than as a caption on the code. */
   .cite-license {
-    margin: 0 0 14px;
+    margin: 0 0 1rem;
     font-family: var(--font-body);
     font-size: 0.95rem;
     line-height: 1.6;
@@ -1495,37 +1471,63 @@ to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
     text-underline-offset: 2px;
   }
 
-  .cite-subheading {
-    margin: 0 0 8px;
-    font-family: var(--font-body);
-    font-size: 0.95rem;
+  .cite-card {
+    margin: 1.35rem 0 0;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    background: linear-gradient(145deg, rgba(255, 249, 240, 0.95), rgba(255, 255, 255, 0.82));
+    box-shadow: 0 6px 24px rgba(46, 50, 56, 0.043);
+    overflow: hidden;
+  }
+
+  .cite-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.7rem 0.9rem 0.7rem 1.1rem;
+  }
+
+  .cite-lang {
+    font-family: var(--font-manrope);
+    font-size: 0.6875rem;
     font-weight: 700;
-    letter-spacing: -0.005em;
-    color: var(--text-primary);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-14);
   }
 
   /* The copy button sits on the block it copies, which is where every post on the
-     site puts it, rather than in the section header a screen above. */
-  .cite-code { position: relative; }
+     site puts it, rather than in a section header a screen above. */
+  .cite-copy {
+    border: 1px solid var(--border);
+    background: var(--white);
+    border-radius: 999px;
+    padding: 0.32rem 0.8rem;
+    cursor: pointer;
+    font-family: var(--font-manrope);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  }
 
-  .cite-code .cite-copy {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 1;
-    background: var(--bg-cream-50, #fff9f0);
+  .cite-copy:hover {
+    color: var(--text-orange-500);
+    border-color: rgba(255, 107, 53, 0.45);
+    background: var(--primary-100);
   }
 
   .cite-bibtex {
     margin: 0;
-    padding: 14px 16px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
+    padding: 1rem 1.1rem 1.15rem;
+    border: 0;
+    border-top: 1px solid var(--border);
     background: var(--white);
     font-family: var(--font-mono);
-    font-size: 0.78rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
+    font-size: 0.75rem;
+    line-height: 1.7;
+    color: var(--color-10);
     overflow-x: auto;
     white-space: pre;
   }

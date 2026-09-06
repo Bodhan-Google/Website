@@ -76,7 +76,7 @@ const IndicTranslatePostPage = () => {
                             <SectionBlocks sections={post.sections} />
                         </article>
 
-                        <CiteThisWork bibtex={citation.bibtex} />
+                        <CiteThisWork bibtex={citation.bibtex} license={citation.license} />
                         <EcosystemCard
                             title={ecosystem.heading}
                             platforms={ecosystem.links.map(({ label, href, icon, soon }) => ({
