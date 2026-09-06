@@ -14,6 +14,7 @@ import BlogPostPage from '../features/research/components/BlogPostPage'
 import LegacyPostRedirect from '../features/research/components/LegacyPostRedirect'
 import IndicTranslatePostPage from '../features/research/indic-translate-post/IndicTranslatePostPage'
 import IndicOcrPostPage from '../features/research/indic-ocr-post/IndicOcrPostPage'
+import IndicTranscribePostPage from '../features/research/indic-transcribe-post/IndicTranscribePostPage'
 import DevelopersPage from '../features/developers/components/DevelopersPage'
 import IndicOcrPage from '../features/developers/components/models/IndicOcrPage'
 import IndicSpeakPage from '../features/developers/components/models/IndicSpeakPage'
@@ -42,6 +43,10 @@ function App() {
       {/* Indic-Translate has its own page (see indic-translate-post/); the static route wins over :slug. */}
       <Route path="/research/blogs/indic-translate" element={<IndicTranslatePostPage />} />
       <Route path="/research/blogs/indic-ocr" element={<IndicOcrPostPage />} />
+      <Route path="/research/blogs/indic-transcribe" element={<IndicTranscribePostPage />} />
+      {/* The ASR post was published as bodhan-asr before the model was named Indic-Transcribe. */}
+      <Route path="/research/blogs/bodhan-asr" element={<Navigate to="/research/blogs/indic-transcribe" replace />} />
+      <Route path="/research/bodhan-asr" element={<Navigate to="/research/blogs/indic-transcribe" replace />} />
       <Route path="/research/blogs/:slug" element={<BlogPostPage />} />
       <Route path="/research/publication/:slug" element={<BlogPostPage />} />
       <Route path="/research/publication/fln-dpi/feedback" element={<FlnDpiPage />} />

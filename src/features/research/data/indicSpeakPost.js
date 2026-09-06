@@ -27,7 +27,9 @@ export const indicSpeakPost = {
     slug: 'indic-speak',
     title: 'Indic-Speak: The Way India Writes, Spoken Aloud',
     category: 'Release',
-    date: '2026-09-04',
+    // Listed on the blogs page but not yet open: the card is inert and the post page redirects to the list.
+    disabled: true,
+    date: '2026-09-05',
     featured: true,
     posterMotif: 'speech',
     tagline:
@@ -316,10 +318,10 @@ export const indicSpeakPost = {
                     'A joint release by Bodhan AI and AI4Bharat — hosted endpoints for a first result, '
                     + 'weights and recipes for a deployment of your own.',
                 platforms: [
-                    { name: 'Hugging Face', href: 'https://huggingface.co/bodhan-ai/models', note: 'Weights and inference' },
-                    { name: 'GitHub', href: '#', note: 'Code and recipes' },
-                    { name: 'Bhashini', href: '#', note: 'National language mission' },
-                    { name: 'AIKosh', href: '#', note: 'Government AI repository' },
+                    { name: 'Hugging Face', mark: 'huggingface', href: 'https://huggingface.co/bodhan-ai/models', note: 'Weights and inference' },
+                    { name: 'GitHub', mark: 'github', href: '#', note: 'Code and recipes' },
+                    { name: 'Bhashini', mark: 'bhashini', href: '#', note: 'National language mission' },
+                    { name: 'AIKosh', mark: 'aikosh', href: '#', note: 'Government AI repository' },
                 ],
             },
             links: [

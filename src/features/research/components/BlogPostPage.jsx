@@ -113,6 +113,11 @@ const BlogPostPage = () => {
         );
     }
 
+    // Listed but not open yet: back to the list.
+    if (post.disabled) {
+        return <Navigate to={BLOG_LIST_PATH} replace />;
+    }
+
     if (pathname !== postPath(post)) {
         return <Navigate to={postPath(post)} replace />;
     }

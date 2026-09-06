@@ -4,7 +4,7 @@ import { postPathForSlug } from '../../research/data/posts';
 // are the `slug` values in src/features/research/data/; postPathForSlug picks
 // /research/blogs/… or /research/publication/… from the post's category.
 const BLOGS = {
-    transcribe: postPathForSlug('bodhan-asr'),
+    transcribe: postPathForSlug('indic-transcribe'),
     speak: postPathForSlug('indic-speak'),
     ocr: postPathForSlug('indic-ocr'),
     translate: postPathForSlug('indic-translate'),

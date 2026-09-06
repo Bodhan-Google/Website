@@ -16,7 +16,7 @@ const researchDropdown = [
         to: '/research/problems',
         description: 'Open problems in AI for education',
     },
-    { label: 'Blog', to: '/research/blogs', description: 'Technical posts and releases' },
+    { label: 'Blogs', to: '/research/blogs', description: 'Technical posts and releases' },
     { label: 'Publications', to: '/research/publications', description: 'Papers and formal publications' },
 ];
 
@@ -51,7 +51,7 @@ const productsDropdown = [
 const navLinks = [
     { label: 'Research', to: '/research', children: researchDropdown, match: '/research' },
     {
-        label: 'Developers',
+        label: 'Models',
         to: '/developers',
         children: developersDropdown,
         mega: { apis: developersApis, resources: developersResources },
@@ -260,7 +260,9 @@ const Navbar = () => {
                     )}
                 </span>
                 {!hideArrow && (
-                    <ArrowRight size={14} className="nav-research-item-arrow" aria-hidden="true" />
+                    isExternalLink(child.to)
+                        ? <ArrowUpRight size={14} className="nav-research-item-arrow" aria-hidden="true" />
+                        : <ArrowRight size={14} className="nav-research-item-arrow" aria-hidden="true" />
                 )}
             </>
         );
@@ -298,10 +300,12 @@ const Navbar = () => {
 
     return (
         <nav
-            className={`sticky top-0 z-50 w-full backdrop-blur-sm border-b ${
+            // Translucent over the page with a frosted blur, so content scrolling
+            // under it shows through softly.
+            className={`sticky top-0 z-50 w-full backdrop-blur-md backdrop-saturate-150 border-b ${
                 isCreamPage
-                    ? 'bg-[var(--bg-cream-50)]/95 border-[var(--primary-100)]'
-                    : 'bg-[var(--navbar-bg)]/95 border-[var(--primary-100)]'
+                    ? 'bg-[var(--bg-cream-50)]/80 border-[var(--primary-100)]/80'
+                    : 'bg-[var(--navbar-bg)]/80 border-[var(--primary-100)]/80'
             }`}
         >
             <div className="max-w-6xl lg:max-w-[88rem] mx-auto px-6 lg:px-8">
@@ -311,7 +315,7 @@ const Navbar = () => {
                         onClick={() => window.scrollTo(0, 0)}
                         className="flex items-center gap-1.5 shrink-0"
                     >
-                        <img src={Icon} alt="Bodhan" className="h-8 md:h-9 w-auto object-contain" />
+                        <img src={Icon} alt="Bodhan" className="h-9 md:h-10 w-auto object-contain" />
                         <Wordmark className="hidden sm:inline text-[1.35rem] md:text-2xl leading-none whitespace-nowrap" />
                         <div className="w-px h-9 bg-[var(--primary-100)] mx-2.5" />
                         <img
@@ -366,37 +370,57 @@ const Navbar = () => {
                                             {link.mega ? (
                                                 <div className="nav-research-dropdown nav-mega-dropdown rounded-2xl overflow-hidden">
                                                     <div className="nav-research-dropdown-glow" aria-hidden="true" />
-                                                    {/* Two columns: the model APIs on the left, Resources
-                                                        beside them rather than stacked underneath. */}
-                                                    <div className="nav-mega-grid relative">
-                                                        <div className="nav-mega-col">
-                                                            <p className="nav-mega-col-title">APIs</p>
-                                                            {link.mega.apis.map((child) =>
-                                                                renderNavItem(child, {
-                                                                    active: isChildActive(child.to),
-                                                                    dataAttr: 'data-dropdown-item',
-                                                                    hideArrow: true,
-                                                                })
-                                                            )}
-                                                            <Link
-                                                                to="/developers"
-                                                                data-dropdown-item
-                                                                onClick={() => handleNavClick({})}
-                                                                className="nav-mega-viewall"
-                                                            >
-                                                                View all models
-                                                            </Link>
+                                                    {/* The four models as the same rows the other menus use, so the
+                                                        three menus read as one family. Resources and the models page
+                                                        live in the footer: the list is only models. */}
+                                                    <div className="relative p-2">
+                                                        {link.mega.apis.map((child) =>
+                                                            renderNavItem(child, {
+                                                                active: isChildActive(child.to),
+                                                                dataAttr: 'data-dropdown-item',
+                                                            })
+                                                        )}
+                                                    </div>
+                                                    <div className="nav-mega-foot relative">
+                                                        <div className="nav-mega-foot-links">
+                                                            {link.mega.resources.map((child) => (
+                                                                // These open external sites (docs, pricing), so they carry the
+                                                                // outbound arrow and open in a new tab once their URLs are set.
+                                                                isExternalLink(child.to) ? (
+                                                                    <a
+                                                                        key={child.label}
+                                                                        href={child.to}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        data-dropdown-item
+                                                                        onClick={() => handleNavClick(child)}
+                                                                        className="nav-mega-foot-link no-ext-arrow"
+                                                                    >
+                                                                        {child.label}
+                                                                        <ArrowUpRight size={12} className="nav-mega-foot-arrow" aria-hidden="true" />
+                                                                    </a>
+                                                                ) : (
+                                                                    <Link
+                                                                        key={child.label}
+                                                                        to={child.to}
+                                                                        data-dropdown-item
+                                                                        onClick={() => handleNavClick(child)}
+                                                                        className="nav-mega-foot-link"
+                                                                    >
+                                                                        {child.label}
+                                                                        <ArrowUpRight size={12} className="nav-mega-foot-arrow" aria-hidden="true" />
+                                                                    </Link>
+                                                                )
+                                                            ))}
                                                         </div>
-                                                        <div className="nav-mega-col nav-mega-col-resources">
-                                                            <p className="nav-mega-col-title">Resources</p>
-                                                            {link.mega.resources.map((child) =>
-                                                                renderNavItem(child, {
-                                                                    active: false,
-                                                                    dataAttr: 'data-dropdown-item',
-                                                                    hideArrow: true,
-                                                                })
-                                                            )}
-                                                        </div>
+                                                        <Link
+                                                            to="/developers"
+                                                            data-dropdown-item
+                                                            onClick={() => handleNavClick({})}
+                                                            className="nav-mega-viewall"
+                                                        >
+                                                            All models <ArrowRight size={13} aria-hidden="true" />
+                                                        </Link>
                                                     </div>
                                                 </div>
                                             ) : (
@@ -448,8 +472,8 @@ const Navbar = () => {
 
             {isOpen && (
                 <div
-                    className={`lg:hidden border-t border-[var(--primary-100)] ${
-                        isCreamPage ? 'bg-[var(--bg-cream-50)]' : 'bg-[var(--navbar-bg)]'
+                    className={`lg:hidden border-t border-[var(--primary-100)] backdrop-blur-md ${
+                        isCreamPage ? 'bg-[var(--bg-cream-50)]/92' : 'bg-[var(--navbar-bg)]/92'
                     }`}
                 >
                     <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col gap-1">
@@ -536,7 +560,7 @@ const Navbar = () => {
                                                             onClick={() => handleNavClick({})}
                                                             className="py-2 text-sm text-[var(--color-11)] hover:text-[var(--text-orange-500)]"
                                                         >
-                                                            View all models
+                                                            All models
                                                         </Link>
                                                         <p className="pt-2 text-[11px] font-bold uppercase tracking-wider text-[var(--color-14)]">
                                                             Resources

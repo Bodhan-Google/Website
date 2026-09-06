@@ -6,7 +6,7 @@ import Hero from './components/Hero';
 import SectionBlocks from './components/SectionBlocks';
 import TableOfContents from './components/TableOfContents';
 import CiteThisWork from './components/CiteThisWork';
-import EcosystemBanner from './components/EcosystemBanner';
+import EcosystemCard from '../components/EcosystemCard';
 import { citation, ecosystem, post } from './data/post';
 import './post.css';
 
@@ -55,7 +55,7 @@ const IndicTranslatePostPage = () => {
         <div className="min-h-screen research-page">
             <Navbar />
             <div className="mt-post">
-                <div ref={progressRef} className="progress-bar" aria-hidden="true" />
+                <div ref={progressRef} className="research-reading-progress" aria-hidden="true" />
 
                 <Hero post={post} />
 
@@ -83,10 +83,16 @@ const IndicTranslatePostPage = () => {
                             license={citation.license}
                             citeHeading={citation.citeHeading}
                         />
+                        <EcosystemCard
+                            title={ecosystem.heading}
+                            platforms={ecosystem.links.map(({ label, href, icon, soon }) => ({
+                                name: label,
+                                href: soon ? undefined : href,
+                                mark: icon,
+                            }))}
+                        />
                     </div>
                 </div>
-
-                <EcosystemBanner heading={ecosystem.heading} links={ecosystem.links} />
             </div>
             <Footer />
         </div>

@@ -121,6 +121,8 @@ to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
   .hero-eyebrow .sep { margin: 0 0.5rem; color: var(--color-14); }
 
+  .hero-eyebrow .date { color: var(--color-11); }
+
   .hero-card {
     position: relative;
     overflow: hidden;
@@ -942,17 +944,28 @@ to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
   .ex-note { font-size: 0.8rem; color: var(--text-muted); margin-top: 12px; }
 
-  .ex-dots { display: flex; gap: 7px; margin-top: 14px; }
+  .ex-pager { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; }
 
-  .ex-dot {
-    width: 7px; height: 7px; padding: 0; border-radius: 50%; border: none;
-    background: var(--baseline); cursor: pointer;
-    transition: background 0.15s ease, transform 0.15s ease;
+  .ex-pager-btn {
+    display: inline-grid; place-items: center;
+    width: 28px; height: 28px; padding: 0; border-radius: 50%;
+    border: 1px solid var(--baseline); background: #fff; color: var(--color-11);
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease, transform 0.15s ease;
   }
 
-  .ex-dot:hover { transform: scale(1.25); }
+  .ex-pager-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
 
-  .ex-dot[aria-current="true"] { background: var(--accent); transform: scale(1.25); }
+  .ex-pager-btn:active { transform: scale(0.94); }
+
+  .ex-pager-count {
+    min-width: 3.2em; text-align: center;
+    font-size: 12px; font-variant-numeric: tabular-nums; color: var(--color-11);
+  }
+
+  .ex-pager-now { color: var(--text-primary); font-weight: 600; }
+
+  .ex-pager-sep { margin: 0 3px; color: var(--baseline); }
 
   .ex-flash { animation: exFlash 0.7s ease; border-radius: 6px; }
 

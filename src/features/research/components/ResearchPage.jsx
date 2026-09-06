@@ -4,10 +4,11 @@ import { gsap, useGsapAnimation } from '../../../utils/motion';
 import Navbar from '../../home/components/Navbar';
 import Footer from '../../home/components/Footer';
 import { visiblePosts, formatDate, postPath } from '../data/posts';
+import { cn } from '../../../utils/tailwindUtils';
 
 const VIEW_CONFIG = {
     blog: {
-        title: 'Blog',
+        title: 'Blogs',
         subtitle: 'Technical posts, model releases, and research updates from Bodhan.',
         listTitle: 'Latest posts',
         emptyMessage: 'No blog posts yet.',
@@ -140,29 +141,48 @@ const ResearchPage = () => {
                     )}
 
                     <div ref={postListRef} className="divide-y divide-[var(--primary-100)]">
-                        {filteredPosts.map((post) => (
-                            <Link
+                        {filteredPosts.map((post) => {
+                            // A disabled post is listed but not open yet: same row, inert and muted.
+                            const Row = post.disabled ? 'div' : Link;
+                            const rowProps = post.disabled
+                                ? { 'aria-disabled': true }
+                                : { to: postPath(post) };
+                            return (
+                            <Row
                                 key={post.slug}
-                                to={postPath(post)}
+                                {...rowProps}
                                 data-publication-row
-                                className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-4 md:gap-12 py-8 group transition-colors hover:bg-[var(--bg-cream-50)]/60 -mx-4 px-4 rounded-lg"
+                                className={cn(
+                                    'grid grid-cols-1 md:grid-cols-[180px_1fr] gap-4 md:gap-12 py-8 group -mx-4 px-4 rounded-lg transition-colors',
+                                    post.disabled
+                                        ? 'opacity-60 cursor-default select-none'
+                                        : 'hover:bg-[var(--bg-cream-50)]/60'
+                                )}
                             >
                                 <div>
-                                    <p className="text-sm text-[var(--color-10)]">{post.category}</p>
+                                    <p className="text-sm text-[var(--color-10)]">
+                                        {post.category}
+                                        {post.disabled && (
+                                            <span className="ml-2 inline-block rounded-full border border-[var(--primary-100)] px-2 py-0.5 text-[11px] font-medium uppercase tracking-[0.08em] text-[var(--color-11)]">
+                                                Coming soon
+                                            </span>
+                                        )}
+                                    </p>
                                     <p className="text-sm text-[var(--color-11)] mt-1">
                                         {post.dateLabel ?? formatDate(post.date)}
                                     </p>
                                 </div>
                                 <div>
-                                    <h3 className="text-xl md:text-2xl font-semibold text-[var(--text-primary)] group-hover:text-[var(--text-orange-500)] transition-colors mb-2 leading-snug">
+                                    <h3 className={cn('text-xl md:text-2xl font-semibold text-[var(--text-primary)] transition-colors mb-2 leading-snug', !post.disabled && 'group-hover:text-[var(--text-orange-500)]')}>
                                         {post.title}
                                     </h3>
                                     <p className="text-[var(--color-10)] leading-relaxed font-serif text-[17px]">
                                         {post.summary}
                                     </p>
                                 </div>
-                            </Link>
-                        ))}
+                            </Row>
+                            );
+                        })}
                     </div>
 
                     {filteredPosts.length === 0 && (

@@ -112,6 +112,10 @@ a[target="_blank"]:not(:has(svg)):not(:has(img)):not(.no-ext-arrow)::after {
   mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M7 17 17 7'/><path d='M7 7h10v10'/></svg>") center / contain no-repeat;
 }
 
+/* IndicOCR post: contents rail rendered by the host page (the bundle's own rail
+   cannot track the page inside a content-sized frame). Same look as the original:
+   a short tick per section that lengthens and turns orange when active, the
+   label appearing on hover or when active. Desktop only, like the original. */
 @theme {
   --font-syne: "Syne", sans-serif;
   --font-inter: "Inter", sans-serif;
@@ -2728,6 +2732,7 @@ a[target="_blank"]:not(:has(svg)):not(:has(img)):not(.no-ext-arrow)::after {
 /* ── Nav Research dropdown ── */
 .nav-research-dropdown {
   position: relative;
+  max-width: calc(100vw - 2rem);
   background: rgba(255, 255, 255, 0.96);
   border: 1px solid rgba(255, 234, 210, 0.95);
   box-shadow:
@@ -2811,17 +2816,18 @@ a[target="_blank"]:not(:has(svg)):not(:has(img)):not(.no-ext-arrow)::after {
 }
 
 .nav-research-item-arrow {
-  margin-top: 0.35rem;
+  align-self: center;
   color: var(--color-14);
-  opacity: 0;
-  transform: translateX(-4px);
+  opacity: 0.55;
   transition: opacity 0.2s ease, transform 0.25s ease, color 0.2s ease;
   flex-shrink: 0;
 }
 
+/* Always present, quietly, so the row's right edge is not empty at rest;
+   hover brings it to full strength and nudges it along its direction. */
 .nav-research-item:hover .nav-research-item-arrow {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateX(2px);
   color: var(--text-primary);
 }
 
@@ -2831,38 +2837,51 @@ a[target="_blank"]:not(:has(svg)):not(:has(img)):not(.no-ext-arrow)::after {
 }
 
 .nav-mega-dropdown {
-  width: 34rem;
+  width: min(27rem, calc(100vw - 2rem));
 }
 
-.nav-mega-grid {
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 0.25rem;
-  padding: 0.5rem;
-}
-
-.nav-mega-col {
+.nav-mega-foot {
   display: flex;
-  flex-direction: column;
-  padding: 0 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.625rem 1rem;
+  border-top: 1px solid var(--bg-cream-100);
 }
 
-.nav-mega-col-resources {
-  border-left: 1px solid var(--primary-100);
+.nav-mega-foot-links {
+  display: flex;
+  gap: 1rem;
 }
 
-.nav-mega-col-title {
-  margin: 0 0 0.35rem 0.75rem;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+.nav-mega-foot-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-10);
+  transition: color 0.2s ease;
+}
+
+.nav-mega-foot-arrow {
   color: var(--color-14);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-mega-foot-link:hover .nav-mega-foot-arrow {
+  color: var(--text-primary);
+  transform: translate(1px, -1px);
+}
+
+.nav-mega-foot-link:hover {
+  color: var(--text-primary);
 }
 
 .nav-mega-viewall {
-  margin: 0.3rem 0.75rem 0;
-  padding: 0.4rem 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--text-orange-500);

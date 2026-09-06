@@ -159,20 +159,31 @@ const ExLine = ({ tag, text, lang, dir, out }) => {
   );
 };
 
-const Dots = ({ count, active, onPick, label }) => {
+// Previous / counter / next, wrapping at both ends. Replaced a row of 7px dots,
+// which were hard to hit and said nothing about how many examples there were.
+const Chevron = ({ dir }) => (
+  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+       strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    {dir === 'prev' ? <path d="m15 6-6 6 6 6" /> : <path d="m9 6 6 6-6 6" />}
+  </svg>
+);
+
+const Pager = ({ count, active, onPick, label }) => {
   if (count <= 1) return null;
+  const go = (delta) => onPick((active + delta + count) % count);
   return (
-    <div className="ex-dots" role="group" aria-label={label}>
-      {Array.from({ length: count }, (_, i) => (
-        <button
-          key={i}
-          type="button"
-          className="ex-dot"
-          aria-current={i === active ? 'true' : undefined}
-          aria-label={`${label}, example ${i + 1} of ${count}`}
-          onClick={() => onPick(i)}
-        />
-      ))}
+    <div className="ex-pager" role="group" aria-label={label}>
+      <button type="button" className="ex-pager-btn" aria-label={`Previous ${label.toLowerCase()} example`} onClick={() => go(-1)}>
+        <Chevron dir="prev" />
+      </button>
+      <span className="ex-pager-count" aria-live="polite">
+        <span className="ex-pager-now">{active + 1}</span>
+        <span className="ex-pager-sep">/</span>
+        {count}
+      </span>
+      <button type="button" className="ex-pager-btn" aria-label={`Next ${label.toLowerCase()} example`} onClick={() => go(1)}>
+        <Chevron dir="next" />
+      </button>
     </div>
   );
 };
@@ -437,7 +448,7 @@ const ExamplesBrowser = () => {
         <DevNote>
           Top-scoring sentence for {lang}, judge score {tItem.score}/5.
         </DevNote>
-        <Dots
+        <Pager
           count={d.translation.length}
           active={tIdx}
           onPick={(i) => setDot('translation', i)}
@@ -549,7 +560,7 @@ const ExamplesBrowser = () => {
         <DevNote>
           Top-scoring romanized output for {lang}, chrF++ {rItem.score}.
         </DevNote>
-        <Dots
+        <Pager
           count={d.romanized.length}
           active={rIdx}
           onPick={(i) => setDot('romanized', i)}
@@ -572,7 +583,7 @@ const ExamplesBrowser = () => {
             <DevNote>
               Not score-ranked: no automatic metric exists yet for code-mixed output.
             </DevNote>
-            <Dots
+            <Pager
               count={cList.length}
               active={cIdx}
               onPick={(i) => setDot('codemix', i)}
@@ -605,7 +616,7 @@ const ExamplesBrowser = () => {
             not been computed. The aggregate CER and WER still appear as charts in the
             Evaluation section, where they are measured over every scored sentence rather
             than over the one on screen. */}
-        <Dots
+        <Pager
           count={tlItems.length}
           active={tlIdx}
           onPick={(i) => setDot('transliteration', i)}

@@ -10,6 +10,74 @@
       href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Manrope:wght@400;500;600;700;800&family=Poppins:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Sans+Bengali:wght@400;600&family=Noto+Sans+Tamil:wght@400;600&family=Noto+Sans+Telugu:wght@400;600&family=Noto+Sans+Malayalam:wght@400;600&family=Noto+Sans+Kannada:wght@400;600&family=Noto+Sans+Gujarati:wght@400;600&family=Noto+Sans+Gurmukhi:wght@400;600&family=Noto+Sans+Oriya:wght@400;600&family=Noto+Sans+Ol+Chiki:wght@400;600&family=Noto+Nastaliq+Urdu:wght@400;600&family=Noto+Serif+Devanagari:wght@400;600&family=Noto+Serif+Bengali:wght@400;600&family=Noto+Serif+Tamil:wght@400;600&family=Noto+Serif+Telugu:wght@400;600&family=Noto+Serif+Malayalam:wght@400;600&family=Noto+Serif+Kannada:wght@400;600&family=Noto+Serif+Gujarati:wght@400;600&family=Noto+Serif+Gurmukhi:wght@400;600&family=Noto+Serif+Oriya:wght@400;600&family=Noto+Sans+Meetei+Mayek:wght@400;600&display=swap"
       rel="stylesheet"
     />
+    <!-- site-patch: applied by the Bodhan website when this build is mounted.
+         1. Scroll-in reveals: the bundle animates sections into view with
+            framer-motion's whileInView (IntersectionObserver). The site shows
+            content at rest, so every observed element is reported as in view
+            at once; the real observer is kept for the host page's own use.
+         2. Image skeletons: any <img> shows a cream shimmer until it has
+            loaded, including images the sliders swap in later. -->
+    <script>
+      (function () {
+        var Real = window.IntersectionObserver;
+        window.__RealIntersectionObserver = Real;
+        function AlwaysInView(callback) {
+          this._cb = callback; this._targets = new Set();
+          this.root = null; this.rootMargin = '0px'; this.thresholds = [0];
+        }
+        AlwaysInView.prototype.observe = function (el) {
+          if (this._targets.has(el)) return;
+          this._targets.add(el);
+          var self = this;
+          Promise.resolve().then(function () {
+            if (!self._targets.has(el)) return;
+            var rect = el.getBoundingClientRect();
+            self._cb([{ target: el, isIntersecting: true, intersectionRatio: 1,
+              boundingClientRect: rect, intersectionRect: rect, rootBounds: null, time: performance.now() }], self);
+          });
+        };
+        AlwaysInView.prototype.unobserve = function (el) { this._targets.delete(el); };
+        AlwaysInView.prototype.disconnect = function () { this._targets.clear(); };
+        AlwaysInView.prototype.takeRecords = function () { return []; };
+        window.IntersectionObserver = AlwaysInView;
+      })();
+    </script>
+    <style>
+      img.is-loading {
+        color: transparent;
+        background: linear-gradient(90deg, #efe6da 25%, #f9f3ea 40%, #efe6da 55%);
+        background-size: 400% 100%;
+        animation: site-skeleton 1.3s ease-in-out infinite;
+      }
+      img.is-loading:not([width]):not([height]) { min-height: 140px; }
+      @keyframes site-skeleton { 0% { background-position: 100% 0; } 100% { background-position: 0 0; } }
+      @media (prefers-reduced-motion: reduce) { img.is-loading { animation: none; background: #efe6da; } }
+    </style>
+    <script>
+      (function () {
+        var skip = /\/logos\//;
+        function mark(img) {
+          if (skip.test(img.getAttribute('src') || '')) return;
+          if (img.complete && img.naturalWidth > 0) { img.classList.remove('is-loading'); return; }
+          img.classList.add('is-loading');
+          var done = function () { img.classList.remove('is-loading'); };
+          img.addEventListener('load', done, { once: true });
+          img.addEventListener('error', done, { once: true });
+        }
+        function scan(root) {
+          if (root.nodeType !== 1) return;
+          if (root.tagName === 'IMG') mark(root);
+          root.querySelectorAll && root.querySelectorAll('img').forEach(mark);
+        }
+        new MutationObserver(function (records) {
+          records.forEach(function (r) {
+            if (r.type === 'attributes') { mark(r.target); return; }
+            r.addedNodes.forEach(scan);
+          });
+        }).observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['src', 'srcset'] });
+        document.addEventListener('DOMContentLoaded', function () { scan(document.documentElement); });
+      })();
+    </script>
     <script type="module" crossorigin src="./_app/index-927rbFxZ.js"></script>
     <link rel="stylesheet" crossorigin href="./_app/index-CkaXJFCS.css">
   </head>
@@ -29,6 +97,9 @@
         transition: opacity 0.6s ease, visibility 0.6s ease;
       }
       #splash.out { opacity: 0; visibility: hidden; pointer-events: none; }
+      /* splash-off: the site shows this post inside its own chrome and has no load
+         animation on other pages, so the splash is disabled here. */
+      #splash { display: none !important; }
       #splash img {
         width: clamp(84px, 12vw, 132px);
         height: auto;

@@ -356,11 +356,12 @@ export const indicTranslatePost = {
                     'The weights are open. These are the places you can reach the model without '
                     + 'standing one up yourself.',
                 platforms: [
-                    { name: 'Bhashini', note: 'Coming soon' },
-                    { name: 'AIKosh', note: 'Coming soon' },
-                    { name: 'Bodhan', href: '/developers/indic-translate', note: 'Live demo' },
+                    { name: 'Bhashini', mark: 'bhashini', note: 'Coming soon' },
+                    { name: 'AIKosh', mark: 'aikosh', note: 'Coming soon' },
+                    { name: 'Bodhan', mark: 'bodhan', href: '/developers/indic-translate', note: 'Live demo' },
                     {
                         name: 'Hugging Face',
+                        mark: 'huggingface',
                         href: 'https://huggingface.co/bodhan-ai/indic-translate',
                         note: 'Weights + model card',
                     },

@@ -32,7 +32,9 @@ const Hero = ({ post }) => (
   <header className="hero">
     <div className="research-article-column hero-inner">
       <p className="research-type-eyebrow hero-eyebrow">
-        <span>{post.dateLabel}</span>
+        <span>{post.category}</span>
+        <span className="sep" aria-hidden="true">·</span>
+        <span className="date">{post.dateLabel}</span>
       </p>
 
       <div className="hero-card">

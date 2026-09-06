@@ -9,7 +9,7 @@ import BenchmarkTable from './BenchmarkTable';
 import { resolveChart } from '../data/charts';
 import LanguageShowcase from './blocks/LanguageShowcase';
 import FeatureShowcase from './blocks/FeatureShowcase';
-import EcosystemBanner from './blocks/EcosystemBanner';
+import EcosystemCard from './EcosystemCard';
 import SectionSlot from './blocks/SectionSlot';
 import CiteThisWork from './blocks/CiteThisWork';
 import LanguageConstellation from './indic-translate/LanguageConstellation';
@@ -403,7 +403,7 @@ const BlogContent = ({ sections }) => {
                             </Reveal>
                         )}
 
-                        {section.ecosystem && <EcosystemBanner {...section.ecosystem} />}
+                        {section.ecosystem && <EcosystemCard {...section.ecosystem} />}
 
                         {section.links && (
                             <div className="flex flex-wrap gap-2.5 mt-6">

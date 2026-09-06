@@ -33,9 +33,9 @@ export const post = {
   // The hero eyebrow is the date and nothing else. `category` and `readingTime` are kept
   // in the data -- the template's post schema defines them and a card or list view may
   // want them -- but Hero no longer renders either.
-  category: 'Announcement',
+  category: 'Release',
   date: '2026-09-05',
-  dateLabel: '5 September 2026',
+  dateLabel: 'Sep 5, 2026',
   // Third segment of the hero eyebrow. Measured, not estimated: run
   // `node scripts/reading_time.mjs`, which counts the prose a reader reads top to
   // bottom (headings, body, card bodies, bullets, all four eval tiles' prose),

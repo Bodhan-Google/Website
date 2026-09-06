@@ -42,12 +42,15 @@ export const posts = [
     indicTranslatePost,
     {
         // ── 1. Hero ──────────────────────────────────────────────────────
-        slug: 'bodhan-asr',
-        title: "Bodhan ASR: Accurate Speech Recognition for India's Languages and Dialects",
+        // The page itself is the standalone build mounted at
+        // /research/blogs/indic-transcribe (see indic-transcribe-post/); this
+        // entry is what the listings show.
+        slug: 'indic-transcribe',
+        title: "Indic-Transcribe: Accurate Speech Recognition for India's Languages and Dialects",
         category: 'Release',
-        date: '2026-06-30',
+        date: '2026-09-05',
         summary:
-            'Introducing Bodhan Scribe — a 1.2B-parameter multilingual ASR model trained on 1.35M hours of speech, supporting 25 Indian languages with native-script, code-mixed, and romanized transcription.',
+            'A 1.2B-parameter multilingual speech recognition family for 25 Indian languages, in two checkpoints: Core, which transcribes into each language\'s own script, and Pro, which adds code-mixed and romanized output.',
         featured: true,
         posterMotif: 'speech',
         tagline:

@@ -31,7 +31,7 @@ export const indicOcrPost = {
     slug: 'indic-ocr',
     title: 'IndicOCR: Document Parsing for English and 22 Indian Languages',
     category: 'Release',
-    date: '2026-09-04',
+    date: '2026-09-05',
     summary:
         'A two-stage document parser — a 33M layout detector and a 0.8B reader — that reads '
         + 'printed and handwritten pages across 13 scripts. 92.76 on OmniDocBench v1.6, and the '
