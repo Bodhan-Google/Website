@@ -5,7 +5,7 @@ import Footer from '../../home/components/Footer';
 import Hero from './components/Hero';
 import SectionBlocks from './components/SectionBlocks';
 import TableOfContents from './components/TableOfContents';
-import CiteThisWork from './components/CiteThisWork';
+import CiteThisWork from '../components/blocks/CiteThisWork';
 import EcosystemCard from '../components/EcosystemCard';
 import { citation, ecosystem, post } from './data/post';
 import './post.css';
@@ -76,13 +76,7 @@ const IndicTranslatePostPage = () => {
                             <SectionBlocks sections={post.sections} />
                         </article>
 
-                        <CiteThisWork
-                            heading={citation.heading}
-                            bibtex={citation.bibtex}
-                            temporary={citation.temporary}
-                            license={citation.license}
-                            citeHeading={citation.citeHeading}
-                        />
+                        <CiteThisWork bibtex={citation.bibtex} />
                         <EcosystemCard
                             title={ecosystem.heading}
                             platforms={ecosystem.links.map(({ label, href, icon, soon }) => ({

@@ -318,7 +318,7 @@ export const indicSpeakPost = {
                     { name: 'Hugging Face', mark: 'huggingface', href: 'https://huggingface.co/bodhan-ai/models', note: 'Weights and inference' },
                     { name: 'GitHub', mark: 'github', href: '#', note: 'Code and recipes' },
                     { name: 'Bhashini', mark: 'bhashini', href: '#', note: 'National language mission' },
-                    { name: 'AIKosh', mark: 'aikosh', href: '#', note: 'Government AI repository' },
+                    { name: 'AIKosh', mark: 'aikosh', href: 'https://aikosh.indiaai.gov.in/web/models/details/indic_speak_1.html', note: 'India AI model repository' },
                 ],
             },
             links: [

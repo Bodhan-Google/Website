@@ -93,7 +93,7 @@ export const indicOcrPost = {
                 'Handwriting recognition across English plus Hindi, Marathi, Bengali, Tamil, Telugu, Malayalam, Kannada, Gujarati, Punjabi, Assamese, Odia and Urdu.',
                 'Scores 92.76 on OmniDocBench v1.6 and 82.20 on olmOCR-Bench.',
                 'Throughput of 6.3 pages per second on a single H100 at 64 concurrent requests.',
-                'Released under the Bodhan Open License 1.0.',
+                'Released under the [Indic Open Model License v1.0](/indic-open-model-license/v1).',
             ],
             slots: [
                 {
@@ -475,7 +475,7 @@ export const indicOcrPost = {
             ecosystem: {
                 title: 'Available across India’s AI ecosystem',
                 description:
-                    'Released under the Bodhan Open License 1.0. The base models — PP-DocLayoutV3, '
+                    'Released under the [Indic Open Model License v1.0](/indic-open-model-license/v1). The base models — PP-DocLayoutV3, '
                     + 'Qwen3.5 and the Sarvam-30B tokenizer — carry their own licence terms, so '
                     + 'check that your use complies with both.',
                 platforms: [

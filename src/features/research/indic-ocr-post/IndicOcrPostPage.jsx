@@ -49,7 +49,7 @@ const ECOSYSTEM = {
     platforms: [
         { name: 'Hugging Face', href: 'https://huggingface.co/bodhan-ai/indic-doc-parser', mark: 'huggingface', note: 'Weights and model card' },
         { name: 'Bhashini', mark: 'bhashini' },
-        { name: 'AIKosh', mark: 'aikosh' },
+        { name: 'AIKosh', href: 'https://aikosh.indiaai.gov.in/web/models/details/indic_ocr.html', mark: 'aikosh', note: 'India AI model repository' },
         { name: 'GitHub', mark: 'github' },
         { name: 'Bodhan', href: '/developers/indic-ocr', mark: 'bodhan', note: 'Model page' },
     ],
@@ -68,7 +68,11 @@ const IndicOcrPostPage = () => {
     const progressRef = useRef(null);
     const cleanupRef = useRef(null);
     const docRef = useRef(null);
-    const [height, setHeight] = useState(1400);
+    // Tall enough that nothing the site renders under the frame starts on the
+    // first screen: the card used to appear at the top and drop away once the
+    // article was measured.
+    const [height, setHeight] = useState(() => Math.max(1400, window.innerHeight * 3));
+    const [measured, setMeasured] = useState(false);
     const [sections, setSections] = useState([]);
 
     const getElement = useCallback((id) => docRef.current?.getElementById(id) ?? null, []);
@@ -118,6 +122,7 @@ const IndicOcrPostPage = () => {
             if (!body) return;
             const next = Math.max(600, Math.ceil(body.getBoundingClientRect().height));
             setHeight((current) => (Math.abs(current - next) > 2 ? next : current));
+            setMeasured(true);
         };
         measure();
         let observer = null;
@@ -127,6 +132,17 @@ const IndicOcrPostPage = () => {
             observer.observe(doc.documentElement);
         }
         win.addEventListener('load', measure);
+        // Late layout — a web font landing, an image decoding, a script that
+        // builds a section — moves the height after load. The observer catches
+        // most of it; this catches the rest for the first few seconds, so a
+        // reader who scrolls immediately is not scrolling a stale page.
+        let settle = 0;
+        const settleUntil = Date.now() + 4000;
+        const keepMeasuring = () => {
+            measure();
+            settle = Date.now() < settleUntil ? win.requestAnimationFrame(keepMeasuring) : 0;
+        };
+        keepMeasuring();
 
         // The bundle renders its contents rail and figures only after it has
         // fetched final.md, so nothing below can be looked up once at load time:
@@ -204,7 +220,7 @@ const IndicOcrPostPage = () => {
                 scrolling="no"
                 style={{ display: 'block', width: '100%', height: `${height}px`, border: 0, background: 'transparent', overflow: 'hidden' }}
             />
-            <div className="relative pb-16 md:pb-24">
+            <div className="relative pb-16 md:pb-24" style={{ visibility: measured ? 'visible' : 'hidden' }}>
                 <div className="research-article-column mx-auto px-5">
                     <EcosystemCard {...ECOSYSTEM} className="mt-4" />
                 </div>

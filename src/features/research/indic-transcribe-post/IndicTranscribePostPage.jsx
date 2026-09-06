@@ -36,7 +36,8 @@ const ECOSYSTEM = {
         { name: 'Hugging Face · Flex', href: 'https://huggingface.co/bodhan-ai/indic-transcribe-flex', mark: 'huggingface', note: 'Flex weights, ONNX build, inference' },
         { name: 'Bodhan', href: '/developers/indic-transcribe', mark: 'bodhan', note: 'API and model page' },
         { name: 'Bhashini', mark: 'bhashini', note: 'National language-technology mission' },
-        { name: 'AIKosh', mark: 'aikosh', note: 'India AI model repository' },
+        { name: 'AIKosh · Core', href: 'https://aikosh.indiaai.gov.in/web/models/details/indic_transcribe_core.html', mark: 'aikosh', note: 'Core on AIKosh, the India AI model repository' },
+        { name: 'AIKosh · Flex', href: 'https://aikosh.indiaai.gov.in/web/models/details/indic_transcribe_flex.html', mark: 'aikosh', note: 'Flex on AIKosh, the India AI model repository' },
     ],
 };
 
@@ -55,7 +56,11 @@ const IndicTranscribePostPage = () => {
     const frameRef = useRef(null);
     const progressRef = useRef(null);
     const cleanupRef = useRef(null);
-    const [height, setHeight] = useState(1400);
+    // Tall enough that nothing the site renders under the frame starts on the
+    // first screen: the card used to appear at the top and drop away once the
+    // article was measured.
+    const [height, setHeight] = useState(() => Math.max(1400, window.innerHeight * 3));
+    const [measured, setMeasured] = useState(false);
     const docRef = useRef(null);
     const [sections, setSections] = useState([]);
 
@@ -111,6 +116,7 @@ const IndicTranscribePostPage = () => {
             if (!body) return;
             const next = Math.max(600, Math.ceil(body.getBoundingClientRect().height));
             setHeight((current) => (Math.abs(current - next) > 2 ? next : current));
+            setMeasured(true);
         };
         measure();
         let observer = null;
@@ -120,9 +126,21 @@ const IndicTranscribePostPage = () => {
             observer.observe(doc.documentElement);
         }
         win.addEventListener('load', measure);
+        // Late layout — a web font landing, an image decoding, a script that
+        // builds a section — moves the height after load. The observer catches
+        // most of it; this catches the rest for the first few seconds, so a
+        // reader who scrolls immediately is not scrolling a stale page.
+        let settle = 0;
+        const settleUntil = Date.now() + 4000;
+        const keepMeasuring = () => {
+            measure();
+            settle = Date.now() < settleUntil ? win.requestAnimationFrame(keepMeasuring) : 0;
+        };
+        keepMeasuring();
         cleanupRef.current = () => {
             observer?.disconnect();
             win.removeEventListener('load', measure);
+            if (settle) win.cancelAnimationFrame(settle);
         };
     };
 
@@ -141,7 +159,7 @@ const IndicTranscribePostPage = () => {
                 scrolling="no"
                 style={{ display: 'block', width: '100%', height: `${height}px`, border: 0, background: '#fffaf3', overflow: 'hidden' }}
             />
-            <div className="relative pb-16 md:pb-24">
+            <div className="relative pb-16 md:pb-24" style={{ visibility: measured ? 'visible' : 'hidden' }}>
                 <div className="research-article-column mx-auto px-5">
                     <EcosystemCard {...ECOSYSTEM} />
                 </div>

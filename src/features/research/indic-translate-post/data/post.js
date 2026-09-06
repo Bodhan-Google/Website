@@ -366,12 +366,12 @@ export const post = {
         'We also want to hear where they fall short. Bug reports, difficult examples, and '
         + 'feedback from real use cases help us understand what to improve and where new '
         + 'capabilities are needed.',
-        // Written as a link so it is clickable; the visible text is the full URL, exactly
-        // as given. bodhan.ai/contact answers 404 to a direct fetch but serves the app
-        // shell, so the site's own client routing renders it in a browser.
+        // A word, not a pasted URL: this post is mounted on bodhan.ai, so the link is a
+        // path on the site the reader is already on, and it reads like every other
+        // contact link on the site.
         'There is still a lot to build, and we would love to build it with the community. '
         + 'Try the models, build something with them, and get in touch with us at '
-        + '[https://bodhan.ai/contact](https://bodhan.ai/contact).',
+        + '[contact](/contact).',
       ],
     },
   ],
@@ -385,14 +385,13 @@ export const post = {
 // "Indic-Translate", which is what every other string in this post already says.
 export const citation = {
   heading: 'License and citation',
-  // The license link answers 401 to an anonymous fetch, the same as every other path in
-  // that repo, because the model is still gated on Hugging Face -- it resolves for anyone
-  // who has been granted access, and will resolve publicly when the repo opens. Kept as
-  // given rather than swapped for a mirror, so it points at the authoritative copy.
+  // The site's own copy of the licence, not the one in the model repository: that
+  // path answers 401 to anyone who has not been granted access to the gated repo,
+  // and this page is read by people who have not.
   license: {
-    text: 'Released under',
+    text: 'Released under the',
     name: 'Indic Open Model License v1.0',
-    href: 'https://huggingface.co/bodhan-ai/indic-translate/blob/main/Bodhan_AI_Open_Model_License.md',
+    href: '/indic-open-model-license/v1',
   },
   // Sub-heading for the BibTeX half, so the section's two subjects are each labelled
   // rather than the licence line reading as a preamble to the citation.

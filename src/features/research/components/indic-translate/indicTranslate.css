@@ -749,6 +749,31 @@
   margin-bottom: 1.35rem;
 }
 
+/* ── License and citation ──
+   The section every post closes with: what you may do with the model, then how
+   to cite it. The licence names the site's own page, so a reader never lands on
+   a copy of the text in a gated model repository. */
+.cite-license {
+  margin: 0 0 18px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-10);
+}
+
+.cite-license a {
+  color: var(--text-orange-500);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cite-subheading {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  color: var(--text-primary);
+}
+
 /* ── Cite this work ── */
 .cite-block {
   margin-top: 8px;
@@ -764,7 +789,7 @@
   justify-content: space-between;
   gap: 14px;
   flex-wrap: wrap;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .cite-title {
@@ -884,4 +909,16 @@
 [lang] .ex-line-tag,
 [lang].mono {
   font-family: var(--font-mono);
+}
+
+.cite-code {
+  position: relative;
+}
+
+.cite-code .cite-copy {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  background: var(--bg-cream-50, #fff9f0);
 }

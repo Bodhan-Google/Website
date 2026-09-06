@@ -11,7 +11,7 @@ Today, as a joint effort between Bodhan.AI and AI4Bharat, we are introducing Ind
 - Scores *92.76%* on **OmniDocBench v1.6** and *82.20%* on **olmOCR-Bench**.
 - Scores *86.2%* word-level accuracy on **IndicOCR-Printed**, across all 22 Indian languages and English.
 - **Throughput:** 6.3 pages/second on a single H100 at 64 concurrent requests.
-- **License:** Bodhan Open License 1.0
+- **License:** [Indic Open Model License v1.0](/indic-open-model-license/v1)
 
 
 
@@ -264,6 +264,8 @@ We want to actively keep on improving on the most difficult documents you can th
 
 ## Cite this work
 
+Released under the [Indic Open Model License v1.0](/indic-open-model-license/v1).
+
 ```bibtex
 @misc{indicocr2026,
   title  = {IndicOCR: Multilingual Document Parsing for English and 22 Indian Languages},
@@ -276,4 +278,4 @@ We want to actively keep on improving on the most difficult documents you can th
 ---
 
 
-Released under Bodhan Open License 1.0. The base models, including PP-DocLayoutV3, Qwen3.5 and the Sarvam-30B tokenizer, carry their own license terms — ensure your use complies with both.
+Released under the [Indic Open Model License v1.0](/indic-open-model-license/v1). The base models, including PP-DocLayoutV3, Qwen3.5 and the Sarvam-30B tokenizer, carry their own license terms — ensure your use complies with both.

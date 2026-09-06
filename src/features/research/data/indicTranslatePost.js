@@ -357,7 +357,7 @@ export const indicTranslatePost = {
                     + 'standing one up yourself.',
                 platforms: [
                     { name: 'Bhashini', mark: 'bhashini', note: 'Coming soon' },
-                    { name: 'AIKosh', mark: 'aikosh', note: 'Coming soon' },
+                    { name: 'AIKosh', mark: 'aikosh', href: 'https://aikosh.indiaai.gov.in/web/models/details/indic_translate.html', note: 'India AI model repository' },
                     { name: 'Bodhan', mark: 'bodhan', href: '/developers/indic-translate', note: 'Live demo' },
                     {
                         name: 'Hugging Face',

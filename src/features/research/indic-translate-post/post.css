@@ -1494,6 +1494,18 @@ to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
     color: var(--text-primary);
   }
 
+  /* The copy button sits on the block it copies, which is where every post on the
+     site puts it, rather than in the section header a screen above. */
+  .cite-code { position: relative; }
+
+  .cite-code .cite-copy {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+    background: var(--bg-cream-50, #fff9f0);
+  }
+
   .cite-bibtex {
     margin: 0;
     padding: 14px 16px;
