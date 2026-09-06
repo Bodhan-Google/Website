@@ -29,8 +29,9 @@ import EcosystemCard from '../components/EcosystemCard';
  *     visible) is swapped for its still while off screen;
  *   - the bundle's own footer (a div.footer) is hidden; the site's follows.
  *
- * public/indic-ocr-post/index.html carries the rest: the load splash is
- * disabled, IntersectionObserver is stubbed so framer-motion's scroll-in
+ * public/indic-ocr-post/index.html carries the rest: the site's CSS overrides
+ * (#site-overrides: hidden chrome, column geometry, table styling), the load
+ * splash is disabled, IntersectionObserver is stubbed so framer-motion's scroll-in
  * reveals show at rest (the real one is kept at __RealIntersectionObserver),
  * and every image gets a shimmer skeleton until it has loaded.
  *
@@ -105,32 +106,8 @@ const IndicOcrPostPage = () => {
         if (!doc || !win) return;
         docRef.current = doc;
 
-        // Hide what the site provides itself.
-        const style = doc.createElement('style');
-        style.textContent = [
-            'footer, .footer, .progress, .rail, .ecosystem { display: none !important; }',
-            // The frame never scrolls itself and ends where the article ends; the site adds the rest.
-            'html, body { overflow: hidden !important; }',
-            // Same column geometry as the publications: 56rem/64rem columns with the
-            // 1.25rem gutter inside them, not page padding around them.
-            '.page { padding: 0 !important; }',
-            '.column { max-width: min(56rem, calc(100vw - 2rem)) !important; padding: 0 1.25rem; box-sizing: border-box; }',
-            '.wide { max-width: min(64rem, calc(100vw - 2rem)) !important; padding: 0 1.25rem; box-sizing: border-box; }',
-            // The page's own background shows through the frame, so the article and
-            // the card under it sit on one surface (the bundle painted its own).
-            'html, body { background: transparent !important; }',
-            // Tighter section rhythm, closer to the publications.
-            '.section-header { margin: 3rem 0 1.25rem !important; }',
-            // Tables: one header style everywhere (the benchmark headers are model
-            // names, so no capitals), and the OCR-output demo tables match it.
-            'table.md th { text-transform: none !important; letter-spacing: 0 !important; font-size: .75rem !important; font-weight: 700 !important; color: var(--text-primary) !important; }',
-            'table.md { width: 100% !important; }',
-            '.bench-module table.md th, .bench-module table.md td { white-space: normal !important; }',
-            '.tbl-html th { font-weight: 700; background: rgba(255, 247, 237, .9); }',
-            // On small screens the table scrolls sideways; the label column keeps a rule.
-            '@media (max-width: 700px) { table.md th:first-child, table.md td:first-child { position: sticky; left: 0; z-index: 1; background: var(--bg-cream-50, #fff9f0); border-right: 1px solid var(--hairline, rgba(92,64,51,.18)); } table.md tr.ours td:first-child { background: #fff0e8; } }',
-        ].join('\n');
-        doc.head.appendChild(style);
+        // Styling that adapts the bundle to the site lives in public/indic-ocr-post/
+        // index.html (#site-overrides), so it applies on every load.
 
         // Size the frame to its document and keep it sized as images load.
         const measure = () => {
