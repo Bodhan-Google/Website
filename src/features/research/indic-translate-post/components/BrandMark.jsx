@@ -23,8 +23,8 @@ const GitHubMark = () => (
   <svg
     className="chip-mark"
     viewBox="0 0 24 24"
-    width="14"
-    height="14"
+    width="15"
+    height="15"
     fill="currentColor"
     role="img"
     aria-label="GitHub"
@@ -127,7 +127,48 @@ const BookMark = () => (
   </svg>
 );
 
-const MARKS = { github: GitHubMark, huggingface: HuggingFaceMark, book: BookMark };
+// Demo's mark: the play triangle, the same glyph the sibling posts put on the chip
+// that opens their video lightbox.
+const PlayMark = () => (
+  <svg
+    className="chip-mark"
+    viewBox="0 0 24 24"
+    width="15"
+    height="15"
+    fill="currentColor"
+    role="img"
+    aria-label="Demo"
+    focusable="false"
+  >
+    <path d="M8 5.5v13l11-6.5z" />
+  </svg>
+);
+
+// "Try it out" is the one chip that leads somewhere you can use the model, so its bolt
+// sits lit at rest -- `--accent` rather than the chip's ink -- and takes the chip's
+// hover colour with the label. See `.chip-bolt` / `.chip-try` in post.css.
+const BoltMark = () => (
+  <svg
+    className="chip-mark chip-bolt"
+    viewBox="0 0 24 24"
+    width="14"
+    height="14"
+    fill="currentColor"
+    role="img"
+    aria-label="Try it out"
+    focusable="false"
+  >
+    <path d="M13.2 2 4.6 13.1a.6.6 0 0 0 .48.97h4.3l-1.5 6.7a.6.6 0 0 0 1.07.48l8.6-11.1a.6.6 0 0 0-.48-.97h-4.3l1.5-6.7A.6.6 0 0 0 13.2 2Z" />
+  </svg>
+);
+
+const MARKS = {
+  github: GitHubMark,
+  huggingface: HuggingFaceMark,
+  book: BookMark,
+  play: PlayMark,
+  bolt: BoltMark,
+};
 
 const BrandMark = ({ name }) => {
   const Mark = MARKS[name];

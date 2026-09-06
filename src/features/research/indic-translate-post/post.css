@@ -238,25 +238,35 @@ to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
   .hero-links .chip-mark { flex: none; }
 
   /* "Coming soon" chips: same shape, no link affordance -- no underline, default cursor,
-     and the label dimmed so the badge is what the eye lands on. */
-  .hero-links .research-link-chip.is-soon { cursor: default; }
+     a dashed edge, and the label dimmed. The same treatment as the Indic-Speak,
+     Indic-Transcribe and IndicOCR posts. */
+  .hero-links .research-link-chip.is-soon { cursor: default; border-style: dashed; }
 
   .hero-links .research-link-chip.is-soon .chip-label {
     text-decoration: none;
     color: var(--text-secondary);
   }
 
+  .hero-links .research-link-chip.is-soon .chip-mark { opacity: 0.6; }
+
+  /* A filled pill inside a pill made the chips that carry it twice the width of the
+     others and gave the hero its chunk. The words stay; the badge does not. */
   .hero-links .chip-soon {
-    font-size: 0.72em;
+    font-size: 0.68em;
     font-weight: 600;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
     text-transform: lowercase;
-    color: var(--text-orange-500);
-    background: var(--accent-soft);
-    border-radius: 999px;
-    padding: 0.1em 0.5em;
+    color: var(--text-muted);
     white-space: nowrap;
+    padding-left: 0.5em;
+    margin-left: 0.1em;
+    border-left: 1px solid var(--border);
   }
+
+  /* "Try it out" is the row's one call to action: its bolt sits lit at rest and takes
+     the chip's hover colour along with the label, so the whole chip lights up together. */
+  .hero-links .chip-bolt { color: var(--accent); }
+  .hero-links .chip-try:hover .chip-bolt { color: inherit; }
 
   /* Same treatment for the ecosystem band's chips. */
   .ecosystem-links .research-link-chip {

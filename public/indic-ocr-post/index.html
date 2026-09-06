@@ -85,6 +85,66 @@
          src/features/research/indic-ocr-post/IndicOcrPostPage.jsx). Static so it
          applies on every load, before the bundle renders. -->
     <style id="site-overrides">
+      /* ── Hero link chips ──
+         The bundle shipped its own `.pill` row (Hugging Face / GitHub / API docs /
+         Video). The four model posts now carry one lineup -- Hugging Face, GitHub,
+         Demo, Documentation, Try it out -- built from the same `.research-link-chip`
+         the sibling posts use, so the chips are patched into the bundle (search it
+         for `hero-pills`) and styled here, where the class does not otherwise exist.
+         These four tokens are the sibling posts'; the bundle defines the rest. */
+      :root {
+        --brand-orange: #FF6600;
+        --text-secondary: #44403C;
+        --text-muted: #57534E;
+        --accent: var(--text-orange-500);
+      }
+      .research-link-chip {
+        font-family: var(--font-manrope);
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        min-height: 2.5rem;
+        padding: 0.45rem 0.95rem;
+        border-radius: 9999px;
+        border: 1.5px solid transparent;
+        background:
+          linear-gradient(var(--bg-cream-50), var(--bg-cream-50)) padding-box,
+          linear-gradient(135deg, var(--text-orange-400), var(--text-orange-500), var(--brand-orange)) border-box;
+        transition: color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .research-link-chip:hover { color: var(--text-orange-500); box-shadow: 0 2px 14px rgba(255, 107, 53, 0.18); transform: translateY(-1px); }
+      /* Keyed on the chip class, not the tag: two of the five are inert <span>s and
+         one is a <button>, and a rule matching `a` alone stacks their icons. */
+      .hero-pills .research-link-chip { text-decoration: none; display: inline-flex; align-items: center; gap: 0.42rem; }
+      .hero-pills button.research-link-chip { appearance: none; cursor: pointer; }
+      /* Chips whose destination is not public yet: the chip's shape, a dashed edge,
+         no link affordance, so nobody is sent to a 404. */
+      .research-link-chip.is-soon { cursor: default; border-style: dashed; }
+      .research-link-chip.is-soon:hover { color: var(--text-primary); box-shadow: none; transform: none; }
+      .research-link-chip.is-soon .chip-label { color: var(--text-secondary); }
+      .research-link-chip.is-soon .chip-ico { opacity: 0.6; }
+      .chip-soon { font-size: 0.68em; font-weight: 600; letter-spacing: 0.04em; text-transform: lowercase; color: var(--text-muted); white-space: nowrap; padding-left: 0.5em; margin-left: 0.1em; border-left: 1px solid var(--border); }
+      /* Marks inside the chips. Hugging Face's keeps its own brand colours; every
+         other mark takes the chip's text colour and follows its hover state. The
+         bolt sits lit at rest and takes the hover colour with the label. */
+      .chip-ico { flex: none; width: 0.95rem; height: 0.95rem; display: block; }
+      .chip-bolt { width: 0.85rem; height: 0.85rem; color: var(--accent); }
+      .chip-try:hover .chip-bolt { color: inherit; }
+
+      /* ── Demo video lightbox ──
+         The same lightbox the Indic-Speak and Indic-Transcribe posts use, so all
+         four demos behave alike. `top` and `height` are set from script: in a
+         content-sized frame `position: fixed` resolves against the whole article
+         rather than the reader's viewport. */
+      body.modal-open { overflow: hidden; }
+      .video-modal { position: absolute; left: 0; right: 0; bottom: auto; margin: 0; z-index: 90; display: grid; place-items: center; padding: 1rem; }
+      .video-modal[hidden] { display: none; }
+      .video-backdrop { position: absolute; inset: 0; background: rgba(44, 36, 28, 0.82); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+      .video-box { position: relative; width: min(100%, 64rem); aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background: #000; box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45); }
+      .video-box iframe { display: block; width: 100%; height: 100%; border: 0; }
+      .video-close { position: absolute; top: 0.6rem; right: 0.6rem; z-index: 2; width: 2.2rem; height: 2.2rem; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.35); background: rgba(44, 36, 28, 0.7); color: #FBF6EE; font-size: 1.3rem; line-height: 1; cursor: pointer; }
+      .video-close:hover { background: var(--accent); border-color: var(--accent); }
+
       /* Chrome the site provides itself. */
       footer, .footer, .progress, .rail, .ecosystem { display: none !important; }
       /* The frame never scrolls itself; the page surface shows through it. */
@@ -163,5 +223,75 @@
       <img src="./assets/logos/bodhan-logo.svg" alt="" />
     </div>
     <div id="root"></div>
+
+    <!-- The demo lightbox. It lives here rather than in the bundle because the
+         bundle's hero chip only calls window.__bodhanOpenDemo, and because a node
+         outside #root is one React can never unmount. Same markup and script as the
+         Indic-Speak post: the player is told the embedding origin, since YouTube
+         refuses an embed it cannot attribute to a page ("configuration error 153"),
+         and a frame inside a frame is exactly that case. -->
+    <div class="video-modal" id="videoModal" hidden role="dialog" aria-modal="true" aria-label="Demo video">
+      <div class="video-backdrop" data-close></div>
+      <div class="video-box">
+        <button type="button" class="video-close" data-close aria-label="Close">&times;</button>
+        <iframe id="demoEmbed" title="IndicOCR demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" hidden></iframe>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var DEMO_EMBED = "https://www.youtube-nocookie.com/embed/9MJs_bc2I6c?rel=0";
+        var modal = document.getElementById("videoModal");
+        var embed = document.getElementById("demoEmbed");
+        if (!modal || !embed) return;
+        var framed = window.parent !== window;
+        var frame = framed ? window.frameElement : null;
+        var host = framed ? window.parent : window;
+        var locked = null;
+
+        function place() {
+          if (!frame) return;
+          try {
+            modal.style.setProperty("top", (-frame.getBoundingClientRect().top) + "px", "important");
+            modal.style.setProperty("height", host.innerHeight + "px", "important");
+          } catch (e) { /* cross-origin: leave it */ }
+        }
+        function lock(on) {
+          try {
+            var el = host.document.documentElement;
+            if (on) { locked = el.style.overflow; el.style.overflow = "hidden"; }
+            else if (locked !== null) { el.style.overflow = locked; locked = null; }
+          } catch (e) { /* not ours to lock */ }
+        }
+        function close() {
+          if (modal.hidden) return;
+          embed.removeAttribute("src");        // stops the player
+          embed.hidden = true;
+          modal.hidden = true;
+          document.body.classList.remove("modal-open");
+          lock(false);
+        }
+
+        window.__bodhanOpenDemo = function (src) {
+          var url = src || DEMO_EMBED;
+          if (!url) return;
+          var origin = (framed ? host.location.origin : location.origin);
+          embed.hidden = false;
+          embed.src = url + (url.indexOf("?") < 0 ? "?" : "&")
+            + "autoplay=1&playsinline=1&origin=" + encodeURIComponent(origin);
+          modal.hidden = false;
+          place();
+          lock(true);
+          document.body.classList.add("modal-open");
+          modal.querySelector(".video-close").focus();
+        };
+
+        modal.querySelectorAll("[data-close]").forEach(function (b) {
+          b.addEventListener("click", close);
+        });
+        document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+        host.addEventListener("resize", function () { if (!modal.hidden) place(); });
+        host.addEventListener("scroll", function () { if (!modal.hidden) place(); }, { passive: true });
+      })();
+    </script>
   </body>
 </html>

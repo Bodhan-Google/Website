@@ -105,7 +105,9 @@ const Hero = ({ post }) => (
                   href={href}
                   target={href.startsWith('http') ? '_blank' : undefined}
                   rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="research-link-chip"
+                  // "Try it out" is the row's one call to action; `chip-try` is what
+                  // lights its bolt with the label on hover.
+                  className={`research-link-chip${icon === 'bolt' ? ' chip-try' : ''}`}
                 >
                   {icon && <BrandMark name={icon} />}
                   {/* The underline sits on the label, not the anchor: an inline-flex

@@ -50,23 +50,28 @@ export const post = {
     'A translation model for English and 22 Indian languages, built to translate whole '
     + 'documents, not just sentences, in a single request, preserving the structure around '
     + 'the words.',
+  // The five hero chips, in the order every model post uses: Hugging Face, GitHub,
+  // Demo, Documentation, Try it out. A chip with no public destination yet is marked
+  // `soon` and renders as an inert span rather than a link a reader would 404 on; the
+  // URLs are kept here so each is one edit away from going live.
   heroLinks: [
     {
       label: 'Hugging Face',
       href: 'https://huggingface.co/bodhan-ai/indic-translate',
       icon: 'huggingface',
     },
-    // The repo is private -- an unauthenticated request to either URL gets a 404 -- and
-    // needs work before it goes public, so these two are marked coming soon and render as
-    // non-interactive chips rather than links a reader would land a 404 on. The URLs are
-    // kept here so they are one edit away from going live.
+    // The repo is private -- an unauthenticated request gets a 404 -- and needs work
+    // before it goes public.
     {
       label: 'GitHub',
       icon: 'github',
       soon: true,
       href: 'https://github.com/AshwinSankar17/bodhan_gen_ai_tools',
     },
-    { label: 'Try Out', href: 'https://console.bodhan.ai/ui/login', icon: 'bodhan' },
+    // The sibling posts open their demo as a YouTube player in a lightbox over the
+    // page. Set `embed` to this model's youtube-nocookie embed URL and the chip goes
+    // live as that same lightbox; until one is recorded it stays inert.
+    { label: 'Demo', icon: 'play', soon: true, embed: '' },
     {
       label: 'Documentation',
       icon: 'book',
@@ -74,6 +79,7 @@ export const post = {
       href: 'https://github.com/AshwinSankar17/bodhan_gen_ai_tools/blob/master/'
         + 'src/bodhan_genai/mt/README.md',
     },
+    { label: 'Try it out', href: 'https://console.bodhan.ai/ui/login', icon: 'bolt' },
   ],
   specs: [
     { label: 'base model', value: 'Gemma 4 E4B' },
@@ -384,7 +390,6 @@ export const post = {
 // drop the "V4" the card still carries -- the public name of this release is
 // "Indic-Translate", which is what every other string in this post already says.
 export const citation = {
-  heading: 'License and citation',
   // The site's own copy of the licence, not the one in the model repository: that
   // path answers 401 to anyone who has not been granted access to the gated repo,
   // and this page is read by people who have not.
