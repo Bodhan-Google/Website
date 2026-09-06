@@ -101,7 +101,7 @@ const IMAGE_MARKS = {
 const ImageMark = ({ src }) => (
   // Decorative: every mark on this page sits next to the organisation's name in text,
   // so an alt would be read out twice.
-  <img className="chip-mark" src={src} alt="" width="20" height="20" loading="lazy" />
+  <img className="chip-mark" src={src} alt="" width="20" height="22" loading="lazy" />
 );
 
 // Documentation's mark. Unlike the two above this is a plain icon rather than anyone's

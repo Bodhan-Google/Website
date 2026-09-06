@@ -28,7 +28,7 @@ export const post = {
   // (`.hero-partners`: mark + name, joined by a multiplication sign).
   partners: [
     { name: 'AI4Bharat', icon: 'ai4bharat' },
-    { name: 'Bodhan.AI', icon: 'bodhan' },
+    { name: 'Bodhan AI', icon: 'bodhan' },
   ],
   // The hero eyebrow is the date and nothing else. `category` and `readingTime` are kept
   // in the data -- the template's post schema defines them and a card or list view may
@@ -68,10 +68,14 @@ export const post = {
       soon: true,
       href: 'https://github.com/AshwinSankar17/bodhan_gen_ai_tools',
     },
-    // The sibling posts open their demo as a YouTube player in a lightbox over the
-    // page. Set `embed` to this model's youtube-nocookie embed URL and the chip goes
-    // live as that same lightbox; until one is recorded it stays inert.
-    { label: 'Demo', icon: 'play', soon: true, embed: '' },
+    // Opens as a YouTube player in a lightbox over the page, the way the sibling
+    // posts show theirs. youtube-nocookie, so watching the demo does not set an
+    // advertising cookie on a reader who never asked for one.
+    {
+      label: 'Demo',
+      icon: 'play',
+      embed: 'https://www.youtube-nocookie.com/embed/Bl7msnYPC1M?rel=0',
+    },
     {
       label: 'Documentation',
       icon: 'book',
@@ -400,7 +404,7 @@ export const citation = {
   },
   bibtex: `@misc{indic-translate-2026,
   title  = {Indic-Translate: Document-Level Machine Translation for 22 Indian Languages},
-  author = {Bodhan.ai},
+  author = {Bodhan AI},
   year   = {2026},
   url    = {https://bodhan.ai/research/blogs/indic-translate}
 }`,

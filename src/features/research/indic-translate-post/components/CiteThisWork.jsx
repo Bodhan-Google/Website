@@ -26,9 +26,12 @@ const CiteThisWork = ({ bibtex, license, heading = 'Cite this work' }) => {
   return (
     <Reveal>
       <section className="cite-block" aria-labelledby="cite-heading">
-        <h2 id="cite-heading" className="research-type-h3 cite-heading">
-          {heading}
-        </h2>
+        <header className="research-section-header">
+          <div className="research-section-rule" aria-hidden="true" />
+          <h2 id="cite-heading" className="research-type-h2">
+            {heading}
+          </h2>
+        </header>
         {license && (
           <p className="cite-license">
             {license.text}{' '}

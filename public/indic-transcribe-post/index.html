@@ -2538,7 +2538,6 @@ body.guides-on .todo { display: block; }
      language tag and the copy button. The outer bordered block is gone -- in
      that post the card is the only boxed thing on the section. */
   .cite-block { margin-top: 8px !important; padding: 0 !important; border: 0 !important; border-radius: 0 !important; background: none !important; }
-  .cite-heading { margin: 0 0 0.75rem !important; }
   .cite-license { margin: 0 0 1rem !important; }
   .cite-card { margin: 1.35rem 0 0; border: 1px solid var(--border); border-radius: 1rem; background: linear-gradient(145deg, rgba(255, 249, 240, 0.95), rgba(255, 255, 255, 0.82)); box-shadow: 0 6px 24px rgba(46, 50, 56, 0.043); overflow: hidden; }
   .cite-card-head { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.7rem 0.9rem 0.7rem 1.1rem; }
@@ -3777,7 +3776,10 @@ body.guides-on .todo { display: block; }
   </article>
 
   <section class="cite-block">
-    <h2 class="research-type-h3 cite-heading">Cite this work</h2>
+    <header class="research-section-header">
+      <div class="research-section-rule" aria-hidden="true"></div>
+      <h2 class="research-type-h2">Cite this work</h2>
+    </header>
     <p class="cite-license">Released under the <a href="/indic-open-model-license/v1" target="_top">Indic Open Model License v1.0</a>.</p>
     <div class="cite-card">
       <div class="cite-card-head">

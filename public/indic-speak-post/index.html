@@ -2447,7 +2447,9 @@ code, .mono { font-family: var(--font-mono); }
   font-family: var(--font-body); font-size: 1rem; font-weight: 600;
   letter-spacing: -0.01em; color: var(--chart-text-primary, #2C241C);
 }
-.hero-partner .chip-mark { width: 22px; height: 22px; flex: none; }
+/* Sized by height with the width left to follow: the Bodhan mark is 126x140, so a
+   square box squashes it. 22px tall is the lockup size on every model post. */
+.hero-partner .chip-mark { height: 22px; width: auto; flex: none; }
 .hero-x { font-family: var(--font-display); font-size: 1.05rem; color: var(--text-muted); }
 .ecosystem-links .chip-mark { flex: none; width: 20px; height: 20px; display: block; }
 .ecosystem-links .chip-ico { width: 20px; height: 20px; }
@@ -2455,7 +2457,7 @@ code, .mono { font-family: var(--font-mono); }
 .ecosystem-chip-logo .chip-logo { display: block; height: 26px; width: auto; }
 @media (max-width: 480px) {
   .hero-partner { font-size: 0.9rem; }
-  .hero-partner .chip-mark { width: 19px; height: 19px; }
+  .hero-partner .chip-mark { height: 19px; width: auto; }
 }
 
 /* ── Hero demo panel ─────────────────────────────────────────────────────
@@ -4386,8 +4388,7 @@ rect.bar.muted { fill: var(--bar-muted, #A89880); }
        language tag and the copy button. The outer bordered block is gone -- in
        that post the card is the only boxed thing on the section. */
     .cite-block { margin-top: 8px !important; padding: 0 !important; border: 0 !important; border-radius: 0 !important; background: none !important; }
-    .cite-heading { margin: 0 0 0.75rem !important; }
-    .cite-license { margin: 0 0 1rem !important; }
+      .cite-license { margin: 0 0 1rem !important; }
     .cite-card { margin: 1.35rem 0 0; border: 1px solid var(--border); border-radius: 1rem; background: linear-gradient(145deg, rgba(255, 249, 240, 0.95), rgba(255, 255, 255, 0.82)); box-shadow: 0 6px 24px rgba(46, 50, 56, 0.043); overflow: hidden; }
     .cite-card-head { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.7rem 0.9rem 0.7rem 1.1rem; }
     .cite-lang { font-family: var(--font-manrope); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-14); }
@@ -4522,7 +4523,7 @@ rect.bar.muted { fill: var(--bar-muted, #A89880); }
       <div class="hero-glyph" id="heroGlyph" role="img" aria-label="The first vowel of each of the twelve scripts Indic-Speak reads, one language after another"><span class="hero-glyph-face" id="heroGlyphA"></span><span class="hero-glyph-face" id="heroGlyphB"></span><span class="hero-glyph-cap" id="heroGlyphCap"></span></div>
       <div class="hero-scrim" aria-hidden="true"></div>
       <div class="hero-partners">
-        <span class="hero-partner-group"><span class="hero-partner"><img class="chip-mark" src="images/bodhan_mark.svg" alt="" width="22" height="22">Bodhan AI</span></span>
+        <span class="hero-partner-group"><span class="hero-partner"><img class="chip-mark" src="images/bodhan_mark.svg" alt="" width="20" height="22">Bodhan AI</span></span>
         <span class="hero-partner-group"><span class="hero-x" aria-hidden="true">&times;</span><span class="hero-partner"><img class="chip-mark" src="images/logo_ai4bharat.png" alt="" width="22" height="22">AI4Bharat</span></span>
       </div>
       <h1 class="research-type-title" id="heroTitle" data-accent-text="Speak">Indic-<span class="hero-title-accent">Speak</span></h1>
@@ -4876,7 +4877,10 @@ rect.bar.muted { fill: var(--bar-muted, #A89880); }
   </aside>
 
   <section class="cite-block">
-    <h2 class="research-type-h3 cite-heading">Cite this work</h2>
+    <header class="research-section-header">
+      <div class="research-section-rule" aria-hidden="true"></div>
+      <h2 class="research-type-h2">Cite this work</h2>
+    </header>
     <p class="cite-license">Released under the <a href="/indic-open-model-license/v1" target="_top">Indic Open Model License v1.0</a>.</p>
     <div class="cite-card">
       <div class="cite-card-head">
@@ -4885,7 +4889,7 @@ rect.bar.muted { fill: var(--bar-muted, #A89880); }
       </div>
       <pre class="cite-bibtex" id="bibtex">@misc{indic-speak-2026,
   title  = {Indic-Speak: Text-to-Speech for 22 Indian Languages in 45 Voices},
-  author = {Bodhan.ai},
+  author = {Bodhan AI},
   year   = {2026},
   url    = {https://huggingface.co/bodhan-ai/indic-speak}
 }</pre>

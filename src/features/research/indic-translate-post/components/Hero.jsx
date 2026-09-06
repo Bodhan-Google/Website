@@ -5,8 +5,10 @@
 //
 // GlyphScatter.jsx (variant A) and GlyphField.jsx (the 18x10 grid before it) are both
 // left in the tree unused, so either earlier field stays reproducible for comparison.
+import { useState } from 'react';
 import GlyphOrbit from './GlyphOrbit';
 import BrandMark from './BrandMark';
+import DemoLightbox from './DemoLightbox';
 
 // "Indic-Translate" is one word to the line-breaker but two halves to the eye, and the
 // model-name half takes the house orange. Splitting on the accent substring rather than
@@ -28,7 +30,12 @@ const accented = (word, accent) => {
 // a card carrying the title and the link chips -- with the glyph field and scrim
 // behind the type. The spec strip is ours: the template's post schema defines
 // `specs` but its article page never renders them.
-const Hero = ({ post }) => (
+const Hero = ({ post }) => {
+  // The demo chip opens the walkthrough in a lightbox rather than a new tab, which is
+  // what the three sibling posts do with theirs.
+  const [demo, setDemo] = useState(null);
+
+  return (
   <header className="hero">
     <div className="research-article-column hero-inner">
       <p className="research-type-eyebrow hero-eyebrow">
@@ -89,11 +96,21 @@ const Hero = ({ post }) => (
 
         {post.heroLinks?.length > 0 && (
           <nav aria-label="Publication links" className="hero-links">
-            {post.heroLinks.map(({ label, href, icon, soon }) =>
+            {post.heroLinks.map(({ label, href, icon, soon, embed }) =>
               // A `soon` chip is not a link: its destination is private, so an anchor would
               // send the reader to a 404. Rendered as a span it keeps the chip's shape while
               // being honestly inert, and screen readers are told the same thing the badge says.
-              (soon ? (
+              (embed ? (
+                <button
+                  key={label}
+                  type="button"
+                  className="research-link-chip chip-demo"
+                  onClick={() => setDemo(embed)}
+                >
+                  {icon && <BrandMark name={icon} />}
+                  <span className="chip-label">{label}</span>
+                </button>
+              ) : soon ? (
                 <span key={label} className="research-link-chip is-soon">
                   {icon && <BrandMark name={icon} />}
                   <span className="chip-label">{label}</span>
@@ -130,7 +147,13 @@ const Hero = ({ post }) => (
         )}
       </div>
     </div>
+    <DemoLightbox
+      src={demo}
+      title={`${post.title} demo`}
+      onClose={() => setDemo(null)}
+    />
   </header>
-);
+  );
+};
 
 export default Hero;

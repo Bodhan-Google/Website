@@ -5,7 +5,7 @@ import Footer from '../../home/components/Footer';
 import Hero from './components/Hero';
 import SectionBlocks from './components/SectionBlocks';
 import TableOfContents from './components/TableOfContents';
-import CiteThisWork from '../components/blocks/CiteThisWork';
+import CiteThisWork from './components/CiteThisWork';
 import EcosystemCard from '../components/EcosystemCard';
 import { citation, ecosystem, post } from './data/post';
 import './post.css';

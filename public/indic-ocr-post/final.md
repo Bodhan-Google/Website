@@ -269,7 +269,7 @@ Released under the [Indic Open Model License v1.0](/indic-open-model-license/v1)
 ```bibtex
 @misc{indicocr2026,
   title  = {IndicOCR: Multilingual Document Parsing for English and 22 Indian Languages},
-  author = {Bodhan.AI},
+  author = {Bodhan AI},
   year   = {2026},
   url    = {https://huggingface.co/bodhan-ai/indic-ocr}
 }
