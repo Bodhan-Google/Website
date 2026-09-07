@@ -1,0 +1,1807 @@
+/* Indic-Speak model page. Everything is scoped under .isp-page.
+ *
+ * The palette, per-section accents and the orb frame are carried over from the
+ * Indic-Speak capability film so the page and the film read as one thing: one
+ * accent pair per chapter, near-white ground, and the voice always drawn as a
+ * wave inside a circle.
+ */
+
+.isp-page {
+    --ink: #122038;
+    --ink-2: rgba(18, 32, 56, 0.72);
+    --ink-3: rgba(18, 32, 56, 0.52);
+    --ink-4: rgba(18, 32, 56, 0.34);
+
+    --paper: #fdfbf8;
+    --paper-2: #fffefc;
+    --surface: #ffffff;
+
+    --line: rgba(18, 32, 56, 0.11);
+    --line-2: rgba(18, 32, 56, 0.06);
+
+    --saffron: #e0620d;
+    --sky: #1f6fd1;
+    --teal: #0c8c82;
+    --violet: #5b44d4;
+    --amber: #b8760a;
+    --green: #159a50;
+    --magenta: #cc1e74;
+
+    --isp-accent: var(--saffron);
+    --wordmark: linear-gradient(95deg, #e0620d 0%, #cc1e74 48%, #0c8c82 100%);
+
+    --shadow-1: 0 1px 2px rgba(18, 32, 56, 0.05), 0 8px 24px rgba(18, 32, 56, 0.06);
+    --shadow-2: 0 6px 18px rgba(18, 32, 56, 0.07), 0 28px 64px rgba(18, 32, 56, 0.1);
+
+    --radius: 22px;
+    --radius-lg: 30px;
+    --max: 1180px;
+
+    position: relative;
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse 120% 70% at 50% -8%, rgba(255, 231, 208, 0.6), transparent 60%),
+        radial-gradient(ellipse 60% 40% at 100% 12%, rgba(204, 30, 116, 0.05), transparent 55%),
+        radial-gradient(ellipse 55% 45% at 0% 55%, rgba(31, 111, 209, 0.045), transparent 55%),
+        var(--paper);
+    color: var(--ink);
+    font-family: Inter, "DM Sans", system-ui, sans-serif;
+    overflow-x: clip;
+}
+
+/* Indic scripts: prefer a Noto face when the reader has one, then whatever the
+ * platform ships (Nirmala UI on Windows, the Devanagari/Tamil/… families on
+ * macOS). Never fall through to a Latin-only face — the text vanishes. */
+.isp-page [lang="hi"],
+.isp-page [lang="mr"],
+.isp-page [lang="sa"] {
+    font-family: "Noto Sans Devanagari", "Nirmala UI", "Kohinoor Devanagari", Inter, sans-serif;
+}
+.isp-page [lang="bn"] {
+    font-family: "Noto Sans Bengali", "Nirmala UI", "Kohinoor Bangla", Inter, sans-serif;
+}
+.isp-page [lang="gu"] {
+    font-family: "Noto Sans Gujarati", "Nirmala UI", "Gujarati Sangam MN", Inter, sans-serif;
+}
+.isp-page [lang="ta"] {
+    font-family: "Noto Sans Tamil", "Nirmala UI", "Tamil Sangam MN", Inter, sans-serif;
+}
+.isp-page [lang="ml"] {
+    font-family: "Noto Sans Malayalam", "Nirmala UI", "Malayalam Sangam MN", Inter, sans-serif;
+}
+
+.isp-page .isp-container {
+    width: min(var(--max), calc(100% - 44px));
+    margin-inline: auto;
+}
+
+.isp-page section {
+    position: relative;
+    padding: clamp(64px, 8vw, 120px) 0;
+}
+
+/* A 4% wash of the section's own accent, so the page changes temperature as
+ * you scroll — the film's per-scene theming, slowed down. */
+.isp-page .isp-tinted::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--isp-accent), transparent 62%);
+    opacity: 0.055;
+}
+
+/* ---------------------------------------------------------------- type */
+
+.isp-page .isp-eyebrow {
+    margin: 0;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--isp-accent);
+}
+
+.isp-page .isp-title {
+    margin: 14px 0 0;
+    font-size: clamp(1.85rem, 3.6vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.028em;
+    text-wrap: balance;
+}
+
+.isp-page .isp-blurb {
+    margin: 16px 0 0;
+    max-width: 62ch;
+    font-size: clamp(0.98rem, 1.3vw, 1.08rem);
+    line-height: 1.62;
+    color: var(--ink-2);
+}
+
+.isp-page .isp-head-center {
+    max-width: 760px;
+    margin-inline: auto;
+    text-align: center;
+}
+
+.isp-page .isp-head-center .isp-blurb {
+    margin-inline: auto;
+}
+
+.isp-page .isp-hl {
+    background: var(--wordmark);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* -------------------------------------------------------------- buttons */
+
+.isp-page .isp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 11px 20px;
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease,
+        background 0.22s ease, color 0.22s ease;
+}
+
+.isp-page .isp-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-1);
+    border-color: color-mix(in srgb, var(--isp-accent) 45%, transparent);
+}
+
+.isp-page .isp-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.isp-page .isp-btn-primary {
+    background: var(--isp-accent);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 6px 20px color-mix(in srgb, var(--isp-accent) 28%, transparent);
+}
+
+.isp-page .isp-btn-primary:hover:not(:disabled) {
+    box-shadow: 0 10px 28px color-mix(in srgb, var(--isp-accent) 34%, transparent);
+    border-color: transparent;
+}
+
+.isp-page .isp-btn-ghost {
+    background: transparent;
+    border-color: var(--line);
+}
+
+.isp-page .isp-icon-btn {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink-2);
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.isp-page .isp-icon-btn:hover {
+    transform: translateY(-1px);
+    color: var(--isp-accent);
+    border-color: color-mix(in srgb, var(--isp-accent) 45%, transparent);
+}
+
+/* --------------------------------------------------- segmented controls */
+
+.isp-page .isp-rail {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 5px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--surface) 82%, transparent);
+    backdrop-filter: blur(12px);
+}
+
+.isp-page .isp-rail-indicator {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    height: calc(100% - 10px);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--isp-accent) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--isp-accent) 38%, transparent);
+    pointer-events: none;
+    opacity: 0;
+}
+
+.isp-page .isp-rail button {
+    position: relative;
+    z-index: 1;
+    border: 0;
+    border-radius: 999px;
+    padding: 8px 15px;
+    background: transparent;
+    color: var(--ink-3);
+    font: inherit;
+    font-size: 0.84rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.22s ease;
+}
+
+.isp-page .isp-rail button:hover {
+    color: var(--ink);
+}
+
+.isp-page .isp-rail button[aria-pressed="true"],
+.isp-page .isp-rail button[aria-selected="true"] {
+    color: var(--isp-accent);
+}
+
+/* ------------------------------------------------------------- the orb */
+
+.isp-page .isp-orb {
+    display: inline-grid;
+    place-items: center;
+    position: relative;
+    border-radius: 999px;
+    flex: none;
+}
+
+.isp-page .isp-orb::after {
+    content: "";
+    position: absolute;
+    inset: -7px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--isp-accent) 22%, transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.isp-page .isp-orb[data-playing]::after {
+    opacity: 1;
+    animation: isp-orb-ring 2.6s ease-out infinite;
+}
+
+@keyframes isp-orb-ring {
+    0% {
+        transform: scale(0.96);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(1.16);
+        opacity: 0;
+    }
+}
+
+.isp-page .isp-orb canvas {
+    display: block;
+}
+
+/* ------------------------------------------------------- waveform strip */
+
+.isp-page .isp-wavestrip {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.isp-page .isp-wavestrip canvas {
+    display: block;
+    width: 100%;
+}
+
+.isp-page .isp-rail-progress {
+    position: relative;
+    height: 4px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--isp-accent) 14%, transparent);
+    overflow: hidden;
+    border: 0;
+    padding: 0;
+    width: 100%;
+    cursor: pointer;
+}
+
+.isp-page .isp-rail-progress i {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 100%;
+    border-radius: 999px;
+    background: var(--isp-accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+}
+
+/* ---------------------------------------------------------- captions */
+
+.isp-page .isp-caption {
+    margin: 0;
+    font-size: clamp(1.02rem, 1.7vw, 1.35rem);
+    font-weight: 500;
+    line-height: 1.62;
+    color: var(--ink-4);
+    transition: color 0.3s ease;
+}
+
+.isp-page .isp-w {
+    display: inline-block;
+    color: var(--ink-4);
+    transition: color 0.28s ease, opacity 0.28s ease;
+}
+
+.isp-page .isp-w[data-said] {
+    color: var(--ink);
+}
+
+.isp-page .isp-w[data-now] {
+    color: var(--isp-accent);
+}
+
+.isp-page .isp-w[data-focus] {
+    padding: 0 3px;
+    border-radius: 5px;
+    background: color-mix(in srgb, var(--isp-accent) 9%, transparent);
+    box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--isp-accent) 30%, transparent);
+}
+
+.isp-page .isp-w[data-focus][data-said] {
+    color: var(--isp-accent);
+    background: color-mix(in srgb, var(--isp-accent) 15%, transparent);
+}
+
+/* Latin words inside an Indic sentence are set in italic, exactly as the film
+ * sets them, so a code-mixed line reads as code-mixed at a glance. */
+.isp-page .isp-caption[lang="hi"] .isp-w,
+.isp-page .isp-caption[lang="mr"] .isp-w,
+.isp-page .isp-bubble-text[lang="hi"] .isp-w {
+    font-synthesis: none;
+}
+
+.isp-page .isp-latin {
+    font-family: Inter, system-ui, sans-serif;
+    font-style: italic;
+}
+
+/* ------------------------------------------------------ block captions */
+
+.isp-page .isp-blocks {
+    display: grid;
+    gap: 15px;
+}
+
+.isp-page .isp-block {
+    --isp-read: 0;
+    position: relative;
+    margin: 0;
+    padding-left: 16px;
+    font-size: 1rem;
+    line-height: 1.72;
+    color: var(--ink-4);
+    transition: color 0.4s ease, opacity 0.4s ease;
+}
+
+.isp-page .isp-block::before {
+    content: "";
+    position: absolute;
+    inset: 4px auto 4px 0;
+    width: 2px;
+    border-radius: 2px;
+    background: color-mix(in srgb, var(--isp-accent) 22%, transparent);
+    transform: scaleY(0);
+    transform-origin: top center;
+    transition: transform 0.4s ease;
+}
+
+.isp-page .isp-block[data-said] {
+    color: var(--ink-2);
+}
+
+.isp-page .isp-block[data-now] {
+    color: var(--ink);
+    font-weight: 500;
+}
+
+.isp-page .isp-block[data-now]::before {
+    background: var(--isp-accent);
+    transform: scaleY(var(--isp-read));
+}
+
+.isp-page .isp-block[data-said]:not([data-now])::before {
+    transform: scaleY(1);
+}
+
+.isp-page .isp-block[data-kind="opening"],
+.isp-page .isp-block[data-kind="closing"] {
+    font-size: 1.06rem;
+}
+
+.isp-page .isp-block[data-kind="headline"] {
+    font-weight: 600;
+}
+
+/* ============================================================== HERO === */
+
+.isp-page .isp-hero {
+    padding-top: clamp(96px, 12vw, 150px);
+    padding-bottom: clamp(48px, 6vw, 80px);
+    text-align: center;
+    overflow: hidden;
+}
+
+.isp-page .isp-lang-ring {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.isp-page .isp-lang-ring span {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    font-weight: 500;
+    color: var(--ink);
+    opacity: 0.14;
+}
+
+.isp-page .isp-hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    justify-items: center;
+    gap: 0;
+}
+
+.isp-page .isp-collab {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 9px 18px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--surface) 78%, transparent);
+    backdrop-filter: blur(14px);
+    box-shadow: var(--shadow-1);
+}
+
+.isp-page .isp-collab img {
+    height: 26px;
+    width: auto;
+    object-fit: contain;
+}
+
+.isp-page .isp-collab-bodhan {
+    height: 30px;
+}
+
+.isp-page .isp-collab span {
+    color: var(--ink-4);
+    font-size: 0.85rem;
+}
+
+.isp-page .isp-hero .isp-eyebrow {
+    margin-top: 30px;
+}
+
+.isp-page .isp-wordmark {
+    margin: 10px 0 0;
+    font-size: clamp(2.9rem, 8.5vw, 5.6rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 1;
+}
+
+.isp-page .isp-wordmark span {
+    display: inline-block;
+    background: var(--wordmark);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    will-change: transform;
+}
+
+.isp-page .isp-hero-tagline {
+    margin: 16px 0 0;
+    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+}
+
+.isp-page .isp-hero-desc {
+    margin: 18px auto 0;
+    max-width: 60ch;
+    font-size: clamp(0.97rem, 1.35vw, 1.08rem);
+    line-height: 1.65;
+    color: var(--ink-2);
+}
+
+.isp-page .isp-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+/* The hero's play chip: the orb, the script it is reading, and a transport. */
+.isp-page .isp-hook {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 40px;
+    padding: 16px 22px 16px 16px;
+    max-width: 620px;
+    text-align: left;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    backdrop-filter: blur(16px);
+    box-shadow: var(--shadow-2);
+}
+
+.isp-page .isp-hook-body {
+    min-width: 0;
+    flex: 1;
+}
+
+.isp-page .isp-hook-meta {
+    margin: 0 0 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+}
+
+.isp-page .isp-hook .isp-caption {
+    font-size: 1.02rem;
+}
+
+.isp-page .isp-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    margin-top: 46px;
+    width: min(100%, 900px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--line-2);
+    overflow: hidden;
+}
+
+.isp-page .isp-stat {
+    padding: 22px 16px;
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+}
+
+.isp-page .isp-stat b {
+    display: block;
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    background: var(--wordmark);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.isp-page .isp-stat em {
+    display: block;
+    margin-top: 4px;
+    font-style: normal;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink-2);
+}
+
+.isp-page .isp-stat i {
+    display: block;
+    margin-top: 3px;
+    font-style: normal;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    color: var(--ink-4);
+}
+
+.isp-page .isp-tricolor {
+    display: flex;
+    gap: 5px;
+    width: min(100%, 360px);
+    margin: 54px auto 0;
+}
+
+.isp-page .isp-tricolor i {
+    height: 3px;
+    flex: 1;
+    border-radius: 3px;
+    transform-origin: center;
+}
+
+.isp-page .isp-tricolor i:nth-child(1) {
+    background: var(--saffron);
+}
+.isp-page .isp-tricolor i:nth-child(2) {
+    background: rgba(18, 32, 56, 0.16);
+}
+.isp-page .isp-tricolor i:nth-child(3) {
+    background: var(--green);
+}
+
+/* ========================================================== OVERVIEW === */
+
+.isp-page .isp-overview-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: clamp(28px, 4vw, 60px);
+    align-items: start;
+}
+
+.isp-page .isp-prose p {
+    margin: 18px 0 0;
+    font-size: 1rem;
+    line-height: 1.72;
+    color: var(--ink-2);
+}
+
+.isp-page .isp-prose p:first-child {
+    margin-top: 22px;
+}
+
+.isp-page .isp-specs {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    box-shadow: var(--shadow-1);
+    overflow: hidden;
+}
+
+.isp-page .isp-spec {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 15px 20px;
+    border-top: 1px solid var(--line-2);
+}
+
+.isp-page .isp-spec:first-child {
+    border-top: 0;
+}
+
+.isp-page .isp-spec dt {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+}
+
+.isp-page .isp-spec dd {
+    margin: 0;
+    font-size: 0.94rem;
+    font-weight: 600;
+    text-align: right;
+}
+
+.isp-page .isp-roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 22px;
+}
+
+.isp-page .isp-role {
+    padding: 7px 14px;
+    border: 1px dashed var(--line);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ink-3);
+}
+
+/* the tile mosaic */
+.isp-page .isp-mosaic {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: clamp(36px, 5vw, 62px);
+}
+
+.isp-page .isp-tile {
+    --isp-accent: var(--saffron);
+    position: relative;
+    overflow: hidden;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--surface) 90%, transparent);
+    box-shadow: var(--shadow-1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.isp-page .isp-tile:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-2);
+    border-color: color-mix(in srgb, var(--isp-accent) 40%, transparent);
+}
+
+.isp-page .isp-tile[data-span="wide"] {
+    grid-column: span 2;
+}
+
+.isp-page .isp-tile-glyph {
+    position: absolute;
+    right: 14px;
+    bottom: -18px;
+    font-size: 5.4rem;
+    line-height: 1;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--isp-accent) 13%, transparent);
+    pointer-events: none;
+    transition: transform 0.45s ease;
+}
+
+.isp-page .isp-tile:hover .isp-tile-glyph {
+    transform: translateY(-6px) rotate(-6deg);
+}
+
+.isp-page .isp-tile h3 {
+    position: relative;
+    margin: 0;
+    font-size: 1.06rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+}
+
+.isp-page .isp-tile h3::before {
+    content: "";
+    display: block;
+    width: 26px;
+    height: 3px;
+    margin-bottom: 12px;
+    border-radius: 3px;
+    background: var(--isp-accent);
+}
+
+.isp-page .isp-tile p {
+    position: relative;
+    margin: 10px 0 0;
+    max-width: 42ch;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+}
+
+/* ========================================================= LIVE DEMO === */
+
+.isp-page .isp-demo {
+    --isp-accent: var(--sky);
+}
+
+.isp-page .isp-panel {
+    margin-top: clamp(30px, 4vw, 48px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    box-shadow: var(--shadow-2);
+    overflow: hidden;
+}
+
+.isp-page .isp-panel-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line-2);
+    background: color-mix(in srgb, var(--isp-accent) 3%, transparent);
+}
+
+.isp-page .isp-panel-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+}
+
+.isp-page .isp-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: var(--ink-4);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.isp-page .isp-dot[data-live] {
+    background: var(--isp-accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--isp-accent) 18%, transparent);
+}
+
+.isp-page .isp-demo-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.isp-page .isp-demo-in,
+.isp-page .isp-demo-out {
+    padding: clamp(20px, 2.6vw, 30px);
+    min-width: 0;
+}
+
+.isp-page .isp-demo-in {
+    border-right: 1px solid var(--line-2);
+}
+
+.isp-page .isp-field-label {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 0 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+}
+
+.isp-page .isp-script {
+    width: 100%;
+    min-height: 148px;
+    padding: 16px 18px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--paper-2);
+    color: var(--ink);
+    font: inherit;
+    font-size: 1rem;
+    line-height: 1.62;
+    resize: vertical;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.isp-page .isp-script:focus {
+    outline: none;
+    border-color: color-mix(in srgb, var(--isp-accent) 55%, transparent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--isp-accent) 12%, transparent);
+}
+
+.isp-page .isp-script-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+    margin-top: 14px;
+    font-size: 0.8rem;
+    color: var(--ink-3);
+}
+
+.isp-page .isp-script-meta b {
+    color: var(--ink);
+    font-weight: 600;
+}
+
+.isp-page .isp-demo-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+/* the harness step, between the written script and the voice */
+.isp-page .isp-harness {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0 0;
+    padding: 13px 16px;
+    border: 1px dashed color-mix(in srgb, var(--isp-accent) 42%, transparent);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--isp-accent) 4%, transparent);
+}
+
+.isp-page .isp-harness-pill {
+    flex: none;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid color-mix(in srgb, var(--isp-accent) 40%, transparent);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--isp-accent);
+}
+
+.isp-page .isp-harness p {
+    margin: 0;
+    font-size: 0.84rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+}
+
+.isp-page .isp-out-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.isp-page .isp-out-voice {
+    min-width: 0;
+}
+
+.isp-page .isp-out-voice p {
+    margin: 0;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+}
+
+.isp-page .isp-out-voice b {
+    display: block;
+    margin-top: 3px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+}
+
+.isp-page .isp-out-spoken {
+    margin-top: 22px;
+    padding: 18px;
+    border-radius: 16px;
+    background: var(--paper-2);
+    border: 1px solid var(--line-2);
+}
+
+.isp-page .isp-out-spoken .isp-caption {
+    font-size: 1.04rem;
+}
+
+.isp-page .isp-transport {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.isp-page .isp-time {
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-3);
+    white-space: nowrap;
+}
+
+.isp-page .isp-note {
+    margin: 16px 0 0;
+    font-size: 0.8rem;
+    line-height: 1.55;
+    color: var(--ink-3);
+}
+
+.isp-page .isp-note[data-alert] {
+    color: var(--saffron);
+}
+
+.isp-page .isp-tex {
+    display: block;
+    margin-top: 12px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--line-2);
+    background: var(--paper-2);
+    font-family: "Latin Modern Math", "Cambria Math", Georgia, serif;
+    font-size: 1.05rem;
+    color: var(--ink);
+}
+
+/* ========================================================== EXAMPLES === */
+
+.isp-page .isp-tabs {
+    display: flex;
+    justify-content: center;
+    margin-top: clamp(26px, 3.5vw, 40px);
+}
+
+.isp-page .isp-stage {
+    position: relative;
+    margin-top: clamp(24px, 3vw, 36px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    box-shadow: var(--shadow-2);
+    overflow: hidden;
+}
+
+.isp-page .isp-stage-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 18px;
+    padding: clamp(22px, 3vw, 32px) clamp(22px, 3vw, 32px) 0;
+}
+
+.isp-page .isp-stage-head .isp-title {
+    margin-top: 10px;
+    font-size: clamp(1.35rem, 2.4vw, 1.95rem);
+}
+
+.isp-page .isp-stage-head .isp-blurb {
+    margin-top: 12px;
+    font-size: 0.95rem;
+    max-width: 60ch;
+}
+
+.isp-page .isp-stage-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ink-2);
+    white-space: nowrap;
+}
+
+.isp-page .isp-stage-body {
+    padding: clamp(22px, 3vw, 32px);
+}
+
+.isp-page .isp-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 22px;
+}
+
+.isp-page .isp-chip {
+    padding: 6px 13px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--isp-accent) 28%, transparent);
+    background: color-mix(in srgb, var(--isp-accent) 7%, transparent);
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--isp-accent) 82%, var(--ink));
+}
+
+.isp-page .isp-stage-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    padding: 18px clamp(22px, 3vw, 32px);
+    border-top: 1px solid var(--line-2);
+    background: color-mix(in srgb, var(--isp-accent) 3%, transparent);
+}
+
+.isp-page .isp-stage-foot .isp-rail-progress {
+    flex: 1;
+    min-width: 140px;
+}
+
+/* stage: a single line, centred, orb above */
+.isp-page .isp-line-stage {
+    display: grid;
+    justify-items: center;
+    gap: 24px;
+    text-align: center;
+    padding-block: clamp(10px, 2vw, 26px);
+}
+
+.isp-page .isp-line-stage .isp-caption {
+    max-width: 46ch;
+    font-size: clamp(1.15rem, 2.1vw, 1.6rem);
+}
+
+/* stage: podcast bubbles */
+.isp-page .isp-chat {
+    display: grid;
+    gap: 16px;
+    max-width: 780px;
+    margin-inline: auto;
+}
+
+.isp-page .isp-turn {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.isp-page .isp-turn[data-side="right"] {
+    flex-direction: row-reverse;
+}
+
+.isp-page .isp-bubble {
+    position: relative;
+    flex: 1;
+    padding: 16px 20px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: var(--surface);
+    box-shadow: var(--shadow-1);
+    opacity: 0.55;
+    transition: opacity 0.4s ease, border-color 0.4s ease, transform 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.isp-page .isp-turn[data-said] .isp-bubble {
+    opacity: 0.82;
+}
+
+.isp-page .isp-turn[data-now] .isp-bubble {
+    opacity: 1;
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--isp-accent) 45%, transparent);
+    box-shadow: 0 8px 26px color-mix(in srgb, var(--isp-accent) 16%, transparent);
+}
+
+.isp-page .isp-bubble-who {
+    margin: 0 0 7px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+    color: var(--isp-accent);
+}
+
+.isp-page .isp-bubble .isp-caption {
+    font-size: 1rem;
+}
+
+/* stage: news bulletin */
+.isp-page .isp-bulletin {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 26px;
+    align-items: start;
+}
+
+.isp-page .isp-onair {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--isp-accent) 40%, transparent);
+    background: color-mix(in srgb, var(--isp-accent) 8%, transparent);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--isp-accent);
+}
+
+.isp-page .isp-onair i {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: var(--isp-accent);
+}
+
+.isp-page .isp-onair[data-live] i {
+    animation: isp-blink 1.4s ease-in-out infinite;
+}
+
+@keyframes isp-blink {
+    50% {
+        opacity: 0.25;
+    }
+}
+
+.isp-page .isp-ticker {
+    position: relative;
+    margin-top: 24px;
+    padding: 10px 0;
+    border-top: 1px solid var(--line-2);
+    border-bottom: 1px solid var(--line-2);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.isp-page .isp-ticker-track {
+    display: inline-flex;
+    gap: 0;
+    will-change: transform;
+}
+
+.isp-page .isp-ticker span {
+    font-size: 0.86rem;
+    color: var(--ink-3);
+    padding-right: 6px;
+}
+
+.isp-page .isp-bulletin-side {
+    display: grid;
+    justify-items: center;
+    gap: 12px;
+    padding: 20px 22px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper-2);
+    text-align: center;
+    min-width: 172px;
+}
+
+.isp-page .isp-bulletin-side p {
+    margin: 0;
+    font-size: 0.72rem;
+    line-height: 1.5;
+    color: var(--ink-4);
+}
+
+/* stage: tutoring */
+.isp-page .isp-tutor {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: clamp(20px, 3vw, 36px);
+    align-items: center;
+}
+
+.isp-page .isp-tutor figure {
+    margin: 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-2);
+}
+
+.isp-page .isp-tutor img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+}
+
+.isp-page .isp-tutor-card {
+    padding: 22px 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-1);
+}
+
+/* stage: a page from a story or a chapter */
+.isp-page .isp-page-read {
+    position: relative;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    background: var(--paper-2);
+    overflow: hidden;
+}
+
+.isp-page .isp-page-art {
+    position: absolute;
+    inset: 0;
+    background-repeat: no-repeat;
+    background-position: center 60%;
+    background-size: min(72%, 460px);
+    opacity: 0.11;
+    pointer-events: none;
+}
+
+.isp-page .isp-page-head {
+    position: relative;
+    padding: 26px 26px 18px;
+    text-align: center;
+    border-bottom: 1px solid var(--line-2);
+}
+
+.isp-page .isp-page-head em {
+    display: block;
+    font-style: normal;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+}
+
+.isp-page .isp-page-head h3 {
+    margin: 8px 0 0;
+    font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.isp-page .isp-page-head i {
+    display: block;
+    margin-top: 6px;
+    font-style: normal;
+    font-size: 0.76rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--isp-accent);
+}
+
+.isp-page .isp-page-scroll {
+    position: relative;
+    max-height: 380px;
+    overflow-y: auto;
+    padding: 24px clamp(20px, 3vw, 40px);
+    scrollbar-width: thin;
+    -webkit-mask-image: linear-gradient(
+        180deg,
+        transparent 0,
+        #000 26px,
+        #000 calc(100% - 26px),
+        transparent 100%
+    );
+    mask-image: linear-gradient(
+        180deg,
+        transparent 0,
+        #000 26px,
+        #000 calc(100% - 26px),
+        transparent 100%
+    );
+}
+
+.isp-page .isp-page-scroll .isp-blocks {
+    max-width: 66ch;
+    margin-inline: auto;
+}
+
+/* ======================================================== NORMALIZER === */
+
+.isp-page .isp-norm {
+    --isp-accent: var(--violet);
+}
+
+.isp-page .isp-norm-words {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 22px;
+    margin-top: 26px;
+}
+
+.isp-page .isp-norm-words b {
+    font-size: clamp(1.15rem, 2.4vw, 1.9rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    background: var(--wordmark);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.isp-page .isp-beat {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(14px, 2.4vw, 30px);
+    margin-top: clamp(26px, 3.4vw, 42px);
+}
+
+.isp-page .isp-beat-card {
+    position: relative;
+    padding: 22px 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-1);
+    min-width: 0;
+}
+
+.isp-page .isp-beat-card[data-role="out"] {
+    background: color-mix(in srgb, var(--isp-accent) 4%, var(--surface));
+    border-color: color-mix(in srgb, var(--isp-accent) 26%, transparent);
+}
+
+.isp-page .isp-beat-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 12px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+}
+
+.isp-page .isp-beat-tag::before {
+    content: "";
+    width: 14px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--isp-accent);
+}
+
+.isp-page .isp-beat-card[data-role="out"] .isp-beat-tag {
+    color: var(--isp-accent);
+}
+
+.isp-page .isp-written {
+    margin: 0;
+    font-size: 1.02rem;
+    line-height: 1.62;
+    font-weight: 500;
+    color: var(--ink);
+    word-break: break-word;
+}
+
+.isp-page .isp-beat-lang {
+    margin: 14px 0 0;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+}
+
+.isp-page .isp-beat-link {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-width: 128px;
+}
+
+.isp-page .isp-beat-link svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.isp-page .isp-beat-link svg path {
+    fill: none;
+    stroke: color-mix(in srgb, var(--isp-accent) 34%, transparent);
+    stroke-width: 1.5;
+}
+
+.isp-page .isp-beat-pill {
+    position: relative;
+    z-index: 1;
+    padding: 9px 15px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--isp-accent) 45%, transparent);
+    background: var(--surface);
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--isp-accent) 15%, transparent);
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--isp-accent);
+    white-space: nowrap;
+}
+
+.isp-page .isp-beat-foot {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+/* the flying token: a clone that travels from the written text to the pill */
+.isp-page .isp-token-fly {
+    position: fixed;
+    z-index: 40;
+    padding: 3px 8px;
+    border-radius: 8px;
+    background: var(--surface);
+    border: 1px solid color-mix(in srgb, var(--isp-accent) 45%, transparent);
+    box-shadow: var(--shadow-1);
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--isp-accent);
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+/* ========================================================= LANGUAGES === */
+
+.isp-page .isp-langs {
+    --isp-accent: var(--magenta);
+    text-align: center;
+    overflow: hidden;
+}
+
+.isp-page .isp-burst {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    max-width: 900px;
+    margin: clamp(30px, 4vw, 46px) auto 0;
+}
+
+.isp-page .isp-burst span {
+    padding: 9px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--surface) 86%, transparent);
+    box-shadow: var(--shadow-1);
+    font-size: 0.98rem;
+    font-weight: 500;
+    color: var(--ink);
+    transition: border-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+.isp-page .isp-burst span:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--isp-accent) 45%, transparent);
+    color: var(--isp-accent);
+}
+
+.isp-page .isp-burst span[data-script="urdu"] {
+    font-family: "Noto Nastaliq Urdu", "Nirmala UI", serif;
+    font-size: 1.1rem;
+}
+.isp-page .isp-burst span[data-script="olchiki"],
+.isp-page .isp-burst span[data-script="meetei"] {
+    font-family: "Noto Sans Ol Chiki", "Noto Sans Meetei Mayek", "Nirmala UI", Inter, sans-serif;
+}
+
+/* =========================================================== CLOSING === */
+
+.isp-page .isp-closing {
+    --isp-accent: var(--saffron);
+}
+
+.isp-page .isp-platforms {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 26px;
+}
+
+.isp-page .isp-platform {
+    padding: 13px 26px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    box-shadow: var(--shadow-1);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.isp-page .isp-closing-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 34px;
+}
+
+/* ========================================================= RESPONSIVE == */
+
+@media (max-width: 1000px) {
+    .isp-page .isp-overview-grid,
+    .isp-page .isp-demo-body,
+    .isp-page .isp-tutor,
+    .isp-page .isp-bulletin {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .isp-page .isp-demo-in {
+        border-right: 0;
+        border-bottom: 1px solid var(--line-2);
+    }
+
+    .isp-page .isp-mosaic {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .isp-page .isp-beat {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .isp-page .isp-beat-link {
+        min-height: 74px;
+    }
+
+    .isp-page .isp-bulletin-side {
+        justify-self: start;
+    }
+}
+
+@media (max-width: 720px) {
+    .isp-page .isp-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .isp-page .isp-mosaic,
+    .isp-page .isp-tile[data-span="wide"] {
+        grid-template-columns: minmax(0, 1fr);
+        grid-column: auto;
+    }
+
+    .isp-page .isp-hook {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .isp-page .isp-lang-ring {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .isp-page *,
+    .isp-page *::before,
+    .isp-page *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ------------------------------------------------- wordmark shine sweep */
+
+.isp-page .isp-wordmark {
+    position: relative;
+    display: inline-block;
+    isolation: isolate;
+}
+
+.isp-page .isp-shine {
+    position: absolute;
+    inset: -8% -14%;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+        100deg,
+        transparent 38%,
+        rgba(255, 255, 255, 0.82) 50%,
+        transparent 62%
+    );
+    mix-blend-mode: overlay;
+    opacity: 0;
+}
+
+.isp-page .isp-hero-play {
+    flex: none;
+}
+
+/* ----------------------------------------------- example stage details */
+
+.isp-page .isp-bulletin-scroll {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 18px;
+    padding-right: 8px;
+    scrollbar-width: thin;
+}
+
+.isp-page .isp-page-foot {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 22px;
+    border-top: 1px solid var(--line-2);
+    background: color-mix(in srgb, var(--surface) 70%, transparent);
+}
+
+.isp-page .isp-page-foot-note {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ink-3);
+}
+
+.isp-page .isp-tutor-caption {
+    margin-top: 18px;
+    font-size: 1.02rem;
+}
+
+.isp-page .isp-strip-wrap {
+    margin-top: 16px;
+}
+
+.isp-page .isp-out-idle {
+    margin-top: 22px;
+}
+
+.isp-page .isp-out-idle b {
+    color: var(--ink);
+}
+
+.isp-page .isp-demo-panel .isp-panel-bar .isp-rail {
+    flex: 1;
+    justify-content: flex-end;
+    border: 0;
+    background: transparent;
+    backdrop-filter: none;
+    padding: 0;
+}
+
+.isp-page .isp-demo-panel .isp-panel-bar .isp-rail-indicator {
+    top: 0;
+    height: 100%;
+}
+
+/* --------------------------------------------------- normaliser details */
+
+.isp-page .isp-token {
+    padding: 2px 6px;
+    margin: 0 1px;
+    border-radius: 7px;
+    background: color-mix(in srgb, var(--isp-accent) 11%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--isp-accent) 30%, transparent);
+    color: var(--isp-accent);
+    font-weight: 600;
+}
+
+.isp-page .isp-beat {
+    position: relative;
+}
+
+.isp-page .isp-beat-index {
+    position: absolute;
+    top: -14px;
+    left: -6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--ink-4);
+}
+
+.isp-page .isp-spoken {
+    font-size: 1.02rem;
+}
+
+.isp-page .isp-token-fly {
+    position: absolute;
+    z-index: 5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.isp-page .isp-norm-word {
+    display: inline-block;
+}
+
+/* The wordmark is revealed by a clip, so it needs a resting clip to
+ * animate from. */
+.isp-page .isp-wordmark span {
+    clip-path: inset(0 0 0 0);
+}
+
+@media (max-width: 1000px) {
+    .isp-page .isp-beat-link svg {
+        display: none;
+    }
+
+    .isp-page .isp-beat-index {
+        position: static;
+        display: block;
+        margin-bottom: 8px;
+    }
+}

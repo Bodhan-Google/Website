@@ -1,39 +1,55 @@
 import { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MapPin, Briefcase, ChevronDown, ExternalLink, Search, X, Layers } from 'lucide-react';
+import {
+    MapPin,
+    Briefcase,
+    ChevronDown,
+    ArrowUpRight,
+    Search,
+    X,
+    Maximize2,
+} from 'lucide-react';
 import Navbar from '../../home/components/Navbar';
 import Footer from '../../home/components/Footer';
-import { jobPostings, CATEGORY_ORDER, TAB_FOR_STATUS, DEFAULT_LOCATION } from '../data/jobs';
+import jobs from '../data/jobs.json';
 
 const APPLY_URL = 'https://forms.gle/PZAZ9rVnYcZvUxx97';
-
-/* Roles parked with `hold: true` are hidden from both tabs and from search. */
-const liveJobs = jobPostings.filter((job) => !job.hold);
-
-/* An open role with a past closingDate counts as closed without anyone editing the
-   data — it drops out of Hiring, loses its Apply button, and appears under Closed.
-   The role stays open through the whole of its closing date, and the cutoff is the
-   visitor's local midnight (same convention as TendersPage). Evaluated per render,
-   so a tab left open across midnight updates on the next interaction or reload. */
-const isExpired = (job) =>
-    !!job.closingDate && new Date(`${job.closingDate}T23:59:59`) < new Date();
-
-const effectiveStatus = (job) => (job.status === 'active' && isExpired(job) ? 'closed' : job.status);
-
+const DEFAULT_LOCATION = 'Chennai (Hybrid)';
+const CATEGORIES = [
+    'Research',
+    'Product Engineering',
+    'Data Operations',
+    'Partnership',
+    'Pedagogy',
+    'Business Operations',
+];
 const TABS = [
     { key: 'hiring', label: 'Hiring' },
     { key: 'closed', label: 'Closed' },
 ];
+const STATUS_TO_TAB = { active: 'hiring', closed: 'closed' };
 
-/* Full searchable text per role: title + the whole JD. Built once. */
-const searchIndex = new Map(
-    liveJobs.map((job) => [
+const visibleJobs = jobs.filter((job) => !job.hold);
+
+const isPastClosingDate = (job) => {
+    if (!job.closingDate) return false;
+    return new Date(`${job.closingDate}T23:59:59`) < new Date();
+};
+
+const effectiveStatus = (job) =>
+    job.status === 'active' && isPastClosingDate(job) ? 'closed' : job.status;
+
+const collapsedGroups = () => Object.fromEntries(CATEGORIES.map((category) => [category, false]));
+const expandedGroups = () => Object.fromEntries(CATEGORIES.map((category) => [category, true]));
+
+const jobSearchText = new Map(
+    visibleJobs.map((job) => [
         job.id,
         [
             job.title,
             job.category,
             job.experience,
-            job.location || DEFAULT_LOCATION, // index what the card actually shows
+            job.location || DEFAULT_LOCATION,
             job.about,
             ...job.responsibilities,
             ...job.required,
@@ -45,31 +61,27 @@ const searchIndex = new Map(
     ])
 );
 
-const matchesQuery = (job, tokens) => {
+const matchesSearch = (job, tokens) => {
     if (tokens.length === 0) return true;
-    const haystack = searchIndex.get(job.id);
+    const haystack = jobSearchText.get(job.id);
     return tokens.every((token) => haystack.includes(token));
 };
 
-const allOpen = () => Object.fromEntries(CATEGORY_ORDER.map((c) => [c, true]));
-const allClosed = () => Object.fromEntries(CATEGORY_ORDER.map((c) => [c, false]));
-
-/* Wraps every occurrence of the active search tokens in <mark>. Tokens are regex-
-   escaped — role copy contains "C++" and "(Backend Engineer)" — and matched
-   longest-first so a longer token wins over a shorter one that prefixes it. */
 const Highlight = ({ text, tokens }) => {
-    if (!tokens.length || !text) return text;
+    if (!tokens?.length || !text) return text;
+
     const pattern = tokens
         .slice()
         .sort((a, b) => b.length - a.length)
-        .map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+        .map((token) => token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
         .join('|');
     const parts = String(text).split(new RegExp(`(${pattern})`, 'gi'));
+
     return (
         <>
-            {parts.map((part, i) =>
-                i % 2 === 1 ? (
-                    <mark key={i} className="bg-orange-200 text-[#1A1A1A] rounded-sm px-0.5">
+            {parts.map((part, index) =>
+                index % 2 === 1 ? (
+                    <mark key={index} className="bg-orange-200 text-[#1A1A1A] rounded-sm px-0.5">
                         {part}
                     </mark>
                 ) : (
@@ -82,7 +94,7 @@ const Highlight = ({ text, tokens }) => {
 
 const JobCard = ({ job, index, tokens }) => {
     const [expanded, setExpanded] = useState(false);
-    const isOpenRole = effectiveStatus(job) === 'active';
+    const isOpen = effectiveStatus(job) === 'active';
 
     return (
         <motion.div
@@ -91,10 +103,9 @@ const JobCard = ({ job, index, tokens }) => {
             transition={{ duration: 0.35, delay: Math.min(index * 0.04, 0.24) }}
             className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden"
         >
-            {/* Card Header — always visible */}
             <div
                 className="p-6 md:p-7 cursor-pointer flex flex-col md:flex-row md:items-center gap-4 md:gap-6"
-                onClick={() => setExpanded(!expanded)}
+                onClick={() => setExpanded((current) => !current)}
             >
                 <div className="flex-1 min-w-0">
                     <h3 className="text-lg md:text-xl font-semibold text-[#1A1A1A] mb-2 leading-snug">
@@ -111,9 +122,10 @@ const JobCard = ({ job, index, tokens }) => {
                                 <Highlight text={job.experience} tokens={tokens} />
                             </span>
                         )}
-                        {!isOpenRole && (
+                        {!isOpen && (
                             <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-500 bg-gray-100 border border-gray-200 rounded-full px-2.5 py-0.5">
-                                <span className="w-1.5 h-1.5 rounded-full bg-gray-400" /> Closed
+                                <span className="w-1.5 h-1.5 rounded-full bg-gray-400" />
+                                Closed
                             </span>
                         )}
                     </div>
@@ -122,16 +134,16 @@ const JobCard = ({ job, index, tokens }) => {
                     </p>
                 </div>
                 <div className="flex items-center gap-3 flex-shrink-0">
-                    {isOpenRole && (
+                    {isOpen && (
                         <a
                             href={APPLY_URL}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-1.5 bg-[#0a0a0a] text-white text-sm font-medium py-2.5 px-5 rounded-lg hover:bg-black transition-colors"
-                            onClick={(e) => e.stopPropagation()}
+                            onClick={(event) => event.stopPropagation()}
                         >
                             Apply Now
-                            <ExternalLink size={14} />
+                            <ArrowUpRight size={14} />
                         </a>
                     )}
                     <button
@@ -144,64 +156,37 @@ const JobCard = ({ job, index, tokens }) => {
                 </div>
             </div>
 
-            {/* Expandable Details */}
             <motion.div
                 initial={false}
                 animate={{ height: expanded ? 'auto' : 0, opacity: expanded ? 1 : 0 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
                 className="overflow-hidden"
-                inert={!expanded}
+                inert={!expanded ? true : undefined}
             >
                 <div className="px-6 md:px-8 pb-8 pt-0 border-t border-gray-100">
                     <div className="pt-6 grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        {/* Key Responsibilities */}
-                        <div>
-                            <h4 className="text-sm font-semibold text-[var(--text-orange-500)] uppercase tracking-wide mb-3">
-                                Key Responsibilities
-                            </h4>
-                            <ul className="space-y-2">
-                                {job.responsibilities.map((item, i) => (
-                                    <li key={i} className="text-sm text-gray-600 leading-relaxed flex gap-2">
-                                        <span className="text-[var(--text-orange-500)] mt-1 flex-shrink-0">&#8226;</span>
-                                        <Highlight text={item} tokens={tokens} />
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        {/* Required Qualifications */}
-                        <div>
-                            <h4 className="text-sm font-semibold text-[var(--text-orange-500)] uppercase tracking-wide mb-3">
-                                Required Qualifications
-                            </h4>
-                            <ul className="space-y-2">
-                                {job.required.map((item, i) => (
-                                    <li key={i} className="text-sm text-gray-600 leading-relaxed flex gap-2">
-                                        <span className="text-[var(--text-orange-500)] mt-1 flex-shrink-0">&#8226;</span>
-                                        <Highlight text={item} tokens={tokens} />
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        {/* Preferred Qualifications */}
-                        <div>
-                            <h4 className="text-sm font-semibold text-[var(--text-orange-500)] uppercase tracking-wide mb-3">
-                                Preferred Qualifications
-                            </h4>
-                            <ul className="space-y-2">
-                                {job.preferred.map((item, i) => (
-                                    <li key={i} className="text-sm text-gray-600 leading-relaxed flex gap-2">
-                                        <span className="text-[var(--text-orange-500)] mt-1 flex-shrink-0">&#8226;</span>
-                                        <Highlight text={item} tokens={tokens} />
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+                        {[
+                            ['Key Responsibilities', job.responsibilities],
+                            ['Required Qualifications', job.required],
+                            ['Preferred Qualifications', job.preferred],
+                        ].map(([heading, items]) => (
+                            <div key={heading}>
+                                <h4 className="text-sm font-semibold text-[var(--text-orange-500)] uppercase tracking-wide mb-3">
+                                    {heading}
+                                </h4>
+                                <ul className="space-y-2">
+                                    {items.map((item) => (
+                                        <li key={item} className="text-sm text-gray-600 leading-relaxed flex gap-2">
+                                            <span className="text-[var(--text-orange-500)] mt-1 flex-shrink-0">•</span>
+                                            <Highlight text={item} tokens={tokens} />
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
                     </div>
 
-                    {/* Bottom Apply Button */}
-                    {isOpenRole ? (
+                    {isOpen ? (
                         <div className="mt-8 pt-6 border-t border-gray-50 flex justify-end">
                             <a
                                 href={APPLY_URL}
@@ -210,14 +195,12 @@ const JobCard = ({ job, index, tokens }) => {
                                 className="inline-flex items-center gap-1.5 bg-[#0a0a0a] text-white text-sm font-medium py-2.5 px-6 rounded-lg hover:bg-black transition-colors"
                             >
                                 Apply for {job.title}
-                                <ExternalLink size={14} />
+                                <ArrowUpRight size={14} />
                             </a>
                         </div>
                     ) : (
                         <div className="mt-8 pt-6 border-t border-gray-50">
-                            <p className="text-sm text-gray-400">
-                                This role is not accepting applications right now.
-                            </p>
+                            <p className="text-sm text-gray-400">This role is not accepting applications right now.</p>
                         </div>
                     )}
                 </div>
@@ -226,39 +209,37 @@ const JobCard = ({ job, index, tokens }) => {
     );
 };
 
-const CategoryGroup = ({ category, jobs, isOpen, onToggle, tokens }) => (
+const CategoryGroup = ({ category, jobs: groupJobs, isOpen, onToggle, tokens }) => (
     <div className="bg-white/60 rounded-2xl border border-gray-100 overflow-hidden">
-        {/* Group header — clickable */}
         <button
+            type="button"
             onClick={onToggle}
             aria-expanded={isOpen}
             className="w-full flex items-center gap-3 px-5 md:px-6 py-4 text-left hover:bg-white transition-colors group"
         >
             <ChevronDown
                 size={20}
-                className={`text-[var(--text-orange-500)] flex-shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-0' : '-rotate-90'}`}
+                className={`text-[var(--text-orange-500)] flex-shrink-0 transition-transform duration-200 ${
+                    isOpen ? 'rotate-0' : '-rotate-90'
+                }`}
             />
             <span className="text-base md:text-lg font-semibold text-[#1A1A1A] group-hover:text-[var(--text-orange-500)] transition-colors">
                 <Highlight text={category} tokens={tokens} />
             </span>
             <span className="text-xs font-semibold rounded-full px-2 py-0.5 bg-orange-100 text-[var(--text-orange-500)]">
-                {jobs.length}
+                {groupJobs.length}
             </span>
-            <span className="ml-auto text-xs text-gray-400 hidden sm:block">
-                {isOpen ? 'Collapse' : 'Expand'}
-            </span>
+            <span className="ml-auto text-xs text-gray-400 hidden sm:block">{isOpen ? 'Collapse' : 'Expand'}</span>
         </button>
-
-        {/* Group body */}
         <motion.div
             initial={false}
             animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
             transition={{ duration: 0.28, ease: 'easeInOut' }}
             className="overflow-hidden"
-            inert={!isOpen}
+            inert={!isOpen ? true : undefined}
         >
             <div className="px-3 md:px-4 pb-4 space-y-3">
-                {jobs.map((job, index) => (
+                {groupJobs.map((job, index) => (
                     <JobCard key={job.id} job={job} index={index} tokens={tokens} />
                 ))}
             </div>
@@ -267,9 +248,9 @@ const CategoryGroup = ({ category, jobs, isOpen, onToggle, tokens }) => (
 );
 
 const CareersPage = () => {
-    const [activeTab, setActiveTab] = useState('hiring');
+    const [tab, setTab] = useState('hiring');
     const [query, setQuery] = useState('');
-    const [openGroups, setOpenGroups] = useState(allClosed);
+    const [openGroups, setOpenGroups] = useState(collapsedGroups);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -279,49 +260,46 @@ const CareersPage = () => {
         () => query.trim().toLowerCase().split(/\s+/).filter(Boolean),
         [query]
     );
-    const isSearching = tokens.length > 0;
+    const searching = tokens.length > 0;
 
-    /* Roles in the active tab that match the current query, grouped by category. */
-    const groups = useMemo(() => {
-        const visible = liveJobs.filter(
-            (job) => TAB_FOR_STATUS[effectiveStatus(job)] === activeTab && matchesQuery(job, tokens)
+    const grouped = useMemo(() => {
+        const filtered = visibleJobs.filter(
+            (job) => STATUS_TO_TAB[effectiveStatus(job)] === tab && matchesSearch(job, tokens)
         );
-        return CATEGORY_ORDER.map((category) => ({
+        return CATEGORIES.map((category) => ({
             category,
-            jobs: visible.filter((job) => job.category === category),
+            jobs: filtered.filter((job) => job.category === category),
         })).filter((group) => group.jobs.length > 0);
-    }, [activeTab, tokens]);
+    }, [tab, tokens]);
 
-    const matchCount = groups.reduce((sum, group) => sum + group.jobs.length, 0);
+    const visibleCount = grouped.reduce((sum, group) => sum + group.jobs.length, 0);
+
     const tabCounts = useMemo(() => {
         const counts = { hiring: 0, closed: 0 };
-        liveJobs.forEach((job) => {
-            if (matchesQuery(job, tokens)) counts[TAB_FOR_STATUS[effectiveStatus(job)]] += 1;
+        visibleJobs.forEach((job) => {
+            if (matchesSearch(job, tokens)) {
+                counts[STATUS_TO_TAB[effectiveStatus(job)]] += 1;
+            }
         });
         return counts;
     }, [tokens]);
 
-    /* Every group starts collapsed, on both tabs. A running search force-expands
-       them so matches are never hidden behind a fold; clearing it re-collapses. */
     useEffect(() => {
-        setOpenGroups(isSearching ? allOpen() : allClosed());
-    }, [isSearching]);
+        setOpenGroups(searching ? expandedGroups() : collapsedGroups());
+    }, [searching]);
 
-    /* Switching tabs returns groups to collapsed — unless a search is running, in
-       which case the new tab's matches should be visible straight away. */
-    const selectTab = (key) => {
-        setActiveTab(key);
-        setOpenGroups(isSearching ? allOpen() : allClosed());
+    const switchTab = (next) => {
+        setTab(next);
+        setOpenGroups(searching ? expandedGroups() : collapsedGroups());
     };
 
-    const everyGroupOpen = groups.length > 0 && groups.every((g) => openGroups[g.category]);
+    const allExpanded = grouped.length > 0 && grouped.every((group) => openGroups[group.category]);
 
     return (
         <div className="min-h-screen bg-[var(--bg-cream-50)] flex flex-col">
             <Navbar />
 
             <div className="flex-1 flex flex-col">
-                {/* Header */}
                 <div className="pt-12 pb-6 px-6">
                     <div className="max-w-5xl mx-auto text-center">
                         <motion.h1
@@ -330,8 +308,7 @@ const CareersPage = () => {
                             transition={{ duration: 0.6 }}
                             className="text-4xl md:text-5xl font-semibold text-[#1A1A1A] mb-4"
                         >
-                            Join{' '}
-                            <span className="text-[var(--text-orange-500)]">Bodhan AI</span>
+                            Join <span className="text-[var(--text-orange-500)]">Bodhan AI</span>
                         </motion.h1>
                         <motion.p
                             initial={{ opacity: 0, y: 12 }}
@@ -353,7 +330,6 @@ const CareersPage = () => {
                     </div>
                 </div>
 
-                {/* Tabs */}
                 <div className="max-w-5xl mx-auto px-6 mb-5 w-full">
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -361,33 +337,33 @@ const CareersPage = () => {
                         transition={{ duration: 0.5, delay: 0.28 }}
                         className="flex border-b border-gray-200"
                     >
-                        {TABS.map((tab) => (
+                        {TABS.map((item) => (
                             <button
-                                key={tab.key}
-                                onClick={() => selectTab(tab.key)}
-                                aria-selected={activeTab === tab.key}
+                                key={item.key}
+                                type="button"
+                                onClick={() => switchTab(item.key)}
+                                aria-selected={tab === item.key}
                                 className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium transition-all border-b-2 -mb-px ${
-                                    activeTab === tab.key
+                                    tab === item.key
                                         ? 'border-[var(--text-orange-500)] text-[var(--text-orange-500)]'
                                         : 'border-transparent text-gray-500 hover:text-gray-700'
                                 }`}
                             >
-                                {tab.label}
+                                {item.label}
                                 <span
                                     className={`text-xs font-semibold rounded-full px-1.5 py-0.5 ${
-                                        activeTab === tab.key
+                                        tab === item.key
                                             ? 'bg-orange-100 text-[var(--text-orange-500)]'
                                             : 'bg-gray-100 text-gray-500'
                                     }`}
                                 >
-                                    {tabCounts[tab.key]}
+                                    {tabCounts[item.key]}
                                 </span>
                             </button>
                         ))}
                     </motion.div>
                 </div>
 
-                {/* Search + expand/collapse — scoped to the active tab */}
                 <div className="max-w-5xl mx-auto px-6 mb-6 w-full">
                     <div className="flex flex-col sm:flex-row gap-3">
                         <div className="relative flex-1">
@@ -398,13 +374,14 @@ const CareersPage = () => {
                             <input
                                 type="search"
                                 value={query}
-                                onChange={(e) => setQuery(e.target.value)}
-                                placeholder={`Search ${activeTab === 'hiring' ? 'open' : 'closed'} roles by title or description…`}
-                                aria-label={`Search ${activeTab} roles`}
+                                onChange={(event) => setQuery(event.target.value)}
+                                placeholder={`Search ${tab === 'hiring' ? 'open' : 'closed'} roles by title or description…`}
+                                aria-label={`Search ${tab} roles`}
                                 className="w-full bg-white border border-gray-200 rounded-xl pl-10 pr-10 py-2.5 text-sm text-[#1A1A1A] placeholder:text-gray-400 focus:outline-none focus:border-[var(--text-orange-500)] focus:ring-2 focus:ring-orange-100 transition-colors [&::-webkit-search-cancel-button]:hidden"
                             />
                             {query && (
                                 <button
+                                    type="button"
                                     onClick={() => setQuery('')}
                                     aria-label="Clear search"
                                     className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
@@ -413,32 +390,33 @@ const CareersPage = () => {
                                 </button>
                             )}
                         </div>
-                        {groups.length > 0 && (
+                        {grouped.length > 0 && (
                             <button
-                                onClick={() => setOpenGroups(everyGroupOpen ? allClosed() : allOpen())}
+                                type="button"
+                                onClick={() => setOpenGroups(allExpanded ? collapsedGroups() : expandedGroups())}
                                 className="inline-flex items-center justify-center gap-1.5 text-sm font-medium text-gray-500 hover:text-[var(--text-orange-500)] bg-white border border-gray-200 hover:border-orange-200 rounded-xl px-4 py-2.5 transition-colors flex-shrink-0"
                             >
-                                <Layers size={14} />
-                                {everyGroupOpen ? 'Collapse all' : 'Expand all'}
+                                <Maximize2 size={14} />
+                                {allExpanded ? 'Collapse all' : 'Expand all'}
                             </button>
                         )}
                     </div>
-                    {isSearching && (
+                    {searching && (
                         <p className="text-xs text-gray-400 mt-2.5">
-                            {matchCount} {matchCount === 1 ? 'role' : 'roles'} in{' '}
-                            <span className="font-medium text-gray-500">
-                                {activeTab === 'hiring' ? 'Hiring' : 'Closed'}
-                            </span>{' '}
-                            match &ldquo;{query.trim()}&rdquo;
-                            {tabCounts[activeTab === 'hiring' ? 'closed' : 'hiring'] > 0 && (
+                            {visibleCount} {visibleCount === 1 ? 'role' : 'roles'} in{' '}
+                            <span className="font-medium text-gray-500">{tab === 'hiring' ? 'Hiring' : 'Closed'}</span>{' '}
+                            match “{query.trim()}”
+                            {tabCounts[tab === 'hiring' ? 'closed' : 'hiring'] > 0 && (
                                 <>
-                                    {' '}&middot;{' '}
+                                    {' '}
+                                    ·{' '}
                                     <button
-                                        onClick={() => selectTab(activeTab === 'hiring' ? 'closed' : 'hiring')}
+                                        type="button"
+                                        onClick={() => switchTab(tab === 'hiring' ? 'closed' : 'hiring')}
                                         className="text-[var(--text-orange-500)] hover:underline font-medium"
                                     >
-                                        {tabCounts[activeTab === 'hiring' ? 'closed' : 'hiring']} in{' '}
-                                        {activeTab === 'hiring' ? 'Closed' : 'Hiring'}
+                                        {tabCounts[tab === 'hiring' ? 'closed' : 'hiring']} in{' '}
+                                        {tab === 'hiring' ? 'Closed' : 'Hiring'}
                                     </button>
                                 </>
                             )}
@@ -446,19 +424,18 @@ const CareersPage = () => {
                     )}
                 </div>
 
-                {/* Grouped listings */}
                 <div className="max-w-5xl mx-auto px-6 pb-20 w-full">
                     <AnimatePresence mode="wait">
-                        {groups.length > 0 ? (
+                        {grouped.length > 0 ? (
                             <motion.div
-                                key={activeTab}
+                                key={tab}
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                                 transition={{ duration: 0.2 }}
                                 className="space-y-3"
                             >
-                                {groups.map((group) => (
+                                {grouped.map((group) => (
                                     <CategoryGroup
                                         key={group.category}
                                         category={group.category}
@@ -466,9 +443,9 @@ const CareersPage = () => {
                                         tokens={tokens}
                                         isOpen={!!openGroups[group.category]}
                                         onToggle={() =>
-                                            setOpenGroups((prev) => ({
-                                                ...prev,
-                                                [group.category]: !prev[group.category],
+                                            setOpenGroups((current) => ({
+                                                ...current,
+                                                [group.category]: !current[group.category],
                                             }))
                                         }
                                     />
@@ -476,7 +453,7 @@ const CareersPage = () => {
                             </motion.div>
                         ) : (
                             <motion.div
-                                key={activeTab + '-empty'}
+                                key={`${tab}-empty`}
                                 initial={{ opacity: 0, y: 12 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0 }}
@@ -486,12 +463,12 @@ const CareersPage = () => {
                                     <Search size={24} className="text-gray-400" />
                                 </div>
                                 <p className="text-gray-500 font-medium">
-                                    {isSearching
-                                        ? `No ${activeTab === 'hiring' ? 'open' : 'closed'} roles match “${query.trim()}”.`
-                                        : `No ${activeTab === 'hiring' ? 'open' : 'closed'} roles at the moment.`}
+                                    {searching
+                                        ? `No ${tab === 'hiring' ? 'open' : 'closed'} roles match “${query.trim()}”.`
+                                        : `No ${tab === 'hiring' ? 'open' : 'closed'} roles at the moment.`}
                                 </p>
                                 <p className="text-gray-400 text-sm mt-1">
-                                    {isSearching
+                                    {searching
                                         ? 'Try a different keyword, or check the other tab.'
                                         : 'Check back soon for new opportunities.'}
                                 </p>

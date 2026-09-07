@@ -1,0 +1,260 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Chhath Puja at dawn on the Ganga: women in saris standing in the river offering arghya to the rising sun with bamboo soop baskets of thekua and sugarcane, a woman carrying a daura basket down the ghat steps, and a man playing the dholak, with mango groves and sugarcane fields across the plain">
+  <title>Bhojpuri — Chhath Puja at dawn on the Ganga</title>
+
+  <defs>
+    <linearGradient id="bj-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F3DFD6"/>
+      <stop offset="45%" stop-color="#FBE8D9"/>
+      <stop offset="100%" stop-color="#FCEFDF"/>
+    </linearGradient>
+    <radialGradient id="bj-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F5BC8A" stop-opacity="0.85"/>
+      <stop offset="45%" stop-color="#F5BC8A" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#F5BC8A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bj-water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C6D1E3"/>
+      <stop offset="100%" stop-color="#B3C0D9"/>
+    </linearGradient>
+    <linearGradient id="bj-reflect" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F0B584" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#F0B584" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="400" fill="url(#bj-sky)"/>
+
+  <!-- ── dawn sun over the plain ── -->
+  <circle cx="855" cy="150" r="190" fill="url(#bj-glow)"/>
+  <circle cx="855" cy="150" r="58" fill="#F0A876"/>
+
+  <g fill="none" stroke="#B39A88" stroke-width="2.2" stroke-linecap="round" opacity="0.55">
+    <path d="M300 74 q13 -10 26 0"/>
+    <path d="M344 56 q11 -9 22 0"/>
+    <path d="M262 96 q10 -8 20 0"/>
+    <path d="M1010 82 q11 -9 22 0"/>
+  </g>
+
+  <!-- ── flat Gangetic plain: mango groves, temple spire, fields ── -->
+  <path d="M0 252 q200 -12 420 -6 q260 8 480 -4 q160 -8 300 4 v10 H0 Z" fill="#CFC0B0" opacity="0.7"/>
+
+  <g opacity="0.8">
+    <!-- mango grove clumps -->
+    <g fill="#9FB795">
+      <circle cx="700" cy="232" r="24"/><circle cx="726" cy="240" r="18"/><circle cx="676" cy="242" r="16"/>
+      <circle cx="978" cy="228" r="26"/><circle cx="1006" cy="238" r="19"/><circle cx="952" cy="240" r="17"/>
+    </g>
+    <g stroke="#A08C77" stroke-width="4" stroke-linecap="round">
+      <path d="M700 252 v-14"/><path d="M978 252 v-16"/>
+    </g>
+    <!-- village temple spire -->
+    <g fill="#D3BBA9">
+      <path d="M1108 252 v-40 l16 -34 l16 34 v40 z"/>
+      <rect x="1100" y="248" width="64" height="6" rx="2"/>
+    </g>
+    <path d="M1124 178 v-10" stroke="#C0A48F" stroke-width="3" stroke-linecap="round"/>
+    <!-- banana fronds -->
+    <g stroke="#A6BE9A" stroke-width="4" stroke-linecap="round" fill="none">
+      <path d="M60 252 q-4 -26 -22 -40"/>
+      <path d="M60 252 q4 -26 22 -40"/>
+      <path d="M60 252 q0 -30 0 -44"/>
+    </g>
+  </g>
+
+  <!-- ── the river ── -->
+  <rect y="252" width="1200" height="148" fill="url(#bj-water)"/>
+  <rect x="812" y="252" width="86" height="120" fill="url(#bj-reflect)"/>
+
+  <g stroke="#FFFFFF" stroke-linecap="round" opacity="0.5">
+    <path d="M120 286 h132" stroke-width="3"/>
+    <path d="M690 276 h120" stroke-width="3"/>
+    <path d="M930 300 h140" stroke-width="2.6"/>
+    <path d="M200 330 h176" stroke-width="3"/>
+    <path d="M760 344 h150" stroke-width="2.6"/>
+    <path d="M300 372 h190" stroke-width="3"/>
+    <path d="M980 380 h160" stroke-width="2.6"/>
+    <path d="M60 356 h96" stroke-width="2.4"/>
+  </g>
+  <g stroke="#9FAECB" stroke-linecap="round" opacity="0.45">
+    <path d="M420 292 h84" stroke-width="2"/>
+    <path d="M640 320 h96" stroke-width="2"/>
+    <path d="M120 392 h150" stroke-width="2"/>
+    <path d="M560 388 h120" stroke-width="2"/>
+  </g>
+
+  <!-- ── ghat steps descending into the water ── -->
+  <g>
+    <rect x="0" y="200" width="196" height="14" fill="#DACCBE"/>
+    <rect x="0" y="214" width="216" height="14" fill="#D2C2B2"/>
+    <rect x="0" y="228" width="238" height="14" fill="#CBB9A7"/>
+    <rect x="0" y="242" width="258" height="14" fill="#C3AF9C"/>
+    <rect x="0" y="256" width="232" height="12" fill="#AE9E8E" opacity="0.5"/>
+  </g>
+
+  <!-- ── man in dhoti-kurta playing the dholak on the steps ── -->
+  <g transform="translate(96 150)">
+    <!-- seated body -->
+    <path d="M-16 62 q-10 -30 4 -44 q14 -12 30 -2 q14 10 8 46 z" fill="#C3B6CE"/>
+    <!-- gamchha over the shoulder -->
+    <path d="M14 20 q16 12 10 40 l-10 -2 q6 -22 -6 -34 z" fill="#DFA69B" opacity="0.9"/>
+    <!-- dhoti -->
+    <path d="M-20 62 q22 10 46 0 l4 20 q-28 8 -54 0 z" fill="#F1E9DD"/>
+    <!-- head -->
+    <circle cx="6" cy="6" r="13" fill="#C99A78"/>
+    <path d="M-7 4 q6 -14 20 -8 q6 3 6 8 q-14 -6 -26 0 z" fill="#4A3B33"/>
+    <!-- arms to the drum -->
+    <g stroke="#C99A78" stroke-width="7" stroke-linecap="round" fill="none">
+      <path d="M-10 30 q-22 12 -26 26"/>
+      <path d="M20 30 q22 10 24 24"/>
+    </g>
+    <!-- dholak -->
+    <g transform="translate(4 84)">
+      <ellipse cx="0" cy="16" rx="46" ry="7" fill="#9E8E7E" opacity="0.35"/>
+      <path d="M-40 -12 q40 -12 80 0 l-8 26 q-32 10 -64 0 z" fill="#C08A63"/>
+      <ellipse cx="-40" cy="-12" rx="8" ry="14" fill="#F2E6D8"/>
+      <ellipse cx="40" cy="-12" rx="8" ry="14" fill="#F2E6D8"/>
+      <g stroke="#A87550" stroke-width="1.8" opacity="0.8">
+        <path d="M-30 -14 l-4 22"/><path d="M-6 -18 l-2 26"/><path d="M18 -18 l2 26"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ── woman carrying the daura basket down the steps ── -->
+  <g transform="translate(268 128)">
+    <!-- sari, bell silhouette -->
+    <path d="M-20 124 q-6 -56 8 -78 q10 -16 26 -14 q18 2 22 22 q6 26 2 70 z" fill="#D98A7E"/>
+    <!-- sari border -->
+    <path d="M-20 124 q38 10 58 0 l2 8 q-30 10 -62 0 z" fill="#C0705F"/>
+    <!-- blouse -->
+    <path d="M-8 44 q14 -8 28 0 l-2 14 q-12 -6 -24 0 z" fill="#C0705F"/>
+    <!-- head + pallu drawn over it -->
+    <circle cx="6" cy="26" r="13" fill="#C99A78"/>
+    <path d="M-9 30 q-4 -22 15 -24 q19 2 15 24 q-4 -12 -15 -12 q-11 0 -15 12 z" fill="#E0A198"/>
+    <path d="M20 32 q12 22 4 56 l-10 -4 q8 -26 -2 -48 z" fill="#E0A198" opacity="0.95"/>
+    <!-- arm steadying the load -->
+    <path d="M14 48 q18 -14 12 -34" stroke="#C99A78" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <!-- daura basket on the head, with offerings -->
+    <g transform="translate(6 2)">
+      <path d="M-30 8 q30 14 60 0 l-6 -16 q-24 8 -48 0 z" fill="#E0C193"/>
+      <path d="M-36 -8 h72 l-6 12 q-30 10 -60 0 z" fill="#E9D0A9"/>
+      <g stroke="#C6A374" stroke-width="1.6" opacity="0.85">
+        <path d="M-30 -4 q30 10 60 0"/><path d="M-27 2 q27 9 54 0"/>
+      </g>
+      <!-- thekua discs, banana, coconut -->
+      <circle cx="-16" cy="-14" r="7" fill="#C98B52"/>
+      <circle cx="-2" cy="-17" r="7" fill="#BE8049"/>
+      <path d="M8 -16 q12 -10 22 -2 q-10 8 -22 2 z" fill="#E3C97E"/>
+      <circle cx="20" cy="-20" r="6" fill="#B99476"/>
+    </g>
+    <!-- sugarcane held upright -->
+    <path d="M34 46 V-64" stroke="#A9BE9C" stroke-width="5" stroke-linecap="round"/>
+    <g stroke="#C9D7BE" stroke-width="1.8" opacity="0.9">
+      <path d="M28 -18 h12"/><path d="M28 -38 h12"/><path d="M28 -2 h12"/>
+    </g>
+  </g>
+
+  <!-- ── child on the step with a diya ── -->
+  <g transform="translate(360 196)">
+    <path d="M-11 56 q-4 -30 4 -42 q8 -10 18 -8 q11 2 12 14 q2 18 0 36 z" fill="#A9C3A4"/>
+    <circle cx="5" cy="14" r="10" fill="#C99A78"/>
+    <path d="M-5 12 q5 -11 15 -6 q4 2 4 6 q-10 -5 -19 0 z" fill="#4A3B33"/>
+    <path d="M12 30 q14 -6 16 -18" stroke="#C99A78" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <g transform="translate(30 8)">
+      <path d="M-8 0 q8 8 16 0 z" fill="#D9A277"/>
+      <path d="M4 -12 q6 7 0 12 q-6 -5 0 -12 z" fill="#F2C68C"/>
+    </g>
+  </g>
+
+  <!-- ── two women standing in the river, offering arghya to the sun ── -->
+  <!-- back woman, ochre sari -->
+  <g transform="translate(628 168)">
+    <path d="M-26 106 q-8 -52 8 -72 q12 -16 30 -12 q20 4 22 26 q4 30 -2 58 z" fill="#E5C083"/>
+    <path d="M-8 40 q14 -8 28 0 l-2 14 q-12 -6 -24 0 z" fill="#D0A45F"/>
+    <circle cx="6" cy="22" r="12" fill="#C99A78"/>
+    <path d="M-8 26 q-4 -20 14 -22 q18 2 14 22 q-4 -11 -14 -11 q-10 0 -14 11 z" fill="#EACB96"/>
+    <path d="M18 28 q14 24 6 60 l-10 -4 q8 -28 -4 -52 z" fill="#EACB96" opacity="0.95"/>
+    <!-- arms raised, holding the soop -->
+    <g stroke="#C99A78" stroke-width="7" stroke-linecap="round" fill="none">
+      <path d="M-14 44 q-18 -20 -8 -44"/>
+      <path d="M22 44 q20 -18 12 -44"/>
+    </g>
+    <g transform="translate(6 -8)">
+      <path d="M-28 0 q28 12 56 0 l-6 -12 q-22 8 -44 0 z" fill="#E0C193"/>
+      <path d="M-33 -12 h66 l-5 12 q-28 9 -56 0 z" fill="#E9D0A9"/>
+      <circle cx="-12" cy="-18" r="6" fill="#C98B52"/>
+      <circle cx="2" cy="-20" r="6" fill="#BE8049"/>
+      <path d="M12 -19 q10 -8 18 -2 q-8 7 -18 2 z" fill="#E3C97E"/>
+    </g>
+  </g>
+
+  <!-- front woman, rose sari -->
+  <g transform="translate(530 158)">
+    <path d="M-30 120 q-10 -58 8 -82 q14 -18 34 -14 q22 4 25 30 q5 34 -3 66 z" fill="#D98A7E"/>
+    <path d="M-30 120 q42 12 64 0 l2 8 q-34 12 -68 0 z" fill="#C0705F"/>
+    <path d="M-9 44 q16 -9 32 0 l-3 15 q-13 -7 -27 0 z" fill="#C0705F"/>
+    <circle cx="7" cy="24" r="13" fill="#C99A78"/>
+    <path d="M-9 28 q-4 -22 16 -24 q20 2 16 24 q-5 -12 -16 -12 q-11 0 -16 12 z" fill="#E0A198"/>
+    <path d="M21 30 q15 26 6 64 l-11 -4 q9 -30 -4 -56 z" fill="#E0A198" opacity="0.95"/>
+    <g stroke="#C99A78" stroke-width="7.5" stroke-linecap="round" fill="none">
+      <path d="M-16 48 q-20 -22 -10 -48"/>
+      <path d="M25 48 q22 -20 13 -48"/>
+    </g>
+    <!-- soop raised to the sun, with thekua and fruit -->
+    <g transform="translate(7 -14)">
+      <path d="M-32 0 q32 14 64 0 l-7 -14 q-25 9 -50 0 z" fill="#E0C193"/>
+      <path d="M-38 -14 h76 l-6 14 q-32 10 -64 0 z" fill="#EFD8B6"/>
+      <g stroke="#C6A374" stroke-width="1.6" opacity="0.85">
+        <path d="M-32 -10 q32 11 64 0"/><path d="M-28 -4 q28 10 56 0"/>
+      </g>
+      <circle cx="-15" cy="-21" r="7.5" fill="#C98B52"/>
+      <circle cx="1" cy="-24" r="7.5" fill="#BE8049"/>
+      <circle cx="-7" cy="-32" r="6.5" fill="#D19A61"/>
+      <path d="M13 -22 q13 -10 23 -2 q-11 9 -23 2 z" fill="#E3C97E"/>
+      <circle cx="27" cy="-27" r="6" fill="#B99476"/>
+    </g>
+    <!-- sugarcane pair -->
+    <path d="M-44 60 V-52" stroke="#A9BE9C" stroke-width="5.5" stroke-linecap="round"/>
+    <path d="M-54 62 V-30" stroke="#9DB390" stroke-width="4.5" stroke-linecap="round"/>
+    <g stroke="#C9D7BE" stroke-width="1.8" opacity="0.9">
+      <path d="M-50 -30 h12"/><path d="M-50 -8 h12"/><path d="M-50 14 h12"/>
+    </g>
+  </g>
+
+  <!-- ── diyas floating on the water ── -->
+  <g>
+    <g transform="translate(430 300)">
+      <ellipse cx="0" cy="10" rx="24" ry="6" fill="#93A0BC" opacity="0.4"/>
+      <path d="M-17 0 q17 15 34 0 z" fill="#D9A277"/>
+      <path d="M0 -13 q7 8 0 13 q-7 -6 0 -13 z" fill="#F2C68C"/>
+    </g>
+    <g transform="translate(720 348)">
+      <ellipse cx="0" cy="9" rx="21" ry="6" fill="#93A0BC" opacity="0.35"/>
+      <path d="M-14 0 q14 13 28 0 z" fill="#D9A277"/>
+      <path d="M0 -11 q6 7 0 11 q-6 -5 0 -11 z" fill="#F2C68C"/>
+    </g>
+    <g transform="translate(950 318)">
+      <ellipse cx="0" cy="8" rx="18" ry="5" fill="#93A0BC" opacity="0.3"/>
+      <path d="M-12 0 q12 11 24 0 z" fill="#D9A277"/>
+      <path d="M0 -10 q5 6 0 10 q-5 -4 0 -10 z" fill="#F2C68C"/>
+    </g>
+  </g>
+
+  <!-- ── sugarcane field at the right edge ── -->
+  <g opacity="0.9">
+    <g stroke="#A9BE9C" stroke-linecap="round">
+      <path d="M1128 252 V96" stroke-width="6"/>
+      <path d="M1166 252 V132" stroke-width="5"/>
+      <path d="M1092 252 V150" stroke-width="4.5"/>
+    </g>
+    <g stroke="#A9BE9C" stroke-width="4" stroke-linecap="round" fill="none">
+      <path d="M1128 112 q-44 -18 -62 -50"/>
+      <path d="M1128 142 q42 -16 58 -46"/>
+      <path d="M1166 148 q36 -12 50 -36"/>
+      <path d="M1092 166 q-38 -12 -52 -34"/>
+    </g>
+    <g stroke="#C9D7BE" stroke-width="2" opacity="0.9">
+      <path d="M1116 126 h24"/><path d="M1116 160 h24"/><path d="M1116 194 h24"/>
+      <path d="M1154 168 h24"/><path d="M1154 202 h24"/>
+    </g>
+  </g>
+</svg>

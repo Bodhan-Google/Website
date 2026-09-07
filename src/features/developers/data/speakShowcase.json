@@ -1,0 +1,121 @@
+{
+  "items": [
+    {
+      "id": "codemix-gu",
+      "group": "Code-mixing",
+      "name": "Gujarati + English",
+      "detail": "English words inside a Gujarati sentence",
+      "kind": "audio",
+      "lang": "gu",
+      "langLabel": "Gujarati",
+      "voice": "Dhara",
+      "audio": "indic-speak-post/audio/ab_gu_Dhara.mp3",
+      "dur": 22,
+      "text": "કારણ કે mammals એવા ખાસ પ્રાણીઓ છે જે જીવતા બચ્ચાંને જન્મ આપે છે અને તેમને દૂધ પીવડાવે છે, એટલે ઉડતું ચામાચીડિયું ખરેખર પક્ષીને બદલે mammal છે, કારણ કે તેને પીંછાને બદલે સુવાળી રૂંવાટી હોય છે અને તે ક્યારેય માળામાં ઈંડા નથી મૂકતું."
+    },
+    {
+      "id": "codemix-bn",
+      "group": "Code-mixing",
+      "name": "Bengali + English",
+      "detail": "The same benchmark sentence in Bengali",
+      "kind": "audio",
+      "lang": "bn",
+      "langLabel": "Bengali",
+      "voice": "Ishita",
+      "audio": "indic-speak-post/audio/ab_bn_Ishita.mp3",
+      "dur": 21,
+      "text": "যেখানে একজন সাধারণ পর্যবেক্ষক রাতের আকাশের দিকে তাকিয়ে ধরে নিতে পারে যে বাদুড় শুধুই অন্য এক ধরণের পাখি, এই উড়ন্ত প্রাণীটি আসলে একটা mammal কারণ এর শরীরে ঠিক zero-টি পালক থাকে এবং এটি নিজের জীবন্ত জন্ম নেওয়া বাচ্চাদের গরম দুধ খাওয়ায়।"
+    },
+    {
+      "id": "cast-native",
+      "group": "Casting",
+      "name": "Hindi text, Hindi voice",
+      "detail": "Native casting",
+      "kind": "audio",
+      "lang": "hi",
+      "langLabel": "Hindi",
+      "voice": "Suhani",
+      "audio": "indic-speak-post/audio/ab_hi_Suhani.mp3",
+      "dur": 22,
+      "text": "भले ही सूरज तेज़ रोशनी देता है और ऐसा लगता है कि वो आसमान में सफ़र करता है, लेकिन living और non-living चीज़ों के बीच के अंतर को ध्यान से देखने पर पता चलता है कि सूरज ज़िंदा नहीं है क्योंकि ये कभी सांस नहीं लेता, पानी नहीं पीता, या बच्चे पैदा नहीं करता।"
+    },
+    {
+      "id": "cast-cross",
+      "group": "Casting",
+      "name": "Hindi text, Urdu voice",
+      "detail": "The accent travels, the words do not",
+      "kind": "audio",
+      "lang": "hi",
+      "langLabel": "Hindi",
+      "voice": "Kiran",
+      "audio": "indic-speak-post/audio/ab_hi_Kiran.mp3",
+      "dur": 20,
+      "text": "भले ही सूरज तेज़ रोशनी देता है और ऐसा लगता है कि वो आसमान में सफ़र करता है, लेकिन living और non-living चीज़ों के बीच के अंतर को ध्यान से देखने पर पता चलता है कि सूरज ज़िंदा नहीं है क्योंकि ये कभी सांस नहीं लेता, पानी नहीं पीता, या बच्चे पैदा नहीं करता।"
+    },
+    {
+      "id": "style-news",
+      "group": "Styles",
+      "name": "News bulletin",
+      "detail": "AIR and TV registers",
+      "kind": "audio",
+      "lang": "hi",
+      "langLabel": "Hindi",
+      "voice": "Kavya",
+      "audio": "indic-speak-post/audio/style_news.mp3",
+      "dur": 43,
+      "text": "IIT Madras-Backed बोधन-AI and AI4Bharat, Launch 4 AI Models for Students and Teachers. Bodhan AI, a centre of excellence in AI for education incubated at IIT Madras, has launched four AI models for speech recognition, speech generation, machine translation and optical character recognition, in partnership with AI4Bharat. The models are being released as Digital Public Goods through open-weight models and hosted APIs on sovereign infrastructure. The initiative is part of the Bharat EduAI Stack, which aims to provide a common AI infrastructure layer for multilingual education in India."
+    },
+    {
+      "id": "style-lecture",
+      "group": "Styles",
+      "name": "Educational lecture",
+      "detail": "A teacher explaining, not a machine reading",
+      "kind": "audio",
+      "lang": "en",
+      "langLabel": "English",
+      "voice": "Amit",
+      "audio": "indic-speak-post/audio/style_educational_lecture.mp3",
+      "dur": 22,
+      "text": "The signal decomposition of neural EEG waves utilizes the Continuous Fourier Transform $\\hat{f}(\\omega) = \\int_{-\\infty}^{\\infty} f(t) e^{-i\\omega t} dt$."
+    },
+    {
+      "id": "style-care",
+      "group": "Styles",
+      "name": "Customer care",
+      "detail": "The courteous register, six seconds of it",
+      "kind": "audio",
+      "lang": "hi",
+      "langLabel": "Hindi",
+      "voice": "Suhani",
+      "audio": "indic-speak-post/audio/style_customer_care.mp3",
+      "dur": 6,
+      "text": "आपका कॉल करने के लिए धन्यवाद। मैं सुहानी बोल रही हूँ, बताइए, आज मैं आपकी किस तरह मदद कर सकती हूँ?"
+    },
+    {
+      "id": "style-story",
+      "group": "Styles",
+      "name": "Children's story",
+      "detail": "Two and a half minutes, one narrator",
+      "kind": "audio",
+      "lang": "hi",
+      "langLabel": "Hindi",
+      "voice": "Suhani",
+      "audio": "indic-speak-post/audio/style_childrens_stories.mp3",
+      "dur": 145,
+      "text": "चंपकवन में एक बहुत बड़ा आम का पेड़ था। गर्मियों के मौसम में उस पर बहुत रसीले और मीठे आम लगे थे। भोलू भालू को आम बहुत पसंद थे। एक दिन सुबह-सुबह भोलू आम के पेड़ के पास पहुँचा। उसने लालच में आकर सोचा, \"आज सारे आम मैं ही खाऊँगा, किसी को एक भी नहीं दूँगा!\" तभी वहाँ चीकू खरगोश और मीकू चूहा भी खेलते हुए आ गए। \"भोलू दादा, क्या हमें भी कुछ मीठे आम दोगे?\" चीकू ने प्यार से पूछा। भोलू ने मुँह बनाते हुए कहा, \"बिल्कुल नहीं! यह पेड़ मैंने पहले देखा है। इसलिए इसके सारे आम मेरे हैं। तुम लोग कहीं और जाकर खेलो।\" चीकू और मीकू उदास होकर वहाँ से जाने लगे। तभी पेड़ की सबसे ऊँची डाल पर बैठे जग्गू बंदर ने यह सब देखा। उसे भोलू का लालच बिल्कुल पसंद नहीं आया। जग्गू ने भोलू को सबक सिखाने की एक तरकीब सोची। जग्गू ने पेड़ "
+    },
+    {
+      "id": "longform",
+      "group": "Long form",
+      "name": "Audiobook narration",
+      "detail": "Telugu, four minutes, one voice",
+      "kind": "audio",
+      "lang": "te",
+      "langLabel": "Telugu",
+      "voice": "Vamsi",
+      "audio": "indic-speak-post/audio/style_narration_te_Vamsi.mp3",
+      "dur": 250,
+      "text": "సముద్రపు అలల సవ్వడికి తోడుగా, చల్లని గాలి ముఖాన్ని తాకుతున్న వేళ, ఇది కేవలం ఒక కథ కాదు, ఓటమిని అంగీకరించని, ఒక ఆత్మవిశ్వాసపు ప్రయాణం. మీ కళ్ళు మూసుకుని, ఈ కథను ఆస్వాదించండి. అతని పేరు, రామ్. జీవితంలో అన్నీ తాననుకున్నట్టే జరుగుతున్నాయని సంతోషించే లోపే, కెరీర్ లో, ఊహించని ఒక ఆటంకం ఎదురైంది. తను ఎంతో కష్టపడి నిర్మించుకున్న ప్రాజెక్టు, ఆశలు అన్నీ, ఒక్కసారిగా కూలిపోయాయి. రోజుల తరబడి, గదికే పరిమితమయ్యాడు. ప్రతి రాత్రి, నిరాశతోటే గడిచేది. రేపటి ఉదయం గురించి ఆలోచించడమే, మానేశాడు. కానీ, ఒక రోజు తెల్లవారుజామున, నిద్రపట్టక, నగరంలోని సముద్ర తీరానికి, నడుచుకుంటూ వెళ్ళాడు. చీకటి ఇంకా, పూర్తిగా తొలగిపోలేదు. చుట్టూ, నిశబ్దం. దూరంగా, ఎవరో ఒక వ్యక్తి, లయబద్ధంగా పరిగెడుతూ కనిపించాడు. అతని అడుగుల్లో ఒక స్పష్టత,"
+    }
+  ]
+}

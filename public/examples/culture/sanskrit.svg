@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500" role="img" aria-label="Palm-leaf manuscript pages beside a lotus, in soft ochre tones">
+  <title>Sanskrit — palm-leaf manuscript</title>
+
+  <defs>
+    <linearGradient id="sans-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FDF5E9"/>
+      <stop offset="100%" stop-color="#F6E9D6"/>
+    </linearGradient>
+    <radialGradient id="sans-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#E0BE85" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#E0BE85" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sans-leaf" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#E6D0AC"/>
+      <stop offset="100%" stop-color="#DCC29A"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="500" fill="url(#sans-bg)"/>
+  <circle cx="900" cy="200" r="260" fill="url(#sans-glow)"/>
+
+  <!-- stacked palm-leaf folios -->
+  <g>
+    <g transform="rotate(-3 700 300)">
+      <rect x="560" y="300" width="560" height="54" rx="8" fill="url(#sans-leaf)" opacity="0.75"/>
+      <g stroke="#B99C6E" stroke-width="2" opacity="0.5">
+        <path d="M600 320 h180"/><path d="M800 320 h120"/><path d="M600 336 h140"/><path d="M760 336 h180"/>
+      </g>
+      <circle cx="640" cy="327" r="5" fill="none" stroke="#B99C6E" stroke-width="2" opacity="0.6"/>
+      <circle cx="1040" cy="327" r="5" fill="none" stroke="#B99C6E" stroke-width="2" opacity="0.6"/>
+    </g>
+    <g transform="rotate(1.5 700 372)">
+      <rect x="540" y="372" width="600" height="56" rx="8" fill="url(#sans-leaf)" opacity="0.9"/>
+      <g stroke="#B99C6E" stroke-width="2" opacity="0.55">
+        <path d="M580 392 h210"/><path d="M812 392 h150"/><path d="M580 410 h160"/><path d="M762 410 h200"/>
+      </g>
+      <circle cx="620" cy="400" r="5" fill="none" stroke="#B99C6E" stroke-width="2" opacity="0.6"/>
+      <circle cx="1060" cy="400" r="5" fill="none" stroke="#B99C6E" stroke-width="2" opacity="0.6"/>
+    </g>
+    <rect x="520" y="446" width="640" height="46" rx="8" fill="#D2B68C" opacity="0.55"/>
+  </g>
+
+  <!-- binding cord -->
+  <path d="M620 300 q-70 60 -20 146 q30 52 -34 62" fill="none" stroke="#C2A177" stroke-width="3" opacity="0.7"/>
+
+  <!-- lotus -->
+  <g transform="translate(250 330)" opacity="0.9">
+    <ellipse cx="0" cy="86" rx="130" ry="14" fill="#D8C7A6" opacity="0.45"/>
+    <g fill="#F0D9DE" stroke="#DCB9C2" stroke-width="2">
+      <path d="M0 70 q-96 -6 -104 -34 q54 -22 104 34 z"/>
+      <path d="M0 70 q96 -6 104 -34 q-54 -22 -104 34 z"/>
+      <path d="M0 70 q-62 -34 -52 -78 q46 10 52 78 z"/>
+      <path d="M0 70 q62 -34 52 -78 q-46 10 -52 78 z"/>
+      <path d="M0 70 q-24 -54 0 -96 q24 42 0 96 z"/>
+    </g>
+    <circle cx="0" cy="62" r="13" fill="#E9C98F" opacity="0.85"/>
+  </g>
+
+  <!-- lotus pads -->
+  <g fill="#BFCBAA" opacity="0.6">
+    <path d="M120 448 a44 20 0 1 0 88 0 a44 20 0 1 0 -88 0" />
+    <path d="M300 470 a34 15 0 1 0 68 0 a34 15 0 1 0 -68 0" />
+  </g>
+
+  <!-- reed stalks -->
+  <g stroke="#B7C4A4" stroke-width="4" stroke-linecap="round" opacity="0.7">
+    <path d="M60 448 V250"/>
+    <path d="M96 448 V300"/>
+  </g>
+</svg>
