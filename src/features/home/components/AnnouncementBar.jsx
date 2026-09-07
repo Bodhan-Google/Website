@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { X } from 'lucide-react';
 
 /**
- * The announcement strip above the navbar.
+ * The announcement strip, rendered as the navbar's own bottom edge.
  *
- * It scrolls away with the page rather than sticking: the navbar below it is the
- * thing that has to stay reachable, and a permanent bar would eat a line of
- * every screen for the whole visit.
+ * Inside the sticky bar rather than above it, so the two read as one header and
+ * the message stays with the reader instead of scrolling away on the first
+ * flick. Closing it takes the strip out of the header entirely.
  *
  * DISMISSAL is remembered per announcement, not per site. The key carries the
  * announcement's id, so closing this one does not silently close the next one —
@@ -24,20 +24,19 @@ const ANNOUNCEMENT = {
 const storageKey = (id) => `bodhan-announcement-dismissed:${id}`;
 
 const AnnouncementBar = () => {
-    // Starts hidden and appears once we know it was not dismissed: the other way
-    // round, a returning reader sees a flash of a bar they already closed.
-    const [shown, setShown] = useState(false);
-
-    useEffect(() => {
-        if (!ANNOUNCEMENT) return;
+    // Read at first render, not in an effect: an effect would paint the strip and
+    // then take it away again, which a returning reader sees as a flash of a bar
+    // they already closed.
+    const [shown, setShown] = useState(() => {
+        if (!ANNOUNCEMENT) return false;
         try {
-            setShown(window.localStorage.getItem(storageKey(ANNOUNCEMENT.id)) !== '1');
+            return window.localStorage.getItem(storageKey(ANNOUNCEMENT.id)) !== '1';
         } catch {
             // Private mode, or storage blocked: show it, and accept that the
             // dismissal will not survive the visit.
-            setShown(true);
+            return true;
         }
-    }, []);
+    });
 
     const dismiss = () => {
         setShown(false);
@@ -54,13 +53,13 @@ const AnnouncementBar = () => {
         <div
             role="region"
             aria-label="Announcement"
-            className="relative w-full bg-gradient-to-r from-[var(--primary-500)] to-[var(--text-orange-500)] text-white"
+            className="relative w-full border-t border-white/15 bg-gradient-to-r from-[var(--primary-500)] to-[var(--text-orange-500)] text-white"
         >
-            <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 sm:gap-3 px-10 sm:px-12 py-2.5 text-center">
-                <span className="hidden sm:inline text-[11px] font-bold uppercase tracking-[0.09em] text-white/90">
+            <div className="max-w-7xl mx-auto flex items-center justify-center gap-2.5 sm:gap-3.5 px-11 sm:px-14 py-3 text-center">
+                <span className="hidden sm:inline text-[13px] font-bold uppercase tracking-[0.09em] text-white/90">
                     {ANNOUNCEMENT.label}
                 </span>
-                <span className="text-[13px] sm:text-sm font-semibold leading-snug">
+                <span className="text-[15px] sm:text-base font-semibold leading-snug">
                     {ANNOUNCEMENT.message}
                 </span>
             </div>
@@ -68,9 +67,9 @@ const AnnouncementBar = () => {
                 type="button"
                 onClick={dismiss}
                 aria-label="Dismiss announcement"
-                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 grid place-items-center h-7 w-7 rounded-full text-white/80 transition-colors hover:bg-white/15 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 grid place-items-center h-8 w-8 rounded-full text-white/80 transition-colors hover:bg-white/15 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
-                <X size={15} aria-hidden="true" />
+                <X size={17} aria-hidden="true" />
             </button>
         </div>
     );

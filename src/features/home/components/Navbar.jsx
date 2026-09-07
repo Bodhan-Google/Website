@@ -47,8 +47,6 @@ const Navbar = () => {
     };
 
     return (
-        <>
-        <AnnouncementBar />
         <motion.nav
             className="sticky top-0 z-50 w-full bg-[var(--navbar-bg)]"
             initial="hidden"
@@ -132,8 +130,9 @@ const Navbar = () => {
                     <Link to="/partners" className="text-[var(--text-primary)]/90 hover:text-orange-500 transition-colors" onClick={() => { setIsOpen(false); window.scrollTo(0, 0); }}>Partners</Link>
                 </div>
             </motion.div>
+        
+            <AnnouncementBar />
         </motion.nav>
-        </>
     );
 };
 
