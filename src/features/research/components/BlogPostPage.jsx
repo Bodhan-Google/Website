@@ -230,7 +230,7 @@ const BlogPostPage = () => {
                     <TableOfContents sections={tocSections} />
 
                     <article>
-                        <BlogContent sections={post.sections} />
+                        <BlogContent sections={post.sections} uniformProse={post.uniformProse} />
                     </article>
 
                     {post.cta && (

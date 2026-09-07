@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowUpRight, BookOpen, Scale } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, BookOpen, FileText, Scale } from 'lucide-react';
 import ModelTitleIntro from './ModelTitleIntro';
 import DevHeadline from '../DevHeadline';
 import { LICENSE_PATH } from '../../data/models';
@@ -29,6 +29,7 @@ const ModelHero = ({
     primaryCta,
     secondaryCta,
     blogCta,
+    docsCta,
     note,
     intro,
     license,
@@ -126,6 +127,20 @@ const ModelHero = ({
                             {blogCta.label}
                         </Link>
                     ))}
+                {/* Third: the API reference, which is on the console rather than
+                    here — hence the outbound arrow, as everywhere else. */}
+                {docsCta && (
+                    <a
+                        href={docsCta.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="model-cta-secondary"
+                    >
+                        <FileText size={14} aria-hidden="true" />
+                        {docsCta.label}
+                        <ArrowUpRight size={13} aria-hidden="true" />
+                    </a>
+                )}
                 {secondaryCta &&
                     (isExternal(secondaryCta.href) ? (
                         <a

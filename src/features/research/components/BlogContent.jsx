@@ -121,7 +121,7 @@ const renderCharts = (chartRefs) => {
     });
 };
 
-const BlogContent = ({ sections }) => {
+const BlogContent = ({ sections, uniformProse = false }) => {
     const proseRef = useRef(null);
 
     /*
@@ -216,7 +216,10 @@ const BlogContent = ({ sections }) => {
                             <p
                                 key={i}
                                 className={
-                                    i === 0
+                                    // A post can ask for one size throughout: in a long
+                                    // document the larger opening paragraph reads as a
+                                    // wobble rather than as emphasis.
+                                    i === 0 && !uniformProse
                                         ? 'research-type-lead mb-5 last:mb-0'
                                         : 'research-type-body mb-4 last:mb-0'
                                 }

@@ -31,6 +31,7 @@ const IndicSpeakPage = () => (
                 stats={STATS}
                 primaryCta={{ label: 'Hugging Face', href: model.hf }}
                 blogCta={model.blog}
+                docsCta={model.docs}
                 secondaryCta={{ label: 'Contact', href: '/contact' }}
                 license={LICENSE}
                 note="Early checkpoint — shared for integration testing, not final voice quality."

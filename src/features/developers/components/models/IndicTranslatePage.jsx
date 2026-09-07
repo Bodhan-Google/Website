@@ -96,6 +96,7 @@ const IndicTranslatePage = () => (
                 stats={STATS}
                 primaryCta={{ label: 'Hugging Face', href: model.hf }}
                 blogCta={model.blog}
+                docsCta={model.docs}
                 secondaryCta={{ label: 'Contact', href: '/contact' }}
                 license={LICENSE}
             />

@@ -4,14 +4,14 @@
  * (Neethi S & Sriya Sridhar, August 2026).
  *
  * The prose below is a condensed reading of the paper's executive summary and
- * recommendations; the PDF on Google Drive is the document of record.
+ * recommendations; the PDF on CeRAI's site is the document of record.
  */
 
-// The PDF lives on Google Drive, like the tender documents: a view link for
-// reading in the browser, a direct-download link for the closing card.
-const PDF_DRIVE_ID = '1Qm5WDEx72fYRkGNNeVsNHp9APEwzC0Kg';
-const PDF_URL = `https://drive.google.com/file/d/${PDF_DRIVE_ID}/view?usp=sharing`;
-const PDF_DOWNLOAD_URL = `https://drive.google.com/uc?export=download&id=${PDF_DRIVE_ID}`;
+// The paper on CeRAI's own site, which is where it is published: one URL, read
+// in the browser or saved, rather than the Google Drive copy this page used
+// before it was up.
+const PDF_URL = 'https://cerai.iitm.ac.in/docs/K-12-edu-India-global-south.pdf';
+const PDF_DOWNLOAD_URL = PDF_URL;
 const CERAI_URL = 'https://cerai.iitm.ac.in';
 
 export const k12PolicyPaperPost = {
@@ -28,6 +28,9 @@ export const k12PolicyPaperPost = {
         + 'recommendations for teachers, school systems, developers and regulators, organised around a '
         + 'systems standard.',
     featured: false,
+    // Every paragraph at the same size: the opening one is rendered as a lead
+    // elsewhere, which read as a typographic wobble in a document this long.
+    uniformProse: true,
     tagline:
         'AI in classrooms should scaffold teaching and learning, not substitute for them, and be adopted only where it demonstrably serves the child in front of it.',
     heroSummary:
@@ -44,10 +47,9 @@ export const k12PolicyPaperPost = {
     ],
     specs: [
         { label: 'Type', value: 'Policy paper' },
-        { label: 'Authors', value: 'Neethi S · Sriya Sridhar' },
-        { label: 'Publisher', value: 'CeRAI, IIT Madras' },
-        { label: 'Length', value: '41 pages' },
-        { label: 'Focus', value: 'K-12 · FLN · Global South' },
+        // The affiliation rides with the names rather than as a field of its own.
+        { label: 'Authors', value: 'Neethi S · Sriya Sridhar · CeRAI, IIT Madras' },
+        { label: 'Focus', value: 'K-12 · FLN · Global South · AI in Education · Responsible AI' },
     ],
 
     ...(PDF_URL
@@ -72,7 +74,7 @@ export const k12PolicyPaperPost = {
             title: 'Executive summary',
             hideHeading: true,
             content: [
-                'This paper examines the landscape of AI deployment in primary and secondary (K-12) education across India, informed by evidence from the broader Global South. Grounded in learning science and child-rights frameworks, it assesses how AI can act as an equaliser to narrow educational gaps, specifically in **Foundational Literacy and Numeracy (FLN)**, while establishing essential safeguards for student autonomy, data privacy and pedagogical integrity.',
+                'This paper examines the landscape of AI deployment in primary and secondary (K-12) education across India, informed by evidence from the broader Global South. Grounded in learning science and child-rights frameworks, it assesses how AI can act as an equaliser to narrow educational gaps, specifically in Foundational Literacy and Numeracy (FLN), while establishing essential safeguards for student autonomy, data privacy and pedagogical integrity.',
                 'Content personalisation alone does not meet the bar. The paper\'s overarching recommendation is that AI should be introduced only where there is a clearly identified educational need, a sound pedagogical rationale, appropriate teacher mediation, evidence of benefit, and adequate safeguards for equity, child rights and data protection. Solutions should be adopted not because the technology exists, but because they demonstrably serve the child in front of them.',
             ],
         },
@@ -143,6 +145,9 @@ export const k12PolicyPaperPost = {
             content: [
                 'The recommendations are addressed to four audiences. Each set follows from the same test: does the measure strengthen the system, start from a real classroom need, and fit the Indian context?',
             ],
+            // Boxed and numbered, like "Where AI can help": three audiences read as
+            // three parallel sets rather than one long stack of headings.
+            subsectionLayout: 'cards',
             subsections: [
                 {
                     title: 'For teachers and school administrators',
@@ -195,7 +200,7 @@ export const k12PolicyPaperPost = {
             id: 'about',
             title: 'About the paper',
             content: [
-                '**Dr. Neethi S** is Professor of Practice at the Wadhwani School of Data Science & AI, IIT Madras. He is also the Chief Strategy Officer at Bodhan AI. **Sriya Sridhar** is Senior Policy Analyst at the Centre for Responsible AI (CeRAI), IIT Madras. The paper is published by CeRAI, a multi-disciplinary, non-profit research centre positioned in the Global South that specialises in both technical and policy research to enable the responsible development and deployment of AI systems.',
+                '[Dr. Neethi S](https://www.linkedin.com/in/s-neethi/) is Professor of Practice at the Wadhwani School of Data Science & AI, IIT Madras. He is also the Chief Strategy Officer at Bodhan AI. **Sriya Sridhar** is Senior Policy Analyst at the Centre for Responsible AI (CeRAI), IIT Madras. The paper is published by CeRAI, a multi-disciplinary, non-profit research centre positioned in the Global South that specialises in both technical and policy research to enable the responsible development and deployment of AI systems.',
                 'Recommended citation: S, Neethi & Sridhar, S. (2026, August). *AI and K-12 Education in India and the Global South: Opportunities, Risks, and Policy Directions.* Centre for Responsible AI, Indian Institute of Technology Madras.',
             ],
         },

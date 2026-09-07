@@ -10,6 +10,16 @@ const BLOGS = {
     translate: postPathForSlug('indic-translate'),
 };
 
+// Each model's API Docs button goes to that model's section of the console's
+// reference — the same destination the announcements' API Docs chips use.
+const API_DOCS_BASE = 'https://console.bodhan.ai/api-docs/';
+const DOCS = {
+    transcribe: `${API_DOCS_BASE}#speech-to-text-api`,
+    translate: `${API_DOCS_BASE}#translation-api`,
+    speak: `${API_DOCS_BASE}#text-to-speech-api`,
+    ocr: `${API_DOCS_BASE}#document-ocr-api`,
+};
+
 // One palette for the whole developer section: the site's primary warm
 // gradient. Each model used to carry a colour of its own — emerald, blue,
 // orange, violet — which read as four separate products rather than one
@@ -87,6 +97,7 @@ export const models = [
         // the checkpoints carry their own repos; the model page links both
         hf: TRANSCRIBE_VARIANTS[0].hf,
         blog: { label: 'Read the blog', href: BLOGS.transcribe },
+        docs: { label: 'API Docs', href: DOCS.transcribe },
         href: '/developers/indic-transcribe',
     },
     {
@@ -106,6 +117,7 @@ export const models = [
         ],
         hf: `${HF}/indic-speak-preview-v2`,
         blog: { label: 'Read the blog', href: BLOGS.speak },
+        docs: { label: 'API Docs', href: DOCS.speak },
         href: '/developers/indic-speak',
     },
     {
@@ -125,6 +137,7 @@ export const models = [
         ],
         hf: `${HF}/indic-ocr`,
         blog: { label: 'Read the blog', href: BLOGS.ocr },
+        docs: { label: 'API Docs', href: DOCS.ocr },
         href: '/developers/indic-ocr',
     },
     {
@@ -144,6 +157,7 @@ export const models = [
         ],
         hf: `${HF}/indic-translate`,
         blog: { label: 'Read the blog', href: BLOGS.translate },
+        docs: { label: 'API Docs', href: DOCS.translate },
         href: '/developers/indic-translate',
     },
 ];
