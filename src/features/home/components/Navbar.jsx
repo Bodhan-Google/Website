@@ -2,6 +2,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight, BookOpen, ChevronDown, CircleDollarSign, Menu, X } from 'lucide-react';
 import gsap from 'gsap';
+import AnnouncementBar from './AnnouncementBar';
 
 import Icon from '../../../assets/Icon.png';
 import MoELogo from '../../../assets/Ministry_of_Education_India.png';
@@ -651,6 +652,10 @@ const Navbar = () => {
                     </div>
                 </div>
             )}
+
+            {/* The announcement rides with the header rather than above it, so it
+                stays put while the page moves. */}
+            <AnnouncementBar />
         </nav>
     );
 };
