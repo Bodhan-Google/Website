@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { X } from 'lucide-react';
+import { ArrowRight, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 /**
  * The announcement strip, rendered as the navbar's own bottom edge.
@@ -16,9 +17,12 @@ import { X } from 'lucide-react';
  * Set `ANNOUNCEMENT` to null to take the strip down.
  */
 const ANNOUNCEMENT = {
-    id: 'releases-2026-09',
-    label: 'Coming soon',
-    message: 'Four open Indic models releasing soon',
+    // A new id, so everyone sees this one — including the readers who dismissed
+    // the "coming soon" strip it replaces.
+    id: 'releases-2026-09-live',
+    label: 'Live',
+    message: 'Four open Indic models released',
+    cta: { label: 'Check them out', to: '/research/blogs' },
 };
 
 const storageKey = (id) => `bodhan-announcement-dismissed:${id}`;
@@ -64,13 +68,28 @@ const AnnouncementBar = () => {
                 borderTop: '1px solid rgba(255, 255, 255, 0.15)',
             }}
         >
-            <div className="max-w-7xl mx-auto flex items-center justify-center gap-2.5 sm:gap-3.5 px-11 sm:px-14 py-3 text-center">
-                <span className="hidden sm:inline text-[13px] font-bold uppercase tracking-[0.09em] text-white/90">
+            <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 sm:gap-x-3.5 px-11 sm:px-14 py-3 text-center">
+                <span className="hidden sm:inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.09em] text-white/90">
+                    {/* A live dot: the ring pulses, the dot itself stays solid, and
+                        neither moves for a reader who asked for less motion. */}
+                    <span className="relative grid h-2.5 w-2.5 place-items-center" aria-hidden="true">
+                        <span className="absolute inline-flex h-full w-full rounded-full bg-[#4ADE80] opacity-70 motion-safe:animate-ping" />
+                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#22C55E]" />
+                    </span>
                     {ANNOUNCEMENT.label}
                 </span>
                 <span className="text-[15px] sm:text-base font-semibold leading-snug">
                     {ANNOUNCEMENT.message}
                 </span>
+                {ANNOUNCEMENT.cta && (
+                    <Link
+                        to={ANNOUNCEMENT.cta.to}
+                        className="inline-flex items-center gap-1 text-[15px] sm:text-base font-semibold underline decoration-white/50 underline-offset-4 transition-colors hover:decoration-white"
+                    >
+                        {ANNOUNCEMENT.cta.label}
+                        <ArrowRight size={15} aria-hidden="true" />
+                    </Link>
+                )}
             </div>
             <button
                 type="button"
