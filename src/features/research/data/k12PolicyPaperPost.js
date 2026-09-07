@@ -195,7 +195,7 @@ export const k12PolicyPaperPost = {
             id: 'about',
             title: 'About the paper',
             content: [
-                '**Dr. Neethi S** is Professor of Practice at the Wadhwani School of Data Science & AI, IIT Madras. **Sriya Sridhar** is Senior Policy Analyst at the Centre for Responsible AI (CeRAI), IIT Madras. The paper is published by CeRAI, a multi-disciplinary, non-profit research centre positioned in the Global South that specialises in both technical and policy research to enable the responsible development and deployment of AI systems.',
+                '**Dr. Neethi S** is Professor of Practice at the Wadhwani School of Data Science & AI, IIT Madras. He is also the Chief Strategy Officer at Bodhan AI. **Sriya Sridhar** is Senior Policy Analyst at the Centre for Responsible AI (CeRAI), IIT Madras. The paper is published by CeRAI, a multi-disciplinary, non-profit research centre positioned in the Global South that specialises in both technical and policy research to enable the responsible development and deployment of AI systems.',
                 'Recommended citation: S, Neethi & Sridhar, S. (2026, August). *AI and K-12 Education in India and the Global South: Opportunities, Risks, and Policy Directions.* Centre for Responsible AI, Indian Institute of Technology Madras.',
             ],
         },

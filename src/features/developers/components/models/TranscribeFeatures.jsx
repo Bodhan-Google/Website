@@ -25,11 +25,11 @@ const Waveform = ({ env, progress }) => {
     const bars = useMemo(() => String(env || '').split('').map(Number), [env]);
     if (!bars.length) return null;
     return (
-        <span className="tf-wave" aria-hidden="true">
+        <span className="mx-wave" aria-hidden="true">
             {bars.map((level, i) => (
                 <span
                     key={i}
-                    className={`tf-wave-bar${i / bars.length <= progress ? ' is-played' : ''}`}
+                    className={`mx-wave-bar${i / bars.length <= progress ? ' is-played' : ''}`}
                     style={{ '--level': Math.max(0.12, level / 9) }}
                 />
             ))}
@@ -79,13 +79,13 @@ const TranscribeFeatures = () => {
     const meta = [clip.meta?.district, clip.meta?.state, clip.meta?.gender].filter(Boolean).join(' · ');
 
     return (
-        <div className="tf">
-            <nav className="tf-rail" aria-label="What it handles">
+        <div className="mx">
+            <nav className="mx-rail" aria-label="What it handles">
                 {FEATURES.features.map((f) => (
                     <button
                         key={f.key}
                         type="button"
-                        className={`tf-rail-item${f.key === featureKey ? ' is-on' : ''}`}
+                        className={`mx-rail-item${f.key === featureKey ? ' is-on' : ''}`}
                         aria-current={f.key === featureKey}
                         onClick={() => {
                             setFeatureKey(f.key);
@@ -105,17 +105,17 @@ const TranscribeFeatures = () => {
                 ))}
             </nav>
 
-            <div className="tf-panel">
-                <h3 className="tf-panel-title">{feature.title}</h3>
-                <p className="tf-panel-claim">{feature.claim}</p>
+            <div className="mx-panel">
+                <h3 className="mx-panel-title">{feature.title}</h3>
+                <p className="mx-panel-claim">{feature.claim}</p>
 
-                <div className="tf-filter">
-                    <span className="tf-filter-label">{block.filter}</span>
+                <div className="mx-filter">
+                    <span className="mx-filter-label">{block.filter}</span>
                     {block.options.map((o, i) => (
                         <button
                             key={o.key}
                             type="button"
-                            className={`tf-chip${i === pick.option ? ' is-on' : ''}`}
+                            className={`mx-chip${i === pick.option ? ' is-on' : ''}`}
                             onClick={() => set({ option: i, clip: 0 })}
                         >
                             {o.label}
@@ -123,17 +123,17 @@ const TranscribeFeatures = () => {
                     ))}
                 </div>
 
-                <article className="tf-clip">
-                    <h4 className="tf-clip-title">{clip.langName}{option.sub ? ` · ${option.sub}` : ''}</h4>
-                    {meta && <p className="tf-clip-meta">{meta}</p>}
+                <article className="mx-clip">
+                    <h4 className="mx-clip-title">{clip.langName}{option.sub ? ` · ${option.sub}` : ''}</h4>
+                    {meta && <p className="mx-clip-meta">{meta}</p>}
 
-                    <div className="tf-player">
-                        <button type="button" className="tf-play" onClick={toggle} aria-label={playing ? 'Pause' : 'Play'}>
+                    <div className="mx-player">
+                        <button type="button" className="mx-play" onClick={toggle} aria-label={playing ? 'Pause' : 'Play'}>
                             {playing ? <Pause size={15} /> : <Play size={15} />}
                         </button>
                         <Waveform env={clip.env} progress={progress} />
-                        <span className="tf-time">{time(elapsed)} / {time(clip.duration)}</span>
-                        <span className="tf-badge">{(clip.lang || '').toUpperCase()} · CORE</span>
+                        <span className="mx-time">{time(elapsed)} / {time(clip.duration)}</span>
+                        <span className="mx-badge">{(clip.lang || '').toUpperCase()} · CORE</span>
                         <audio
                             ref={audioRef}
                             src={assetUrl(clip.file)}
@@ -143,13 +143,13 @@ const TranscribeFeatures = () => {
                         />
                     </div>
 
-                    <div className="tf-transcript">
-                        <span className="tf-transcript-label">Model</span>
+                    <div className="mx-transcript">
+                        <span className="mx-transcript-label">Model</span>
                         <p>{clip.hyp}</p>
                     </div>
 
                     {option.items.length > 1 && (
-                        <div className="tf-pager">
+                        <div className="mx-pager">
                             <button
                                 type="button"
                                 aria-label="Previous clip"

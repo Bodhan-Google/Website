@@ -2001,11 +2001,11 @@ main.models-page-main {
   }
 }
 
-/* ── Indic-Transcribe: what it handles ────────────────────────────────────
-   The announcement's own explorer: a rail of claims on the left, and on the
+/* ── Model explorer (Indic-Transcribe, Indic-Speak) ───────────────────────
+   The announcements' own shape, shared by both model pages: a rail of claims on the left, and on the
    right the recordings behind the selected one — chosen by speaker's first
    language or by language spoken — with the model's transcript under each. */
-.tf {
+.mx {
   display: grid;
   grid-template-columns: minmax(0, 15.5rem) minmax(0, 1fr);
   margin-top: 1.5rem;
@@ -2020,7 +2020,7 @@ main.models-page-main {
    the rail and the transcript into two narrow columns. It breaks out of that
    measure on a large screen, staying centred on the page. */
 @media (min-width: 1180px) {
-  .tf {
+  .mx {
     width: min(72rem, calc(100vw - 6rem));
     margin-left: calc((58rem - min(72rem, calc(100vw - 6rem))) / 2);
   }
@@ -2028,7 +2028,7 @@ main.models-page-main {
 
 /* A tint of its own, not the page's cream: side by side with the white panel the
    two were indistinguishable and the card had no left half. */
-.tf-rail {
+.mx-rail {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
@@ -2041,7 +2041,7 @@ main.models-page-main {
    is the taller column, and a short rail left a hole under the last item. Each
    one grows equally, so the gap between them and the padding around them stay
    the same whatever the panel's height. */
-.tf-rail-item {
+.mx-rail-item {
   flex: 1 1 0;
   display: flex;
   align-items: center;
@@ -2056,53 +2056,53 @@ main.models-page-main {
   transition: background-color 0.18s ease, color 0.18s ease;
 }
 
-.tf-rail-item svg {
+.mx-rail-item svg {
   flex: none;
   width: 1.35rem;
   height: 1.35rem;
   color: var(--model-accent, var(--text-orange-500));
 }
 
-.tf-rail-item span {
+.mx-rail-item span {
   display: grid;
   gap: 0.15rem;
   min-width: 0;
 }
 
-.tf-rail-item strong {
+.mx-rail-item strong {
   font-size: 0.9375rem;
   font-weight: 700;
   color: var(--text-primary);
 }
 
-.tf-rail-item em {
+.mx-rail-item em {
   font-style: normal;
   font-size: 0.8125rem;
   line-height: 1.45;
   color: var(--color-11);
 }
 
-.tf-rail-item:hover {
+.mx-rail-item:hover {
   background: rgba(255, 255, 255, 0.72);
 }
 
-.tf-rail-item.is-on {
+.mx-rail-item.is-on {
   background: var(--model-accent, var(--text-orange-500));
   box-shadow: 0 6px 18px rgba(255, 107, 53, 0.28);
 }
 
-.tf-rail-item.is-on svg,
-.tf-rail-item.is-on strong,
-.tf-rail-item.is-on em {
+.mx-rail-item.is-on svg,
+.mx-rail-item.is-on strong,
+.mx-rail-item.is-on em {
   color: #fff;
 }
 
-.tf-panel {
+.mx-panel {
   padding: 1.5rem 1.6rem 1.4rem;
   min-width: 0;
 }
 
-.tf-panel-title {
+.mx-panel-title {
   margin: 0 0 0.5rem;
   font-family: var(--font-poppins);
   font-size: 1.35rem;
@@ -2110,7 +2110,7 @@ main.models-page-main {
   color: var(--text-primary);
 }
 
-.tf-panel-claim {
+.mx-panel-claim {
   margin: 0 0 1.2rem;
   max-width: 62ch;
   font-size: 0.9375rem;
@@ -2118,7 +2118,7 @@ main.models-page-main {
   color: var(--color-10);
 }
 
-.tf-filter {
+.mx-filter {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -2126,7 +2126,7 @@ main.models-page-main {
   margin-bottom: 1.1rem;
 }
 
-.tf-filter-label {
+.mx-filter-label {
   margin-right: 0.35rem;
   font-size: 0.6875rem;
   font-weight: 700;
@@ -2135,7 +2135,7 @@ main.models-page-main {
   color: var(--model-accent, var(--text-orange-500));
 }
 
-.tf-chip {
+.mx-chip {
   padding: 0.35rem 0.8rem;
   border: 1px solid var(--primary-100);
   border-radius: 999px;
@@ -2148,29 +2148,29 @@ main.models-page-main {
   transition: border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease;
 }
 
-.tf-chip:hover {
+.mx-chip:hover {
   border-color: var(--model-accent, var(--text-orange-500));
 }
 
-.tf-chip.is-on {
+.mx-chip.is-on {
   background: var(--model-accent, var(--text-orange-500));
   border-color: var(--model-accent, var(--text-orange-500));
   color: #fff;
   font-weight: 600;
 }
 
-.tf-clip {
+.mx-clip {
   padding: 1.15rem 1.25rem 1rem;
   border: 1px solid var(--primary-100);
   border-radius: 1rem;
   background: var(--bg-cream-50);
 }
 
-.tf-panel {
+.mx-panel {
   background: var(--white, #fff);
 }
 
-.tf-clip-title {
+.mx-clip-title {
   margin: 0;
   font-family: var(--font-eb-garamond, var(--font-poppins));
   font-size: 1.15rem;
@@ -2178,20 +2178,20 @@ main.models-page-main {
   color: var(--text-primary);
 }
 
-.tf-clip-meta {
+.mx-clip-meta {
   margin: 0.25rem 0 0;
   font-size: 0.8125rem;
   color: var(--color-11);
 }
 
-.tf-player {
+.mx-player {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   margin: 1rem 0 0.9rem;
 }
 
-.tf-play {
+.mx-play {
   flex: none;
   display: grid;
   place-items: center;
@@ -2205,12 +2205,12 @@ main.models-page-main {
   transition: background-color 0.18s ease, border-color 0.18s ease;
 }
 
-.tf-play:hover {
+.mx-play:hover {
   background: var(--primary-100);
 }
 
 /* The clip's own loudness envelope, one bar per sample. */
-.tf-wave {
+.mx-wave {
   flex: 1 1 auto;
   display: flex;
   align-items: center;
@@ -2219,7 +2219,7 @@ main.models-page-main {
   min-width: 0;
 }
 
-.tf-wave-bar {
+.mx-wave-bar {
   flex: 1 1 0;
   min-width: 1px;
   height: calc(var(--level) * 100%);
@@ -2227,11 +2227,11 @@ main.models-page-main {
   background: var(--primary-100);
 }
 
-.tf-wave-bar.is-played {
+.mx-wave-bar.is-played {
   background: var(--model-accent, var(--text-orange-500));
 }
 
-.tf-time {
+.mx-time {
   flex: none;
   font-family: var(--font-mono, ui-monospace, monospace);
   font-size: 0.75rem;
@@ -2239,7 +2239,7 @@ main.models-page-main {
   color: var(--color-11);
 }
 
-.tf-badge {
+.mx-badge {
   flex: none;
   font-size: 0.6875rem;
   font-weight: 700;
@@ -2247,7 +2247,7 @@ main.models-page-main {
   color: var(--model-accent, var(--text-orange-500));
 }
 
-.tf-transcript {
+.mx-transcript {
   display: grid;
   grid-template-columns: 4.5rem minmax(0, 1fr);
   gap: 0.9rem;
@@ -2258,7 +2258,7 @@ main.models-page-main {
   background: var(--white, #fff);
 }
 
-.tf-transcript-label {
+.mx-transcript-label {
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.09em;
@@ -2267,14 +2267,14 @@ main.models-page-main {
   padding-top: 0.15rem;
 }
 
-.tf-transcript p {
+.mx-transcript p {
   margin: 0;
   font-size: 0.9375rem;
   line-height: 1.7;
   color: var(--text-primary);
 }
 
-.tf-pager {
+.mx-pager {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -2285,7 +2285,7 @@ main.models-page-main {
   color: var(--color-11);
 }
 
-.tf-pager button {
+.mx-pager button {
   display: grid;
   place-items: center;
   width: 1.9rem;
@@ -2297,39 +2297,381 @@ main.models-page-main {
   cursor: pointer;
 }
 
-.tf-pager button:hover:not(:disabled) {
+.mx-pager button:hover:not(:disabled) {
   border-color: var(--model-accent, var(--text-orange-500));
   color: var(--model-accent, var(--text-orange-500));
 }
 
-.tf-pager button:disabled {
+.mx-pager button:disabled {
   opacity: 0.4;
   cursor: default;
 }
 
 @media (max-width: 860px) {
-  .tf {
+  .mx {
     grid-template-columns: 1fr;
   }
 
-  .tf-rail {
+  .mx-rail {
     flex-direction: row;
     overflow-x: auto;
     border-right: 0;
     border-bottom: 1px solid var(--primary-100);
   }
 
-  .tf-rail-item {
+  .mx-rail-item {
     flex: 0 0 auto;
     align-items: center;
   }
 
-  .tf-rail-item em {
+  .mx-rail-item em {
     display: none;
   }
 
-  .tf-transcript {
+  .mx-transcript {
     grid-template-columns: 1fr;
     gap: 0.35rem;
   }
+}
+
+/* ── Indic-Speak: thirteen deliveries ─────────────────────────────────────
+   The announcement's own explorer, rule for rule, with its tokens mapped onto
+   the site's: `--accent` is the model accent, `--border` the brand hairline.
+   The class names are the post's so the two stay one description of one thing.
+
+   The animated edge needs @property for the angle; where it is unsupported the
+   gradient holds at 0deg and the card keeps a static warm edge. */
+@property --sx-a {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes sxGlow { to { --sx-a: 360deg; } }
+@keyframes sxRise { from { opacity: 0; transform: translateY(6px); } }
+
+.sx-explorer {
+  --sx-accent: var(--model-accent, var(--text-orange-500));
+  display: grid;
+  grid-template-columns: 15.5rem minmax(0, 1fr);
+  position: relative;
+  isolation: isolate;
+  border-radius: 18px;
+  min-height: 33rem;
+  margin-top: 1.5rem;
+  animation: sxGlow 18s linear infinite;
+}
+
+.sx-explorer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  z-index: -1;
+  pointer-events: none;
+  background: conic-gradient(from var(--sx-a), rgba(233, 120, 60, 0.35) 0deg, #F59A4F 50deg, #D9480F 95deg, #F59A4F 140deg, rgba(233, 120, 60, 0.35) 190deg, rgba(233, 120, 60, 0.35) 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.sx-explorer::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  padding: 3px;
+  border-radius: inherit;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.5;
+  filter: blur(6px);
+  background: conic-gradient(from var(--sx-a), transparent 0deg, #F5A96A 50deg, #E2601F 95deg, #F5A96A 140deg, transparent 190deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.sx-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0.7rem;
+  min-height: 0;
+  max-height: 33rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: 17px 0 0 17px;
+  /* Deeper than the post's own rail, and with a firmer edge: the post sits on a
+     white card, this page's ground is the same cream the rail was, and the two
+     ran together. Model page only — the post keeps its own. */
+  background: linear-gradient(180deg, #FFEFDC, #FFE2C6);
+  border-right: 1px solid rgba(194, 65, 12, 0.22);
+  box-shadow: inset -8px 0 12px -12px rgba(194, 65, 12, 0.35);
+}
+
+.sx-rail::-webkit-scrollbar { width: 8px; }
+
+.sx-rail::-webkit-scrollbar-thumb {
+  background: rgba(194, 65, 12, 0.3);
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: content-box;
+}
+
+.sx-rail-group { display: contents; }
+
+.sx-group {
+  margin: 0.5rem 0 0.15rem 0.35rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-11);
+}
+
+.sx-rail-group:first-child .sx-group { margin-top: 0.1rem; }
+
+.sx-tab {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 3.35rem;
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.sx-tab:hover {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(194, 65, 12, 0.2);
+  color: var(--sx-accent);
+  transform: translateX(2px);
+}
+
+.sx-tab:focus-visible { outline: 2px solid var(--sx-accent); outline-offset: 2px; }
+
+.sx-tab.is-active {
+  background: linear-gradient(135deg, #E9561C, #FF6B35);
+  border-color: transparent;
+  color: #FFF6EE;
+  box-shadow: 0 8px 18px -10px rgba(194, 65, 12, 0.7);
+}
+
+.sx-ico { flex: none; width: 1.85rem; height: 1.85rem; display: block; opacity: 0.85; }
+.sx-tab.is-active .sx-ico,
+.sx-tab:hover .sx-ico { opacity: 1; }
+
+.sx-tab-t { min-width: 0; }
+
+.sx-tab-x {
+  margin-left: auto;
+  font-style: normal;
+  font-size: 0.6rem;
+  padding: 1px 5px;
+  border-radius: 999px;
+  background: var(--primary-100);
+  color: var(--sx-accent);
+}
+
+.sx-tab.is-active .sx-tab-x { background: rgba(255, 246, 238, 0.22); color: #FFF6EE; }
+
+.sx-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 1.05rem 1.2rem 1.1rem;
+  background: var(--white, #fff);
+  border-radius: 0 17px 17px 0;
+}
+
+.sx-body {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  animation: sxRise 0.34s ease both;
+}
+
+.sx-head { flex: 0 0 auto; margin-bottom: 0.9rem; }
+
+.style-kind {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--color-11);
+}
+
+.style-values { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0 0 0.4rem; }
+
+.style-values code {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--sx-accent);
+}
+
+.style-values code + code::before {
+  content: '/';
+  margin-right: 0.45rem;
+  color: var(--color-11);
+  font-weight: 400;
+}
+
+.style-note { margin: 0; font-size: 0.88rem; line-height: 1.6; color: var(--color-10); }
+
+.sx-example {
+  flex: 0 0 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  margin: auto 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--primary-100);
+  border-radius: 14px;
+  background: var(--bg-cream-50);
+}
+
+.sx-example > :first-child { margin-top: 0; }
+
+.style-scene {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-eb-garamond, var(--font-poppins));
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.style-player {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.2rem;
+}
+
+.sp-play {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid var(--sx-accent);
+  border-radius: 50%;
+  background: var(--primary-100);
+  color: var(--sx-accent);
+  cursor: pointer;
+}
+
+.sp-play svg { width: 0.85rem; height: 0.85rem; display: block; }
+.sp-play:hover { background: var(--sx-accent); color: #fff; }
+
+.sp-track {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 0.3rem;
+  border-radius: 999px;
+  background: var(--primary-100);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.sp-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--sx-accent);
+  transition: width 0.2s linear;
+}
+
+.sp-time {
+  flex: none;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.66rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-11);
+}
+
+.sx-example .style-lines { overflow-y: auto; max-height: 11.5rem; margin-top: 0.7rem; }
+
+.style-line {
+  display: block;
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: var(--color-10);
+}
+
+.style-lines .style-line + .style-line { margin-top: 0.7rem; }
+
+.sx-pager {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.8rem;
+}
+
+.sx-pager .n {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.66rem;
+  color: var(--color-11);
+  font-variant-numeric: tabular-nums;
+}
+
+.style-step {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid var(--primary-100);
+  border-radius: 50%;
+  background: var(--white, #fff);
+  color: var(--sx-accent);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.style-step:hover { border-color: var(--sx-accent); background: var(--primary-100); }
+.style-step:focus-visible { outline: 2px solid var(--sx-accent); outline-offset: 2px; }
+.style-step svg { width: 0.9rem; height: 0.9rem; display: block; }
+
+@media (max-width: 860px) {
+  .sx-explorer { grid-template-columns: 1fr; min-height: 0; }
+  .sx-panel { border-radius: 0 0 17px 17px; }
+  .sx-rail {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    max-height: none;
+    overflow-y: visible;
+    border-right: 0;
+    border-bottom: 1px solid rgba(194, 65, 12, 0.14);
+    border-radius: 17px 17px 0 0;
+  }
+  .sx-rail-group { display: contents; }
+  .sx-tab { min-height: 2.6rem; }
+  .sx-ico { width: 1.4rem; height: 1.4rem; }
+  .sx-group { width: 100%; margin: 0.3rem 0 0 0.2rem; }
+  .sx-tab-x { margin-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sx-explorer,
+  .sx-explorer::after,
+  .sx-body { animation: none; }
+  .sx-tab:hover { transform: none; }
 }

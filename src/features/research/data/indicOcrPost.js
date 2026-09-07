@@ -466,9 +466,9 @@ export const indicOcrPost = {
                 heading: 'Cite this work',
                 bibtex: `@misc{indic-ocr-2026,
   title  = {IndicOCR: Document Parsing for English and 22 Indian Languages},
-  author = {Bodhan.AI and AI4Bharat},
+  author = {Bodhan AI and AI4Bharat},
   year   = {2026},
-  url    = {https://huggingface.co/bodhan-ai/indic-doc-parser}
+  url    = {https://bodhan.ai/research/blogs/indic-ocr}
 }`,
             },
             ecosystem: {

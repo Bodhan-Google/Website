@@ -311,9 +311,6 @@ export const indicSpeakPost = {
             ],
             ecosystem: {
                 title: 'Available across India’s AI ecosystem',
-                description:
-                    'A joint release by Bodhan AI and AI4Bharat — hosted endpoints for a first result, '
-                    + 'weights and recipes for a deployment of your own.',
                 platforms: [
                     { name: 'Hugging Face', mark: 'huggingface', href: 'https://huggingface.co/bodhan-ai/models', note: 'Weights and inference' },
                     { name: 'GitHub', mark: 'github', href: '#', note: 'Code and recipes' },

@@ -30,7 +30,6 @@ const FRAME_SRC = `${import.meta.env.BASE_URL}indic-transcribe-post/index.html`;
 // site's model page).
 const ECOSYSTEM = {
     title: "Available across India's AI ecosystem",
-    description: 'Weights, an ONNX build, and deployment targets.',
     platforms: [
         { name: 'Hugging Face · Core', href: 'https://huggingface.co/bodhan-ai/indic-transcribe-core', mark: 'huggingface', note: 'Core weights, ONNX build, inference' },
         { name: 'Hugging Face · Flex', href: 'https://huggingface.co/bodhan-ai/indic-transcribe-flex', mark: 'huggingface', note: 'Flex weights, ONNX build, inference' },

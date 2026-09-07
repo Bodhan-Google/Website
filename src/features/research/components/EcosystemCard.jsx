@@ -12,6 +12,9 @@ import { cn } from '../../../utils/tailwindUtils';
  * Text on the left, platform chips on the right in a column capped at 26rem so
  * a longer list wraps to a second row instead of squeezing the text.
  *
+ * The card is a heading and the platforms, nothing else: a line of prose under
+ * the title only ever repeated what the chips beside it already said.
+ *
  * platforms: [{ name, href?, note?, mark? }]. Without a usable href the
  * platform is still listed, muted, with a "soon" tag, so a pending deployment
  * can be shown without inventing a URL. `mark` names a logo below.
@@ -47,7 +50,6 @@ const isLive = (platform) => Boolean(platform.href && platform.href !== '#');
 
 const EcosystemCard = ({
     title = "Available across India's AI ecosystem",
-    description,
     platforms = [],
     className,
 }) => {
@@ -72,9 +74,6 @@ const EcosystemCard = ({
                     </p>
                 )}
                 <p role="heading" aria-level="3" className="m-0 font-manrope text-lg font-bold leading-snug tracking-tight text-[var(--text-primary)]">{heading}</p>
-                {description && (
-                    <p className="m-0 mt-1.5 max-w-[44ch] text-sm leading-relaxed text-[var(--color-11)]">{description}</p>
-                )}
             </div>
 
             <div className="flex flex-wrap gap-2 md:justify-end">

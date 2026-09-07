@@ -345,16 +345,13 @@ export const indicTranslatePost = {
                 heading: 'Cite this work',
                 bibtex: `@misc{indic-translate-2026,
   title  = {Indic-Translate: Document-Level Machine Translation for 22 Indian Languages},
-  author = {Bodhan.ai},
+  author = {Bodhan AI and AI4Bharat},
   year   = {2026},
-  url    = {https://huggingface.co/bodhan-ai/indic-translate}
+  url    = {https://bodhan.ai/research/blogs/indic-translate}
 }`,
             },
             ecosystem: {
                 title: 'Available across India’s AI ecosystem',
-                description:
-                    'The weights are open. These are the places you can reach the model without '
-                    + 'standing one up yourself.',
                 platforms: [
                     { name: 'Bhashini', mark: 'bhashini', note: 'Coming soon' },
                     { name: 'AIKosh', mark: 'aikosh', href: 'https://aikosh.indiaai.gov.in/web/models/details/indic_translate.html', note: 'India AI model repository' },

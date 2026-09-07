@@ -45,7 +45,6 @@ const FRAME_SRC = `${import.meta.env.BASE_URL}indic-ocr-post/index.html`;
 // the site's model page).
 const ECOSYSTEM = {
     title: "Available across India's AI ecosystem",
-    description: 'Weights, and deployment targets.',
     platforms: [
         { name: 'Hugging Face', href: 'https://huggingface.co/bodhan-ai/indic-doc-parser', mark: 'huggingface', note: 'Weights and model card' },
         { name: 'Bhashini', mark: 'bhashini' },

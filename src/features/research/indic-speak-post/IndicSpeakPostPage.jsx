@@ -26,7 +26,6 @@ const FRAME_SRC = `${import.meta.env.BASE_URL}indic-speak-post/index.html`;
 // Where the model is available (the four links the page's own band carried).
 const ECOSYSTEM = {
     title: "Available across India's AI ecosystem",
-    description: 'Weights, voices and hosted endpoints.',
     platforms: [
         { name: 'Hugging Face', href: 'https://huggingface.co/bodhan-ai/indic-speak', mark: 'huggingface', note: 'Weights and model card' },
         { name: 'Bodhan', href: '/developers/indic-speak', mark: 'bodhan', note: 'Model page' },

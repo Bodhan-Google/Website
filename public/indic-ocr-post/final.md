@@ -260,7 +260,7 @@ Getting here took an year of handwritten data collection across India, building 
 
 ## Help us get better at OCR!
 
-We want to actively keep on improving on the most difficult documents you can throw at us. The failures we most need are the ones our own benchmarks cannot show us: a script we are not doing well in, an important document domain our layout fails in, handwriting samples we are hallucinating badly in. If you run something through our model and the performance is not upto the mark, please send us the page or contact us at research@bodhan.ai. The weights are available on the link below on Hugging Face.
+We want to actively keep on improving on the most difficult documents you can throw at us. The failures we most need are the ones our own benchmarks cannot show us: a script we are not doing well in, an important document domain our layout fails in, handwriting samples we are hallucinating badly in. If you run something through our model and the performance is not upto the mark, please send us the page or [contact us](mailto:contact@bodhan.ai). The weights are available on the link below on Hugging Face.
 
 ## Cite this work
 
@@ -269,9 +269,9 @@ Released under the [Indic Open Model License v1.0](/indic-open-model-license/v1)
 ```bibtex
 @misc{indicocr2026,
   title  = {IndicOCR: Multilingual Document Parsing for English and 22 Indian Languages},
-  author = {Bodhan AI},
+  author = {Bodhan AI and AI4Bharat},
   year   = {2026},
-  url    = {https://huggingface.co/bodhan-ai/indic-ocr}
+  url    = {https://bodhan.ai/research/blogs/indic-ocr}
 }
 ```
 

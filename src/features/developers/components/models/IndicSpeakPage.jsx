@@ -1,7 +1,7 @@
 import Navbar from '../../../home/components/Navbar';
 import Footer from '../../../home/components/Footer';
 import ModelHero from './ModelHero';
-import SpeakExamples from './SpeakExamples';
+import SpeakDeliveries from './SpeakDeliveries';
 import DevReveal from '../DevReveal';
 import { LICENSE, getModelById } from '../../data/models';
 import '../../developers.css';
@@ -37,13 +37,13 @@ const IndicSpeakPage = () => (
             />
 
             <DevReveal as="section" className="model-section">
-                <h2 className="model-section-title">Hear it work</h2>
+                <h2 className="model-section-title">Fourteen deliveries</h2>
                 <p className="model-section-dek">
-                    Code-mixed sentences, a voice cast across languages, and five and a half minutes
-                    of narration. The full range — numbers and formulae, all 45 voices, all 14
-                    delivery styles — is in the blog.
+                    A voice can be pointed at a register. Eight name a context the speech is going
+                    into, six name an emotion. Matching is literal — the capitals and the
+                    apostrophe are part of the value — so send each string exactly as it appears.
                 </p>
-                <SpeakExamples />
+                <SpeakDeliveries />
             </DevReveal>
         </main>
         <Footer />

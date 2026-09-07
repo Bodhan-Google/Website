@@ -406,7 +406,7 @@ export const citation = {
   },
   bibtex: `@misc{indic-translate-2026,
   title  = {Indic-Translate: Document-Level Machine Translation for 22 Indian Languages},
-  author = {Bodhan AI},
+  author = {Bodhan AI and AI4Bharat},
   year   = {2026},
   url    = {https://bodhan.ai/research/blogs/indic-translate}
 }`,

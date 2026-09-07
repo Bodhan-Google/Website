@@ -17,7 +17,6 @@ const HEADLINE = [
     { value: `${models.length}`, label: 'Open models' },
     { value: '27', label: 'Languages covered' },
     { value: '22', label: 'Eighth Schedule languages' },
-    { value: '1', label: 'API to reach them' },
 ];
 
 /**
