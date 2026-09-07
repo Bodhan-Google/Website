@@ -39,7 +39,7 @@ export const indicTranslatePost = {
         { label: '🤗 Hugging Face', href: 'https://huggingface.co/bodhan-ai/indic-translate' },
         { label: '▶ Try the model', href: '/developers/indic-translate' },
         { label: '◉ GitHub', href: '#' },
-        { label: '📖 Documentation', href: '#' },
+        { label: '📖 API Docs', href: 'https://console.bodhan.ai/api-docs/#translation-api' },
     ],
     specs: [
         { label: 'Base model', value: 'Gemma 4 E4B' },

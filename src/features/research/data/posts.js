@@ -63,7 +63,7 @@ export const posts = [
             { label: '🤗 Hugging Face', href: 'https://huggingface.co/bodhan-ai/models' },
             { label: '◉ GitHub', href: '#' },
             { label: '▶ Demo', href: 'https://value-candidates-oakland-capitol.trycloudflare.com' },
-            { label: '📖 Documentation', href: '#' },
+            { label: '📖 API Docs', href: 'https://console.bodhan.ai/api-docs/#speech-to-text-api' },
             { label: 'Paper', href: '#' },
             { label: 'Model Card', href: '#' },
         ],

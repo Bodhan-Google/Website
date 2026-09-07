@@ -362,8 +362,10 @@ const Navbar = () => {
                                         </button>
 
                                         {/* The outer div only positions (centred under the trigger); GSAP
-                                            animates the inner one, so its transform never fights the centring. */}
-                                        <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 pointer-events-none">
+                                            animates the inner one, so its transform never fights the centring.
+                                            z-20 puts it over the announcement strip, which is a later sibling
+                                            inside the same bar and would otherwise paint on top of it. */}
+                                        <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 pointer-events-none z-20">
                                         <div
                                             ref={(el) => {
                                                 dropdownRefs.current[link.label] = el;

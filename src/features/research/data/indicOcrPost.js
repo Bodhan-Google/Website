@@ -48,7 +48,7 @@ export const indicOcrPost = {
         { label: '🤗 Hugging Face', href: 'https://huggingface.co/bodhan-ai/indic-doc-parser' },
         { label: '▶ Try the model', href: '/developers/indic-doc-parser' },
         { label: '◉ GitHub', href: '#' },
-        { label: '📖 Documentation', href: '#' },
+        { label: '📖 API Docs', href: 'https://console.bodhan.ai/api-docs/#document-ocr-api' },
     ],
     specs: [
         { label: 'Languages', value: '22 + English' },

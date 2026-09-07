@@ -57,7 +57,7 @@ const AnnouncementBar = () => {
         <div
             role="region"
             aria-label="Announcement"
-            className="relative w-full text-white"
+            className="relative z-0 w-full text-white"
             // The gradient is written here rather than as Tailwind gradient-stop
             // classes: `from-[var(--…)]` / `to-[var(--…)]` do not compile in this
             // project's Tailwind, so the strip shipped with `background-image:
@@ -68,7 +68,7 @@ const AnnouncementBar = () => {
                 borderTop: '1px solid rgba(255, 255, 255, 0.15)',
             }}
         >
-            <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 sm:gap-x-3.5 px-11 sm:px-14 py-3 text-center">
+            <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-x-4 gap-y-1 sm:gap-x-6 px-11 sm:px-14 py-3 text-center">
                 <span className="hidden sm:inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.09em] text-white/90">
                     {/* A live dot: the ring pulses, the dot itself stays solid, and
                         neither moves for a reader who asked for less motion. */}

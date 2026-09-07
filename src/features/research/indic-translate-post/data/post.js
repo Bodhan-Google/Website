@@ -79,11 +79,9 @@ export const post = {
       embed: 'https://www.youtube-nocookie.com/embed/Bl7msnYPC1M?rel=0',
     },
     {
-      label: 'Documentation',
+      label: 'API Docs',
       icon: 'book',
-      soon: true,
-      href: 'https://github.com/AshwinSankar17/bodhan_gen_ai_tools/blob/master/'
-        + 'src/bodhan_genai/mt/README.md',
+      href: 'https://console.bodhan.ai/api-docs/#translation-api',
     },
     { label: 'Try it out', href: 'https://console.bodhan.ai/ui/login', icon: 'bolt' },
   ],

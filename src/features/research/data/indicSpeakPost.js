@@ -45,7 +45,7 @@ export const indicSpeakPost = {
         { label: '🤗 Hugging Face', href: 'https://huggingface.co/bodhan-ai/models' },
         { label: '▶ Try the model', href: '/developers/indic-speak' },
         { label: '◉ GitHub', href: '#' },
-        { label: '📖 Documentation', href: '#' },
+        { label: '📖 API Docs', href: 'https://console.bodhan.ai/api-docs/#text-to-speech-api' },
     ],
     specs: [
         { label: 'Parameters', value: '3.36B' },
