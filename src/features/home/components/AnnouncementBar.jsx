@@ -53,7 +53,16 @@ const AnnouncementBar = () => {
         <div
             role="region"
             aria-label="Announcement"
-            className="relative w-full border-t border-white/15 bg-gradient-to-r from-[var(--primary-500)] to-[var(--text-orange-500)] text-white"
+            className="relative w-full text-white"
+            // The gradient is written here rather than as Tailwind gradient-stop
+            // classes: `from-[var(--…)]` / `to-[var(--…)]` do not compile in this
+            // project's Tailwind, so the strip shipped with `background-image:
+            // linear-gradient(var(--tw-gradient-stops))` and no stops — white text
+            // on the cream navbar, invisible but still taking a row.
+            style={{
+                background: 'linear-gradient(90deg, var(--primary-500), var(--text-orange-500))',
+                borderTop: '1px solid rgba(255, 255, 255, 0.15)',
+            }}
         >
             <div className="max-w-7xl mx-auto flex items-center justify-center gap-2.5 sm:gap-3.5 px-11 sm:px-14 py-3 text-center">
                 <span className="hidden sm:inline text-[13px] font-bold uppercase tracking-[0.09em] text-white/90">
