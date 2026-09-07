@@ -10,9 +10,9 @@
 
 /** The one-line description, as the blog and the research listing carry it. */
 export const DESCRIPTION =
-    'Indic-Transcribe is a family of two open 1.2B-parameter speech-to-text models covering all '
-    + '22 constitutional Indian languages plus English, two Hindi dialects, and Bhili and Bhojpuri. '
-    + 'It handles code-mixed speech and outputs in native script, romanized, or mixed script.';
+    'Indic-Transcribe is an open 1.2B-parameter ASR model covering all 22 constitutional Indian '
+    + 'languages plus English, two Hindi dialects, and Bhili and Bhojpuri. It handles code-mixed '
+    + 'speech and outputs in native script, romanized, or mixed script.';
 
 /** The hero band. 27 is the family's reach: 25 codes on Core, two more on Flex. */
 export const STATS = [

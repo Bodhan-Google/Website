@@ -50,10 +50,9 @@ export const posts = [
         category: 'Release',
         date: '2026-09-05',
         summary:
-            'Indic-Transcribe is a family of two open 1.2B-parameter speech-to-text models '
-            + 'covering all 22 constitutional Indian languages plus English, two Hindi dialects, '
-            + 'and Bhili and Bhojpuri. It handles code-mixed speech and outputs in native script, '
-            + 'romanized, or mixed script.',
+            'Indic-Transcribe is an open 1.2B-parameter ASR model covering all 22 constitutional '
+            + 'Indian languages plus English, two Hindi dialects, and Bhili and Bhojpuri. It handles '
+            + 'code-mixed speech and outputs in native script, romanized, or mixed script.',
         featured: true,
         posterMotif: 'speech',
         tagline:
