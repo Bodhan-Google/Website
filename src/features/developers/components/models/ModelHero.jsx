@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight, BookOpen, Scale } from 'lucide-react';
 import ModelTitleIntro from './ModelTitleIntro';
 import DevHeadline from '../DevHeadline';
+import { LICENSE_PATH } from '../../data/models';
 import AccentAurora from '../AccentAurora';
 import CountUp from '../CountUp';
 import { ensureRevealed, gsap, useGsapAnimation } from '../../devMotion';
@@ -143,10 +144,14 @@ const ModelHero = ({
                     ))}
             </div>
 
+            {/* The licence is a link: a reader who reads that line wants the terms,
+                and the site carries them. */}
             {license && (
                 <p className="model-license" data-hero-rise>
-                    <Scale size={13} aria-hidden="true" />
-                    Released under the <b>{license}</b>
+                    <Link to={LICENSE_PATH}>
+                        <Scale size={13} aria-hidden="true" />
+                        Released under the <b>{license}</b>
+                    </Link>
                 </p>
             )}
 

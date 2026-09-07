@@ -26,6 +26,8 @@ const PRIMARY = {
 
 /** Every model in the family is released under the same licence. */
 export const LICENSE = 'Indic Open Model License v1.0';
+/** The site's own copy of the terms, which every model page's licence pill opens. */
+export const LICENSE_PATH = '/indic-open-model-license/v1';
 
 // The published weights. Indic-Transcribe has one repo per checkpoint, so its
 // entry lives on the variant rather than on the model.
