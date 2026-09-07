@@ -36,9 +36,11 @@ const RESOURCE_ICONS = {
 // One accent for the whole list: the entries used to carry a colour each —
 // emerald, blue, orange, grey — which read as four unrelated things rather than
 // one list. They all take the site's primary orange now.
+// Both live on the API console, so they are absolute and open in a new tab —
+// the diagonal arrow in the menu's footer says as much.
 const developersResources = [
-    { label: 'Documentation', to: '#', description: 'Guides and API reference', resourceIcon: 'docs', accent: 'var(--text-orange-500)' },
-    { label: 'API Pricing', to: '#', description: 'Usage-based pricing', resourceIcon: 'pricing', accent: 'var(--text-orange-500)' },
+    { label: 'Documentation', to: 'https://console.bodhan.ai/api-docs/', description: 'Guides and API reference', resourceIcon: 'docs', accent: 'var(--text-orange-500)' },
+    { label: 'API Pricing', to: 'https://console.bodhan.ai/#pricing', description: 'Usage-based pricing', resourceIcon: 'pricing', accent: 'var(--text-orange-500)' },
 ];
 
 const developersDropdown = [...developersApis, { label: 'All models', to: '/developers', description: 'Browse every Bodhan model' }];
