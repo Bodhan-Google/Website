@@ -25,7 +25,7 @@ const pct = (value) => `${value.toFixed(1)}%`;
 export const indicSpeakPost = {
     // ── 1. Hero ──────────────────────────────────────────────────────────
     slug: 'indic-speak',
-    title: 'Indic-Speak: Text-to-Speech for the Way India Actually Writes',
+    title: 'Indic-Speak',
     category: 'Release',
     date: '2026-09-05',
     featured: true,
@@ -37,9 +37,9 @@ export const indicSpeakPost = {
         '45 voices for 22 Indian languages and 12 scripts, built to read native and Latin '
         + 'scripts together in one sentence, without language tags.',
     heroSummary:
-        'A text-to-speech model built to read text exactly as it is written — the Hindi sentence that '
+        'A text-to-speech model built to read text exactly as it is written: the Hindi sentence that '
         + 'keeps *Blue Whale* in Latin script, the Tamil explainer that keeps *alveolar capillaries* in '
-        + 'English — across 22 Indian languages, 12 scripts and 45 voices, with no language flag to set '
+        + 'English, across 22 Indian languages, 12 scripts and 45 voices, with no language flag to set '
         + 'and no phoneme dictionary to maintain.',
     heroLinks: [
         { label: '🤗 Hugging Face', href: 'https://huggingface.co/bodhan-ai/models' },

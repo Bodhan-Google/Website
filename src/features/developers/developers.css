@@ -26,7 +26,19 @@
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  mask-image: radial-gradient(ellipse 78% 96% at 50% 12%, black 0%, black 34%, transparent 100%);
+  /* Two masks, because one edge was still showing: the radial fade rounds the
+     sides, and the linear one takes the bottom out before `overflow: hidden`
+     can cut it straight. Both are also written with the -webkit- prefix — the
+     unprefixed property is ignored on Safari and older WebKit, and without it
+     the wash is a plainly visible rectangle. */
+  -webkit-mask-image:
+    radial-gradient(ellipse 92% 108% at 50% 10%, black 0%, black 26%, transparent 88%),
+    linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(ellipse 92% 108% at 50% 10%, black 0%, black 26%, transparent 88%),
+    linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+  mask-composite: intersect;
 }
 
 .aur-blob {
@@ -69,7 +81,10 @@
     linear-gradient(to right, rgba(46, 50, 56, 0.05) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(46, 50, 56, 0.05) 1px, transparent 1px);
   background-size: 3.5rem 3.5rem;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 20%, black 0%, transparent 72%);
+  /* Same reason for the prefix: unmasked, the grid ends on a straight line and
+     draws the rectangle the wash is trying to hide. */
+  -webkit-mask-image: radial-gradient(ellipse 62% 52% at 50% 18%, black 0%, transparent 78%);
+  mask-image: radial-gradient(ellipse 62% 52% at 50% 18%, black 0%, transparent 78%);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -569,7 +584,7 @@ main.models-page-main {
 
 .model-hero {
   position: relative;
-  padding-top: 0.5rem;
+  padding-top: 0;
   padding-bottom: 3rem;
   border-bottom: none;
 }
@@ -612,7 +627,7 @@ main.models-page-main {
 /* The name is the first thing in the hero now that the "Developers · Model"
    chip is gone, so it carries the top margin the chip used to. */
 .model-title {
-  margin-top: 1.75rem;
+  margin-top: 0.5rem;
   font-size: clamp(2.25rem, 5.2vw, 3.5rem);
 }
 
@@ -2674,4 +2689,52 @@ main.models-page-main {
   .sx-explorer::after,
   .sx-body { animation: none; }
   .sx-tab:hover { transform: none; }
+}
+
+/* ── The post's examples browser, dressed as a model-page demo ─────────────
+   The browser frames itself as a `.chart-card`: beige, 26px, with its own title
+   inside. On a model page the section heading above it already says what it is,
+   and the ASR and TTS demos next door are white panels — so the card takes the
+   same frame and drops the duplicate heading. Only the wrapper this page adds
+   is targeted, so the post keeps its own dressing. */
+/* Wider than the article measure on a large screen, the way the ASR and TTS
+   explorers break out: this browser holds two panes of prose side by side, and
+   56rem left both of them narrow. */
+@media (min-width: 1180px) {
+  .mx-frame {
+    width: min(72rem, calc(100vw - 6rem));
+    margin-left: calc((56rem - min(72rem, calc(100vw - 6rem))) / 2);
+  }
+}
+
+.mx-frame .chart-card {
+  margin: 1.5rem 0 0;
+  padding: 1.25rem;
+  border: 1px solid var(--primary-100);
+  border-radius: 1.25rem;
+  background: var(--white, #fff);
+  box-shadow: 0 1px 2px rgba(10, 10, 10, 0.04), 0 18px 44px rgba(10, 10, 10, 0.06);
+}
+
+@media (min-width: 768px) {
+  .mx-frame .chart-card {
+    padding: 1.5rem 1.6rem;
+  }
+}
+
+/* The heading is the section's, not the card's; the language picker stays. */
+.mx-frame .ex-panel-head > div:first-child {
+  display: none;
+}
+
+.mx-frame .ex-panel-head {
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+/* Inside, the panel sits on the page's cream rather than the card's own beige,
+   so the two surfaces read the way they do in the other demos. */
+.mx-frame .chart-panel {
+  background: var(--bg-cream-50);
+  border: 1px solid var(--primary-100);
 }

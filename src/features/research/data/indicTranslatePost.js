@@ -20,17 +20,17 @@
 export const indicTranslatePost = {
     // ── 1. Hero ──────────────────────────────────────────────────────────
     slug: 'indic-translate',
-    title: 'Indic-Translate: Document-Level Translation for 22 Indian Languages',
+    title: 'Indic-Translate',
     category: 'Release',
     date: '2026-09-05',
     summary:
         'A 4B-parameter translation model covering English and all 22 Eighth Schedule '
-        + 'languages in both directions — built to translate whole documents in a single '
+        + 'languages in both directions, built to translate whole documents in a single '
         + 'request, in native script, Roman script, or a mix of the two.',
     featured: true,
     posterMotif: 'script',
     tagline:
-        'One model, 22 languages, 12 scripts — a sentence or a 32K-token document, in a single request.',
+        'One model, 22 languages, 12 scripts, and a sentence or a 32K-token document in a single request.',
     heroSummary:
         'A translation model for English and 22 Indian languages, built to translate whole '
         + 'documents, not just sentences, in a single request, preserving the structure around '
