@@ -33,9 +33,8 @@ export const indicOcrPost = {
     category: 'Release',
     date: '2026-09-05',
     summary:
-        'A two-stage document parser — a 33M layout detector and a 0.8B reader — that reads '
-        + 'printed and handwritten pages across 13 scripts. 92.76 on OmniDocBench v1.6, and the '
-        + 'clear leader on Kashmiri, Manipuri and Santali.',
+        'A 2-stage document parser for English and 22 Indian languages, consisting of a 33M '
+        + 'layout parser and a 0.8B block-level OCR model.',
     featured: true,
     posterMotif: 'script',
     tagline:
