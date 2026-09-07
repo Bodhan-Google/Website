@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import AnnouncementBar from './AnnouncementBar';
 import { motion } from "motion/react";
 import { Menu, X } from 'lucide-react';
 
@@ -129,6 +130,8 @@ const Navbar = () => {
                     <Link to="/partners" className="text-[var(--text-primary)]/90 hover:text-orange-500 transition-colors" onClick={() => { setIsOpen(false); window.scrollTo(0, 0); }}>Partners</Link>
                 </div>
             </motion.div>
+        
+            <AnnouncementBar />
         </motion.nav>
     );
 };
