@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowUpRight, BookOpen, FileText, Scale } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, BookOpen, Scale } from 'lucide-react';
 import ModelTitleIntro from './ModelTitleIntro';
 import DevHeadline from '../DevHeadline';
 import { LICENSE_PATH } from '../../data/models';
@@ -29,7 +29,7 @@ const ModelHero = ({
     primaryCta,
     secondaryCta,
     blogCta,
-    docsCta,
+    thirdCta,
     note,
     intro,
     license,
@@ -97,6 +97,9 @@ const ModelHero = ({
                 {tagline}
             </p>
 
+            {/* The row, in order: the pill a developer on this page came for (the
+                API reference), the post that explains the model, the weights, and
+                a way to reach us. */}
             <div className="model-cta-row" data-hero-rise>
                 {primaryCta && (
                     <a
@@ -127,17 +130,16 @@ const ModelHero = ({
                             {blogCta.label}
                         </Link>
                     ))}
-                {/* Third: the API reference, which is on the console rather than
-                    here — hence the outbound arrow, as everywhere else. */}
-                {docsCta && (
+                {/* Third: whatever the page ranks after the post — the weights, as
+                    it stands. Off-site, hence the outbound arrow. */}
+                {thirdCta && (
                     <a
-                        href={docsCta.href}
+                        href={thirdCta.href}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="model-cta-secondary"
                     >
-                        <FileText size={14} aria-hidden="true" />
-                        {docsCta.label}
+                        {thirdCta.label}
                         <ArrowUpRight size={13} aria-hidden="true" />
                     </a>
                 )}

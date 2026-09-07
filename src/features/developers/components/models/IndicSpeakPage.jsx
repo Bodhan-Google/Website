@@ -29,9 +29,9 @@ const IndicSpeakPage = () => (
                 accent={model.accent}
                 viz={model.viz}
                 stats={STATS}
-                primaryCta={{ label: 'Hugging Face', href: model.hf }}
+                primaryCta={model.docs}
                 blogCta={model.blog}
-                docsCta={model.docs}
+                thirdCta={{ label: 'Hugging Face', href: model.hf }}
                 secondaryCta={{ label: 'Contact', href: '/contact' }}
                 license={LICENSE}
                 note="Early checkpoint — shared for integration testing, not final voice quality."

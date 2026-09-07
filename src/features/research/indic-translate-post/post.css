@@ -34,7 +34,9 @@ to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
    */
   
   
-  :root {
+  /* The token bridge: `&` and not `:root`, which nested inside .mt-post
+     matches nothing at all. */
+  & {
     /* ── Token bridge ──────────────────────────────────────────────────────────
      * The markup ported from the old standalone page refers to these names. Each
      * is now defined in terms of the Bodhan palette, so several hundred ported

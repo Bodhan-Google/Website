@@ -2,10 +2,12 @@ import { AlignLeft, ArrowLeftRight, Blend, FileCode2, FileText, Sigma, Table2, T
 import Navbar from '../../../home/components/Navbar';
 import Footer from '../../../home/components/Footer';
 import ModelHero from './ModelHero';
-import MiniTranslatePlayground from './MiniTranslatePlayground';
+import ExamplesBrowser from '../../../research/indic-translate-post/components/ExamplesBrowser';
 import DevReveal from '../DevReveal';
 import SHOWCASE from '../../data/translateShowcase.json';
 import { LICENSE, getModelById } from '../../data/models';
+import 'katex/dist/katex.min.css';
+import '../../../research/indic-translate-post/post.css';
 import '../../developers.css';
 
 const model = getModelById('indic-translate');
@@ -94,20 +96,24 @@ const IndicTranslatePage = () => (
                 accent={model.accent}
                 viz={model.viz}
                 stats={STATS}
-                primaryCta={{ label: 'Hugging Face', href: model.hf }}
+                primaryCta={model.docs}
                 blogCta={model.blog}
-                docsCta={model.docs}
+                thirdCta={{ label: 'Hugging Face', href: model.hf }}
                 secondaryCta={{ label: 'Contact', href: '/contact' }}
                 license={LICENSE}
             />
 
             <DevReveal as="section" className="model-section">
-                <h2 className="model-section-title">Every kind of translation</h2>
+                <h2 className="model-section-title">Examples by language</h2>
                 <p className="model-section-dek">
-                    Every form the model handles, each shown in a different language — sentences and
-                    whole documents, native script and Roman.
+                    The announcement's own browser: 22 languages across six capabilities, each
+                    showing that language's own top-scoring output.
                 </p>
-                <MiniTranslatePlayground items={items} renderPane={renderPane} />
+                {/* The component's styles are scoped to `.mt-post` in the post's
+                    stylesheet, so it needs that class to look like itself. */}
+                <div className="mt-post">
+                    <ExamplesBrowser />
+                </div>
             </DevReveal>
         </main>
         <Footer />

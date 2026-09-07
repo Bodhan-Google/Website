@@ -100,7 +100,10 @@ def scope_styles():
             continue
         block, nested = extract_keyframes(block)
         keyframes.extend(b.strip() for b in nested)
-        if head in (':root', 'body'):
+        # The head carries whatever whitespace and comments preceded it, so
+        # compare on the selector itself: a `:root` left nested inside
+        # .mt-post is `.mt-post :root`, which matches nothing.
+        if head.strip().splitlines()[-1].strip() in (':root', 'body'):
             inner = block[block.index('{') + 1:block.rindex('}')]
             scoped.append('  & {' + inner + '}')
         else:
