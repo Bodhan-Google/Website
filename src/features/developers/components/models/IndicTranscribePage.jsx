@@ -2,17 +2,10 @@ import { ArrowUpRight } from 'lucide-react';
 import Navbar from '../../../home/components/Navbar';
 import Footer from '../../../home/components/Footer';
 import ModelHero from './ModelHero';
-import TranscribeExamples from './TranscribeExamples';
+import TranscribeFeatures from './TranscribeFeatures';
 import DevReveal from '../DevReveal';
 import { LICENSE, getModelById } from '../../data/models';
-import {
-    COVERAGE,
-    DESCRIPTION,
-    LIMITS,
-    MODES,
-    SPEC,
-    STATS,
-} from './indic-transcribe/transcribeModelContent';
+import { DESCRIPTION, STATS } from './indic-transcribe/transcribeModelContent';
 import '../../developers.css';
 
 const model = getModelById('indic-transcribe');
@@ -71,73 +64,10 @@ const IndicTranscribePage = () => (
             <DevReveal as="section" className="model-section">
                 <h2 className="model-section-title">See it transcribe</h2>
                 <p className="model-section-dek">
-                    Press play — the transcript is written as the audio runs, and the same recording
-                    can come back in any of the three output modes.
+                    Real recordings, from the release post. Pick what you want to hear it handle,
+                    press play, and read what the model wrote down.
                 </p>
-                <TranscribeExamples />
-            </DevReveal>
-
-            {/* One sentence, three ways. The mode is two tokens in the prompt, so
-                all three cost the same decode — which is why they are shown
-                together rather than sold as separate features. */}
-            <DevReveal as="section" className="model-section">
-                <h2 className="model-section-title">Three ways to write the same sentence</h2>
-                <p className="model-section-dek">{MODES.spoken}, transcribed by Flex.</p>
-                <div className="tsc-modes">
-                    {MODES.out.map((mode) => (
-                        <article key={mode.id} className="tsc-mode">
-                            <span className="tsc-mode-label">{mode.label}</span>
-                            <p className="tsc-mode-text" lang="hi">{mode.text}</p>
-                            <p className="tsc-mode-desc">{mode.desc}</p>
-                        </article>
-                    ))}
-                </div>
-            </DevReveal>
-
-            <DevReveal as="section" className="model-section">
-                <h2 className="model-section-title">What it covers</h2>
-                <p className="model-section-dek">
-                    Twenty-seven in all, each transcribed in the script it is actually written in.
-                </p>
-                <div className="tsc-coverage">
-                    {COVERAGE.map((row) => (
-                        <div key={row.label} className="tsc-coverage-cell">
-                            <span className="tsc-coverage-count">{row.count}</span>
-                            <span className="tsc-coverage-label">{row.label}</span>
-                            <span className="tsc-coverage-note">{row.note}</span>
-                        </div>
-                    ))}
-                </div>
-            </DevReveal>
-
-            <DevReveal as="section" className="model-section">
-                <h2 className="model-section-title">Under the hood</h2>
-                <dl className="tsc-spec">
-                    {SPEC.map((row) => (
-                        <div key={row.k} className="tsc-spec-row">
-                            <dt>{row.k}</dt>
-                            <dd>
-                                {row.v}
-                                {row.note && <em className="tsc-spec-note">{row.note}</em>}
-                            </dd>
-                        </div>
-                    ))}
-                </dl>
-            </DevReveal>
-
-            {/* The edges, in the announcement's own words. A page that lists only
-                what a model does is the one people build against and then find
-                the limits in production. */}
-            <DevReveal as="section" className="model-section">
-                <h2 className="model-section-title">Know the edges before you ship</h2>
-                <div className="tsc-limits">
-                    {LIMITS.map((limit) => (
-                        <article key={limit.h} className="tsc-limit">
-                            <h3>{limit.h}</h3>
-                            <p>{limit.p}</p>
-                        </article>
-                    ))}
-                </div>
+                <TranscribeFeatures />
             </DevReveal>
         </main>
         <Footer />

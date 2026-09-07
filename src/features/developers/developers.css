@@ -2001,28 +2001,133 @@ main.models-page-main {
   }
 }
 
-/* ── Indic-Transcribe: the sections carried over from the announcement ─────
-   Three shapes, all of them lists: one sentence in three output modes, what the
-   family covers, the architecture, and where it does not reach. They share the
-   page's card language rather than inventing a new one. */
-.tsc-modes {
+/* ── Indic-Transcribe: what it handles ────────────────────────────────────
+   The announcement's own explorer: a rail of claims on the left, and on the
+   right the recordings behind the selected one — chosen by speaker's first
+   language or by language spoken — with the model's transcript under each. */
+.tf {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: 0.875rem;
+  grid-template-columns: minmax(0, 15.5rem) minmax(0, 1fr);
   margin-top: 1.5rem;
+  border: 1px solid var(--primary-100);
+  border-radius: 1.25rem;
+  background: var(--white, #fff);
+  box-shadow: 0 1px 2px rgba(10, 10, 10, 0.04), 0 18px 44px rgba(10, 10, 10, 0.06);
+  overflow: hidden;
 }
 
-.tsc-mode {
+/* The demo is the widest thing on the page: the article measure (58rem) squeezed
+   the rail and the transcript into two narrow columns. It breaks out of that
+   measure on a large screen, staying centred on the page. */
+@media (min-width: 1180px) {
+  .tf {
+    width: min(72rem, calc(100vw - 6rem));
+    margin-left: calc((58rem - min(72rem, calc(100vw - 6rem))) / 2);
+  }
+}
+
+/* A tint of its own, not the page's cream: side by side with the white panel the
+   two were indistinguishable and the card had no left half. */
+.tf-rail {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  padding: 1.15rem 1.25rem;
-  background: var(--white, #fff);
-  border: 1px solid var(--primary-100);
-  border-radius: 1rem;
+  gap: 0.35rem;
+  padding: 0.85rem;
+  background: linear-gradient(180deg, var(--bg-cream-100), #FFEEDC);
+  border-right: 1px solid var(--primary-100);
 }
 
-.tsc-mode-label {
+/* The five share the rail's height rather than stacking at the top: the panel
+   is the taller column, and a short rail left a hole under the last item. Each
+   one grows equally, so the gap between them and the padding around them stay
+   the same whatever the panel's height. */
+.tf-rail-item {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.8rem 0.85rem;
+  border: 0;
+  border-radius: 0.875rem;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--color-10);
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.tf-rail-item svg {
+  flex: none;
+  width: 1.35rem;
+  height: 1.35rem;
+  color: var(--model-accent, var(--text-orange-500));
+}
+
+.tf-rail-item span {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.tf-rail-item strong {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.tf-rail-item em {
+  font-style: normal;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--color-11);
+}
+
+.tf-rail-item:hover {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.tf-rail-item.is-on {
+  background: var(--model-accent, var(--text-orange-500));
+  box-shadow: 0 6px 18px rgba(255, 107, 53, 0.28);
+}
+
+.tf-rail-item.is-on svg,
+.tf-rail-item.is-on strong,
+.tf-rail-item.is-on em {
+  color: #fff;
+}
+
+.tf-panel {
+  padding: 1.5rem 1.6rem 1.4rem;
+  min-width: 0;
+}
+
+.tf-panel-title {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-poppins);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.tf-panel-claim {
+  margin: 0 0 1.2rem;
+  max-width: 62ch;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--color-10);
+}
+
+.tf-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1.1rem;
+}
+
+.tf-filter-label {
+  margin-right: 0.35rem;
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -2030,134 +2135,201 @@ main.models-page-main {
   color: var(--model-accent, var(--text-orange-500));
 }
 
-.tsc-mode-text {
-  margin: 0;
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: var(--text-primary);
-}
-
-.tsc-mode-desc {
-  margin: 0;
-  font-size: 0.875rem;
-  line-height: 1.6;
-  color: var(--color-11);
-}
-
-.tsc-coverage {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-  gap: 1px;
-  margin-top: 1.5rem;
-  background: var(--primary-100);
-  border: 1px solid var(--primary-100);
-  border-radius: 1rem;
-  overflow: hidden;
-}
-
-.tsc-coverage-cell {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 1.15rem 1.25rem;
-  background: var(--white, #fff);
-}
-
-.tsc-coverage-count {
-  font-family: var(--font-poppins);
-  font-size: 1.75rem;
-  font-weight: 600;
-  line-height: 1;
-  color: var(--model-accent, var(--text-orange-500));
-  font-variant-numeric: tabular-nums;
-}
-
-.tsc-coverage-label {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.tsc-coverage-note {
-  font-size: 0.8125rem;
-  color: var(--color-11);
-}
-
-.tsc-spec {
-  margin: 1.5rem 0 0;
-  border: 1px solid var(--primary-100);
-  border-radius: 1rem;
-  overflow: hidden;
-}
-
-.tsc-spec-row {
-  display: grid;
-  grid-template-columns: minmax(9rem, 14rem) minmax(0, 1fr);
-  gap: 0.75rem 1.25rem;
-  padding: 0.85rem 1.25rem;
-  background: var(--white, #fff);
-  border-top: 1px solid var(--bg-cream-100);
-}
-
-.tsc-spec-row:first-child {
-  border-top: 0;
-}
-
-.tsc-spec-row dt {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--color-11);
-}
-
-.tsc-spec-row dd {
-  margin: 0;
-  font-size: 0.9375rem;
-  color: var(--text-primary);
-}
-
-/* Marked in the announcement as not yet verified, and marked here the same way. */
-.tsc-spec-note {
-  margin-left: 0.5rem;
-  padding: 0.1rem 0.4rem;
+.tf-chip {
+  padding: 0.35rem 0.8rem;
   border: 1px solid var(--primary-100);
   border-radius: 999px;
-  font-size: 0.6875rem;
-  font-style: normal;
-  color: var(--color-14);
+  background: var(--white, #fff);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-10);
+  cursor: pointer;
+  transition: border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease;
 }
 
-.tsc-limits {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
-  gap: 0.875rem;
-  margin-top: 1.5rem;
+.tf-chip:hover {
+  border-color: var(--model-accent, var(--text-orange-500));
 }
 
-.tsc-limit {
-  padding: 1.15rem 1.25rem;
-  background: var(--bg-cream-50);
+.tf-chip.is-on {
+  background: var(--model-accent, var(--text-orange-500));
+  border-color: var(--model-accent, var(--text-orange-500));
+  color: #fff;
+  font-weight: 600;
+}
+
+.tf-clip {
+  padding: 1.15rem 1.25rem 1rem;
   border: 1px solid var(--primary-100);
   border-radius: 1rem;
+  background: var(--bg-cream-50);
 }
 
-.tsc-limit h3 {
-  margin: 0 0 0.4rem;
-  font-size: 0.9375rem;
-  font-weight: 700;
+.tf-panel {
+  background: var(--white, #fff);
+}
+
+.tf-clip-title {
+  margin: 0;
+  font-family: var(--font-eb-garamond, var(--font-poppins));
+  font-size: 1.15rem;
+  font-weight: 600;
   color: var(--text-primary);
 }
 
-.tsc-limit p {
-  margin: 0;
-  font-size: 0.875rem;
-  line-height: 1.6;
+.tf-clip-meta {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
   color: var(--color-11);
 }
 
-@media (max-width: 640px) {
-  .tsc-spec-row {
+.tf-player {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1rem 0 0.9rem;
+}
+
+.tf-play {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border: 1px solid var(--primary-100);
+  border-radius: 50%;
+  background: var(--white, #fff);
+  color: var(--model-accent, var(--text-orange-500));
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.tf-play:hover {
+  background: var(--primary-100);
+}
+
+/* The clip's own loudness envelope, one bar per sample. */
+.tf-wave {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  height: 1.75rem;
+  min-width: 0;
+}
+
+.tf-wave-bar {
+  flex: 1 1 0;
+  min-width: 1px;
+  height: calc(var(--level) * 100%);
+  border-radius: 999px;
+  background: var(--primary-100);
+}
+
+.tf-wave-bar.is-played {
+  background: var(--model-accent, var(--text-orange-500));
+}
+
+.tf-time {
+  flex: none;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-11);
+}
+
+.tf-badge {
+  flex: none;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--model-accent, var(--text-orange-500));
+}
+
+.tf-transcript {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: start;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--primary-100);
+  border-radius: 0.75rem;
+  background: var(--white, #fff);
+}
+
+.tf-transcript-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--model-accent, var(--text-orange-500));
+  padding-top: 0.15rem;
+}
+
+.tf-transcript p {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+
+.tf-pager {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 0.9rem;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-11);
+}
+
+.tf-pager button {
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border: 1px solid var(--primary-100);
+  border-radius: 50%;
+  background: var(--white, #fff);
+  color: var(--color-10);
+  cursor: pointer;
+}
+
+.tf-pager button:hover:not(:disabled) {
+  border-color: var(--model-accent, var(--text-orange-500));
+  color: var(--model-accent, var(--text-orange-500));
+}
+
+.tf-pager button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+@media (max-width: 860px) {
+  .tf {
     grid-template-columns: 1fr;
-    gap: 0.2rem;
+  }
+
+  .tf-rail {
+    flex-direction: row;
+    overflow-x: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--primary-100);
+  }
+
+  .tf-rail-item {
+    flex: 0 0 auto;
+    align-items: center;
+  }
+
+  .tf-rail-item em {
+    display: none;
+  }
+
+  .tf-transcript {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
   }
 }
