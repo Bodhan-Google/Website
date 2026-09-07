@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import AnnouncementBar from './AnnouncementBar';
 import { motion } from "motion/react";
 import { Menu, X } from 'lucide-react';
 
@@ -46,6 +47,8 @@ const Navbar = () => {
     };
 
     return (
+        <>
+        <AnnouncementBar />
         <motion.nav
             className="sticky top-0 z-50 w-full bg-[var(--navbar-bg)]"
             initial="hidden"
@@ -130,6 +133,7 @@ const Navbar = () => {
                 </div>
             </motion.div>
         </motion.nav>
+        </>
     );
 };
 
