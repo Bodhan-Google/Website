@@ -4550,6 +4550,11 @@ body {
   height: 100%;
   border-radius: 999px;
   background: color-mix(in srgb, var(--model-accent) 70%, transparent);
+  /* The resting shape, written here rather than by the timeline: `--h` is the
+     bar's own height in the pattern, so the waveform reads as one without any
+     script running. GSAP animates from this and settles back to it. */
+  transform: scaleY(calc(0.25 + var(--h) * 0.85));
+  transform-origin: 50% 50%;
 }
 
 /* translate — the word mid-journey between languages */

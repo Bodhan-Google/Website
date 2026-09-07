@@ -1007,11 +1007,18 @@ main.models-page-main {
    the machinery showing: no caret parked at the left margin, no dashed scan
    box around the name, no handwriting sitting on top of it. */
 .mti-edge,
-.mti-wave,
 .mti-eq,
 .mti-scan-box,
 .mti-hand {
   opacity: 0;
+}
+
+/* NOT in the list above. The wave is the one stage that is part of the title
+   rather than a flourish over it: hidden until GSAP fades it in, it was missing
+   entirely for a reader with reduced motion, or one who opened the page in a
+   background tab — and it faded itself out two seconds in for everyone else. */
+.mti-wave {
+  opacity: 1;
 }
 
 .mti-edge-line {
@@ -1385,8 +1392,8 @@ main.models-page-main {
 
 /* ── OCR stage: one box for every example ────────────────────────────────── */
 
-/* The examples are pages of very different proportions — a portrait Kashmiri
-   manuscript at 0.61, a landscape bank passbook at 1.83 — and the scan was
+/* The examples are pages of very different proportions — a portrait manuscript
+   at 0.61, a landscape ledger at 1.83 — and the scan was
    sized by width alone, so each one came out a different height and the whole
    card resized when the example changed. Instead the scan gets a fixed box and
    the page is fitted inside it, centred: portrait pages fill the height,
@@ -1991,5 +1998,166 @@ main.models-page-main {
   .tx-status.is-listening .tx-status-dot,
   .tx-status.is-writing .tx-status-dot {
     animation: none;
+  }
+}
+
+/* ── Indic-Transcribe: the sections carried over from the announcement ─────
+   Three shapes, all of them lists: one sentence in three output modes, what the
+   family covers, the architecture, and where it does not reach. They share the
+   page's card language rather than inventing a new one. */
+.tsc-modes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.875rem;
+  margin-top: 1.5rem;
+}
+
+.tsc-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.15rem 1.25rem;
+  background: var(--white, #fff);
+  border: 1px solid var(--primary-100);
+  border-radius: 1rem;
+}
+
+.tsc-mode-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--model-accent, var(--text-orange-500));
+}
+
+.tsc-mode-text {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.tsc-mode-desc {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-11);
+}
+
+.tsc-coverage {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1px;
+  margin-top: 1.5rem;
+  background: var(--primary-100);
+  border: 1px solid var(--primary-100);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.tsc-coverage-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1.15rem 1.25rem;
+  background: var(--white, #fff);
+}
+
+.tsc-coverage-count {
+  font-family: var(--font-poppins);
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--model-accent, var(--text-orange-500));
+  font-variant-numeric: tabular-nums;
+}
+
+.tsc-coverage-label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.tsc-coverage-note {
+  font-size: 0.8125rem;
+  color: var(--color-11);
+}
+
+.tsc-spec {
+  margin: 1.5rem 0 0;
+  border: 1px solid var(--primary-100);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.tsc-spec-row {
+  display: grid;
+  grid-template-columns: minmax(9rem, 14rem) minmax(0, 1fr);
+  gap: 0.75rem 1.25rem;
+  padding: 0.85rem 1.25rem;
+  background: var(--white, #fff);
+  border-top: 1px solid var(--bg-cream-100);
+}
+
+.tsc-spec-row:first-child {
+  border-top: 0;
+}
+
+.tsc-spec-row dt {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-11);
+}
+
+.tsc-spec-row dd {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+}
+
+/* Marked in the announcement as not yet verified, and marked here the same way. */
+.tsc-spec-note {
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--primary-100);
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-style: normal;
+  color: var(--color-14);
+}
+
+.tsc-limits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 0.875rem;
+  margin-top: 1.5rem;
+}
+
+.tsc-limit {
+  padding: 1.15rem 1.25rem;
+  background: var(--bg-cream-50);
+  border: 1px solid var(--primary-100);
+  border-radius: 1rem;
+}
+
+.tsc-limit h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.tsc-limit p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-11);
+}
+
+@media (max-width: 640px) {
+  .tsc-spec-row {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
   }
 }

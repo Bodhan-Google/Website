@@ -136,7 +136,7 @@ export const DOC_EXAMPLES = [
     },
     {
         id: 'telugu',
-        title: 'Handwritten Novel',
+        title: 'Telugu novel',
         langLabel: 'తెలుగు',
         label: 'Telugu',
         tag: 'Handwritten · novel',

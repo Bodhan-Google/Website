@@ -50,7 +50,10 @@ export const posts = [
         category: 'Release',
         date: '2026-09-05',
         summary:
-            'A 1.2B-parameter multilingual speech recognition family for 25 Indian languages, in two checkpoints: Core, which transcribes into each language\'s own script, and Pro, which adds code-mixed and romanized output.',
+            'Indic-Transcribe is a family of two open 1.2B-parameter speech-to-text models '
+            + 'covering all 22 constitutional Indian languages plus English, two Hindi dialects, '
+            + 'and Bhili and Bhojpuri. It handles code-mixed speech and outputs in native script, '
+            + 'romanized, or mixed script.',
         featured: true,
         posterMotif: 'speech',
         tagline:

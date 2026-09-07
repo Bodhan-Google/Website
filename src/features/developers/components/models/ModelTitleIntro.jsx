@@ -64,24 +64,26 @@ const WaveStage = ({ text }) => (
 
 const buildWave = (root) => {
     const tl = gsap.timeline();
-    const wave = root.querySelector('.mti-wave');
     const bars = root.querySelectorAll('.mti-wave-bar');
 
     swipeIn(tl, root, { duration: 1.5, at: 0.12 });
 
-    tl.fromTo(wave, { opacity: 0 }, { opacity: 1, duration: 0.25 }, 0)
-        .fromTo(
-            bars,
-            { scaleY: 0.12, transformOrigin: '50% 50%' },
-            {
-                scaleY: (i, el) => 0.25 + Number(el.style.getPropertyValue('--h')) * 0.85,
-                duration: 0.4,
-                ease: 'sine.inOut',
-                stagger: { each: 0.018, yoyo: true, repeat: 3 },
-            },
-            0.12,
-        )
-        .to(wave, { opacity: 0, duration: 0.45 }, 1.78);
+    // The wave is visible at rest (see .mti-wave in developers.css): the timeline
+    // animates it and hands it back, rather than being the only thing that makes
+    // it appear — and it stays under the name once the intro is over, because it
+    // is part of the title rather than a flourish across it.
+    tl.fromTo(
+        bars,
+        { scaleY: 0.12, transformOrigin: '50% 50%' },
+        {
+            scaleY: (i, el) => 0.25 + Number(el.style.getPropertyValue('--h')) * 0.85,
+            duration: 0.4,
+            ease: 'sine.inOut',
+            stagger: { each: 0.018, yoyo: true, repeat: 3 },
+            clearProps: 'scaleY',
+        },
+        0.12,
+    );
 
     return tl;
 };
