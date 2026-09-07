@@ -145,9 +145,9 @@ export const k12PolicyPaperPost = {
             content: [
                 'The recommendations are addressed to four audiences. Each set follows from the same test: does the measure strengthen the system, start from a real classroom need, and fit the Indian context?',
             ],
-            // Boxed and numbered, like "Where AI can help": three audiences read as
-            // three parallel sets rather than one long stack of headings.
-            subsectionLayout: 'cards',
+            // NOT boxed. Tried as numbered cards like "Where AI can help", and the
+            // bullets here are long enough that three narrow columns cut them into
+            // slivers; each audience reads better across the full measure.
             subsections: [
                 {
                     title: 'For teachers and school administrators',
