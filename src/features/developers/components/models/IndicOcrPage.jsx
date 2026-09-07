@@ -25,7 +25,7 @@ const IndicOcrPage = () => (
             <ModelHero
                 title={model.name}
                 intro="scan"
-                tagline="Layout detection with reading order, then block-level OCR — printed or handwritten, with math as LaTeX and tables as HTML."
+                tagline="Layout detection with reading order, then block-level OCR, for printed or handwritten pages, with math as LaTeX and tables as HTML."
                 accent={model.accent}
                 viz={model.viz}
                 stats={STATS}
@@ -39,8 +39,8 @@ const IndicOcrPage = () => (
             <DevReveal as="section" className="model-section">
                 <h2 className="model-section-title">Watch it read a page</h2>
                 <p className="model-section-dek">
-                    The scan on the left, the model's reconstruction on the right — built one block
-                    at a time, in the reading order the layout model chose, with each region
+                    The scan on the left, the model's reconstruction on the right, built one block
+                    at a time in the reading order the layout model chose, with each region
                     outlined on the page as it is read.
                 </p>
                 <DocParserExamples />

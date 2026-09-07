@@ -139,7 +139,7 @@ const AdvisoryCouncilPage = () => {
                         </div>
 
                         {/* Info */}
-                        <div className="flex-1 text-center md:text-left">
+                        <div className="flex-1 min-w-0 text-center md:text-left">
                             <h2 className="text-2xl md:text-3xl font-semibold text-[#1A1A1A] mb-1">
                                 {member.name}
                             </h2>
@@ -148,7 +148,7 @@ const AdvisoryCouncilPage = () => {
                             </p>
                             <div className="space-y-3">
                                 {member.bio.map((paragraph, i) => (
-                                    <p key={i} className="text-gray-600 leading-relaxed text-[15px]">
+                                    <p key={i} className="text-gray-600 leading-relaxed text-[15px] [overflow-wrap:anywhere]">
                                         {paragraph}
                                     </p>
                                 ))}

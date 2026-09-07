@@ -56,7 +56,7 @@ const TRANSCRIBE_VARIANTS = [
         label: 'Flex',
         hf: `${HF}/indic-transcribe-flex`,
         summary:
-            'All three output modes — native script, mixed script, and fully romanized — for about 1.6 OIWER on native-script accuracy.',
+            'All three output modes, native script, mixed script and fully romanized, for about 1.6 OIWER on native-script accuracy.',
         specs: [
             { label: 'Languages', value: '27' },
             { label: 'Parameters', value: '1.2B' },
@@ -87,7 +87,7 @@ export const models = [
         ...PRIMARY,
         tagline: 'Speech recognition for 27 Indian languages',
         summary:
-            "27 languages, their dialects and accents, in the script each one is actually written in — with English mixed in mid-sentence, over classroom noise and phone lines.",
+            "27 languages, their dialects and accents, in the script each one is actually written in, with English mixed in mid-sentence, over classroom noise and phone lines.",
         specs: [
             { label: 'Languages', value: '27' },
             { label: 'Parameters', value: '1.2B' },
@@ -109,7 +109,7 @@ export const models = [
         ...PRIMARY,
         tagline: 'Text-to-speech for 22 Indian languages, built for the classroom',
         summary:
-            'A voice engine that reads STEM content and code-mixed sentences the way a teacher would — with multiple voices per language.',
+            'A voice engine that reads STEM content and code-mixed sentences the way a teacher would, with multiple voices per language.',
         specs: [
             { label: 'Languages', value: '22 + English' },
             { label: 'Voices', value: 'Multiple / language' },
@@ -129,7 +129,7 @@ export const models = [
         ...PRIMARY,
         tagline: 'Document parsing for English and 22 Indian languages',
         summary:
-            'Layout detection with reading order, then block-level OCR — for printed and handwritten pages, with math as LaTeX and tables as HTML.',
+            'Layout detection with reading order, then block-level OCR, for printed and handwritten pages, with math as LaTeX and tables as HTML.',
         specs: [
             { label: 'Languages', value: '22 + English' },
             { label: 'Layout labels', value: '37' },
@@ -149,7 +149,7 @@ export const models = [
         ...PRIMARY,
         tagline: 'Document-length translation across 44 language directions',
         summary:
-            'Translates between English and all 22 Eighth Schedule languages, preserving Markdown, LaTeX, and table structure — plus romanized and code-mixed text.',
+            'Translates between English and all 22 Eighth Schedule languages, preserving Markdown, LaTeX and table structure, plus romanized and code-mixed text.',
         specs: [
             { label: 'Directions', value: '44' },
             { label: 'Parameters', value: '7.94B' },
