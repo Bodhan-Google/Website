@@ -138,6 +138,7 @@ export const tenders = [
             'On behalf of the IITM Bodhan-AI Foundation, offers are invited for TTS Data Collection conforming to the specifications in the Technical Specification Document (Annexure III). As per Government of India order, only Class-I and Class-II Local Suppliers are eligible to participate. Bids must be exclusive of taxes and duties, with applicable tax percentages indicated separately. Sealed bids may be submitted by post, courier, or dropped in the tender box at IITM Bodhan-AI Foundation, IIT Madras Research Park, E1-14, 1st Floor, Kanagam Rd, Taramani, Chennai – 600113, before the due date and time.',
         closingDate: '2026-03-20',
         closingTime: '15:00 IST',
+        awardedTo: 'AIVanta Technologies LLP',
         documents: [
             {
                 name: 'TTS Data Collection Tender Document',
