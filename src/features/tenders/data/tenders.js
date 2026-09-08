@@ -1,7 +1,22 @@
+// Closing deadlines are IST (UTC+05:30). `status: 'closed'` in the data is a
+// manual override that always wins (e.g. a tender withdrawn early or already
+// awarded); otherwise status is derived from closingDate + closingTime, so an
+// active tender moves to closed on its own the moment the deadline passes.
+const IST_OFFSET = '+05:30';
+
+export const isTenderClosed = (tender, now = new Date()) => {
+    if (tender.status === 'closed') return true;
+    const time = (tender.closingTime || '23:59 IST').replace(/\s*IST\s*$/i, '');
+    return now >= new Date(`${tender.closingDate}T${time}:00${IST_OFFSET}`);
+};
+
+export const getTenderStatus = (tender, now) =>
+    isTenderClosed(tender, now) ? 'closed' : 'active';
+
 export const tenders = [
     {
         id: 'tender-007',
-        status: 'active',
+        status: 'closed',
         title: 'Appointment of Event Management & Experiential Agency',
         description: 'Event Strategy and Experience Design',
         closingDate: '2026-07-21',
@@ -16,12 +31,13 @@ export const tenders = [
     },
     {
         id: 'tender-006',
-        status: 'active',
+        status: 'closed',
         title: 'Agency on Retainer for Public Relations',
         description:
             'On behalf of the IITM Bodhan-AI Foundation, offers are invited for Appointment of Event Management & Experiential Agency for Bodhan AI" Document (Annexure III). As per Government of India order, only Class-I and Class-II Local Suppliers are eligible to participate. Bids must be submitted by 17th July 2026, 5:00 PM via the Bodhan AI website or as a hard copy received at the Bodhan office, IIT Madras Research Park, Chennai.',
         closingDate: '2026-07-21',
         closingTime: '15:00 IST',
+        awardedTo: 'Footprint Global Communication',
         documents: [
             {
                 name: 'Agency on Retainer for Public Relations Tender Document',
