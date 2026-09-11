@@ -103,6 +103,11 @@ const TenderCard = ({ tender, index, onPreview }) => {
                                     </span>
                                 )}
                                 <span className="text-xs text-stone-600 font-mono">{tender.id}</span>
+                                {tender.publishedDate && (
+                                    <span className="text-xs text-stone-600">
+                                        Published {formatDateShort(tender.publishedDate)}
+                                    </span>
+                                )}
                             </div>
                             <h3 className="text-lg md:text-xl font-semibold text-[#1A1A1A] mb-2 leading-snug">
                                 {tender.title}

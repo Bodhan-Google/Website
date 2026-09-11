@@ -13,7 +13,27 @@ export const isTenderClosed = (tender, now = new Date()) => {
 export const getTenderStatus = (tender, now) =>
     isTenderClosed(tender, now) ? 'closed' : 'active';
 
+// `publishedDate` is optional: the date the notice went out, shown on the card
+// so bidders can see the notice period. It has no bearing on open/closed.
+
 export const tenders = [
+    {
+        id: 'tender-009',
+        status: 'active',
+        title: 'AI Literacy Tutorial for 22 languages Localisation',
+        description:
+            'On behalf of the IITM Bodhan-AI Foundation, offers are invited for the localisation of the Bodhan AI Literacy Program from the approved English master into 22 Indian languages \u2014 45 videos per language, 990 localised video outputs in total, delivered in four tranches and completed by 15th October 2026. Bidders must quote commercials inclusive of GST for translation and localisation, native-language linguistic QC, voiceover production, demo re-creation and screen recording, editing and post-production, and project management. Full scope, responsibilities, production workflow and delivery specifications are set out in the Statement of Work. Bids must be submitted by 17th September 2026, 3:00 PM via the Bodhan AI website.',
+        publishedDate: '2026-09-04',
+        closingDate: '2026-09-17',
+        closingTime: '15:00 IST',
+        documents: [
+            {
+                name: 'AI Literacy Tutorial Localisation \u2014 Statement of Work',
+                url: 'https://docs.google.com/document/d/1GuMYuzs15k1o_O_-ST6q31sRAQM5D07i/export?format=pdf',
+                previewUrl: 'https://docs.google.com/document/d/1GuMYuzs15k1o_O_-ST6q31sRAQM5D07i/preview',
+            },
+        ],
+    },
     {
         id: 'tender-007',
         status: 'closed',
