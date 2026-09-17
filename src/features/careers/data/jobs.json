@@ -1080,6 +1080,73 @@
     ]
   },
   {
+    "id": "facilities-executive",
+    "title": "Facilities Executive / Facilities Assistant",
+    "category": "Business Operations",
+    "status": "active",
+    "experience": "3–5 years",
+    "location": "Chennai (On-site)",
+    "about": "Keep the Chennai office running. This is a proactive, hands-on role owning day-to-day facilities and administrative operations — office maintenance, vendor and building coordination, procurement, housekeeping, and safety — so that the workplace stays clean, safe, well-stocked, and efficient for everyone who works out of it.",
+    "responsibilities": [
+      "Manage day-to-day facility operations — regular inspections, preventive and corrective maintenance across electrical, plumbing, HVAC/AC, carpentry and civil work, and upkeep of office equipment, furniture and pantry amenities, with records maintained for service schedules and facility documents",
+      "Coordinate housekeeping, security, maintenance, pest control, pantry and transportation vendors — obtain and compare quotations, support negotiations, monitor service quality and timelines, and verify service completion and invoices before payment processing",
+      "Handle procurement of office, pantry, housekeeping, stationery and facility requirements — raise purchase requests, follow up on timely delivery, maintain inventory records and stock levels, and coordinate replacement, warranty and service requirements",
+      "Monitor cleanliness and hygiene standards across workstations, meeting rooms, pantry and common areas, coordinate daily cleaning schedules and pantry replenishment, and keep meeting spaces ready for internal and external meetings and events",
+      "Support security and safety — office access procedures, employee access cards, visitor management, and availability and upkeep of basic fire and safety equipment, escalating any concern immediately",
+      "Coordinate with building management and landlords on electricity and power, air-conditioning/HVAC, internet and telecom infrastructure, parking, access cards, common-area maintenance and fire safety systems, following complaints through to resolution",
+      "Support employee travel, hotel and local transportation arrangements with travel agencies, hotels and transport vendors, and maintain travel and accommodation records with timely submission of bills and supporting documents",
+      "Assist the Administration team with office events, employee engagement activities, office shifting, workstation setup and new-joiner requirements, and prepare regular MIS reports on facilities, vendors, procurement and expenses"
+    ],
+    "required": [
+      "Bachelor's degree in any discipline — Business Administration, Facilities Management, Operations or Hospitality preferred",
+      "3–5 years of relevant experience in facilities management, office administration, workplace management, or a similar role",
+      "Currently based in Chennai and willing to work from the Chennai office",
+      "Good working knowledge of office facility operations, vendor management, negotiation and cost management",
+      "Strong coordination and follow-up skills, with good communication and the ability to work with varied internal and external stakeholders",
+      "Working knowledge of MS Office / Google Workspace, particularly Excel or Google Sheets, and the discipline to maintain records, trackers and documentation",
+      "Ability to handle multiple tasks at once, with strong problem solving, time management and an ownership mindset"
+    ],
+    "preferred": [
+      "Experience in corporate offices, start-ups, or technology companies",
+      "Experience with co-working or managed office spaces",
+      "Experience in educational or research institutions",
+      "Experience in IT / ITES companies or facility management companies"
+    ]
+  },
+  {
+    "id": "finance-executive-bodhan-plus",
+    "title": "Finance Executive, Bodhan+",
+    "category": "Business Operations",
+    "status": "active",
+    "experience": "5–7 years",
+    "location": "Chennai",
+    "about": "Own core transactional finance for Bodhan+ — purchase order coordination, vouching and payment processing, travel and reimbursement settlement, bank reconciliation, and statutory compliance support. This is a hands-on execution role reporting to the Manager Finance, and it requires strong working knowledge of Section 8 / GFR-based financial governance, since Bodhan operates under Ministry of Education funding and reporting requirements.",
+    "responsibilities": [
+      "Coordinate with the Admin department to facilitate Purchase Order preparation and ensure adherence to internal procurement processes",
+      "Prepare and verify vouchers for direct payments, staff reimbursements, and travel expense settlements",
+      "Manage travel bill processing and liaise with consultants and accounts personnel to resolve financial clarifications",
+      "Prepare regular Bank Reconciliation Statements (BRS) and flag discrepancies for timely resolution",
+      "Support compliance with General Financial Rules (GFR) and Section 8 company reporting requirements, including fund utilization documentation",
+      "Assist with GST and TDS workings, filings and reconciliations in coordination with external consultants and auditors, and maintain organised documentation for statutory and internal audits",
+      "Support payroll processing and statutory payroll compliance (PF/ESI/TDS on salary) using Zoho Payroll, and keep financial records accurate and up to date in Zoho Books",
+      "Assist in preparing periodic MIS reports and financial summaries for the Finance Lead and Program Director"
+    ],
+    "required": [
+      "5–7 years of relevant experience in transactional finance and accounting",
+      "M.Com or MBA (Finance), or pursuing CA / CWA (ICMAI)",
+      "Working knowledge of Section 8 company operations and General Financial Rules (GFR)",
+      "Strong understanding of relevant taxation norms (GST, TDS) and statutory accounting standards",
+      "Proficiency in MS Excel and comfort working across multiple stakeholders — Admin, consultants and auditors",
+      "High attention to detail and the ability to manage time-sensitive, compliance-driven tasks independently"
+    ],
+    "preferred": [
+      "Working knowledge of Zoho Books and Zoho Payroll",
+      "Prior experience in a Section 8 company, NGO, or government-funded project",
+      "Experience supporting statutory audits and fund utilization certifications",
+      "Experience handling reimbursement and travel policies for distributed or remote teams"
+    ]
+  },
+  {
     "id": "business-operations-manager",
     "title": "Business Operations Manager",
     "category": "Business Operations",
