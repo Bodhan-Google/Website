@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Calendar, FileText, ExternalLink, ChevronDown, Download, Eye, X, ArrowRight, AlertTriangle, Award } from 'lucide-react';
 import Navbar from '../../home/components/Navbar';
 import Footer from '../../home/components/Footer';
-import { tenders as tenderData, getTenderStatus } from '../data/tenders';
+import { tenders as tenderData, getTenderStatus, isTenderAwarded } from '../data/tenders';
 
 const formatDate = (dateStr) => {
     const d = new Date(dateStr + 'T00:00:00');
@@ -97,7 +97,7 @@ const TenderCard = ({ tender, index, onPreview }) => {
                         <div className="flex-1 min-w-0">
                             <div className="flex flex-wrap items-center gap-2 mb-2.5">
                                 <StatusBadge status={tender.status} />
-                                {(tender.bidAward || tender.awardedTo) && (
+                                {isTenderAwarded(tender) && (
                                     <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-full px-2.5 py-0.5">
                                         <Award size={11} /> Awarded
                                     </span>
@@ -145,15 +145,19 @@ const TenderCard = ({ tender, index, onPreview }) => {
                         className="overflow-hidden"
                     >
                         <div className="mt-5 pt-4 border-t border-gray-100">
-                            {(tender.bidAward || tender.awardedTo) && (
+                            {isTenderAwarded(tender) && (
                                 <div className="mb-5">
                                     <p className="text-xs font-semibold text-emerald-700 uppercase tracking-wider mb-3 flex items-center gap-1.5">
                                         <Award size={12} /> Bid Award
                                     </p>
-                                    {tender.awardedTo && (
+                                    {tender.awardedTo ? (
                                         <p className={`text-sm text-gray-700 leading-relaxed ${tender.bidAward ? 'mb-3' : ''}`}>
                                             This tender has been awarded to{' '}
                                             <span className="font-semibold text-emerald-700">{tender.awardedTo}</span>.
+                                        </p>
+                                    ) : !tender.bidAward && (
+                                        <p className="text-sm text-gray-700 leading-relaxed">
+                                            This tender has been awarded.
                                         </p>
                                     )}
                                     {tender.bidAward && (
@@ -229,7 +233,7 @@ const TenderCard = ({ tender, index, onPreview }) => {
                 <span className="flex items-center gap-1.5 text-xs text-stone-600">
                     <FileText size={11} />
                     {tender.documents.length} document{tender.documents.length !== 1 ? 's' : ''}
-                    {(tender.bidAward || tender.awardedTo) && (
+                    {isTenderAwarded(tender) && (
                         <span className="flex items-center gap-1 text-emerald-700 ml-2">
                             <Award size={11} /> Bid award
                         </span>

@@ -13,6 +13,12 @@ export const isTenderClosed = (tender, now = new Date()) => {
 export const getTenderStatus = (tender, now) =>
     isTenderClosed(tender, now) ? 'closed' : 'active';
 
+// A tender is awarded when it names an awardee (`awardedTo`), carries a bid
+// award document (`bidAward`), or is simply flagged `awarded: true` — the last
+// covers an award that is public before the awardee name or document is.
+export const isTenderAwarded = (tender) =>
+    Boolean(tender.awarded || tender.awardedTo || tender.bidAward);
+
 // `publishedDate` is optional: the date the notice went out, shown on the card
 // so bidders can see the notice period. It has no bearing on open/closed.
 
@@ -41,6 +47,7 @@ export const tenders = [
         description: 'Event Strategy and Experience Design',
         closingDate: '2026-07-21',
         closingTime: '15:00 IST',
+        awarded: true,
         documents: [
             {
                 name: 'Appointment of Event Management & Experiential Agency Tender Document',
