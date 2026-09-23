@@ -24,6 +24,23 @@ export const isTenderAwarded = (tender) =>
 
 export const tenders = [
     {
+        id: 'tender-010',
+        status: 'active',
+        title: 'Concurrent Evaluation Services for the Bodhan AI Literacy Programme for Teachers',
+        description:
+            'On behalf of the IITM Bodhan-AI Foundation, offers are invited for Concurrent Evaluation Services for the Bodhan AI Literacy Programme for Teachers, conforming to the specifications in the Technical Specification Document (Annexure III, Sections 1\u20134). Bodhan seeks an independent Monitoring, Evaluation and Learning (MEL) provider to design and deliver a utilisation-focused, mixed-methods concurrent evaluation across the programme\u2019s Validation, Pilot and National Roll-out phases \u2014 covering Baseline, Midline and Endline rounds, multi-state field data collection, qualitative research, quality assurance and DPDP-compliant data governance, over a 12-month period. As per Government of India order, only Class-I and Class-II Local Suppliers are eligible to participate. Bids must be submitted under a two-bid system (Technical and Financial bids in separate sealed covers), exclusive of taxes and duties, by 7th October 2026, 3:00 PM via the Bodhan AI website or as a hard copy received at the Bodhan office, IIT Madras Research Park, Chennai.',
+        publishedDate: '2026-09-23',
+        closingDate: '2026-10-07',
+        closingTime: '15:00 IST',
+        documents: [
+            {
+                name: 'Concurrent Evaluation Services Tender Document',
+                url: '/tenders/tender-010-concurrent-evaluation-services.pdf',
+                previewUrl: '/tenders/tender-010-concurrent-evaluation-services.pdf',
+            },
+        ],
+    },
+    {
         id: 'tender-009',
         status: 'active',
         title: 'AI Literacy Tutorial for 22 languages Localisation',
