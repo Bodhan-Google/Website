@@ -62,13 +62,10 @@ export const post = {
       href: 'https://huggingface.co/bodhan-ai/indic-translate',
       icon: 'huggingface',
     },
-    // The repo is private -- an unauthenticated request gets a 404 -- and needs work
-    // before it goes public.
     {
       label: 'GitHub',
       icon: 'github',
-      soon: true,
-      href: 'https://github.com/AshwinSankar17/bodhan_gen_ai_tools',
+      href: 'https://github.com/Bodhan-AI/bodhan_genai',
     },
     // Opens as a YouTube player in a lightbox over the page, the way the sibling
     // posts show theirs. youtube-nocookie, so watching the demo does not set an

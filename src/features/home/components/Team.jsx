@@ -15,6 +15,7 @@ import manuImg from '../../../assets/prof-manu.jpg';
 import sumanImg from '../../../assets/Suman_Kundu.jpg';
 import ganeshImg from '../../../assets/Ganesh-Krishnan.jpeg';
 import anoopImg from '../../../assets/Anoop-Kunchukuttan.jpeg';
+import bhanuImg from '../../../assets/Bhanu-Potta.jpg';
 import { Linkedin, User } from 'lucide-react';
 
 const Team = () => {
@@ -91,6 +92,12 @@ const Team = () => {
             linkedin: "https://www.linkedin.com/in/ganesh-krishnan-6a8a93a/",
             image: ganeshImg
         },
+        {
+            name: "Mr. Bhanu Potta",
+            role: "Senior Partner, Bodhan AI",
+            linkedin: "https://www.linkedin.com/in/bhanupotta/",
+            image: bhanuImg
+        },
     ];
 
     return (
@@ -147,7 +154,7 @@ const Team = () => {
                     ))}
                 </div>
 
-                {/* Row 2: 4 members */}
+                {/* Row 2: 5 members */}
                 <div className="flex justify-center gap-24 flex-wrap">
                     {row2.map((member, index) => (
                         <div key={index} className="flex flex-col items-center text-center group w-40">

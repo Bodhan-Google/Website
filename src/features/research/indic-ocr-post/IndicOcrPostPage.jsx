@@ -49,7 +49,7 @@ const ECOSYSTEM = {
         { name: 'Hugging Face', href: 'https://huggingface.co/bodhan-ai/indic-doc-parser', mark: 'huggingface', note: 'Weights and model card' },
         { name: 'Bhashini', mark: 'bhashini' },
         { name: 'AIKosh', href: 'https://aikosh.indiaai.gov.in/web/models/details/indic_ocr.html', mark: 'aikosh', note: 'India AI model repository' },
-        { name: 'GitHub', mark: 'github' },
+        { name: 'GitHub', href: 'https://github.com/Bodhan-AI/bodhan_genai', mark: 'github', note: 'Code and recipes' },
         { name: 'Bodhan', href: '/developers/indic-ocr', mark: 'bodhan', note: 'Model page' },
     ],
 };
