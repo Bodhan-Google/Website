@@ -47,7 +47,7 @@ const developersResources = [
 const developersDropdown = [...developersApis, { label: 'All models', to: '/developers', description: 'Browse every Bodhan model' }];
 
 const productsDropdown = [
-    { label: 'Student Tutor Bot', to: 'https://students.bodhan.ai', description: 'AI-powered study companion for students' },
+    { label: 'Student Tutor Bot', to: 'https://students.bodhan.ai', description: 'Smart learning companion for students' },
     { label: 'Teacher Assistant Bot', to: 'https://teachers.bodhan.ai/', description: 'Smart teaching assistant for educators' },
 ];
 
