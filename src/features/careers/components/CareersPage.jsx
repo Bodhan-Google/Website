@@ -39,6 +39,13 @@ const isPastClosingDate = (job) => {
 const effectiveStatus = (job) =>
     job.status === 'active' && isPastClosingDate(job) ? 'closed' : job.status;
 
+const jobSections = (job) => [
+    ['Key Responsibilities', job.responsibilities],
+    ['Required Qualifications', job.required],
+    ...(job.additionalSections || []).map((section) => [section.title, section.items]),
+    ['Preferred Qualifications', job.preferred],
+];
+
 const collapsedGroups = () => Object.fromEntries(CATEGORIES.map((category) => [category, false]));
 const expandedGroups = () => Object.fromEntries(CATEGORIES.map((category) => [category, true]));
 
@@ -51,9 +58,7 @@ const jobSearchText = new Map(
             job.experience,
             job.location || DEFAULT_LOCATION,
             job.about,
-            ...job.responsibilities,
-            ...job.required,
-            ...job.preferred,
+            ...jobSections(job).flatMap(([, items]) => items),
         ]
             .filter(Boolean)
             .join(' ')
@@ -95,6 +100,8 @@ const Highlight = ({ text, tokens }) => {
 const JobCard = ({ job, index, tokens }) => {
     const [expanded, setExpanded] = useState(false);
     const isOpen = effectiveStatus(job) === 'active';
+    const sections = jobSections(job);
+    const applyUrl = job.applyUrl || APPLY_URL;
 
     return (
         <motion.div
@@ -136,7 +143,7 @@ const JobCard = ({ job, index, tokens }) => {
                 <div className="flex items-center gap-3 flex-shrink-0">
                     {isOpen && (
                         <a
-                            href={APPLY_URL}
+                            href={applyUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-1.5 bg-[#0a0a0a] text-white text-sm font-medium py-2.5 px-5 rounded-lg hover:bg-black transition-colors"
@@ -164,12 +171,12 @@ const JobCard = ({ job, index, tokens }) => {
                 inert={!expanded ? true : undefined}
             >
                 <div className="px-6 md:px-8 pb-8 pt-0 border-t border-gray-100">
-                    <div className="pt-6 grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        {[
-                            ['Key Responsibilities', job.responsibilities],
-                            ['Required Qualifications', job.required],
-                            ['Preferred Qualifications', job.preferred],
-                        ].map(([heading, items]) => (
+                    <div
+                        className={`pt-6 grid grid-cols-1 ${
+                            sections.length === 4 ? 'lg:grid-cols-2' : 'lg:grid-cols-3'
+                        } gap-8`}
+                    >
+                        {sections.map(([heading, items]) => (
                             <div key={heading}>
                                 <h4 className="text-sm font-semibold text-[var(--text-orange-500)] uppercase tracking-wide mb-3">
                                     {heading}
@@ -189,12 +196,12 @@ const JobCard = ({ job, index, tokens }) => {
                     {isOpen ? (
                         <div className="mt-8 pt-6 border-t border-gray-50 flex justify-end">
                             <a
-                                href={APPLY_URL}
+                                href={applyUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-1.5 bg-[#0a0a0a] text-white text-sm font-medium py-2.5 px-6 rounded-lg hover:bg-black transition-colors"
                             >
-                                Apply for {job.title}
+                                Apply Now
                                 <ArrowUpRight size={14} />
                             </a>
                         </div>

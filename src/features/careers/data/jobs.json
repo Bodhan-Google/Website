@@ -252,6 +252,61 @@
     ]
   },
   {
+    "id": "mobile-app-developer",
+    "title": "Mobile App Developer",
+    "category": "Product Engineering",
+    "status": "active",
+    "experience": "3+ years",
+    "location": "Hybrid / Remote",
+    "applyUrl": "https://forms.gle/BWyZGtYpMe1WQPTa7",
+    "about": "Build and ship Bodhan AI's Android app in Kotlin and Jetpack Compose: adaptive UI that works across phones, tablets and foldables, audio and video features built on Android's media APIs, and measured performance work that keeps the app fast. You will own features end to end, from data and architecture through tests and Google Play releases.",
+    "responsibilities": [
+      "Design, build and maintain Android features using Kotlin and Jetpack Compose",
+      "Implement app navigation with Navigation 3, including back stack handling, deep links and adaptive layouts",
+      "Design local data models and persistence with Room (entities, DAOs, migrations), with Flow-based reactive updates",
+      "Build audio and video features using Android media APIs: Media3/ExoPlayer for playback, MediaSession for background and system controls, and MediaCodec, MediaRecorder or CameraX for capture and encoding",
+      "Write clean, testable code following a clear architecture (MVVM/MVI, unidirectional data flow)",
+      "Trace, measure and improve performance: capture and analyze system traces (Perfetto, Android Studio System Trace), add custom trace sections, benchmark with Macrobenchmark and Microbenchmark, and fix jank, slow startup, excess recomposition, memory leaks, battery drain and app size",
+      "Write and maintain automated tests for the code you ship: unit, integration, Room/DAO and Compose UI tests, and keep them running reliably in CI. Take part in code reviews",
+      "Work with product, design, backend and QA to ship releases to Google Play"
+    ],
+    "required": [
+      "Bachelor's degree in Computer Science",
+      "Strong general computer science fundamentals (required): data structures and algorithms, complexity analysis, operating systems concepts (processes, threads, memory management), concurrency and synchronization, networking basics, and databases",
+      "Strong Kotlin skills, including coroutines and Flow",
+      "Hands-on experience building production UI with Jetpack Compose: state hoisting, recomposition, side effects, theming with Material 3",
+      "Experience building adaptive UI that works across phones, tablets, foldables and desktop windows: window size classes, Material 3 adaptive layouts (list-detail, supporting pane, NavigationSuiteScaffold), foldable postures, multi-window and orientation changes",
+      "Experience with Room: entities, DAOs, relations, queries, migrations and testing",
+      "Practical experience with Android audio and video APIs (Media3/ExoPlayer, MediaSession, MediaCodec, AudioFocus, CameraX or MediaRecorder)",
+      "Proven habit of writing tests: unit tests (JUnit, MockK, Turbine, coroutine test utilities), Compose UI tests, and testable architecture with fakes and dependency injection",
+      "Experience with performance tracing and optimization: Perfetto or System Trace, Android Studio profilers (CPU, memory, energy), Macrobenchmark, Baseline Profiles and JankStats, with examples of improvements you measured",
+      "Solid software design skills and comfort with Git, code reviews and agile delivery"
+    ],
+    "additionalSections": [
+      {
+        "title": "Core Android Knowledge",
+        "items": [
+          "Platform fundamentals: activity and process lifecycle, configuration changes, services (including foreground services for media), broadcast receivers and content providers",
+          "Architecture: Android Architecture Components (ViewModel, Lifecycle, SavedStateHandle), repository pattern, clean architecture and modularization",
+          "Dependency injection: Hilt, Dagger or Koin",
+          "Networking: Retrofit or Ktor, OkHttp, kotlinx.serialization or Moshi, offline-first and caching strategies",
+          "Background work: WorkManager, coroutines dispatchers and structured concurrency",
+          "Storage: DataStore, file storage and scoped storage rules",
+          "Permissions and privacy: runtime permissions (camera, microphone, notifications, media access), Android version behavior changes",
+          "Build tooling: Gradle with Kotlin DSL, version catalogs, build variants and flavors, R8/ProGuard",
+          "Quality and performance: Android Studio profilers, LeakCanary, Baseline Profiles, Crashlytics or similar",
+          "Release: Play Console, app bundles, signing, staged rollouts and CI/CD (GitHub Actions, Bitrise or similar)",
+          "UX standards: Material Design 3, accessibility (TalkBack, content descriptions), localization, and support for tablets, foldables and multiple screen sizes"
+        ]
+      }
+    ],
+    "preferred": [
+      "Familiarity with a systems language such as C, C++ or Rust",
+      "Familiarity with Kotlin Multiplatform (KMP): sharing business logic across Android and iOS, expect/actual declarations, and multiplatform libraries such as Ktor, SQLDelight or Room KMP",
+      "Exposure to the Canvas API for custom drawing, in Compose (Canvas, DrawScope, drawWithContent) or with Android Canvas and Paint in custom Views"
+    ]
+  },
+  {
     "id": "sr-graphic-designer",
     "title": "Sr. Graphic Designer",
     "category": "Product Engineering",
