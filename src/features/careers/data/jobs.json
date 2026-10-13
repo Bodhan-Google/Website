@@ -307,6 +307,84 @@
     ]
   },
   {
+    "id": "full-stack-developer",
+    "title": "Full Stack Developer",
+    "category": "Product Engineering",
+    "status": "active",
+    "experience": "3–4 years",
+    "location": "Hybrid / Remote",
+    "applyUrl": "https://forms.gle/BWyZGtYpMe1WQPTa7",
+    "about": "Build Bodhan AI's web products end to end, from Next.js and React interfaces to the Python services behind them, and take them to production yourself. You will deploy and run what you build on cloud VMs, with architecture and performance guidance from our backend team. A role for an engineer who is as comfortable writing a Dockerfile or a database migration as a React component.",
+    "responsibilities": [
+      "Design, build and maintain features end to end, from Next.js/React frontends to Python backend services and APIs",
+      "Build responsive, accessible interfaces in React and Next.js and connect them to backend APIs",
+      "Design and build REST APIs in Python (Django or FastAPI), including database schemas, queries and migrations",
+      "Deploy the applications you build on cloud VMs yourself: containerize services, configure environments, secrets, reverse proxies and TLS, and roll out releases safely",
+      "Set up and maintain CI/CD pipelines for building, testing and deploying your services",
+      "Monitor what you ship in production through logs, metrics and alerts, and debug issues across the stack",
+      "Work with the backend team on architecture and performance, and apply their guidance to your services and deployments",
+      "Write automated tests for the code you ship and take part in code reviews",
+      "Work with product, design and QA to ship features"
+    ],
+    "required": [
+      "Bachelor's degree in Computer Science or a related field",
+      "3–4 years of full-stack experience building and shipping production web applications",
+      "Strong JavaScript/TypeScript skills, with production experience in React and Next.js",
+      "Strong Python backend skills with Django or FastAPI: REST API design, authentication and authorization",
+      "Relational databases, preferably PostgreSQL: schema design, query optimization and migrations",
+      "Hands-on deployment on Linux VMs: Docker and Docker Compose, reverse proxies (Nginx or Caddy), TLS certificates, and environment and secrets management",
+      "CI/CD with GitHub Actions or similar",
+      "A habit of writing tests (pytest, Jest or Vitest, Playwright or similar), and comfort with Git and code reviews"
+    ],
+    "preferred": [
+      "Experience with message queues and background jobs (RabbitMQ, Kafka, Redis Streams, Celery or similar)",
+      "Experience with caching (Redis, HTTP caching, CDNs) and knowing when it helps",
+      "Experience with a major cloud platform (GCP, AWS or Azure): compute, managed databases, object storage and networking",
+      "Monitoring and observability tools (Grafana, Prometheus, OpenTelemetry, Sentry or similar)",
+      "Real-time features (WebSockets, streaming responses) or AI/LLM-powered applications",
+      "Working knowledge of web security practice (OWASP Top 10)"
+    ]
+  },
+  {
+    "id": "cloud-system-admin",
+    "title": "Cloud System Admin",
+    "category": "Product Engineering",
+    "status": "active",
+    "experience": "3+ years",
+    "location": "Hybrid / Remote",
+    "applyUrl": "https://forms.gle/BWyZGtYpMe1WQPTa7",
+    "about": "Own the cloud resources that Bodhan AI's engineering and research teams run on, and keep them healthy, right-sized and paid for. You will take every resource from request to retirement: estimating costs, getting approvals, provisioning, managing payments, and scaling up or down as needs change. A role for someone who keeps meticulous trackers and spots an idle GPU before it shows up on the bill.",
+    "responsibilities": [
+      "Resource ownership: administer the cloud accounts, projects and resources (compute, GPUs, storage, databases, networking) used by the engineering and research teams",
+      "Sanity checks: run regular checks for idle or orphaned resources, unattached disks, open firewall rules, expiring certificates, failed backups and approaching quota limits, and fix what they find",
+      "Cost estimation and approvals: estimate the cost of every resource request before it is provisioned, get the required approvals, and keep a record of each decision",
+      "Payments: manage cloud billing accounts and vendor payments (invoices, credits, commitments and renewals) with the Finance team, so a missed payment never interrupts a service",
+      "Right-sizing: upgrade or downgrade machines, GPU allocations and storage tiers as team requirements change, and reclaim resources that are no longer needed",
+      "Trackers: maintain trackers of every resource with its owner, purpose, monthly cost, approval and renewal date, and share regular cost reports with leadership",
+      "Budgets and alerts: set budgets, quotas and billing alerts per team and project, and raise cost anomalies early",
+      "Access management: grant and revoke access on least-privilege principles and keep an audit trail",
+      "Capacity planning: work with engineering and research leads to plan resources for upcoming projects and training runs",
+      "Documentation: maintain clear processes for requesting, approving, provisioning and retiring resources"
+    ],
+    "required": [
+      "Bachelor's degree in Computer Science, Information Technology or a related field",
+      "3+ years in cloud or systems administration",
+      "Hands-on administration of at least one major cloud platform (GCP, AWS or Azure), covering compute, GPUs, storage, networking, IAM and billing",
+      "Solid Linux system administration skills",
+      "Cloud cost management: pricing calculators, billing reports, budgets and alerts, and committed-use or reserved-instance discounts",
+      "Experience managing billing accounts, invoices and vendor payments alongside a finance team",
+      "Disciplined tracker and documentation habits (Google Sheets, Excel or similar)",
+      "Clear communication with engineers, researchers, finance and leadership"
+    ],
+    "preferred": [
+      "Experience supporting AI/ML workloads: GPU instances, quota requests, and spot or preemptible capacity",
+      "Scripting for automation in Bash or Python, including cloud CLIs (gcloud, aws)",
+      "Infrastructure as code with Terraform or similar",
+      "Experience across more than one cloud or GPU provider",
+      "FinOps practice or certification, or a cloud administrator certification (Google Cloud Associate Cloud Engineer, AWS SysOps Administrator)"
+    ]
+  },
+  {
     "id": "sr-graphic-designer",
     "title": "Sr. Graphic Designer",
     "category": "Product Engineering",
