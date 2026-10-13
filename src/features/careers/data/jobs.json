@@ -257,6 +257,8 @@
     "category": "Product Engineering",
     "status": "active",
     "experience": "3+ years",
+    "location": "Hybrid / Remote",
+    "applyUrl": "https://forms.gle/BWyZGtYpMe1WQPTa7",
     "about": "Build and ship Bodhan AI's Android app in Kotlin and Jetpack Compose: adaptive UI that works across phones, tablets and foldables, audio and video features built on Android's media APIs, and measured performance work that keeps the app fast. You will own features end to end, from data and architecture through tests and Google Play releases.",
     "responsibilities": [
       "Design, build and maintain Android features using Kotlin and Jetpack Compose",

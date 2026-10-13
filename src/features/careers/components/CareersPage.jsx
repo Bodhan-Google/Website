@@ -101,6 +101,7 @@ const JobCard = ({ job, index, tokens }) => {
     const [expanded, setExpanded] = useState(false);
     const isOpen = effectiveStatus(job) === 'active';
     const sections = jobSections(job);
+    const applyUrl = job.applyUrl || APPLY_URL;
 
     return (
         <motion.div
@@ -142,7 +143,7 @@ const JobCard = ({ job, index, tokens }) => {
                 <div className="flex items-center gap-3 flex-shrink-0">
                     {isOpen && (
                         <a
-                            href={APPLY_URL}
+                            href={applyUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-1.5 bg-[#0a0a0a] text-white text-sm font-medium py-2.5 px-5 rounded-lg hover:bg-black transition-colors"
@@ -195,12 +196,12 @@ const JobCard = ({ job, index, tokens }) => {
                     {isOpen ? (
                         <div className="mt-8 pt-6 border-t border-gray-50 flex justify-end">
                             <a
-                                href={APPLY_URL}
+                                href={applyUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-1.5 bg-[#0a0a0a] text-white text-sm font-medium py-2.5 px-6 rounded-lg hover:bg-black transition-colors"
                             >
-                                Apply for {job.title}
+                                Apply Now
                                 <ArrowUpRight size={14} />
                             </a>
                         </div>
