@@ -1,6 +1,6 @@
 import { copyFileSync, readFileSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import tailwindcss from '@tailwindcss/vite'
 
@@ -68,12 +68,44 @@ const sharePreviews = () => ({
   },
 })
 
+// Google Analytics 4 (see docs/google-analytics.md). Injected at build time so
+// every HTML file built from index.html carries it, including the share-preview
+// copies above. Skipped unless VITE_GA_MEASUREMENT_ID looks like a GA4 ID: the
+// value goes into an inline script, so anything else must not reach the page.
+// Route changes need no wiring: GA4 enhanced measurement records BrowserRouter
+// history changes as page views.
+const googleAnalytics = (measurementId) => ({
+  name: 'google-analytics',
+  apply: 'build',
+  transformIndexHtml() {
+    if (!/^G-[A-Z0-9]+$/.test(measurementId ?? '')) return []
+    return [
+      {
+        tag: 'script',
+        attrs: { async: true, src: `https://www.googletagmanager.com/gtag/js?id=${measurementId}` },
+        injectTo: 'head',
+      },
+      {
+        tag: 'script',
+        children: [
+          'window.dataLayer = window.dataLayer || [];',
+          'function gtag(){dataLayer.push(arguments);}',
+          "gtag('js', new Date());",
+          `gtag('config', '${measurementId}', { allow_google_signals: false, allow_ad_personalization_signals: false });`,
+        ].join('\n'),
+        injectTo: 'head',
+      },
+    ]
+  },
+})
+
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   base: pagesBase,
   plugins: [
     react(),
     tailwindcss(),
+    googleAnalytics(loadEnv(mode, fileURLToPath(new URL('.', import.meta.url)), 'VITE_').VITE_GA_MEASUREMENT_ID?.trim()),
     spaFallback(),
     sharePreviews(),
   ],
@@ -84,4 +116,4 @@ export default defineConfig({
     open: true,
     allowedHosts: true,
   },
-})
+}))
