@@ -1,5 +1,113 @@
 [
   {
+    "id": "fractional-cfo",
+    "title": "Fractional Chief Financial Officer (CFO)",
+    "category": "Leadership",
+    "status": "active",
+    "experience": "Qualified CA, CFO-level experience",
+    "about": "Bodhan.ai is looking for an experienced Chartered Accountant with CFO-level experience to lead and oversee the organisation's finance function. The CFO will own financial governance, compliance and planning, and give leadership and the Board timely, decision-ready financial insight. The CFO will work closely with the COO, the leadership team and the Business Operations team. The role is one of oversight and direction: day-to-day bookkeeping and filings are carried out by the finance team or external service providers, and the CFO is accountable for their quality, accuracy and timeliness.",
+    "sections": [
+      {
+        "title": "Financial Leadership & Advisory",
+        "items": [
+          "Advise the COO and leadership team on financial strategy and planning, cost optimisation and budget allocation.",
+          "Monitor financial health, cash position, commitments and liabilities.",
+          "Review major contracts, procurement proposals and financial commitments from a governance standpoint. At times, participate in contract negotiations.",
+          "Flag financial and compliance risks early, and escalate material issues.",
+          "Prepare financial updates and analysis for the Board."
+        ]
+      },
+      {
+        "title": "Oversight of Payroll, Accounting & Reporting",
+        "items": [
+          "Oversee the maintenance of books of accounts so they are accurate, timely and audit-ready, in line with applicable standards and statutory requirements.",
+          "Review monthly closes, reconciliations, payroll accounting and fixed asset records, and sign off on management accounts.",
+          "Define accounting policies and ensure supporting documentation standards are followed.",
+          "Direct and manage the accounting team or outsourced accounting partner, setting expectations and reviewing their work."
+        ]
+      },
+      {
+        "title": "Grant, Funding & Revenue Finance",
+        "items": [
+          "Ensure grant-funded and revenue-generating activities are accounted for and tracked separately and clearly.",
+          "Oversee grant-wise budgets, utilisation tracking and compliance with funding conditions.",
+          "Review and approve financial statements, expenditure statements and Utilisation Certificates for funding agencies (arranging professional certification where a practising CA signature is required).",
+          "Oversee revenue recognition, receivables and collections, and report on revenue performance."
+        ]
+      },
+      {
+        "title": "Budgeting, Planning & Forecasting",
+        "items": [
+          "Lead the annual budgeting process with business and functional teams, covering department, project and grant-wise budgets.",
+          "Maintain rolling forecasts and cash-flow projections, and update them as plans or funding change.",
+          "Track budget vs. actuals, explain material variances and recommend corrective action.",
+          "Support scenario planning and financial modelling for key decisions."
+        ]
+      },
+      {
+        "title": "GFR, Tax & Statutory Compliance",
+        "items": [
+          "Ensure finance processes, procurement and expenditure align with General Financial Rules (GFR) and sanction conditions for government funding.",
+          "Oversee GST, TDS, EPF, ESI and Professional Tax compliance, and manage responses to tax notices.",
+          "Maintain a compliance calendar and track regulatory changes affecting the organisation.",
+          "Identify compliance gaps and drive corrective action."
+        ]
+      },
+      {
+        "title": "Internal Controls, Audit & Stakeholder Interface",
+        "items": [
+          "Design and maintain financial controls, delegation of authority and approval mechanisms.",
+          "Review control gaps across procurement-to-payment, order-to-payment, payroll and reimbursements.",
+          "Act as the primary finance contact for statutory and internal auditors, tax authorities, funding agencies and government departments.",
+          "Track audit observations through to closure."
+        ]
+      },
+      {
+        "title": "Governance & Reporting",
+        "items": [
+          "Report to the COO and participate in periodic management reviews.",
+          "Provide regular financial MIS covering budget vs. actuals, cash position, grant utilisation and key risks.",
+          "Maintain strict confidentiality of financial, commercial and employee information."
+        ]
+      },
+      {
+        "title": "What Success Looks Like",
+        "items": [
+          "Robust Financial Planning and Cash Flow Management",
+          "Accurate, timely financial reporting and audit-ready records.",
+          "Clear separation and tracking of grant and revenue finances.",
+          "Effective annual budgeting and rolling forecasting.",
+          "Strong GFR and statutory compliance, with no missed deadlines.",
+          "Better cash-flow visibility.",
+          "Sound financial controls and risk management.",
+          "Decision-ready financial information for management and the Board.",
+          "ZERO Regulatory and compliance issues"
+        ]
+      },
+      {
+        "title": "Qualifications & Experience",
+        "items": [
+          "Qualified Chartered Accountant with relevant post-qualification experience.",
+          "Proven CFO or senior finance leadership experience in a growing organisation.",
+          "Experience with Section 8 and FCRA companies, not-for-profits or government-funded organisations is preferred.",
+          "Strong grant accounting experience, including government-funded programmes, and practical knowledge of GFR.",
+          "Working knowledge of GST, TDS, EPF and ESI compliance.",
+          "Experience in budgeting, forecasting, financial modelling and MIS.",
+          "Experience managing statutory and internal audits and funding-agency reporting, including Utilisation Certificates."
+        ]
+      },
+      {
+        "title": "Engagement Terms",
+        "items": [
+          "Duration: 6 months, with a formal evaluation at the end of month 3 to review fit, progress and priorities.",
+          "Continuation: Extension beyond 6 months based on performance and organisational need.",
+          "Working model: A mix of regular finance review meetings and on-site or remote support, plus on-demand advisory.",
+          "Additional scope: Work outside the agreed scope requires prior approval from Bodhan.ai and may attract mutually agreed additional fees."
+        ]
+      }
+    ]
+  },
+  {
     "id": "research-scientist",
     "title": "Research Scientist",
     "category": "Research",

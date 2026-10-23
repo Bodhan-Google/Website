@@ -2,7 +2,7 @@ import { AlignLeft, ArrowLeftRight, Blend, FileCode2, FileText, Sigma, Table2, T
 import Navbar from '../../../home/components/Navbar';
 import Footer from '../../../home/components/Footer';
 import ModelHero from './ModelHero';
-import ExamplesBrowser from '../../../research/indic-translate-post/components/ExamplesBrowser';
+import TranslateExamples from './TranslateExamples';
 import DevReveal from '../DevReveal';
 import SHOWCASE from '../../data/translateShowcase.json';
 import { LICENSE, getModelById } from '../../data/models';
@@ -109,11 +109,7 @@ const IndicTranslatePage = () => (
                     The announcement's own browser: 22 languages across six capabilities, each
                     showing that language's own top-scoring output.
                 </p>
-                {/* The component's styles are scoped to `.mt-post` in the post's
-                    stylesheet, so it needs that class to look like itself. */}
-                <div className="mt-post">
-                    <ExamplesBrowser />
-                </div>
+                <TranslateExamples />
             </DevReveal>
         </main>
         <Footer />

@@ -16,6 +16,7 @@ import jobs from '../data/jobs.json';
 const APPLY_URL = 'https://forms.gle/PZAZ9rVnYcZvUxx97';
 const DEFAULT_LOCATION = 'Chennai (Hybrid)';
 const CATEGORIES = [
+    'Leadership',
     'Research',
     'Product Engineering',
     'Data Operations',
@@ -39,12 +40,17 @@ const isPastClosingDate = (job) => {
 const effectiveStatus = (job) =>
     job.status === 'active' && isPastClosingDate(job) ? 'closed' : job.status;
 
-const jobSections = (job) => [
-    ['Key Responsibilities', job.responsibilities],
-    ['Required Qualifications', job.required],
-    ...(job.additionalSections || []).map((section) => [section.title, section.items]),
-    ['Preferred Qualifications', job.preferred],
-];
+// A job with its own `sections` list (a JD that doesn't fit the standard
+// responsibilities / required / preferred shape) is shown exactly as listed.
+const jobSections = (job) =>
+    job.sections
+        ? job.sections.map((section) => [section.title, section.items])
+        : [
+              ['Key Responsibilities', job.responsibilities],
+              ['Required Qualifications', job.required],
+              ...(job.additionalSections || []).map((section) => [section.title, section.items]),
+              ['Preferred Qualifications', job.preferred],
+          ];
 
 const collapsedGroups = () => Object.fromEntries(CATEGORIES.map((category) => [category, false]));
 const expandedGroups = () => Object.fromEntries(CATEGORIES.map((category) => [category, true]));
@@ -173,7 +179,7 @@ const JobCard = ({ job, index, tokens }) => {
                 <div className="px-6 md:px-8 pb-8 pt-0 border-t border-gray-100">
                     <div
                         className={`pt-6 grid grid-cols-1 ${
-                            sections.length === 4 ? 'lg:grid-cols-2' : 'lg:grid-cols-3'
+                            sections.length % 2 === 0 ? 'lg:grid-cols-2' : 'lg:grid-cols-3'
                         } gap-8`}
                     >
                         {sections.map(([heading, items]) => (
@@ -291,9 +297,15 @@ const CareersPage = () => {
         return counts;
     }, [tokens]);
 
-    useEffect(() => {
-        setOpenGroups(searching ? expandedGroups() : collapsedGroups());
-    }, [searching]);
+    // Groups open when a search starts and close when it is cleared, set here as
+    // the query changes rather than in an effect afterwards.
+    const updateQuery = (next) => {
+        const nextSearching = next.trim() !== '';
+        if (nextSearching !== searching) {
+            setOpenGroups(nextSearching ? expandedGroups() : collapsedGroups());
+        }
+        setQuery(next);
+    };
 
     const switchTab = (next) => {
         setTab(next);
@@ -381,7 +393,7 @@ const CareersPage = () => {
                             <input
                                 type="search"
                                 value={query}
-                                onChange={(event) => setQuery(event.target.value)}
+                                onChange={(event) => updateQuery(event.target.value)}
                                 placeholder={`Search ${tab === 'hiring' ? 'open' : 'closed'} roles by title or description…`}
                                 aria-label={`Search ${tab} roles`}
                                 className="w-full bg-white border border-gray-200 rounded-xl pl-10 pr-10 py-2.5 text-sm text-[#1A1A1A] placeholder:text-gray-400 focus:outline-none focus:border-[var(--text-orange-500)] focus:ring-2 focus:ring-orange-100 transition-colors [&::-webkit-search-cancel-button]:hidden"
@@ -389,7 +401,7 @@ const CareersPage = () => {
                             {query && (
                                 <button
                                     type="button"
-                                    onClick={() => setQuery('')}
+                                    onClick={() => updateQuery('')}
                                     aria-label="Clear search"
                                     className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
                                 >
