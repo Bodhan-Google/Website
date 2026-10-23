@@ -2675,3 +2675,642 @@ main.models-page-main {
   .sx-body { animation: none; }
   .sx-tab:hover { transform: none; }
 }
+
+/* ── Indic-Translate: examples by language ─────────────────────────────────
+   The post's example browser in the shape the other model pages use: a rail
+   of capabilities on the left, the selected one's real output on the right.
+   The card sits on a warm glow and carries a gradient edge whose angle GSAP
+   turns while it is on screen; with reduced motion the edge holds still.
+   The reused pieces (lines, pager, toggles, picker) keep the post's styles
+   through `.mt-post`; everything here is scoped to `.xb`.
+
+   Type: Manrope throughout, the face the model pages' headings use, with
+   each Indian script handed to its own Noto face (all already loaded by the
+   site) and given the extra line height its vowel signs need. The post's
+   monospace labels are reserved for the short language codes. */
+
+.mt-post.xb-breakout {
+  --xb-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --xb-sans: var(--font-manrope), 'Manrope', system-ui, sans-serif;
+  position: relative;
+  isolation: isolate;
+  margin-top: 1.75rem;
+  text-align: left;
+  background: transparent;
+  font-family: var(--xb-sans);
+}
+
+@media (min-width: 1180px) {
+  .mt-post.xb-breakout {
+    width: min(72rem, calc(100vw - 6rem));
+    margin-left: calc((58rem - min(72rem, calc(100vw - 6rem))) / 2);
+  }
+}
+
+.xb-glow {
+  position: absolute;
+  inset: -2.25rem -1.5rem -1.75rem;
+  z-index: -1;
+  border-radius: 40px;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 55% 60% at 10% 0%, rgba(255, 98, 7, 0.14) 0%, transparent 62%),
+    radial-gradient(ellipse 50% 60% at 92% 12%, rgba(255, 179, 71, 0.2) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 55% at 50% 100%, rgba(226, 105, 31, 0.1) 0%, transparent 65%);
+  filter: blur(8px);
+}
+
+.xb {
+  --xb-angle: 0deg;
+  --xb-accent: var(--model-accent, var(--text-orange-500));
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: 16.5rem minmax(0, 1fr);
+  min-height: 31rem;
+  padding: 1px;
+  border-radius: 22px;
+  box-shadow: 0 30px 70px -34px rgba(194, 65, 12, 0.4), 0 2px 6px rgba(46, 50, 56, 0.05);
+}
+
+/* the edge: a conic gradient masked down to a 1px ring */
+.xb::before,
+.xb::after {
+  content: '';
+  position: absolute;
+  border-radius: inherit;
+  z-index: -1;
+  pointer-events: none;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.xb::before {
+  inset: 0;
+  padding: 1px;
+  background: conic-gradient(from var(--xb-angle), rgba(233, 120, 60, 0.28) 0deg, #F59A4F 55deg, #D9480F 100deg, #F59A4F 145deg, rgba(233, 120, 60, 0.28) 200deg, rgba(233, 120, 60, 0.28) 360deg);
+}
+
+/* and a soft bloom that travels with the bright part of it */
+.xb::after {
+  inset: -3px;
+  padding: 3px;
+  opacity: 0.5;
+  filter: blur(7px);
+  background: conic-gradient(from var(--xb-angle), transparent 0deg, #F5A96A 55deg, #E2601F 100deg, #F5A96A 145deg, transparent 200deg, transparent 360deg);
+}
+
+/* ── Rail ── */
+
+.xb-rail {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 1.15rem 0.85rem 1rem;
+  border-radius: 21px 0 0 21px;
+  background: linear-gradient(180deg, #FFF5EA 0%, #FFE6CF 100%);
+  border-right: 1px solid rgba(194, 65, 12, 0.16);
+  box-shadow: inset -10px 0 14px -14px rgba(194, 65, 12, 0.35);
+}
+
+.xb .xb-rail-label {
+  margin: 0 0 0.7rem 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-11);
+}
+
+.xb-caps {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+/* one highlight that GSAP slides to whichever capability is selected */
+.xb-marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #EA5A20, #FF7A45);
+  box-shadow: 0 12px 24px -12px rgba(194, 65, 12, 0.7);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.xb-cap {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.8rem;
+  border: 0;
+  border-radius: 14px;
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color 0.3s var(--xb-ease), color 0.35s var(--xb-ease), transform 0.35s var(--xb-ease);
+}
+
+.xb-cap:not(.is-on):hover {
+  background: rgba(255, 255, 255, 0.7);
+  transform: translateX(3px);
+}
+
+.xb-cap:focus-visible {
+  outline: 2px solid var(--xb-accent);
+  outline-offset: 2px;
+}
+
+.xb-cap-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--xb-accent);
+  box-shadow: 0 1px 2px rgba(194, 65, 12, 0.12), 0 4px 10px -6px rgba(194, 65, 12, 0.35);
+  transition: background-color 0.35s var(--xb-ease), color 0.35s var(--xb-ease), box-shadow 0.35s var(--xb-ease), transform 0.45s var(--xb-ease);
+}
+
+.xb-cap-copy {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.xb-cap-copy strong {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+}
+
+.xb-cap-copy em {
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 500;
+  color: var(--color-11);
+  transition: color 0.35s var(--xb-ease);
+}
+
+/* The colour change waits a beat for the highlight, which is still on its
+   way: white text on the bare rail for a frame reads as a flicker. */
+.xb-cap.is-on,
+.xb-cap.is-on .xb-cap-icon,
+.xb-cap.is-on .xb-cap-copy em {
+  transition-delay: 0.08s;
+}
+
+.xb-cap.is-on { color: #FFF8F2; }
+.xb-cap.is-on .xb-cap-icon { background: rgba(255, 255, 255, 0.2); color: #fff; box-shadow: none; transform: scale(1.04); }
+.xb-cap.is-on .xb-cap-copy em { color: rgba(255, 248, 242, 0.82); }
+
+.xb-rail-foot {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: auto;
+  padding: 1rem 0.35rem 0;
+  border-top: 1px dashed rgba(194, 65, 12, 0.2);
+}
+
+.xb .xb-rail-foot p {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-10);
+}
+
+/* the post colours every link orange; this one is the site's dark pill */
+.mt-post .xb-rail-foot .model-cta-primary {
+  width: 100%;
+  justify-content: center;
+  color: #fff;
+}
+
+/* ── Panel ── */
+
+.xb-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 1.55rem 1.7rem 1.45rem;
+  border-radius: 0 21px 21px 0;
+  background:
+    radial-gradient(ellipse 55% 38% at 100% 0%, rgba(255, 98, 7, 0.06), transparent 70%),
+    #fff;
+}
+
+.xb-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  margin-bottom: 1.3rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid var(--primary-100);
+}
+
+.xb-head-copy {
+  flex: 1 1 22rem;
+  min-width: 0;
+}
+
+.xb .xb-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--xb-accent);
+}
+
+.xb-eyebrow span {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--primary-100);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.mt-post .xb-title {
+  font-family: var(--xb-sans);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+
+.mt-post .xb-claim {
+  margin-top: 0.45rem;
+  max-width: 56ch;
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: var(--color-10);
+}
+
+.xb-lang {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+}
+
+.xb-script {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-11);
+}
+
+.xb-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.mt-post .xb-direction {
+  align-self: flex-start;
+  margin-bottom: 0.8rem;
+  padding: 3px 11px;
+  border-radius: 999px;
+  background: var(--primary-100);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--xb-accent);
+}
+
+.xb-example {
+  position: relative;
+  padding: 1.2rem 1.3rem;
+  border: 1px solid var(--primary-100);
+  border-radius: 16px;
+  background: linear-gradient(180deg, var(--bg-cream-50), #fff 70%);
+}
+
+/* room on the first line for the copy button */
+.xb-example > .ex-line:first-of-type { padding-right: 5.5rem; }
+
+.xb .xb-example .ex-line + .ex-line {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed rgba(92, 64, 51, 0.12);
+}
+
+.xb .ex-line-tag {
+  margin-top: 4px;
+  background: #fff;
+  border: 1px solid var(--primary-100);
+}
+
+.xb .ex-line.ex-out .ex-line-tag {
+  background: var(--primary-100);
+  border-color: transparent;
+}
+
+.xb .ex-line p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-10);
+}
+
+.xb .xb-example .ex-line.ex-out p {
+  font-size: 1.06rem;
+  font-weight: 500;
+  line-height: 1.75;
+  color: var(--text-primary);
+}
+
+/* the post's change flash, eased out more gently */
+.xb .ex-flash { animation-duration: 1.1s; animation-timing-function: var(--xb-ease); }
+
+.xb-foot {
+  padding-top: 1rem;
+}
+
+.xb-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--primary-100);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-10);
+  cursor: pointer;
+  transition: border-color 0.25s var(--xb-ease), color 0.25s var(--xb-ease), background-color 0.25s var(--xb-ease);
+}
+
+.xb-example > .xb-copy {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+}
+
+.xb-copy:hover {
+  border-color: rgba(233, 120, 60, 0.45);
+  color: var(--xb-accent);
+}
+
+.xb-copy.is-done {
+  border-color: transparent;
+  background: var(--primary-100);
+  color: var(--xb-accent);
+}
+
+.xb-copy:focus-visible {
+  outline: 2px solid var(--xb-accent);
+  outline-offset: 2px;
+}
+
+.xb-empty {
+  display: grid;
+  justify-items: start;
+  gap: 0.8rem;
+}
+
+.xb .xb-empty .ex-note { margin: 0; font-size: 0.9rem; line-height: 1.65; color: var(--color-10); }
+
+.xb-empty-btn {
+  padding: 0.45rem 0.95rem;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #EA5A20, #FF7A45);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 8px 18px -10px rgba(194, 65, 12, 0.7);
+  transition: transform 0.3s var(--xb-ease), box-shadow 0.3s var(--xb-ease);
+}
+
+.xb-empty-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px -10px rgba(194, 65, 12, 0.75);
+}
+
+/* while the examples load: three soft bars rather than a line of text */
+.xb-skeleton {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.2rem 1.3rem;
+  border: 1px solid var(--primary-100);
+  border-radius: 16px;
+}
+
+.xb-skeleton span {
+  height: 0.85rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--bg-cream-100) 0%, #FFF7EF 50%, var(--bg-cream-100) 100%);
+  background-size: 200% 100%;
+  animation: xbShimmer 1.4s ease-in-out infinite;
+}
+
+.xb-skeleton span:nth-child(2) { width: 82%; }
+.xb-skeleton span:nth-child(3) { width: 64%; }
+
+@keyframes xbShimmer {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
+
+/* document: the type and view toggles, then source and output side by side */
+.xb-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+/* the post pushes its toggles right; here the type toggle leads the row */
+.xb-toolbar .ex-view-toggle {
+  margin-left: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 3px;
+}
+
+.xb-toolbar .ex-view-btn {
+  padding: 5px 12px;
+  font-family: var(--xb-sans);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+  transition: background-color 0.3s var(--xb-ease), color 0.3s var(--xb-ease), box-shadow 0.3s var(--xb-ease);
+}
+
+.xb .ex-doc-title {
+  margin: 0.7rem 0 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.xb-doc {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.xb-doc-pane { min-width: 0; }
+
+.xb-doc-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 1.75rem;
+  margin-bottom: 0.4rem;
+}
+
+.xb .xb-doc-label .ex-block-label {
+  margin: 0;
+  font-family: var(--xb-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.xb .xb-doc .ex-doc-block {
+  max-height: 340px;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid var(--primary-100);
+  border-radius: 12px;
+  scroll-behavior: auto;
+}
+
+.xb .ex-doc-rendered,
+.xb .ex-doc-block > p {
+  font-size: 0.9rem;
+  line-height: 1.75;
+}
+
+/* the output carries the model's colours along its top edge */
+.xb .xb-doc-pane.is-output .ex-doc-block {
+  border-color: rgba(233, 120, 60, 0.32);
+  box-shadow: inset 0 2px 0 rgba(255, 98, 7, 0.5);
+}
+
+.xb .ex-note {
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+/* ── Scripts: each in its own Noto face, Latin and digits staying in Manrope ── */
+
+.xb :is([lang="hi"], [lang="mr"], [lang="ne"], [lang="sa"], [lang="mai"], [lang="doi"], [lang="kok"], [lang="brx"], [lang="sd"]) {
+  font-family: 'Manrope', 'Noto Sans Devanagari', sans-serif;
+}
+.xb :is([lang="bn"], [lang="as"]) { font-family: 'Manrope', 'Noto Sans Bengali', sans-serif; }
+.xb [lang="gu"] { font-family: 'Manrope', 'Noto Sans Gujarati', sans-serif; }
+.xb [lang="pa"] { font-family: 'Manrope', 'Noto Sans Gurmukhi', sans-serif; }
+.xb [lang="or"] { font-family: 'Manrope', 'Noto Sans Oriya', sans-serif; }
+.xb [lang="ta"] { font-family: 'Manrope', 'Noto Sans Tamil', sans-serif; }
+.xb [lang="te"] { font-family: 'Manrope', 'Noto Sans Telugu', sans-serif; }
+.xb [lang="kn"] { font-family: 'Manrope', 'Noto Sans Kannada', sans-serif; }
+.xb [lang="ml"] { font-family: 'Manrope', 'Noto Sans Malayalam', sans-serif; }
+.xb [lang="mni"] { font-family: 'Manrope', 'Noto Sans Meetei Mayek', sans-serif; }
+.xb [lang="sat"] { font-family: 'Manrope', 'Noto Sans Ol Chiki', sans-serif; }
+
+/* Urdu and Kashmiri in Naskh: calmer on screen at these sizes than Nastaliq,
+   whose stacked joins need far more line height than a paragraph can give */
+.xb :is([lang="ur"], [lang="ks"]) {
+  font-family: 'Noto Naskh Arabic', 'Manrope', sans-serif;
+  line-height: 1.95;
+}
+
+/* Naskh sits small beside Latin at the same size */
+.xb .ex-line p:is([lang="ur"], [lang="ks"]),
+.xb .ex-doc-rendered:is([lang="ur"], [lang="ks"]) { font-size: 1.05rem; }
+.xb .xb-example .ex-line.ex-out p:is([lang="ur"], [lang="ks"]) { font-size: 1.15rem; }
+
+@media (max-width: 860px) {
+  .xb {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .xb-rail {
+    padding: 0.8rem 0.7rem;
+    border-radius: 21px 21px 0 0;
+    border-right: 0;
+    border-bottom: 1px solid rgba(194, 65, 12, 0.16);
+    box-shadow: none;
+  }
+
+  .xb .xb-rail-label,
+  .xb-rail-foot,
+  .xb-cap-copy em {
+    display: none;
+  }
+
+  .xb-caps {
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .xb-caps::-webkit-scrollbar { display: none; }
+
+  .xb-cap {
+    flex: 0 0 auto;
+    grid-template-columns: auto auto;
+    padding: 0.55rem 0.75rem;
+  }
+
+  .xb-cap:not(.is-on):hover { transform: none; }
+
+  .xb-cap-icon { width: 1.8rem; height: 1.8rem; }
+
+  .xb-panel {
+    padding: 1.2rem 1rem 1.1rem;
+    border-radius: 0 0 21px 21px;
+  }
+
+  .xb-lang { align-items: flex-start; }
+
+  .xb-example { padding: 1rem; }
+
+  .xb-example > .ex-line:first-of-type { padding-right: 0; padding-top: 2rem; }
+
+  .xb-example > .xb-copy { top: 0.75rem; right: 0.75rem; }
+
+  .xb-doc { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xb-cap,
+  .xb-cap-icon,
+  .xb-copy,
+  .xb-empty-btn { transition: none; }
+  .xb-cap:not(.is-on):hover { transform: none; }
+  .xb-skeleton span { animation: none; }
+}

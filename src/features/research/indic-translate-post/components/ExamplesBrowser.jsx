@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { LANG_ABBR, LANG_CODE, LANGS, DOC_SUBTYPE_LABELS } from '../data/evals';
-import { VERDICTS } from '../data/verdicts';
 import { DevNote } from '../lib/devNotes';
 import { mdToHtml } from '../lib/mdToHtml';
-import { sentencePerm, SENTENCE_FIRST } from '../data/exampleOrder';
+import { DEFAULT_LANG, SUBTYPES, defaultsFor, dropped, vetted } from '../lib/exampleSelection';
+import { useScrollSync } from '../lib/useScrollSync';
 import { renderMathIn } from '../lib/katexUtil';
 
 /**
@@ -16,112 +16,6 @@ import { renderMathIn } from '../lib/katexUtil';
  * every per-item script and direction override still applies.
  */
 
-const SUBTYPES = Object.keys(DOC_SUBTYPE_LABELS);
-const DEFAULT_LANG = 'Hindi';
-
-/**
- * The annotators' verdicts, applied. Three rules, all from the vetting pass:
- *
- *   - Minor fix counts as approved, so 261 of the 274 verdicts are usable.
- *   - A rejected example is never shown. Unsure and unreviewed ones stay browsable --
- *     unreviewed items keep their existing order, which is by judge score, so the
- *     ranking a reader steps through is still meaningful.
- *   - The FIRST thing shown is a vetted one. For lists that means an index; for
- *     documents, which are chosen by a subtype toggle rather than by stepping a list,
- *     it means a subtype, so the default document type varies by language: most open on
- *     Markdown; Tamil opens on LaTeX because its Markdown example is not approved, and
- *     Hindi on Tables by the editorial preference below.
- *
- * Kashmiri is absent from VERDICTS on purpose -- the annotators flagged its sheet as
- * flipped -- so it falls through to the unvetted default, which is what these helpers
- * do for any language or category the workbook does not cover.
- */
-const rule = (lang, cat) => VERDICTS[lang]?.[cat];
-
-/**
- * The display permutation for a category. Only `translation` can carry an editorial
- * reorder (see src/data/exampleOrder.js); everything else keeps the generated order.
- * Returned as original indices, so the verdict data -- which is keyed by position in the
- * GENERATED order -- can be carried through it rather than silently desynced.
- */
-const permOf = (lang, cat, list) =>
-  (cat === 'translation'
-    ? sentencePerm(lang, list)
-    : Array.from({ length: list?.length ?? 0 }, (_, i) => i));
-
-/** Indices (1-based in the workbook) to hide, as a 0-based Set of ORIGINAL indices. */
-const dropped = (lang, cat) => {
-  const d = rule(lang, cat)?.drop ?? [];
-  return new Set(d.map((x) => (typeof x === 'number' ? x - 1 : x)));
-};
-
-/** Items minus the rejected ones, in display order. */
-const vetted = (lang, cat, list) => {
-  const drop = dropped(lang, cat);
-  return permOf(lang, cat, list).filter((orig) => !drop.has(orig)).map((orig) => list[orig]);
-};
-
-/** Where a category should open, as an index into the VETTED list. */
-const firstIndex = (lang, cat, list) => {
-  const first = cat === 'translation' && SENTENCE_FIRST[lang] !== undefined
-    ? SENTENCE_FIRST[lang]
-    : rule(lang, cat)?.first;
-  if (typeof first !== 'number') return 0;
-  const drop = dropped(lang, cat);
-  // `first` counts the ORIGINAL list; walk the display order and translate it into the
-  // filtered, reordered one.
-  let idx = 0;
-  for (const orig of permOf(lang, cat, list)) {
-    if (drop.has(orig)) continue;
-    if (orig === first - 1) return idx;
-    idx += 1;
-  }
-  return 0;
-};
-
-/**
- * Editorial preference for which document subtype a language opens on, overriding the
- * verdict-derived default. The verdict default is "the first APPROVED subtype in the
- * annotators' sheet order", which is a safety rule, not an editorial one -- among several
- * approved examples it just takes the earliest.
- *
- * Hindi is the language the section opens on, so its document is the first structured
- * translation most readers will ever see, and a table carries the structure-preservation
- * claim far better than a LaTeX derivation does.
- *
- * This can only ever REORDER approved material: the lookup below still requires the
- * subtype to exist and to have survived the drop list, so a preference naming a rejected
- * example falls through to the verdict default rather than surfacing it. Hindi's Tables
- * example is Approved with issue type None in the workbook; its Markdown one is Unsure
- * (omission), which is why the verdict default was LaTeX rather than Markdown.
- */
-const DOC_SUBTYPE_PREFERRED = {
-  Hindi: 'tables_and_images',
-};
-
-/** Which document subtype a language should open on. */
-const firstSubtype = (lang, docs) => {
-  const want = DOC_SUBTYPE_PREFERRED[lang];
-  if (want && docs?.[want] && !dropped(lang, 'document').has(want)) return want;
-  const first = rule(lang, 'document')?.first;
-  if (typeof first === 'string' && docs?.[first]) return first;
-  return SUBTYPES.find((k) => docs?.[k]) ?? SUBTYPES[0];
-};
-
-/** Every default for one language, in the shape the component's state wants. */
-const defaultsFor = (lang, data) => {
-  const d = data?.[lang] ?? {};
-  return {
-    dots: {
-      translation: firstIndex(lang, 'translation', d.translation),
-      romanized: firstIndex(lang, 'romanized', d.romanized),
-      transliteration: firstIndex(lang, 'transliteration', d.transliteration?.items),
-      codemix: firstIndex(lang, 'codemix', d.codemix),
-    },
-    docSubtype: firstSubtype(lang, d.document),
-  };
-};
-
 /**
  * One source/output line.
  *
@@ -129,7 +23,7 @@ const defaultsFor = (lang, data) => {
  * explicit text comparison in setText(); it mattered because switching language
  * leaves some lines identical, and flashing those made the whole panel strobe.
  */
-const ExLine = ({ tag, text, lang, dir, out }) => {
+export const ExLine = ({ tag, text, lang, dir, out }) => {
   const ref = useRef(null);
   const previous = useRef(text);
 
@@ -168,7 +62,7 @@ const Chevron = ({ dir }) => (
   </svg>
 );
 
-const Pager = ({ count, active, onPick, label }) => {
+export const Pager = ({ count, active, onPick, label }) => {
   if (count <= 1) return null;
   const go = (delta) => onPick((active + delta + count) % count);
   return (
@@ -200,7 +94,7 @@ const Category = ({ num, label, children, aside }) => (
 );
 
 /** Rendered Markdown/LaTeX, with KaTeX run over it once it is in the document. */
-const RenderedDoc = ({ markdown, lang, className }) => {
+export const RenderedDoc = ({ markdown, lang, className }) => {
   const ref = useRef(null);
   const html = useMemo(() => mdToHtml(markdown), [markdown]);
 
@@ -218,7 +112,7 @@ const RenderedDoc = ({ markdown, lang, className }) => {
   );
 };
 
-const LangPicker = ({ lang, onPick }) => {
+export const LangPicker = ({ lang, onPick }) => {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef(null);
 
@@ -276,59 +170,6 @@ const LangPicker = ({ lang, onPick }) => {
   );
 };
 
-/**
- * Two document panes that scroll as one, so a long translation can be read against
- * its source without chasing two scrollbars.
- *
- * Position is mapped as a FRACTION of each pane's own scrollable height, not copied
- * as a pixel offset: the English source and the Indic output are different lengths
- * (and different line heights), so a pixel copy pins the shorter pane to its bottom
- * while the longer one is still a screen behind.
- *
- * Writing `scrollTop` fires its own scroll event, which would drive the panes back
- * into each other, so the write is gated for one frame. The echo lands in the same
- * frame as the write, and the rAF releases the gate afterwards -- a plain boolean
- * with no release would deadlock the moment one pane has nothing to scroll.
- */
-const useScrollSync = (deps) => {
-  const src = useRef(null);
-  const out = useRef(null);
-  const locked = useRef(false);
-
-  const follow = (event, from, to) => {
-    // React attaches onScroll to the element itself (it does not bubble), but a
-    // rendered table or code block inside the pane is its own scroller -- ignore it.
-    if (!from || !to || event.target !== from || locked.current) return;
-    locked.current = true;
-    const fromMax = from.scrollHeight - from.clientHeight;
-    const toMax = to.scrollHeight - to.clientHeight;
-    to.scrollTop = fromMax > 0 ? (from.scrollTop / fromMax) * toMax : 0;
-    requestAnimationFrame(() => {
-      locked.current = false;
-    });
-  };
-
-  // A different document, language or view makes the carried-over offset meaningless.
-  useEffect(() => {
-    [src.current, out.current].forEach((el) => {
-      if (el) el.scrollTop = 0;
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps);
-
-  return {
-    source: {
-      ref: src,
-      onScroll: (e) => follow(e, src.current, out.current),
-      'data-sync': 'source',
-    },
-    output: {
-      ref: out,
-      onScroll: (e) => follow(e, out.current, src.current),
-      'data-sync': 'output',
-    },
-  };
-};
 
 const ExamplesBrowser = () => {
   const [data, setData] = useState(null);
