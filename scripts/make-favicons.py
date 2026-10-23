@@ -42,13 +42,18 @@ PADDING = 0.10                  # of the mark's longest side, inside the tile
 RADIUS = 0.20                   # corner radius as a fraction of the tile
 WORKING = 1024                  # the mark is redrawn at this size before scaling
 
-# Stroke weight, in working pixels, by how small the icon will end up. A 16px
-# icon needs a much fatter line than a 512px one to survive the downscale.
-WEIGHTS = ((32, 25), (10_000, 16))
+# Stroke weight, in working pixels, by how small the icon will end up. Only the
+# small sizes are thickened: at 16-32px the original line is under a pixel and
+# vanishes, while from 96px up it holds, so those are the logo exactly as drawn.
+WEIGHTS = ((32, 25), (48, 12), (10_000, 0))
 
 
 def load_mark():
-    """The mark, cropped to its ink, split into its black and orange parts.
+    """The mark, cropped to its ink, and split into its three colours.
+
+    The hollow orange rings have opaque WHITE centres that cover the black lines
+    running into them, so white is a part of the mark in its own right, not
+    background, and is painted back on top after the lines and rings.
 
     The source is a 27-megapixel export; dilating at that size takes minutes and
     buys nothing when the largest icon is 512px, so it is reduced first.
@@ -60,7 +65,9 @@ def load_mark():
     px = np.array(art).astype(int)
     ink = px[:, :, 3] > 128
     orange = ink & (px[:, :, 0] > 140) & (px[:, :, 0] - px[:, :, 2] > 60)
-    return art.size, ink & ~orange, orange
+    white = ink & ~orange & (px[:, :, :3].min(axis=2) > 200)
+    black = ink & ~orange & ~white
+    return art, black, orange, white
 
 
 _THICK = {}
@@ -84,13 +91,20 @@ def thicken(mask, amount, key):
 
 def tile(size, weight, *, opaque=False):
     """One square icon: the thickened mark, in its own colours, on a white tile."""
-    (w, h), black, orange = MARK
+    art, black, orange, white = MARK
+    w, h = art.size
     side = int(max(w, h) * (1 + PADDING * 2))
     canvas = Image.new("RGBA", (side, side), WHITE + (255,))
     at = ((side - w) // 2, (side - h) // 2)
-    # Orange last: the nodes sit on top of the lines, as in the source.
-    for key, part, colour in (("black", black, INK), ("orange", orange, NODE)):
-        canvas.paste(Image.new("RGBA", (w, h), colour + (255,)), at, thicken(part, weight, key))
+    if weight == 0:
+        # Large sizes: the artwork itself, untouched.
+        canvas.alpha_composite(art, at)
+    else:
+        # Lines, then rings over them, then the rings' white centres back on
+        # top (unthickened, so the hole stays open and the ring grows outward).
+        for key, part, colour in (("black", black, INK), ("orange", orange, NODE)):
+            canvas.paste(Image.new("RGBA", (w, h), colour + (255,)), at, thicken(part, weight, key))
+        canvas.paste(Image.new("RGBA", (w, h), WHITE + (255,)), at, Image.fromarray((white * 255).astype("uint8")))
 
     if not opaque:
         # Rounded corners, transparent outside, so a dark browser tab shows a
