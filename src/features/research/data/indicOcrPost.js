@@ -29,7 +29,7 @@ const omnidocCell = (value, column) =>
 export const indicOcrPost = {
     // ── 1. Hero ──────────────────────────────────────────────────────────
     slug: 'indic-ocr',
-    title: 'IndicOCR: Document Parsing for English and 22 Indian Languages',
+    title: 'IndicOCR',
     category: 'Release',
     date: '2026-09-05',
     summary:
@@ -38,7 +38,7 @@ export const indicOcrPost = {
     featured: true,
     posterMotif: 'script',
     tagline:
-        'Printed or handwritten, 13 scripts, maths and tables — a 0.8B reader behind a 33M layout detector.',
+        'Printed or handwritten, 13 scripts, maths and tables: a 0.8B reader behind a 33M layout detector.',
     heroSummary:
         'IndicOCR is a document parsing system for English and all 22 constitutionally recognised '
         + 'Indian languages, built jointly by Bodhan.AI and AI4Bharat. It reads printed and '

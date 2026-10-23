@@ -92,7 +92,7 @@ const IndicTranslatePage = () => (
             <ModelHero
                 title={model.name}
                 intro="translate"
-                tagline="English and all 22 Eighth Schedule languages, in both directions — with Markdown, LaTeX, code and tables coming out the way they went in."
+                tagline="English and all 22 Eighth Schedule languages, in both directions, with Markdown, LaTeX, code and tables coming out the way they went in."
                 accent={model.accent}
                 viz={model.viz}
                 stats={STATS}
@@ -109,9 +109,10 @@ const IndicTranslatePage = () => (
                     The announcement's own browser: 22 languages across six capabilities, each
                     showing that language's own top-scoring output.
                 </p>
-                {/* The component's styles are scoped to `.mt-post` in the post's
-                    stylesheet, so it needs that class to look like itself. */}
-                <div className="mt-post">
+                {/* `.mt-post` carries the post stylesheet's token bridge, which the
+                    browser's colours come from; `mx-frame` re-dresses its card as
+                    the white panel the ASR and TTS demos use on these pages. */}
+                <div className="mt-post mx-frame">
                     <ExamplesBrowser />
                 </div>
             </DevReveal>

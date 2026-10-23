@@ -46,7 +46,7 @@ export const posts = [
         // /research/blogs/indic-transcribe (see indic-transcribe-post/); this
         // entry is what the listings show.
         slug: 'indic-transcribe',
-        title: "Indic-Transcribe: Accurate Speech Recognition for India's Languages and Dialects",
+        title: 'Indic-Transcribe: Built for the way India actually speaks',
         category: 'Release',
         date: '2026-09-05',
         summary:
@@ -56,7 +56,7 @@ export const posts = [
         featured: true,
         posterMotif: 'speech',
         tagline:
-            'One model for 25 Indian languages — native script, code-mixed, or romanized, streaming or offline.',
+            'One model for 25 Indian languages, in native script, code-mixed or romanized, streaming or offline.',
         heroSummary:
             "Today we're releasing Bodhan Scribe, a 1.2B-parameter multilingual automatic speech recognition model trained on over 1.35 million hours of speech that supports 25 Indian languages, multiple transcription formats, and production-ready streaming and offline inference.",
         heroLinks: [

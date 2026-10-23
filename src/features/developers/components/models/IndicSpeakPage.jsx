@@ -25,7 +25,7 @@ const IndicSpeakPage = () => (
             <ModelHero
                 title={model.name}
                 intro="speak"
-                tagline="One speech system for the way India actually writes and speaks — multiple scripts, English embedded mid-sentence, numbers and technical notation, 45 voices across 14 delivery styles, and long-form narration."
+                tagline="One speech system for the way India actually writes and speaks: multiple scripts, English embedded mid-sentence, numbers and technical notation, 45 voices across 14 delivery styles, and long-form narration."
                 accent={model.accent}
                 viz={model.viz}
                 stats={STATS}
@@ -34,15 +34,14 @@ const IndicSpeakPage = () => (
                 thirdCta={{ label: 'Hugging Face', href: model.hf }}
                 secondaryCta={{ label: 'Contact', href: '/contact' }}
                 license={LICENSE}
-                note="Early checkpoint — shared for integration testing, not final voice quality."
             />
 
             <DevReveal as="section" className="model-section">
                 <h2 className="model-section-title">Fourteen deliveries</h2>
                 <p className="model-section-dek">
                     A voice can be pointed at a register. Eight name a context the speech is going
-                    into, six name an emotion. Matching is literal — the capitals and the
-                    apostrophe are part of the value — so send each string exactly as it appears.
+                    into, six name an emotion. Matching is literal, capitals and
+                    apostrophe included, so send each string exactly as it appears.
                 </p>
                 <SpeakDeliveries />
             </DevReveal>

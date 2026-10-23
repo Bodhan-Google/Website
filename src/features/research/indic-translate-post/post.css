@@ -1349,6 +1349,9 @@ to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
        left-aligned with the heading rather than stranded against the edge. */
     .ex-cat-tag, .ex-view-toggle { margin-left: 0; }
     .ex-cat-label .ex-cat-tag + .ex-view-toggle { margin-left: 0; }
+    /* Five view names do not fit one line on a phone. Without this the toggle sets a
+       minimum width the whole article inherits, and the page scrolls sideways. */
+    .ex-view-toggle { flex-wrap: wrap; }
   }
 
   /* ── Ecosystem banner (full bleed, outside the article column) ── */
