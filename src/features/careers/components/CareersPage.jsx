@@ -40,6 +40,13 @@ const isPastClosingDate = (job) => {
 const effectiveStatus = (job) =>
     job.status === 'active' && isPastClosingDate(job) ? 'closed' : job.status;
 
+// How many people a JD is hiring for. One JD can cover several positions — the
+// research roles are open in each of the LLM, TTS, OCR and ASR teams — so the
+// Hiring counts add these up rather than counting cards.
+const openingsOf = (job) => job.openings ?? 1;
+const countFor = (tab, list) =>
+    tab === 'hiring' ? list.reduce((sum, job) => sum + openingsOf(job), 0) : list.length;
+
 // A job with its own `sections` list (a JD that doesn't fit the standard
 // responsibilities / required / preferred shape) is shown exactly as listed.
 const jobSections = (job) =>
@@ -147,6 +154,12 @@ const JobCard = ({ job, index, tokens }) => {
                     </p>
                 </div>
                 <div className="flex items-center gap-3 flex-shrink-0">
+                    {isOpen && openingsOf(job) > 1 && (
+                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--text-orange-500)] bg-orange-50 border border-orange-100 rounded-full px-3 py-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[var(--text-orange-500)]" />
+                            {openingsOf(job)} positions
+                        </span>
+                    )}
                     {isOpen && (
                         <a
                             href={applyUrl}
@@ -222,7 +235,7 @@ const JobCard = ({ job, index, tokens }) => {
     );
 };
 
-const CategoryGroup = ({ category, jobs: groupJobs, isOpen, onToggle, tokens }) => (
+const CategoryGroup = ({ category, jobs: groupJobs, count, isOpen, onToggle, tokens }) => (
     <div className="bg-white/60 rounded-2xl border border-gray-100 overflow-hidden">
         <button
             type="button"
@@ -240,7 +253,7 @@ const CategoryGroup = ({ category, jobs: groupJobs, isOpen, onToggle, tokens }) 
                 <Highlight text={category} tokens={tokens} />
             </span>
             <span className="text-xs font-semibold rounded-full px-2 py-0.5 bg-orange-100 text-[var(--text-orange-500)]">
-                {groupJobs.length}
+                {count}
             </span>
             <span className="ml-auto text-xs text-gray-400 hidden sm:block">{isOpen ? 'Collapse' : 'Expand'}</span>
         </button>
@@ -287,6 +300,7 @@ const CareersPage = () => {
 
     const visibleCount = grouped.reduce((sum, group) => sum + group.jobs.length, 0);
 
+    // Roles per tab, for the search summary; the tab badges count positions.
     const tabCounts = useMemo(() => {
         const counts = { hiring: 0, closed: 0 };
         visibleJobs.forEach((job) => {
@@ -295,6 +309,15 @@ const CareersPage = () => {
             }
         });
         return counts;
+    }, [tokens]);
+    const tabBadges = useMemo(() => {
+        const matching = visibleJobs.filter((job) => matchesSearch(job, tokens));
+        return Object.fromEntries(
+            TABS.map(({ key }) => [
+                key,
+                countFor(key, matching.filter((job) => STATUS_TO_TAB[effectiveStatus(job)] === key)),
+            ])
+        );
     }, [tokens]);
 
     // Groups open when a search starts and close when it is cleared, set here as
@@ -376,7 +399,7 @@ const CareersPage = () => {
                                             : 'bg-gray-100 text-gray-500'
                                     }`}
                                 >
-                                    {tabCounts[item.key]}
+                                    {tabBadges[item.key]}
                                 </span>
                             </button>
                         ))}
@@ -459,6 +482,7 @@ const CareersPage = () => {
                                         key={group.category}
                                         category={group.category}
                                         jobs={group.jobs}
+                                        count={countFor(tab, group.jobs)}
                                         tokens={tokens}
                                         isOpen={!!openGroups[group.category]}
                                         onToggle={() =>
