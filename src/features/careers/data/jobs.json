@@ -112,6 +112,7 @@
     "title": "Research Scientist",
     "category": "Research",
     "status": "active",
+    "openings": 8,
     "experience": "PhD, or MS/BS + 2+ years",
     "about": "Drive research initiatives in speech, language, and vision AI tailored for education — multilingual, multi-modal, low-resource, and built for real-world school deployments. You will own experiments end to end within a defined research direction, from design through publication. This is the entry point to Bodhan AI's research track, open to graduating PhDs and to Masters/Bachelors candidates with research experience.",
     "responsibilities": [
@@ -141,6 +142,7 @@
     "title": "Senior Research Scientist",
     "category": "Research",
     "status": "active",
+    "openings": 8,
     "experience": "PhD/MS + 4+ years",
     "about": "Set the direction for a research area in speech, language, or vision AI for education — multilingual, multi-modal, low-resource, and built for real-world school deployments. You will run several concurrent lines of experimentation and guide junior scientists and research engineers working within them. Expected both to publish and to see results land in production deployments in Indian schools.",
     "responsibilities": [
@@ -172,6 +174,7 @@
     "title": "Principal Research Scientist",
     "category": "Research",
     "status": "active",
+    "openings": 4,
     "experience": "PhD/MS + 6+ years",
     "about": "Define research strategy across multiple areas of speech, language, and vision AI for education, and set the technical bar for the research group. You will shape what Bodhan AI works on next and represent that work externally to academic and industry partners. The most senior individual-contributor role on the research track.",
     "responsibilities": [
@@ -204,6 +207,36 @@
     "title": "Research Engineer",
     "category": "Research",
     "status": "active",
+    "openings": 4,
+    "experience": "B.Tech/M.Tech, 0–3 years",
+    "about": "Execute research goals hands-on: drive experimentation, build robust infrastructure, and run efficient model training pipelines. Contribute directly to model innovation in ASR, ORF, LLMs, TTS, and OCR, with a focus on multilingual, multi-modal, low-resource, and real-world school deployments. The entry point to Bodhan AI's research engineering track.",
+    "responsibilities": [
+      "Own the end-to-end model training cycle in one or more of Speech, Language, Vision, and multimodal training",
+      "Support Research Scientists by collaborating with them, driving experimentation, translating research ideas into scalable code and executing large-scale experiments",
+      "Build pipelines for synthetic data generation and manage the curation of high-quality training datasets",
+      "Contribute to inference optimization (quantization, pruning, etc.) and help get models ready for large-scale, real-world deployment",
+      "Maintain and contribute to internal and external open-source AI frameworks and tools"
+    ],
+    "required": [
+      "B.Tech or M.Tech in Computer Engineering, Computer Science, or a related technical field",
+      "Expert-level proficiency in Python and deep learning frameworks like PyTorch, TensorFlow, or JAX",
+      "Solid understanding of the model training cycle",
+      "Proven ability to work towards defined research goals and deliver high-quality, performant software"
+    ],
+    "preferred": [
+      "A strong portfolio of contributions to major open-source AI projects (provide GitHub/GitLab links)",
+      "Understanding of or exposure to speech, ASR, LLM, or Vision model training and finetuning",
+      "Experience with model optimization for low-resource or Indian languages",
+      "A track record of publications or research contributions",
+      "Background in educational technology, psychometrics, or cognitive science"
+    ]
+  },
+  {
+    "id": "research-intern",
+    "title": "Research Intern",
+    "category": "Research",
+    "status": "active",
+    "openings": 5,
     "experience": "B.Tech/M.Tech, 0–3 years",
     "about": "Execute research goals hands-on: drive experimentation, build robust infrastructure, and run efficient model training pipelines. Contribute directly to model innovation in ASR, ORF, LLMs, TTS, and OCR, with a focus on multilingual, multi-modal, low-resource, and real-world school deployments. The entry point to Bodhan AI's research engineering track.",
     "responsibilities": [
@@ -419,6 +452,7 @@
     "title": "Full Stack Developer",
     "category": "Product Engineering",
     "status": "active",
+    "openings": 4,
     "experience": "3–4 years",
     "location": "Hybrid / Remote",
     "applyUrl": "https://forms.gle/BWyZGtYpMe1WQPTa7",
@@ -523,6 +557,124 @@
       "Canva for rapid content scaling",
       "Working knowledge of AI tools such as ChatGPT, Synthesia, and ElevenLabs",
       "Basic understanding of UX/UI principles"
+    ]
+  },
+  {
+    "id": "information-security-privacy-lead",
+    "title": "Information Security & Privacy Lead",
+    "category": "Product Engineering",
+    "status": "active",
+    "experience": "8+ years",
+    "about": "Own how Bodhan AI protects the data of the students, teachers and partners who use our products. You will turn privacy law and security practice into clear policies, review our system architecture and data flows for risk, and write the documentation that shows data is handled safely. A role for someone who is fluent in privacy policy, technical enough to read an architecture diagram, and keen to grow deep information security skills.",
+    "responsibilities": [
+      "Privacy program: build and run Bodhan AI's privacy program under India's Digital Personal Data Protection Act, 2023 and its Rules, covering notices, consent, data principal rights and grievance handling",
+      "Children's data: put safeguards in place for students' personal data, including verifiable parental consent and limits on tracking and profiling",
+      "Architecture reviews: review system architecture, data-flow diagrams and flowcharts for new and existing products, map where personal data is collected, stored, processed and shared, and flag privacy and security risks early",
+      "Privacy and security by design: work with product and engineering from design to release so that data minimization, purpose limitation, retention limits, encryption and access control are built in",
+      "Documentation: write and maintain the policies, standards and records that show data is protected: information security and privacy policies, privacy notices, data inventories, records of processing, data protection impact assessments, retention schedules and incident response plans",
+      "Risk assessments: run privacy and security risk assessments, and track every finding to closure with its engineering owner",
+      "Vendor reviews: assess the vendors, cloud providers and AI services that process our data, including where data is stored and sent, and agree data processing terms with Legal",
+      "Incident response: lead the response to security incidents and personal data breaches, including notifying regulators and affected people within the required timelines",
+      "Audits and assurance: prepare for security and privacy audits and certifications such as ISO/IEC 27001 and 27701, and answer security questionnaires from government and institutional partners",
+      "Awareness: train all staff on privacy and security practices",
+      "Growing security depth: progressively take on hands-on security work such as threat modelling, access reviews, vulnerability management and penetration test coordination"
+    ],
+    "required": [
+      "Bachelor's degree in Computer Science, Information Technology, Engineering, Law or a related field",
+      "8+ years in information security, data privacy, or governance, risk and compliance (GRC)",
+      "Strong working knowledge of the DPDP Act, 2023 and its Rules, and familiarity with frameworks such as GDPR",
+      "Technical enough to read and question architecture diagrams, data-flow diagrams and flowcharts, and to understand how APIs, databases, cloud storage, logs and third-party services handle data",
+      "Working knowledge of security fundamentals: authentication and authorization, encryption in transit and at rest, key management, network security, logging and monitoring, and cloud security basics",
+      "Experience writing clear policies, procedures, DPIAs and records of processing that both engineers and non-technical teams can follow",
+      "Experience with security frameworks such as ISO/IEC 27001, NIST CSF, SOC 2 or CIS Controls",
+      "Experience running risk assessments and third-party security reviews",
+      "Clear communication with leadership, engineers, partners and regulators",
+      "A drive to keep deepening hands-on information security skills"
+    ],
+    "preferred": [
+      "Certifications such as CIPP/E, CIPM, CIPT, DSCI DCPP, CISSP, CISM, CISA, or ISO/IEC 27001 Lead Implementer or Lead Auditor",
+      "Experience with children's or students' data, edtech, or government and public-sector programmes",
+      "Familiarity with India's IT Act, 2000 and the CERT-In directions on incident reporting",
+      "Understanding of privacy risks in AI systems: training data, model outputs and third-party LLM APIs",
+      "Hands-on cloud security experience (GCP, AWS or Azure) or threat modelling (STRIDE or similar)",
+      "Experience leading an ISO/IEC 27001 or 27701 certification, or a SOC 2 audit"
+    ]
+  },
+  {
+    "id": "platform-engineer-dpi",
+    "title": "Platform Engineer, DPI Platforms",
+    "category": "Product Engineering",
+    "status": "active",
+    "openings": 2,
+    "experience": "5+ years",
+    "location": "Chennai (IIT Madras campus)",
+    "about": "We are opening our education services as APIs that states, partners and developers can build on. All of those APIs need one front door. Building it is this job. Full time, reporting to the VP of Engineering.",
+    "sections": [
+      {
+        "title": "About Bodhan",
+        "items": [
+          "Bodhan is a Centre of Excellence for AI in education, incubated at IIT Madras. We build open weight Indic language models for speech recognition, OCR, text to speech and translation, and an AI tutor for school students in partnership with the Government of Andhra Pradesh",
+          "Our models are public. The weights are on Hugging Face. The paid inference endpoints run at api.bodhan.ai, and developers top up and pay in rupees through console.bodhan.ai"
+        ]
+      },
+      {
+        "title": "Why This Role Exists",
+        "items": [
+          "Today a developer can sign up, get a key, top up with Razorpay and call our four model endpoints. That works for a few hundred developers trying things out. It does not yet work for a state government or a company that wants to move production traffic onto us",
+          "Those customers ask three questions before they sign. What is your SLA? Who picks up when something breaks at 2 am? How do I know my bill is right? The platform engineer builds the answers to all three, in software and in process"
+        ]
+      },
+      {
+        "title": "What You Will Build",
+        "items": [
+          "We have chosen Envoy as the gateway for our service APIs. The model endpoints keep running on our existing LiteLLM gateway, which sits behind it. The new developer portal will live at platform.bodhan.ai. Your first six months look like this:",
+          "Run Envoy in production on GCP and GKE: routing, TLS, timeouts, retries, circuit breaking, and rate limits per key and per plan",
+          "Own authentication at the edge. API keys with issuance, rotation and revocation, plus OAuth2 and JWT for partner apps. Customer keys never reach an upstream vendor",
+          "Build metering that the finance team can trust. Usage counted per key, per API and per modality, priced in INR, drawn down from a prepaid wallet and reconciled against Razorpay",
+          "Ship the developer portal: sign up, key management, OpenAPI docs, a sandbox and usage dashboards",
+          "Define SLOs for every route and instrument them with OpenTelemetry and Grafana. Publish a status page. Set up on call, runbooks and the L1 and L2 support path",
+          "Harden the edge with Cloud Armor, Secret Manager and audit logs, and make sure APIs that touch student data meet the DPDP Act",
+          "Keep everything in Terraform and CI/CD, with canary rollouts and a rollback you have actually tested",
+          "Later, you will merge platform.bodhan.ai and console.bodhan.ai into one portal"
+        ]
+      },
+      {
+        "title": "Must Have",
+        "items": [
+          "5+ years building or running backend infrastructure, with at least 2 of those years owning an API gateway or edge layer in production (Envoy, Kong, NGINX, Istio, Apigee or a cloud API gateway)",
+          "Deep proxy knowledge. You can explain xDS, filter chains, external authorization and a global rate limit service, and you have debugged them under load",
+          "Kubernetes in production, GKE preferred. You have upgraded and debugged clusters yourself",
+          "Terraform you have written and maintained, across more than one environment",
+          "Production code in Go or Python. We are moving our backend toward Go",
+          "You have built metering, quota or billing logic where a wrong number cost real money",
+          "You have owned SLOs, carried a pager and written blameless postmortems"
+        ]
+      },
+      {
+        "title": "Nice to Have",
+        "items": [
+          "Envoy Gateway and the Kubernetes Gateway API, or Lua and Wasm filters",
+          "Serving LLM or speech APIs, including streaming over WebSockets and server sent events",
+          "LiteLLM, Razorpay, or any prepaid billing system",
+          "Developer portals such as Backstage, or OpenAPI tooling",
+          "Working with government or public sector customers, and with India's DPDP Act"
+        ]
+      },
+      {
+        "title": "How We Will Assess",
+        "items": [
+          "A design round. You design a gateway for metered APIs used by many tenants who pay in advance. Strong candidates ask about failure modes and billing correctness before they draw boxes",
+          "A debugging round. We hand you a broken Envoy setup and watch how you find the fault",
+          "A coding exercise in Go or Python",
+          "A walkthrough of a real incident you handled: what broke, what you did in the first hour, and what you changed afterwards"
+        ]
+      },
+      {
+        "title": "Why Join",
+        "items": [
+          "You will own the layer every Bodhan API passes through, from day one, with a small team and a clear goal. The people who build on it will include state education departments and the developers who serve their students. Getting the gateway right is what lets them trust us with production traffic"
+        ]
+      }
     ]
   },
   {
@@ -1251,6 +1403,7 @@
     "title": "Principal Technical Program Manager",
     "category": "Business Operations",
     "status": "active",
+    "openings": 3,
     "about": "Operate at the organisational level to keep complex, multi-team technical initiatives coherent, aligned, and progressing toward mission outcomes. Enable multiple autonomous teams to work effectively together on shared infrastructure and systems. Provide system-level visibility and alignment through influence, without acting as a compliance or oversight function.",
     "responsibilities": [
       "Steward mission-critical technical programs spanning multiple Copilot systems and shared infrastructure",
@@ -1277,7 +1430,7 @@
     "id": "sr-manager-people-culture-community",
     "title": "Sr. Manager – People, Culture & Community",
     "category": "Business Operations",
-    "status": "active",
+    "status": "closed",
     "about": "Build the human foundation of Bodhan — a people-first, high-performance organisation where researchers, engineers, educators, and program leaders do the best work of their careers. This is not a role about managing HR processes; it is about culture, community, and talent strategy. Partner with leadership on organisational design and build a world-class talent ecosystem.",
     "responsibilities": [
       "Build a people-first organisation where organisational systems enable autonomy, creativity, and collaboration rather than bureaucracy",
@@ -1357,10 +1510,10 @@
   },
   {
     "id": "finance-executive-bodhan-plus",
-    "title": "Finance Executive, Bodhan+",
+    "title": "Finance Executive",
     "category": "Business Operations",
     "status": "active",
-    "experience": "5–7 years",
+    "experience": "3–5 years",
     "location": "Chennai",
     "about": "Own core transactional finance for Bodhan+ — purchase order coordination, vouching and payment processing, travel and reimbursement settlement, bank reconciliation, and statutory compliance support. This is a hands-on execution role reporting to the Manager Finance, and it requires strong working knowledge of Section 8 / GFR-based financial governance, since Bodhan operates under Ministry of Education funding and reporting requirements.",
     "responsibilities": [
