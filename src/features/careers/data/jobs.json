@@ -528,6 +528,76 @@
     ]
   },
   {
+    "id": "agentic-ai-engineer",
+    "title": "Agentic AI Engineer",
+    "category": "Product Engineering",
+    "status": "active",
+    "experience": "2–4+ years",
+    "location": "Hybrid / Remote",
+    "applyUrl": "https://forms.gle/BWyZGtYpMe1WQPTa7",
+    "about": "At Bodhan AI, we are building production-grade AI agents, RAG pipelines, and automated evaluation frameworks to transform educational products. We are looking for an experienced Agentic AI Engineer to take ownership of designing, building, and optimizing autonomous agents and retrieval architectures at scale. In this role, you will drive end-to-end implementation—from agent harness engineering and complex multi-agent workflows to latency, cost, and safety optimizations in production environments.",
+    "responsibilities": [
+      "Agent Architecture & Development: Design, build, and deploy production-ready multi-step AI agents using tool calling, structured outputs, and Model Context Protocol (MCP)",
+      "Advanced RAG Pipelines: Architect and fine-tune enterprise RAG systems—implementing hybrid search, advanced chunking strategies, re-ranking, and dynamic retrieval optimizations",
+      "Harness & Infrastructure Engineering: Build robust agent harnesses including context management, long-term memory systems, stateful loops, structured logging, and graceful failure handling",
+      "Evaluations & Observability: Establish automated evaluation pipelines (LLM-as-a-judge, custom metrics, guardrails) and telemetry tracing to continuously monitor latency, cost, and accuracy across releases",
+      "Optimization & Benchmarking: Benchmark models and prompts for performance, cost, and latency, particularly for complex multilingual and Indian-language domain cases",
+      "Safety & Security: Implement safety guardrails, prompt injection defenses, content moderation pipelines, and sandboxing suitable for EdTech products",
+      "Engineering Standard: Write clean, modular, and fully tested Python code while driving architecture reviews, code quality, and deployment practices (CI/CD, Docker, cloud services)"
+    ],
+    "required": [
+      "Experience: 2 to 4+ years of professional software engineering experience, with a strong, proven track record of deploying LLM-powered applications or agents to production",
+      "Core Technical Skills: Advanced Python proficiency, strong computer science fundamentals, design patterns, and distributed system basics",
+      "Production LLM Knowledge: Deep hands-on experience with LLM APIs, function/tool calling, context window management, embeddings, and prompt orchestration",
+      "RAG Mastery: Demonstrated experience with vector databases (Qdrant, pgvector, Chroma, Weaviate), sparse/dense hybrid search, and re-ranking techniques",
+      "Frameworks & Tooling: Practical experience with agent frameworks (e.g., LangGraph, AutoGen, LlamaIndex, PydanticAI, OpenAI/Claude SDKs) and REST/FastAPI microservices",
+      "Engineering Quality: Strong knowledge of Git workflows, Docker containerization, cloud platforms (AWS/GCP/Azure), unit/integration testing, and CI/CD pipelines",
+      "Analytical Mindset: Data-driven approach to debugging agent failure traces, optimizing token usage, and evaluating performance"
+    ],
+    "preferred": [
+      "Experience building custom MCP (Model Context Protocol) servers or complex multi-agent collaborative workflows",
+      "Familiarity with fine-tuning open-source models, Hugging Face, or PyTorch",
+      "Prior experience working on EdTech products, Indian-language (Indic) AI, or multilingual NLP tasks",
+      "Experience with LLM observability tools (LangSmith, Phoenix, Arize, TruLens, W&B)",
+      "Active open-source contributions, technical publications, or relevant AI competition track records"
+    ]
+  },
+  {
+    "id": "agentic-ai-engineer-intern",
+    "title": "Agentic AI Engineer – Intern",
+    "category": "Product Engineering",
+    "status": "active",
+    "experience": "Students / fresh graduates",
+    "location": "Hybrid / Remote",
+    "applyUrl": "https://forms.gle/BWyZGtYpMe1WQPTa7",
+    "about": "At Bodhan AI, we are building production-grade AI agents, RAG pipelines, and automated evaluation frameworks to transform educational products. We are looking for an Agentic AI Engineer Intern who is curious about how AI agents are built and wants to learn by shipping real features alongside our engineers. In this role, you will help build agent tools, retrieval pipelines, and evaluations, with mentorship and code reviews from day one.",
+    "responsibilities": [
+      "Agent Development: Help build and improve multi-step AI agents that use tool calling and structured outputs",
+      "RAG Pipelines: Build and tune parts of RAG pipelines, such as document chunking, embeddings, vector search, and re-ranking, and measure what improves retrieval",
+      "Harness Engineering: Contribute to agent harness components such as context management, memory, logging, and failure handling",
+      "Evaluations: Create evaluation datasets and write automated evals, including LLM-as-a-judge checks, and report results with data",
+      "Benchmarking: Compare models and prompts for quality, latency, and cost, including Indian-language cases",
+      "Safety: Test agents for prompt injection and for content that is unsuitable for students",
+      "Engineering Practice: Write clean, tested Python code, document your work, and take part in code reviews"
+    ],
+    "required": [
+      "Education: Pursuing or recently completed a Bachelor's or Master's degree in Computer Science, AI/ML, Data Science, or a related field",
+      "Core Technical Skills: Strong Python and solid computer science fundamentals, including data structures and algorithms",
+      "LLM Basics: Hands-on experience calling LLM APIs, with a practical understanding of prompting, embeddings, context windows, and function calling",
+      "Projects: At least one project built with LLMs, such as an agent, a RAG app, or a tool-calling assistant, with code you can share (GitHub or similar)",
+      "RAG Basics: An understanding of chunking, embeddings, and vector search, and why retrieval quality matters",
+      "Tooling: Comfort with Git, the command line, REST APIs, and JSON",
+      "Learning Mindset: Curiosity, and a habit of testing ideas with experiments rather than guesses"
+    ],
+    "preferred": [
+      "Hands-on use of an agent framework (e.g., LangGraph, LlamaIndex, PydanticAI, OpenAI/Claude SDKs)",
+      "Experience with a vector database such as Qdrant, pgvector, or Chroma",
+      "Familiarity with FastAPI, Docker, or a cloud platform",
+      "Interest in EdTech, Indian-language (Indic) AI, or multilingual NLP",
+      "Hackathon wins, open-source contributions, Kaggle results, or technical blog posts"
+    ]
+  },
+  {
     "id": "sr-graphic-designer",
     "title": "Sr. Graphic Designer",
     "category": "Product Engineering",
