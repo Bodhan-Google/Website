@@ -574,7 +574,7 @@
     "title": "Agentic AI Engineer",
     "category": "Product Engineering",
     "status": "active",
-    "experience": "2–4+ years",
+    "experience": "Up to 3 years",
     "location": "Hybrid / Remote",
     "applyUrl": "https://forms.gle/BWyZGtYpMe1WQPTa7",
     "about": "At Bodhan AI, we are building production-grade AI agents, RAG pipelines, and automated evaluation frameworks to transform educational products. We are looking for an experienced Agentic AI Engineer to take ownership of designing, building, and optimizing autonomous agents and retrieval architectures at scale. In this role, you will drive end-to-end implementation—from agent harness engineering and complex multi-agent workflows to latency, cost, and safety optimizations in production environments.",
@@ -588,7 +588,7 @@
       "Engineering Standard: Write clean, modular, and fully tested Python code while driving architecture reviews, code quality, and deployment practices (CI/CD, Docker, cloud services)"
     ],
     "required": [
-      "Experience: 2 to 4+ years of professional software engineering experience, with a strong, proven track record of deploying LLM-powered applications or agents to production",
+      "Experience: Up to 3 years of professional software engineering experience, with a strong, proven track record of deploying LLM-powered applications or agents to production",
       "Core Technical Skills: Advanced Python proficiency, strong computer science fundamentals, design patterns, and distributed system basics",
       "Production LLM Knowledge: Deep hands-on experience with LLM APIs, function/tool calling, context window management, embeddings, and prompt orchestration",
       "RAG Mastery: Demonstrated experience with vector databases (Qdrant, pgvector, Chroma, Weaviate), sparse/dense hybrid search, and re-ranking techniques",
