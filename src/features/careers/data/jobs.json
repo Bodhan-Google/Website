@@ -489,6 +489,48 @@
     ]
   },
   {
+    "id": "backend-developer",
+    "title": "Backend Developer",
+    "category": "Product Engineering",
+    "status": "active",
+    "experience": "3–6 years",
+    "location": "Hybrid / Remote",
+    "applyUrl": "https://forms.gle/BWyZGtYpMe1WQPTa7",
+    "about": "At Bodhan AI, we build AI-powered learning products for students and teachers across India, and they need backends that stay fast and reliable as usage grows. We are looking for a Backend Developer to design, build and scale the services, APIs and data layers behind these products. In this role, you will own backend systems end to end: design, performance tuning, deployment and operation in production.",
+    "responsibilities": [
+      "Service Development: Design, build and maintain backend services and REST APIs in Python (Django or FastAPI), with clear contracts, versioning and backward compatibility",
+      "Database Design & Optimization: Model data in PostgreSQL and tune it for scale: query optimization, indexing strategies, partitioning and sharding, read replicas, connection pooling and safe migrations",
+      "Caching: Design caching layers with Redis and HTTP caching, including invalidation strategies, cache stampede protection and the right trade-offs between freshness and speed",
+      "Asynchronous Processing: Build event-driven and background workflows with message queues and streams such as RabbitMQ, Kafka, Redis Streams or Celery, with retries, idempotency and dead-letter handling",
+      "Microservices & Scalability: Break systems into well-bounded services, and design for horizontal scaling, high availability and graceful degradation under load",
+      "Deployment & Operations: Containerize services with Docker, deploy them on Kubernetes and cloud VMs through CI/CD pipelines, and take part in production support",
+      "Performance & Reliability: Load-test services, profile bottlenecks, and add logging, metrics, tracing and alerting so issues are caught before users notice",
+      "Security: Implement authentication and authorization, protect personal data, and follow secure coding practices",
+      "Engineering Standards: Write clean, tested code, take part in design and code reviews, and document the systems you own",
+      "Collaboration: Work with frontend, mobile, AI and product teams to turn product needs into well-designed backend systems"
+    ],
+    "required": [
+      "Experience: 3–6 years of professional backend development, with services you have built running in production at meaningful scale",
+      "Core Stack: Strong Python with Django or FastAPI; working knowledge of another backend language such as Go or Node.js is a plus",
+      "Databases: Deep PostgreSQL (or MySQL) experience, including query plans, indexing, partitioning or sharding, transactions and isolation levels, and migrations on live data",
+      "Caching: Hands-on experience designing and running Redis or similar caches in production",
+      "Message Queues: Practical experience with at least one of RabbitMQ, Kafka, Redis Streams or Celery",
+      "Deployment: Docker, CI/CD pipelines (GitHub Actions or similar), Linux, and deploying to a cloud platform (GCP, AWS or Azure)",
+      "Kubernetes: Familiarity with deploying and running services on Kubernetes: deployments, services, configs and secrets, scaling and health checks",
+      "Observability & Telemetry: Hands-on experience instrumenting services with structured logs, metrics and distributed tracing (OpenTelemetry or similar), and using tools such as Prometheus, Grafana or Sentry to build dashboards, set alerts and debug production issues",
+      "System Design: Solid grasp of microservices, scalability, consistency trade-offs and fault tolerance, with designs you can explain and defend",
+      "CS Fundamentals: Strong data structures, algorithms, concurrency and networking basics",
+      "Engineering Quality: Unit and integration testing, Git workflows and code reviews"
+    ],
+    "preferred": [
+      "Exposure to AI-based platforms: serving LLM or ML features, vector databases (Qdrant, pgvector), RAG pipelines, or LLM API gateways",
+      "Real-time systems such as WebSockets, streaming responses or voice and media pipelines",
+      "Infrastructure as code with Terraform or Helm",
+      "Experience with high-traffic consumer, EdTech or public-sector platforms",
+      "Open-source contributions or technical blog posts"
+    ]
+  },
+  {
     "id": "cloud-system-admin",
     "title": "Cloud System Admin",
     "category": "Product Engineering",
